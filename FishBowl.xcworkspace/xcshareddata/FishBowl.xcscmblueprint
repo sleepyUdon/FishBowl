@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0285C5DF5D23A019C4E89F5E0DBB43A7F2C566E4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0285C5DF5D23A019C4E89F5E0DBB43A7F2C566E4" : 0,
+    "9CF35BC641478FBD765F7442D4034ED362261E0A" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "76DEFC50-388E-486D-9D2F-867F6A04CEE3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0285C5DF5D23A019C4E89F5E0DBB43A7F2C566E4" : "FishBowl\/",
+    "9CF35BC641478FBD765F7442D4034ED362261E0A" : "..\/..\/..\/Documents\/6.0%20iOS%20Library\/1.0%20components\/2.0%20CosmicMind%20%20-%20Material\/Material"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FishBowl",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FishBowl.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sleepyUdon\/fishBowl.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0285C5DF5D23A019C4E89F5E0DBB43A7F2C566E4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CosmicMind\/Material.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9CF35BC641478FBD765F7442D4034ED362261E0A"
+    }
+  ]
+}

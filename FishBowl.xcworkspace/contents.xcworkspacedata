@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:FishBowl/FishBowl.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../Documents/6.0 iOS Library/1.0 components/2.0 CosmicMind  - Material/Material/Material.xcodeproj">
+   </FileRef>
+</Workspace>

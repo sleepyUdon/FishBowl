@@ -1,0 +1,352 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */; };
+		7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */; };
+		7CAB2A371D58DBAC00735CF4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CAB2A361D58DBAC00735CF4 /* Material.framework */; };
+		7CAB2A381D58DBAC00735CF4 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7CAB2A361D58DBAC00735CF4 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A131D590CD000716BBD /* AppDelegate.swift */; };
+		7CDD2A161D590D4100716BBD /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A151D590D4100716BBD /* EventsViewController.swift */; };
+		7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A171D590E4D00716BBD /* MenuModel.swift */; };
+		7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A181D590E4D00716BBD /* MenuViewController.swift */; };
+		7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */; };
+		7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */; };
+		7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */; };
+		7CDD2A241D590E7100716BBD /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */; };
+		7CDD2A251D590E7100716BBD /* DefaultTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */; };
+		7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A261D590E7800716BBD /* UIViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7CAB2A391D58DBAC00735CF4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7CAB2A381D58DBAC00735CF4 /* Material.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7CAB2A211D58DB7F00735CF4 /* FishBowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FishBowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7CAB2A2E1D58DB7F00735CF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7CAB2A301D58DB7F00735CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CAB2A361D58DBAC00735CF4 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/vivianechan/Library/Developer/Xcode/DerivedData/FishBowl-ecgqyynufkepsmajdytqsnbgrxdz/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
+		7CDD2A131D590CD000716BBD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7CDD2A151D590D4100716BBD /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsViewController.swift; path = ../../EventsViewController.swift; sourceTree = "<group>"; };
+		7CDD2A171D590E4D00716BBD /* MenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		7CDD2A181D590E4D00716BBD /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+Configuration.swift"; sourceTree = "<group>"; };
+		7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
+		7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewHeaderView.swift; sourceTree = "<group>"; };
+		7CDD2A261D590E7800716BBD /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7CAB2A1E1D58DB7F00735CF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CAB2A371D58DBAC00735CF4 /* Material.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7CAB2A181D58DB7F00735CF4 = {
+			isa = PBXGroup;
+			children = (
+				7CAB2A361D58DBAC00735CF4 /* Material.framework */,
+				7CAB2A231D58DB7F00735CF4 /* FishBowl */,
+				7CAB2A221D58DB7F00735CF4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7CAB2A221D58DB7F00735CF4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CAB2A211D58DB7F00735CF4 /* FishBowl.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CAB2A231D58DB7F00735CF4 /* FishBowl */ = {
+			isa = PBXGroup;
+			children = (
+				7CDD2A131D590CD000716BBD /* AppDelegate.swift */,
+				7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */,
+				7CDD2A151D590D4100716BBD /* EventsViewController.swift */,
+				7CDD2A211D590E5500716BBD /* Menu View extensions */,
+				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
+				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
+			);
+			path = FishBowl;
+			sourceTree = "<group>";
+		};
+		7CDD2A211D590E5500716BBD /* Menu View extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7CDD2A171D590E4D00716BBD /* MenuModel.swift */,
+				7CDD2A181D590E4D00716BBD /* MenuViewController.swift */,
+				7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */,
+				7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */,
+				7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */,
+				7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */,
+				7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */,
+				7CDD2A261D590E7800716BBD /* UIViewController.swift */,
+			);
+			name = "Menu View extensions";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CAB2A201D58DB7F00735CF4 /* FishBowl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CAB2A331D58DB7F00735CF4 /* Build configuration list for PBXNativeTarget "FishBowl" */;
+			buildPhases = (
+				7CAB2A1D1D58DB7F00735CF4 /* Sources */,
+				7CAB2A1E1D58DB7F00735CF4 /* Frameworks */,
+				7CAB2A1F1D58DB7F00735CF4 /* Resources */,
+				7CAB2A391D58DBAC00735CF4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FishBowl;
+			productName = FishBowl;
+			productReference = 7CAB2A211D58DB7F00735CF4 /* FishBowl.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7CAB2A191D58DB7F00735CF4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "LightHouse Labs";
+				TargetAttributes = {
+					7CAB2A201D58DB7F00735CF4 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 256HHE87HY;
+					};
+				};
+			};
+			buildConfigurationList = 7CAB2A1C1D58DB7F00735CF4 /* Build configuration list for PBXProject "FishBowl" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7CAB2A181D58DB7F00735CF4;
+			productRefGroup = 7CAB2A221D58DB7F00735CF4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7CAB2A201D58DB7F00735CF4 /* FishBowl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7CAB2A1F1D58DB7F00735CF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */,
+				7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7CAB2A1D1D58DB7F00735CF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CDD2A251D590E7100716BBD /* DefaultTableViewHeaderView.swift in Sources */,
+				7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */,
+				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
+				7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */,
+				7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */,
+				7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */,
+				7CDD2A161D590D4100716BBD /* EventsViewController.swift in Sources */,
+				7CDD2A241D590E7100716BBD /* DefaultTableViewCell.swift in Sources */,
+				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
+				7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7CAB2A2E1D58DB7F00735CF4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7CAB2A311D58DB7F00735CF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7CAB2A321D58DB7F00735CF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7CAB2A341D58DB7F00735CF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = FishBowl/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7CAB2A351D58DB7F00735CF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = FishBowl/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7CAB2A1C1D58DB7F00735CF4 /* Build configuration list for PBXProject "FishBowl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CAB2A311D58DB7F00735CF4 /* Debug */,
+				7CAB2A321D58DB7F00735CF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CAB2A331D58DB7F00735CF4 /* Build configuration list for PBXNativeTarget "FishBowl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CAB2A341D58DB7F00735CF4 /* Debug */,
+				7CAB2A351D58DB7F00735CF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7CAB2A191D58DB7F00735CF4 /* Project object */;
+}
