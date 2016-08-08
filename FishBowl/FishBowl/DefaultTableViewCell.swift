@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Material
 
 public struct DefaultOptions {
     public struct ImageView {
@@ -26,6 +27,9 @@ public struct DefaultOptions {
 public class DefaultTableViewCell: UITableViewCell {
     public lazy var defaultImageView: UIImageView = UIImageView()
     public lazy var defaultLabel: UILabel = UILabel()
+    public lazy var defaultDescription: UILabel = UILabel()
+    public lazy var defaultParticipants: UILabel = UILabel()
+
     
     /*
     @name   required initWithCoder
@@ -41,6 +45,9 @@ public class DefaultTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         prepareDefaultImageView()
         prepareDefaultLabel()
+        prepareDefaultDescription()
+        prepareDefaultParticipants()
+
     }
     
     /*
@@ -50,13 +57,15 @@ public class DefaultTableViewCell: UITableViewCell {
         super.layoutSubviews()
         layoutDefaultImageView()
         layoutDefaultLabel()
+        layoutDefaultDescription()
+        layoutDefaultParticipants()
     }
     
     /*
     @name   prepareDefaultImageView
     */
     public func prepareDefaultImageView() {
-        defaultImageView.backgroundColor = UIColor.yellowColor()
+        defaultImageView.backgroundColor = UIColor.clearColor()
         defaultImageView.clipsToBounds = true
         contentView.addSubview(defaultImageView)
     }
@@ -67,9 +76,32 @@ public class DefaultTableViewCell: UITableViewCell {
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
         defaultLabel.text = "Devhub"
-        defaultLabel.textColor = UIColor.blackColor()
+        defaultLabel.textColor = MaterialColor.grey.lighten2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
+    }
+    
+    
+    /*
+     @name   prepareDefaultDescription
+     */
+    public func prepareDefaultDescription() {
+        defaultDescription.font = UIFont.systemFontOfSize(12.0)
+        defaultDescription.text = "Lighthouse Labs Demo Day"
+        defaultDescription.textColor = UIColor.blackColor()
+        defaultDescription.textAlignment = .Left
+        addSubview(defaultDescription)
+    }
+    
+    /*
+     @name   prepareDefaultParticipants
+     */
+    public func prepareDefaultParticipants() {
+        defaultParticipants.font = UIFont.systemFontOfSize(12.0)
+        defaultParticipants.text = "26 developers"
+        defaultParticipants.textColor = MaterialColor.grey.lighten2
+        defaultParticipants.textAlignment = .Left
+        addSubview(defaultParticipants)
     }
     
     /*
@@ -88,9 +120,27 @@ public class DefaultTableViewCell: UITableViewCell {
     
     public func layoutDefaultLabel() {
         let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let y = (contentView.bounds.size.height / 6) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
+    
+    
+    public func layoutDefaultDescription() {
+        let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
+        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let w = CGFloat(200.0)
+        let h = CGFloat(30.0)
+        defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
+    }
+
+    public func layoutDefaultParticipants() {
+        let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
+        let y = (contentView.bounds.size.height / 6 * 5) - (15.0)
+        let w = CGFloat(200.0)
+        let h = CGFloat(30.0)
+        defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
+    }
+
 }
