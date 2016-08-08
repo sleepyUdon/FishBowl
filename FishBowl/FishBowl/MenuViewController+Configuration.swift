@@ -26,24 +26,11 @@ public extension MenuViewController {
         view.addSubview(tableView)
     }
     
-    /*
-    @name   prepareTableViewHeader
-    */
-    public func prepareTableViewHeader() {
-        tableView.tableHeaderView = tableViewHeaderView
-    }
     
     /*
     @name   layoutTableView
     */
     public func layoutTableView() {
         tableView.frame = view.bounds
-    }
-    
-    /*
-    @name   layoutTableViewHeader
-    */
-    public func layoutTableViewHeader() {
-    
     }
 }

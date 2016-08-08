@@ -19,7 +19,6 @@
 		7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */; };
 		7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */; };
 		7CDD2A241D590E7100716BBD /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */; };
-		7CDD2A251D590E7100716BBD /* DefaultTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */; };
 		7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A261D590E7800716BBD /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
-		7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewHeaderView.swift; sourceTree = "<group>"; };
 		7CDD2A261D590E7800716BBD /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +104,6 @@
 				7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */,
 				7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */,
 				7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */,
-				7CDD2A231D590E7100716BBD /* DefaultTableViewHeaderView.swift */,
 				7CDD2A261D590E7800716BBD /* UIViewController.swift */,
 			);
 			name = "Menu View extensions";
@@ -184,7 +181,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CDD2A251D590E7100716BBD /* DefaultTableViewHeaderView.swift in Sources */,
 				7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */,
 				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
 				7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */,

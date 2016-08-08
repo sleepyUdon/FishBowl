@@ -66,7 +66,7 @@ public class DefaultTableViewCell: UITableViewCell {
     */
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        defaultLabel.text = "Default Text"
+        defaultLabel.text = "Devhub"
         defaultLabel.textColor = UIColor.blackColor()
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)

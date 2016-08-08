@@ -11,7 +11,6 @@ import UIKit
 public class MenuViewController: UIViewController {
     
     public lazy var tableView: UITableView = UITableView()
-    public var tableViewHeaderView: DefaultTableViewHeader?
     
     /*
     @name   viewDidLoad
@@ -20,7 +19,6 @@ public class MenuViewController: UIViewController {
         super.viewDidLoad()
         prepareView()
         prepareTableView()
-        prepareTableViewHeader()
     }
     
     /*
@@ -29,6 +27,5 @@ public class MenuViewController: UIViewController {
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
-        layoutTableViewHeader()
     }
 }

@@ -34,17 +34,4 @@ extension MenuViewController: UITableViewDataSource {
         return cell
     }
     
-    /*
-    @name   heightForHeaderInSection
-    */
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-    /*
-    @name   titleForHeaderInSection
-    */
-    public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Default Section Title"
-    }
 }
