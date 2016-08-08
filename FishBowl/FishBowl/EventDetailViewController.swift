@@ -1,5 +1,5 @@
 //
-//  ContactsViewController.swift
+//  EventDetailViewController.swift
 //  FishBowl
 //
 //  Created by Viviane Chan on 2016-08-08.
@@ -9,28 +9,23 @@
 import UIKit
 import Material
 
-class ContactsViewController: UIViewController {
+class EventDetailViewController: UIViewController {
 
     private var containerView: UIView!
     
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
     
-    private var backButton: IconButton!
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         prepareContainerView()
         prepareSearchBar()
-        prepareBackButton()
         prepareTableView()
         prepareNavigationItem()
         prepareNavigationBar()
     }
-
+    
     
     /// General preparation statements.
     private func prepareView() {
@@ -43,7 +38,7 @@ class ContactsViewController: UIViewController {
         containerView = UIView()
         view.layout(containerView).edges(top: 0, left: 0, right: 0)
     }
-
+    
     
     /// Prepares the searchBar
     private func prepareSearchBar() {
@@ -65,28 +60,7 @@ class ContactsViewController: UIViewController {
          */
         searchBar.leftControls = [moreButton]
     }
-
     
-    /// Prepares the backButton.
-    private func prepareBackButton() {
-        let image: UIImage? = MaterialIcon.cm.close
-        backButton = IconButton()
-        backButton.pulseColor = MaterialColor.white
-        backButton.setImage(image, forState: .Normal)
-        backButton.setImage(image, forState: .Highlighted)
-        backButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
-
-    }
-    
-    
-    /// Handles the CloseButton.
-    internal func handleCloseButton() {
-        let eventsViewController = EventsViewController()
-        self.navigationController?.pushViewController(eventsViewController, animated: true)
-
-    }
-
-
     
     /// Prepares the tableView
     
@@ -95,15 +69,14 @@ class ContactsViewController: UIViewController {
     }
     
     
+    
     /// Prepares the navigationItem.
     private func prepareNavigationItem() {
-        navigationItem.title = "Contacts"
+        navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.font = RobotoFont.mediumWithSize(14)
-        navigationItem.rightControls = [backButton]
-
+        
     }
-    
     
     /// Prepares the navigationBar.
     private func prepareNavigationBar() {

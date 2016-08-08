@@ -11,7 +11,6 @@ import Material
 
 class EventsViewController: UIViewController {
     
-    private var backgroundView: UIViewController!
 
     private var containerView: UIView!
 
@@ -59,9 +58,10 @@ class EventsViewController: UIViewController {
     
     /// Handles the menuButton.
     internal func handleMenuButton() {
-        let vc: ContactsViewController = ContactsViewController()
-        vc.modalTransitionStyle = .CrossDissolve
-        presentViewController(vc, animated: true, completion: nil)
+        let contactsViewController = ContactsViewController()
+        let navc: NavigationController = NavigationController(rootViewController: contactsViewController)
+        navc.modalTransitionStyle = .CrossDissolve
+        presentViewController(navc, animated: true, completion: nil)
     }
     
     
@@ -78,9 +78,10 @@ class EventsViewController: UIViewController {
     
     /// Handles the profileButton.
     internal func handleProfileButton() {
-        let vc: ProfileViewController = ProfileViewController()
-        vc.modalTransitionStyle = .CrossDissolve
-        presentViewController(vc, animated: true, completion: nil)
+        let profileViewController = ProfileViewController()
+        let navc: NavigationController = NavigationController(rootViewController: profileViewController)
+        navc.modalTransitionStyle = .CrossDissolve
+        presentViewController(navc, animated: true, completion: nil)
     }
     
     
