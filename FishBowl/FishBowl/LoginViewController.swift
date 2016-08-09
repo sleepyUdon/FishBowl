@@ -11,9 +11,7 @@ import Material
 
 class LoginViewController: UIViewController {
 
-//    private var containerView: UIView!
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareLargeCardViewExample()

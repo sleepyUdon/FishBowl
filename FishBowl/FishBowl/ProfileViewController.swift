@@ -9,156 +9,73 @@
 import UIKit
 import Material
 
-private struct Item {
-    var text: String
-    var imageName: String
-}
-
 
 class ProfileViewController: UIViewController {
-    
-    /// A tableView used to display navigation items.
-    private let tableView: UITableView = UITableView()
-
-    /// NavigationBar save button.
-    private var saveButton: IconButton!
-
-    /// A list of all the navigation items.
-    private var items: Array<Item> = Array<Item>()
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()
-        prepareSaveButton()
-        prepareCells()
-        prepareTableView()
-        prepareNavigationItem()
-        prepareNavigationBar()
-    }
-    
-    
-    /// General preparation statements.
-    private func prepareView() {
-        view.backgroundColor = MaterialColor.white
-    }
-    
-    
-    /// Prepares the items that are displayed within the tableView.
-    private func prepareCells() {
-        items.append(Item(text: "Photo", imageName: "ic_menu_white"))
-        items.append(Item(text: "Name", imageName: "ic_inbox"))
-        items.append(Item(text: "Title", imageName: "ic_inbox"))
-        items.append(Item(text: "Company", imageName: "ic_inbox"))
-        items.append(Item(text: "Email", imageName: "ic_inbox"))
-        items.append(Item(text: "Password", imageName: "ic_inbox"))
-        items.append(Item(text: "Phone", imageName: "ic_inbox"))
-        items.append(Item(text: "Github", imageName: "ic_inbox"))
-        items.append(Item(text: "Linked", imageName: "ic_inbox"))
-        items.append(Item(text: "Disconnect from Meetup Account", imageName: "ic_inbox"))
-
-    }
-
-    
-
-    /// Prepares the tableView.
-    private func prepareTableView() {
-        tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
-        tableView.backgroundColor = MaterialColor.clear
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .SingleLineEtched
+        prepareLargeCardViewExample()
         
-        // Use Layout to easily align the tableView.
-        view.layout(tableView).edges(top: 0)
-    }
-}
-
-
-/// TableViewDataSource methods.
-extension ProfileViewController: UITableViewDataSource {
-    /// Determines the number of rows in the tableView.
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count;
     }
     
-    /// Prepares the cells within the tableView.
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
+    
+    // Layout View
+    
+    private func prepareLargeCardViewExample() {
+        //        _: UIImage? = UIImage(named: "CosmicMindInverted")
         
-        let item: Item = items[indexPath.row]
+        let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
+        cardView.pulseColor = MaterialColor.white
+        view.addSubview(cardView)
         
-        cell.textLabel!.text = item.text
-        cell.textLabel!.textColor = MaterialColor.black
-        cell.textLabel!.font = UIFont(name: "Avenir", size: 15)
-        cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-        cell.imageView!.tintColor = MaterialColor.grey.lighten2
-        cell.backgroundColor = MaterialColor.clear
+        let shareContact: UILabel = UILabel()
+        shareContact.text = "Share Contacts"
+        shareContact.font = UIFont(name: "Avenir", size: 15)
+        shareContact.textColor = MaterialColor.black
+        view.addSubview(shareContact)
         
-        return cell
-    }
-}
-   
-/// UITableViewDelegate methods.
-extension ProfileViewController: UITableViewDelegate {
-    /// Sets the tableView cell height.
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
-    }
-    
-    /// Select item at row in tableView.
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //		print("Selected")
-    }
+        let photoLabel: UILabel = UILabel()
+        photoLabel.text = "Photo"
+        photoLabel.font = UIFont(name: "Avenir", size: 15)
+        photoLabel.textColor = MaterialColor.black
+        view.addSubview(photoLabel)
 
-    
+        
+        let nameLabel: UILabel = UILabel()
+        nameLabel.text = "Name"
+        nameLabel.font = UIFont(name: "Avenir", size: 15)
+        nameLabel.textColor = MaterialColor.black
+        view.addSubview(nameLabel)
 
-    
-    /// Prepares the saveButton.
-    private func prepareSaveButton() {
-        let image: UIImage? = MaterialIcon.cm.close
-        saveButton = IconButton()
-        saveButton.pulseColor = MaterialColor.white
-        saveButton.tintColor = MaterialColor.white
-        saveButton.setImage(image, forState: .Normal)
-        saveButton.setImage(image, forState: .Highlighted)
-        saveButton.addTarget(self, action: #selector(handleSaveButton), forControlEvents: .TouchUpInside)
+        shareContact.grid.rows = 1
+        shareContact.grid.columns = 8
+//        shareContact.grid.offset.rows = 1
+
+        photoLabel.grid.rows = 1
+        photoLabel.grid.columns = 8
+        photoLabel.grid.offset.rows = 1
+        photoLabel.grid.offset.columns = 1
+
+        nameLabel.grid.rows = 1
+        nameLabel.grid.columns = 8
+        nameLabel.grid.offset.rows = 2
+        nameLabel.grid.offset.columns = 1
+
+        
+        cardView.grid.spacing = 2
+        cardView.grid.axis.direction = .None
+        cardView.grid.contentInsetPreset = .Square3
+        cardView.grid.views = [
+            photoLabel,
+            shareContact,
+            nameLabel
+        ]
     }
-
     
-    
-    /// Handles the saveButton.
-    internal func handleSaveButton() {
+    internal func handleLoginButton() {
         let eventsViewController = EventsViewController()
         let navc: NavigationController = NavigationController(rootViewController: eventsViewController)
         navc.modalTransitionStyle = .CrossDissolve
         presentViewController(navc, animated: true, completion: nil)
-
     }
-
-    
-    
-    
-    /// Prepares the navigationItem.
-    private func prepareNavigationItem() {
-        navigationItem.title = "Profile"
-        navigationItem.titleLabel.textColor = MaterialColor.white
-        navigationItem.titleLabel.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
-        navigationItem.titleLabel.textAlignment = .Center
-        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
-        navigationItem.rightControls = [saveButton]
-    }
-    
-    /// Prepares the navigationBar.
-    private func prepareNavigationBar() {
-        /**
-         To control this setting, set the "View controller-based status bar appearance"
-         to "NO" in the info.plist.
-         */
-        navigationController?.navigationBar.statusBarStyle = .LightContent
-        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
-
-    }
-    
     
 }
