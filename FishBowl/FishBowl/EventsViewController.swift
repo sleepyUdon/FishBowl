@@ -59,10 +59,8 @@ class EventsViewController: UIViewController {
     
     /// Handles the menuButton.
     internal func handleMenuButton() {
-        let contactsViewController = ContactsViewController()
-        let navc: NavigationController = NavigationController(rootViewController: contactsViewController)
-        navc.modalTransitionStyle = .CrossDissolve
-        presentViewController(navc, animated: true, completion: nil)
+        navigationDrawerController?.openLeftView()
+
     }
     
     
@@ -145,6 +143,8 @@ class EventsViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
 
     }
+    
+    
     
     
 }

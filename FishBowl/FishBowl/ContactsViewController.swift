@@ -6,35 +6,88 @@
 //  Copyright © 2016 LightHouse Labs. All rights reserved.
 //
 
+
 import UIKit
 import Material
 
-class ContactsViewController: UIViewController {
+private struct Item {
+    var text: String
+    var imageName: String
+}
 
+class ContactsViewController: UIViewController {
+    
+    
     private var containerView: UIView!
     
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
     
-    private var backButton: IconButton!
-
+    
+    /// NavigationBar menu button.
+    private var menuButton: IconButton!
+    
+    
+    /// NavigationBar profile button.
+    private var profileButton: IconButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        prepareMenuButton()
+        prepareProfileButton()
         prepareContainerView()
         prepareSearchBar()
-        prepareBackButton()
         prepareTableView()
         prepareNavigationItem()
         prepareNavigationBar()
     }
-
+    
     
     /// General preparation statements.
     private func prepareView() {
         view.backgroundColor = MaterialColor.white
+    }
+    
+    
+    /// Prepares the menuButton.
+    private func prepareMenuButton() {
+        let image: UIImage? = MaterialIcon.cm.menu
+        menuButton = IconButton()
+        menuButton.pulseColor = MaterialColor.white
+        menuButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+        menuButton.setImage(image, forState: .Normal)
+        menuButton.setImage(image, forState: .Highlighted)
+        menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
+    }
+    
+    
+    /// Handles the menuButton.
+    internal func handleMenuButton() {
+        navigationDrawerController?.openLeftView()
+        
+    }
+    
+    
+    /// Prepares the profileButton.
+    private func prepareProfileButton() {
+        let image: UIImage? = MaterialIcon.cm.profileView
+        profileButton = IconButton()
+        profileButton.pulseColor = MaterialColor.white
+        profileButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+        profileButton.setImage(image, forState: .Normal)
+        profileButton.setImage(image, forState: .Highlighted)
+        profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
+    }
+    
+    
+    /// Handles the profileButton.
+    internal func handleProfileButton() {
+        let profileViewController = ProfileViewController()
+        let navc: NavigationController = NavigationController(rootViewController: profileViewController)
+        navc.modalTransitionStyle = .CrossDissolve
+        presentViewController(navc, animated: true, completion: nil)
     }
     
     
@@ -43,7 +96,7 @@ class ContactsViewController: UIViewController {
         containerView = UIView()
         view.layout(containerView).edges(top: 0, left: 0, right: 0)
     }
-
+    
     
     /// Prepares the searchBar
     private func prepareSearchBar() {
@@ -65,29 +118,7 @@ class ContactsViewController: UIViewController {
          */
         searchBar.leftControls = [moreButton]
     }
-
     
-    /// Prepares the backButton.
-    private func prepareBackButton() {
-        let image: UIImage? = MaterialIcon.cm.close
-        backButton = IconButton()
-        backButton.pulseColor = MaterialColor.white
-        backButton.tintColor = MaterialColor.white
-        backButton.setImage(image, forState: .Normal)
-        backButton.setImage(image, forState: .Highlighted)
-        backButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
-
-    }
-    
-    
-    /// Handles the CloseButton.
-    internal func handleCloseButton() {
-        let eventsViewController = EventsViewController()
-        self.navigationController?.pushViewController(eventsViewController, animated: true)
-
-    }
-
-
     
     /// Prepares the tableView
     
@@ -96,16 +127,17 @@ class ContactsViewController: UIViewController {
     }
     
     
+    
     /// Prepares the navigationItem.
     private func prepareNavigationItem() {
-        navigationItem.title = "Contacts"
+        navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.textColor = MaterialColor.white
         navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
-        navigationItem.rightControls = [backButton]
-
+        
+        navigationItem.leftControls = [menuButton]
+        navigationItem.rightControls = [profileButton]
     }
-    
     
     /// Prepares the navigationBar.
     private func prepareNavigationBar() {
@@ -115,9 +147,10 @@ class ContactsViewController: UIViewController {
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
         navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
-
+        
     }
     
     
+    
+    
 }
-

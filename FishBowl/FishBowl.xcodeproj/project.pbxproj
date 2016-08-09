@@ -23,6 +23,13 @@
 		7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A301D5929D800716BBD /* ProfileViewController.swift */; };
 		7CDD2A381D59335400716BBD /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A361D59335400716BBD /* EventDetailViewController.swift */; };
 		7CDD2A391D59335400716BBD /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A371D59335400716BBD /* EventsViewController.swift */; };
+		7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */; };
+		7CDD2A411D596CCE00716BBD /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */; };
+		7CDD2A431D59755C00716BBD /* EventDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A421D59755C00716BBD /* EventDetailTableViewCell.swift */; };
+		7CDD2A451D59D9B300716BBD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A441D59D9B300716BBD /* Event.swift */; };
+		7CDD2A481D59D9D900716BBD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A471D59D9D900716BBD /* User.swift */; };
+		7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A491D59EF6E00716BBD /* DataManager.swift */; };
+		7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A4B1D59F25B00716BBD /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +64,13 @@
 		7CDD2A301D5929D800716BBD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7CDD2A361D59335400716BBD /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		7CDD2A371D59335400716BBD /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationDrawerController.swift; sourceTree = "<group>"; };
+		7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
+		7CDD2A421D59755C00716BBD /* EventDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailTableViewCell.swift; sourceTree = "<group>"; };
+		7CDD2A441D59D9B300716BBD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		7CDD2A471D59D9D900716BBD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7CDD2A491D59EF6E00716BBD /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		7CDD2A4B1D59F25B00716BBD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,11 +106,15 @@
 			isa = PBXGroup;
 			children = (
 				7CDD2A131D590CD000716BBD /* AppDelegate.swift */,
+				7CDD2A4B1D59F25B00716BBD /* LoginViewController.swift */,
 				7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */,
 				7CDD2A2E1D5928AB00716BBD /* ContactsViewController.swift */,
+				7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */,
+				7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */,
 				7CDD2A301D5929D800716BBD /* ProfileViewController.swift */,
 				7CDD2A361D59335400716BBD /* EventDetailViewController.swift */,
 				7CDD2A371D59335400716BBD /* EventsViewController.swift */,
+				7CDD2A461D59D9BB00716BBD /* Objects */,
 				7CDD2A211D590E5500716BBD /* Menu View extensions */,
 				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
 				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
@@ -113,9 +131,20 @@
 				7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */,
 				7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */,
 				7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */,
+				7CDD2A421D59755C00716BBD /* EventDetailTableViewCell.swift */,
 				7CDD2A261D590E7800716BBD /* UIViewController.swift */,
 			);
 			name = "Menu View extensions";
+			sourceTree = "<group>";
+		};
+		7CDD2A461D59D9BB00716BBD /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7CDD2A441D59D9B300716BBD /* Event.swift */,
+				7CDD2A471D59D9D900716BBD /* User.swift */,
+				7CDD2A491D59EF6E00716BBD /* DataManager.swift */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,14 +223,21 @@
 				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
 				7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */,
 				7CDD2A381D59335400716BBD /* EventDetailViewController.swift in Sources */,
+				7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */,
 				7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */,
+				7CDD2A481D59D9D900716BBD /* User.swift in Sources */,
 				7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */,
+				7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */,
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
 				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
 				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
+				7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */,
 				7CDD2A391D59335400716BBD /* EventsViewController.swift in Sources */,
+				7CDD2A411D596CCE00716BBD /* AppNavigationController.swift in Sources */,
+				7CDD2A451D59D9B300716BBD /* Event.swift in Sources */,
 				7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */,
 				7CDD2A2F1D5928AB00716BBD /* ContactsViewController.swift in Sources */,
+				7CDD2A431D59755C00716BBD /* EventDetailTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

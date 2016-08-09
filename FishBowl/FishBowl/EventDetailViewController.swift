@@ -44,12 +44,12 @@ class EventDetailViewController: UIViewController {
     private func prepareSearchBar() {
         searchBar = SearchBar()
         containerView.addSubview(searchBar)
-        let image: UIImage? = MaterialIcon.cm.moreVertical
+        let image: UIImage? = MaterialIcon.cm.search
         
         // More button.
         let moreButton: IconButton = IconButton()
         moreButton.pulseColor = MaterialColor.grey.base
-        moreButton.tintColor = MaterialColor.grey.darken4
+        moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         moreButton.setImage(image, forState: .Normal)
         moreButton.setImage(image, forState: .Highlighted)
         
@@ -73,6 +73,7 @@ class EventDetailViewController: UIViewController {
     /// Prepares the navigationItem.
     private func prepareNavigationItem() {
         navigationItem.title = "Events"
+        navigationItem.titleLabel.textColor = MaterialColor.white
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
         
@@ -86,8 +87,28 @@ class EventDetailViewController: UIViewController {
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
         navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+        navigationController?.navigationBar.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
     }
     
+    
+    /// Prepares the cells within the tableView.
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: EventDetailTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! EventDetailTableViewCell
+        
+        //VIV PASS DATA
+        
+//        let item: Item = items[indexPath.row]
+//        
+//        cell.textLabel!.text = item.text
+//        cell.textLabel!.textColor = MaterialColor.grey.lighten2
+//        cell.textLabel!.font = RobotoFont.medium
+//        cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//        cell.imageView!.tintColor = MaterialColor.grey.lighten2
+        cell.backgroundColor = MaterialColor.clear
+        
+        return cell
+    }
+
     
 }
 

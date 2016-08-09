@@ -38,12 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
+        let eventsViewController = EventsViewController ()
+        let contactsViewController = ContactsViewController ()
+        let eventDetailViewController = EventsViewController ()
+        let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
+        let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
+        let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController, rightViewController: eventDetailViewController)
 
-        let eventListViewController = EventsViewController()
-        let navigationController = NavigationController(rootViewController: eventListViewController)
-
-		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.rootViewController = navigationController
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window!.rootViewController = navigationDrawerController
 
 		window!.makeKeyAndVisible()
 		return true
