@@ -9,6 +9,8 @@
 import UIKit
 
 extension MenuViewController: UITableViewDataSource {
+    
+//    public lazy var menumodel:MenuModel = MenuModel()
     /*
     @name   numberOfSectionsInTableView
     */
@@ -20,10 +22,11 @@ extension MenuViewController: UITableViewDataSource {
     @name   numberOfRowsInSection
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var sections = MenuModel.sections()
-        let key = Array(sections.keys)[section]
-        let section = sections[key] as! [String]
-        return section.count
+//        var sections = MenuModel.sections()
+//        let key = Array(sections.keys)[section]
+//        let section = sections[key] as! [String]
+        
+        return 3
     }
     
     /*

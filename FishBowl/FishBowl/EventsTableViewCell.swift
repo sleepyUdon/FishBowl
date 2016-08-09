@@ -29,6 +29,7 @@ public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultLabel: UILabel = UILabel()
     public lazy var defaultDescription: UILabel = UILabel()
     public lazy var defaultParticipants: UILabel = UILabel()
+    public lazy var menumodel:MenuModel = MenuModel()
 
     
     /*
@@ -36,6 +37,8 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
+        //
     }
     
     /*
@@ -75,7 +78,8 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        defaultLabel.text = "Devhub"
+        let event1 = menumodel.events["Event1"]
+        defaultLabel.text = event1!["Group"]!                 //VIV GET DATA FROM MENU MODEL
         defaultLabel.textColor = MaterialColor.grey.lighten2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)

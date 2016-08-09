@@ -60,7 +60,6 @@ class EventsViewController: UIViewController {
     /// Handles the menuButton.
     internal func handleMenuButton() {
         navigationDrawerController?.openLeftView()
-
     }
     
     

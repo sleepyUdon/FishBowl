@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/FishBowl/EventsViewController.swift"
-            timestampString = "492455211.836396"
+            timestampString = "492472651.005082"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "handleProfileButton()"
             landmarkType = "5">
          </BreakpointContent>

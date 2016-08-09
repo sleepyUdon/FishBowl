@@ -73,11 +73,10 @@ class EventDetailViewController: UIViewController {
     
     /// Prepares the navigationItem.
     private func prepareNavigationItem() {
-        navigationItem.title = "Events"
+        navigationItem.title = "Random"
         navigationItem.titleLabel.textColor = MaterialColor.white
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
-        
     }
     
     /// Prepares the navigationBar.
@@ -95,16 +94,6 @@ class EventDetailViewController: UIViewController {
     /// Prepares the cells within the tableView.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EventDetailTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! EventDetailTableViewCell
-        
-        //VIV PASS DATA
-        
-//        let item: Item = items[indexPath.row]
-//        
-//        cell.textLabel!.text = item.text
-//        cell.textLabel!.textColor = MaterialColor.grey.lighten2
-//        cell.textLabel!.font = RobotoFont.medium
-//        cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-//        cell.imageView!.tintColor = MaterialColor.grey.lighten2
         cell.backgroundColor = MaterialColor.clear
         
         return cell
