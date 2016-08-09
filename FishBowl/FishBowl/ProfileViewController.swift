@@ -39,11 +39,29 @@ class ProfileViewController: UIViewController {
         shareContact.textColor = MaterialColor.black
         view.addSubview(shareContact)
         
+        let photoView: MaterialView = MaterialView()
+        photoView.image = MaterialIcon.photoCamera!
+        photoView.backgroundColor = MaterialColor.black
+        photoView.shape = .Square
+        view.addSubview(photoView)
+
         let photoLabel: UILabel = UILabel()
         photoLabel.text = "Photo"
         photoLabel.font = UIFont(name: "Avenir", size: 15)
         photoLabel.textColor = MaterialColor.black
         view.addSubview(photoLabel)
+        
+        let profileView: MaterialView = MaterialView()
+        profileView.image = UIImage(named: "VivianeChan")
+        profileView.shape = .Circle
+        view.addSubview(profileView)
+        
+        let nameView: MaterialView = MaterialView()
+        nameView.image = MaterialIcon.cm.profileView
+        nameView.backgroundColor = MaterialColor.black
+        nameView.shape = .Square
+        view.addSubview(nameView)
+
 
         let nameLabel: UILabel = UILabel()
         nameLabel.text = "Name"
@@ -95,16 +113,25 @@ class ProfileViewController: UIViewController {
 
         switchbutton.grid.rows = 1
         switchbutton.grid.columns = 3
-        switchbutton.grid.offset.columns = 10
-
+        switchbutton.grid.offset.columns = 9
         
         shareContact.grid.rows = 1
         shareContact.grid.columns = 8
+        
+        photoView.grid.rows = 1
+        photoView.grid.columns = 2
+        photoView.grid.offset.rows = 1
+        photoView.grid.offset.columns = 0
 
         photoLabel.grid.rows = 1
-        photoLabel.grid.columns = 8
+        photoLabel.grid.columns = 5
         photoLabel.grid.offset.rows = 1
         photoLabel.grid.offset.columns = 2
+        
+        profileView.grid.rows = 1
+        profileView.grid.columns = 2
+        profileView.grid.offset.rows = 1
+        profileView.grid.offset.columns = 9
 
         nameLabel.grid.rows = 1
         nameLabel.grid.columns = 8
@@ -151,8 +178,10 @@ class ProfileViewController: UIViewController {
         cardView.grid.axis.direction = .None
         cardView.grid.contentInsetPreset = .Square3
         cardView.grid.views = [
+            photoView,
             photoLabel,
             shareContact,
+            profileView,
             nameLabel,
             titleLabel,
             companyLabel,
@@ -161,7 +190,8 @@ class ProfileViewController: UIViewController {
             phoneLabel,
             githubLabel,
             linkedinLabel,
-            switchbutton
+            switchbutton,
+            profileView
         ]
     }
     
