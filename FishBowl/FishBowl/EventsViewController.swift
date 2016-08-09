@@ -80,7 +80,6 @@ class EventsViewController: UIViewController {
     internal func handleProfileButton() {
         let profileViewController = ProfileViewController()
         let navc: NavigationController = NavigationController(rootViewController: profileViewController)
-        navc.modalTransitionStyle = .CrossDissolve
         presentViewController(navc, animated: true, completion: nil)
     }
     

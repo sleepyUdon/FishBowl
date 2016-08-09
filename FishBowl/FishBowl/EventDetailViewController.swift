@@ -16,6 +16,7 @@ class EventDetailViewController: UIViewController {
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()

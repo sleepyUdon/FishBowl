@@ -9,14 +9,34 @@
 import UIKit
 import Material
 
+/// NavigationBar save button.
+private var saveButton: MaterialButton!
+
 
 class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareSaveButton()
         prepareLargeCardViewExample()
-//        prepareNavigationBar()
+        prepareNavigationItem()
+        prepareNavigationBar()
     }
     
+    private func prepareSaveButton() {
+        saveButton = MaterialButton()
+        saveButton.setTitle("Save", forState: .Normal)
+        saveButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: .Normal)
+        saveButton.pulseColor = MaterialColor.white
+        saveButton.titleLabel!.font = UIFont(name: "Avenir", size: 15)
+        saveButton.addTarget(self, action: #selector(handleSaveButton), forControlEvents: .TouchUpInside)
+    }
+
+    
+    /// Handles the saveButton.
+    internal func handleSaveButton() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
     
     // Layout View
     
@@ -194,5 +214,27 @@ class ProfileViewController: UIViewController {
             profileView
         ]
     }
+ 
     
+    /// Prepares the navigationItem.
+    private func prepareNavigationItem() {
+        navigationItem.title = "Profile"
+        navigationItem.titleLabel.textAlignment = .Center
+        navigationItem.titleLabel.textColor = MaterialColor.white
+        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
+        navigationItem.rightControls = [saveButton]
+
+    }
+    
+    /// Prepares the navigationBar.
+    private func prepareNavigationBar() {
+        /**
+         To control this setting, set the "View controller-based status bar appearance"
+         to "NO" in the info.plist.
+         */
+        navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+        
+    }
+
 }
