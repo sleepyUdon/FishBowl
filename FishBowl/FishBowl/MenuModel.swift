@@ -20,9 +20,8 @@ public class MenuModel: NSObject {
     /*
     @name   required initWithCoder
     */
-    var events = ["Event1":["Group":"Random","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
+    var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
-    var contacts = ["Users":[["FirstName":"Viviane"],["LastName":"Chan"],["Title":"iOS Developer"],["Company" : "Lighthouse Labs"]]]
 
     
 

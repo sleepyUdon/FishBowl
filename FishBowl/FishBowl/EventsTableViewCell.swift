@@ -78,8 +78,8 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        let event1 = menumodel.events["Event1"]
-        defaultLabel.text = event1!["Group"]!                 //VIV GET DATA FROM MENU MODEL
+        let group = menumodel.events["Event1"]
+        defaultLabel.text = group!["Group"]!
         defaultLabel.textColor = MaterialColor.grey.lighten2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
@@ -91,7 +91,8 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultDescription() {
         defaultDescription.font = UIFont.systemFontOfSize(12.0)
-        defaultDescription.text = "Lighthouse Labs Demo Day"
+        let eventTitle = menumodel.events["Event1"]
+        defaultDescription.text = eventTitle!["EventTitle"]!
         defaultDescription.textColor = UIColor.blackColor()
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
@@ -102,7 +103,8 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultParticipants() {
         defaultParticipants.font = UIFont.systemFontOfSize(12.0)
-        defaultParticipants.text = "26 developers"
+        let participants = menumodel.events["Event1"]
+        defaultParticipants.text = participants!["Participants"]!
         defaultParticipants.textColor = MaterialColor.grey.lighten2
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)
