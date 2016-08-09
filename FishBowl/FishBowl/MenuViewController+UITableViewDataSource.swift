@@ -30,7 +30,7 @@ extension MenuViewController: UITableViewDataSource {
     @name   cellForRowAtIndexPath
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: DefaultTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! DefaultTableViewCell
+        let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         return cell
     }
     

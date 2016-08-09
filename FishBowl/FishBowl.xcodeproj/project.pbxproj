@@ -17,7 +17,7 @@
 		7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */; };
 		7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */; };
 		7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */; };
-		7CDD2A241D590E7100716BBD /* DefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */; };
+		7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */; };
 		7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A261D590E7800716BBD /* UIViewController.swift */; };
 		7CDD2A2F1D5928AB00716BBD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A2E1D5928AB00716BBD /* ContactsViewController.swift */; };
 		7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A301D5929D800716BBD /* ProfileViewController.swift */; };
@@ -51,7 +51,7 @@
 		7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+Configuration.swift"; sourceTree = "<group>"; };
 		7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MenuViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
-		7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCell.swift; sourceTree = "<group>"; };
+		7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
 		7CDD2A261D590E7800716BBD /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		7CDD2A2E1D5928AB00716BBD /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		7CDD2A301D5929D800716BBD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */,
 				7CDD2A1A1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift */,
 				7CDD2A1B1D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift */,
-				7CDD2A221D590E7100716BBD /* DefaultTableViewCell.swift */,
+				7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */,
 				7CDD2A261D590E7800716BBD /* UIViewController.swift */,
 			);
 			name = "Menu View extensions";
@@ -197,7 +197,7 @@
 				7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */,
 				7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
-				7CDD2A241D590E7100716BBD /* DefaultTableViewCell.swift in Sources */,
+				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
 				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
 				7CDD2A391D59335400716BBD /* EventsViewController.swift in Sources */,
 				7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */,

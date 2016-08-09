@@ -74,7 +74,7 @@ class EventDetailViewController: UIViewController {
     private func prepareNavigationItem() {
         navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
-        navigationItem.titleLabel.font = RobotoFont.mediumWithSize(14)
+        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
         
     }
     
@@ -85,6 +85,7 @@ class EventDetailViewController: UIViewController {
          to "NO" in the info.plist.
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
     }
     
     

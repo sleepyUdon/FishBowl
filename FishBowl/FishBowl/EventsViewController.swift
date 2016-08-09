@@ -50,6 +50,7 @@ class EventsViewController: UIViewController {
         let image: UIImage? = MaterialIcon.cm.menu
         menuButton = IconButton()
         menuButton.pulseColor = MaterialColor.white
+        menuButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         menuButton.setImage(image, forState: .Normal)
         menuButton.setImage(image, forState: .Highlighted)
         menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
@@ -70,6 +71,7 @@ class EventsViewController: UIViewController {
         let image: UIImage? = MaterialIcon.cm.profileView
         profileButton = IconButton()
         profileButton.pulseColor = MaterialColor.white
+        profileButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         profileButton.setImage(image, forState: .Normal)
         profileButton.setImage(image, forState: .Highlighted)
         profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
@@ -96,12 +98,12 @@ class EventsViewController: UIViewController {
     private func prepareSearchBar() {
     searchBar = SearchBar()
     containerView.addSubview(searchBar)
-    let image: UIImage? = MaterialIcon.cm.moreVertical
+    let image: UIImage? = MaterialIcon.cm.search
     
     // More button.
     let moreButton: IconButton = IconButton()
     moreButton.pulseColor = MaterialColor.grey.base
-    moreButton.tintColor = MaterialColor.grey.darken4
+    moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
     moreButton.setImage(image, forState: .Normal)
     moreButton.setImage(image, forState: .Highlighted)
     
@@ -126,7 +128,8 @@ class EventsViewController: UIViewController {
     private func prepareNavigationItem() {
         navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
-        navigationItem.titleLabel.font = RobotoFont.mediumWithSize(14)
+        navigationItem.titleLabel.textColor = MaterialColor.white
+        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
         
         navigationItem.leftControls = [menuButton]
         navigationItem.rightControls = [profileButton]
@@ -139,6 +142,8 @@ class EventsViewController: UIViewController {
          to "NO" in the info.plist.
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+
     }
     
     

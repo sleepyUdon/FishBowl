@@ -24,7 +24,7 @@ public struct DefaultOptions {
     }
 }
 
-public class DefaultTableViewCell: UITableViewCell {
+public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultImageView: UIImageView = UIImageView()
     public lazy var defaultLabel: UILabel = UILabel()
     public lazy var defaultDescription: UILabel = UILabel()

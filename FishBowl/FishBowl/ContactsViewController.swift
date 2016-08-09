@@ -49,12 +49,12 @@ class ContactsViewController: UIViewController {
     private func prepareSearchBar() {
         searchBar = SearchBar()
         containerView.addSubview(searchBar)
-        let image: UIImage? = MaterialIcon.cm.moreVertical
+        let image: UIImage? = MaterialIcon.cm.search
         
         // More button.
         let moreButton: IconButton = IconButton()
         moreButton.pulseColor = MaterialColor.grey.base
-        moreButton.tintColor = MaterialColor.grey.darken4
+        moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         moreButton.setImage(image, forState: .Normal)
         moreButton.setImage(image, forState: .Highlighted)
         
@@ -72,6 +72,7 @@ class ContactsViewController: UIViewController {
         let image: UIImage? = MaterialIcon.cm.close
         backButton = IconButton()
         backButton.pulseColor = MaterialColor.white
+        backButton.tintColor = MaterialColor.white
         backButton.setImage(image, forState: .Normal)
         backButton.setImage(image, forState: .Highlighted)
         backButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
@@ -99,7 +100,8 @@ class ContactsViewController: UIViewController {
     private func prepareNavigationItem() {
         navigationItem.title = "Contacts"
         navigationItem.titleLabel.textAlignment = .Center
-        navigationItem.titleLabel.font = RobotoFont.mediumWithSize(14)
+        navigationItem.titleLabel.textColor = MaterialColor.white
+        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
         navigationItem.rightControls = [backButton]
 
     }
@@ -112,6 +114,8 @@ class ContactsViewController: UIViewController {
          to "NO" in the info.plist.
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+
     }
     
     
