@@ -65,12 +65,13 @@ class EventsViewController: UIViewController {
     
     /// Prepares the profileButton.
     private func prepareProfileButton() {
-//        let image: UIImage? = MaterialIcon.cm.profileView
+        
+        let image = UIImage(named: "menuprofile")
         profileButton = IconButton()
         profileButton.pulseColor = MaterialColor.white
         profileButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
-//        profileButton.setImage(image, forState: .Normal)
-//        profileButton.setImage(image, forState: .Highlighted)
+        profileButton.setImage(image, forState: .Normal)
+        profileButton.setImage(image, forState: .Highlighted)
         profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
     }
     
