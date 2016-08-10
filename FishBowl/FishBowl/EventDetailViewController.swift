@@ -66,14 +66,14 @@ class EventDetailViewController: UIViewController {
     /// Prepares the tableView
     
     private func prepareTableView() {
-        displayContentController(MenuViewController(), frame: CGRect(x: 0, y: searchBar.bounds.maxY, width: view.bounds.size.width, height: view.bounds.size.height - searchBar.bounds.size.height))
+        displayContentController(ParticipantsViewController(), frame: CGRect(x: 0, y: searchBar.bounds.maxY, width: view.bounds.size.width, height: view.bounds.size.height - searchBar.bounds.size.height))
     }
     
     
     
     /// Prepares the navigationItem.
     private func prepareNavigationItem() {
-        navigationItem.title = "Random"
+        navigationItem.title = "Participants"
         navigationItem.titleLabel.textColor = MaterialColor.white
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
@@ -93,7 +93,7 @@ class EventDetailViewController: UIViewController {
     
     /// Prepares the cells within the tableView.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: EventDetailTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! EventDetailTableViewCell
+        let cell: ParticipantsTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! ParticipantsTableViewCell
         cell.backgroundColor = MaterialColor.clear
         
         return cell
