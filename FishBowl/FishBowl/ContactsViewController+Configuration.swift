@@ -24,6 +24,7 @@ public extension ContactsViewController {
         tableView.delegate = self
         tableView.registerClass(ContactsTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
+        
     }
     
     

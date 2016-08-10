@@ -11,7 +11,7 @@ import Material
 
 
 public class ContactsTableViewCell: UITableViewCell {
-    public lazy var profileView: UIImageView = UIImageView()
+    public lazy var profileView: MaterialView = MaterialView()
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
     
@@ -47,10 +47,13 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
-        profileView.backgroundColor = UIColor.clearColor()
-        profileView.clipsToBounds = true
-        contentView.addSubview(profileView)
+    profileView.image = UIImage(named: "VivianeChan")
+    profileView.shape = .Circle
+    profileView.backgroundColor = UIColor.blackColor()
+    profileView.clipsToBounds = true
+    addSubview(profileView)
     }
+    
     
     /*
      @name   prepareDefaultLabel
@@ -80,21 +83,21 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   layoutDefaultImageView
      */
     public func layoutImageView() {
-        let x = CGFloat(20.0)
+        let x = CGFloat(20)
         let y = CGFloat(DefaultOptions.ImageView.Padding.Vertical)
         let w = CGFloat(contentView.bounds.size.height - (DefaultOptions.ImageView.Padding.Vertical * 2))
         let h = w
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
-        
         // FIX ME: Make dynamic
         profileView.layer.cornerRadius = w / 2
+        
     }
     
     public func layoutNameLabel() {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
         let y = (contentView.bounds.size.height / 6) - (15.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(30.0)
+        let h = CGFloat(60.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
@@ -103,7 +106,7 @@ public class ContactsTableViewCell: UITableViewCell {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
         let y = (contentView.bounds.size.height / 2) - (15.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(30.0)
+        let h = CGFloat(60.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
