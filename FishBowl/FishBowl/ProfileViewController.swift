@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
     private func prepareLargeCardViewExample() {
         //        _: UIImage? = UIImage(named: "CosmicMindInverted")
         
-        let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
+        let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.pulseColor = MaterialColor.white
         view.addSubview(cardView)
         
@@ -55,81 +55,165 @@ class ProfileViewController: UIViewController {
 
         let shareContact: UILabel = UILabel()
         shareContact.text = "Share Contacts"
-        shareContact.font = UIFont(name: "Avenir", size: 15)
+        shareContact.font = UIFont(name: "Avenir", size: 12)
         shareContact.textColor = MaterialColor.black
         view.addSubview(shareContact)
-        
-        let photoView: MaterialView = MaterialView()
-        photoView.image = MaterialIcon.photoCamera!
-        photoView.backgroundColor = MaterialColor.black
-        photoView.shape = .Square
-        view.addSubview(photoView)
 
-        let photoLabel: UILabel = UILabel()
-        photoLabel.text = "Photo"
-        photoLabel.font = UIFont(name: "Avenir", size: 15)
-        photoLabel.textColor = MaterialColor.black
-        view.addSubview(photoLabel)
         
         let profileView: MaterialView = MaterialView()
         profileView.image = UIImage(named: "VivianeChan")
         profileView.shape = .Circle
         view.addSubview(profileView)
         
-        let nameView: MaterialView = MaterialView()
-        nameView.image = MaterialIcon.cm.profileView
-        nameView.backgroundColor = MaterialColor.black
-        nameView.shape = .Square
+        let photoView: UIImageView = UIImageView()
+        photoView.image = UIImage(named: "camera")
+        photoView.backgroundColor = MaterialColor.white
+        view.addSubview(photoView)
+        
+        let nameView: UIImageView = UIImageView()
+        nameView.image = UIImage(named: "profile")
+        nameView.backgroundColor = MaterialColor.white
         view.addSubview(nameView)
+        
+        let titleView: UIImageView = UIImageView()
+        titleView.image = UIImage(named: "profile")
+        titleView.backgroundColor = MaterialColor.white
+        view.addSubview(titleView)
+        
+        let companyView: UIImageView = UIImageView()
+        companyView.image = UIImage(named: "profile")
+        companyView.backgroundColor = MaterialColor.white
+        view.addSubview(companyView)
+        
+        let emailView: UIImageView = UIImageView()
+        emailView.image = UIImage(named: "mail")
+        emailView.backgroundColor = MaterialColor.white
+        view.addSubview(emailView)
 
+        let passwordView: UIImageView = UIImageView()
+        passwordView.image = UIImage(named: "password")
+        passwordView.backgroundColor = MaterialColor.white
+        view.addSubview(passwordView)
+        
+        let phoneView: UIImageView = UIImageView()
+        phoneView.image = UIImage(named: "phone")
+        phoneView.backgroundColor = MaterialColor.white
+        view.addSubview(phoneView)
+
+        let githubView: UIImageView = UIImageView()
+        githubView.image = UIImage(named: "github")
+        githubView.backgroundColor = MaterialColor.white
+        view.addSubview(githubView)
+        
+        let linkedinView: UIImageView = UIImageView()
+        linkedinView.image = UIImage(named: "linkedin")
+        linkedinView.backgroundColor = MaterialColor.white
+        view.addSubview(linkedinView)
+        
+
+        let photoLabel: UILabel = UILabel()
+        photoLabel.text = "Photo"
+        photoLabel.font = UIFont(name: "Avenir", size: 12)
+        photoLabel.textColor = MaterialColor.black
+        view.addSubview(photoLabel)
 
         let nameLabel: UILabel = UILabel()
         nameLabel.text = "Name"
-        nameLabel.font = UIFont(name: "Avenir", size: 15)
+        nameLabel.font = UIFont(name: "Avenir", size: 12)
         nameLabel.textColor = MaterialColor.black
         view.addSubview(nameLabel)
 
         let titleLabel: UILabel = UILabel()
         titleLabel.text = "Title"
-        titleLabel.font = UIFont(name: "Avenir", size: 15)
+        titleLabel.font = UIFont(name: "Avenir", size: 12)
         titleLabel.textColor = MaterialColor.black
         view.addSubview(titleLabel)
         
         let companyLabel: UILabel = UILabel()
         companyLabel.text = "Company"
-        companyLabel.font = UIFont(name: "Avenir", size: 15)
+        companyLabel.font = UIFont(name: "Avenir", size: 12)
         companyLabel.textColor = MaterialColor.black
         view.addSubview(companyLabel)
         
         let emailLabel: UILabel = UILabel()
         emailLabel.text = "Email"
-        emailLabel.font = UIFont(name: "Avenir", size: 15)
+        emailLabel.font = UIFont(name: "Avenir", size: 12)
         emailLabel.textColor = MaterialColor.black
         view.addSubview(emailLabel)
         
         let passwordLabel: UILabel = UILabel()
-        passwordLabel.text = "*****"
-        passwordLabel.font = UIFont(name: "Avenir", size: 15)
+        passwordLabel.text = "Password"
+        passwordLabel.font = UIFont(name: "Avenir", size: 12)
         passwordLabel.textColor = MaterialColor.black
         view.addSubview(passwordLabel)
         
         let phoneLabel: UILabel = UILabel()
-        phoneLabel.text = "(647)836.5162"
-        phoneLabel.font = UIFont(name: "Avenir", size: 15)
+        phoneLabel.text = "Phone"
+        phoneLabel.font = UIFont(name: "Avenir", size: 12)
         phoneLabel.textColor = MaterialColor.black
         view.addSubview(phoneLabel)
 
         let githubLabel: UILabel = UILabel()
-        githubLabel.text = "github.com/sleepyUdon"
-        githubLabel.font = UIFont(name: "Avenir", size: 15)
+        githubLabel.text = "Github"
+        githubLabel.font = UIFont(name: "Avenir", size: 12)
         githubLabel.textColor = MaterialColor.black
         view.addSubview(githubLabel)
         
         let linkedinLabel: UILabel = UILabel()
-        linkedinLabel.text = "linkedIn/vivianechan"
-        linkedinLabel.font = UIFont(name: "Avenir", size: 15)
+        linkedinLabel.text = "linkedIn"
+        linkedinLabel.font = UIFont(name: "Avenir", size: 12)
         linkedinLabel.textColor = MaterialColor.black
         view.addSubview(linkedinLabel)
+
+        
+        
+        let nameTextfield: UITextField = UITextField()
+        nameTextfield.placeholder = "Viviane Chan"
+        nameTextfield.font = UIFont(name: "Avenir", size: 12)
+        nameTextfield.textColor = MaterialColor.black
+        view.addSubview(nameTextfield)
+
+        let titleTextfield: UITextField = UITextField()
+        titleTextfield.placeholder = "iOS Developer"
+        titleTextfield.font = UIFont(name: "Avenir", size: 12)
+        titleTextfield.textColor = MaterialColor.black
+        view.addSubview(titleTextfield)
+        
+        let companyTextfield: UITextField = UITextField()
+        companyTextfield.placeholder = "Lighthouse Labs"
+        companyTextfield.font = UIFont(name: "Avenir", size: 12)
+        companyTextfield.textColor = MaterialColor.black
+        view.addSubview(companyTextfield)
+
+        let emailTextfield: UITextField = UITextField()
+        emailTextfield.placeholder = "vivianechan@hotmail.com"
+        emailTextfield.font = UIFont(name: "Avenir", size: 12)
+        emailTextfield.textColor = MaterialColor.black
+        view.addSubview(emailTextfield)
+
+        let passwordTextfield: UITextField = UITextField()
+        passwordTextfield.placeholder = "*****" // VIV encrypt
+        passwordTextfield.font = UIFont(name: "Avenir", size: 12)
+        passwordTextfield.textColor = MaterialColor.black
+        view.addSubview(passwordTextfield)
+
+        let phoneTextfield: UITextField = UITextField()
+        phoneTextfield.placeholder = "(647)836 5162"
+        phoneTextfield.font = UIFont(name: "Avenir", size: 12)
+        emailTextfield.textColor = MaterialColor.black
+        view.addSubview(phoneTextfield)
+
+        let githubTextfield: UITextField = UITextField()
+        githubTextfield.placeholder = "github.com/sleepyUdon"
+        githubTextfield.font = UIFont(name: "Avenir", size: 12)
+        githubTextfield.textColor = MaterialColor.black
+        view.addSubview(githubTextfield)
+
+        let linkedinTextfield: UITextField = UITextField()
+        linkedinTextfield.placeholder = "https://www.linkedin.com/in/vivianechan"
+        linkedinTextfield.font = UIFont(name: "Avenir", size: 12)
+        linkedinTextfield.textColor = MaterialColor.black
+        view.addSubview(linkedinTextfield)
 
         switchbutton.grid.rows = 1
         switchbutton.grid.columns = 3
@@ -143,6 +227,46 @@ class ProfileViewController: UIViewController {
         photoView.grid.offset.rows = 1
         photoView.grid.offset.columns = 0
 
+        nameView.grid.rows = 1
+        nameView.grid.columns = 2
+        nameView.grid.offset.rows = 2
+        nameView.grid.offset.columns = 0
+        
+        titleView.grid.rows = 1
+        titleView.grid.columns = 2
+        titleView.grid.offset.rows = 3
+        titleView.grid.offset.columns = 0
+
+        companyView.grid.rows = 1
+        companyView.grid.columns = 2
+        companyView.grid.offset.rows = 4
+        companyView.grid.offset.columns = 0
+
+        emailView.grid.rows = 1
+        emailView.grid.columns = 2
+        emailView.grid.offset.rows = 5
+        emailView.grid.offset.columns = 0
+
+        passwordView.grid.rows = 1
+        passwordView.grid.columns = 2
+        passwordView.grid.offset.rows = 6
+        passwordView.grid.offset.columns = 0
+
+        phoneView.grid.rows = 1
+        phoneView.grid.columns = 2
+        phoneView.grid.offset.rows = 7
+        phoneView.grid.offset.columns = 0
+
+        githubView.grid.rows = 1
+        githubView.grid.columns = 2
+        githubView.grid.offset.rows = 8
+        githubView.grid.offset.columns = 0
+        
+        linkedinView.grid.rows = 1
+        linkedinView.grid.columns = 2
+        linkedinView.grid.offset.rows = 9
+        linkedinView.grid.offset.columns = 0
+
         photoLabel.grid.rows = 1
         photoLabel.grid.columns = 5
         photoLabel.grid.offset.rows = 1
@@ -151,54 +275,105 @@ class ProfileViewController: UIViewController {
         profileView.grid.rows = 1
         profileView.grid.columns = 2
         profileView.grid.offset.rows = 1
-        profileView.grid.offset.columns = 9
+        profileView.grid.offset.columns = 5
 
         nameLabel.grid.rows = 1
-        nameLabel.grid.columns = 8
+        nameLabel.grid.columns = 4
         nameLabel.grid.offset.rows = 2
         nameLabel.grid.offset.columns = 2
 
         titleLabel.grid.rows = 1
-        titleLabel.grid.columns = 8
+        titleLabel.grid.columns = 4
         titleLabel.grid.offset.rows = 3
         titleLabel.grid.offset.columns = 2
         
         companyLabel.grid.rows = 1
-        companyLabel.grid.columns = 8
+        companyLabel.grid.columns = 4
         companyLabel.grid.offset.rows = 4
         companyLabel.grid.offset.columns = 2
         
         emailLabel.grid.rows = 1
-        emailLabel.grid.columns = 8
+        emailLabel.grid.columns = 4
         emailLabel.grid.offset.rows = 5
         emailLabel.grid.offset.columns = 2
         
         passwordLabel.grid.rows = 1
-        passwordLabel.grid.columns = 8
+        passwordLabel.grid.columns = 4
         passwordLabel.grid.offset.rows = 6
         passwordLabel.grid.offset.columns = 2
 
         phoneLabel.grid.rows = 1
-        phoneLabel.grid.columns = 8
+        phoneLabel.grid.columns = 4
         phoneLabel.grid.offset.rows = 7
         phoneLabel.grid.offset.columns = 2
         
         githubLabel.grid.rows = 1
-        githubLabel.grid.columns = 8
+        githubLabel.grid.columns = 4
         githubLabel.grid.offset.rows = 8
         githubLabel.grid.offset.columns = 2
         
         linkedinLabel.grid.rows = 1
-        linkedinLabel.grid.columns = 8
+        linkedinLabel.grid.columns = 4
         linkedinLabel.grid.offset.rows = 9
         linkedinLabel.grid.offset.columns = 2
         
+        nameTextfield.grid.rows = 1
+        nameTextfield.grid.columns = 7
+        nameTextfield.grid.offset.rows = 2
+        nameTextfield.grid.offset.columns = 5
+
+        titleTextfield.grid.rows = 1
+        titleTextfield.grid.columns = 7
+        titleTextfield.grid.offset.rows = 3
+        titleTextfield.grid.offset.columns = 5
+
+        companyTextfield.grid.rows = 1
+        companyTextfield.grid.columns = 7
+        companyTextfield.grid.offset.rows = 4
+        companyTextfield.grid.offset.columns = 5
+
+        emailTextfield.grid.rows = 1
+        emailTextfield.grid.columns = 7
+        emailTextfield.grid.offset.rows = 5
+        emailTextfield.grid.offset.columns = 5
+
+        passwordTextfield.grid.rows = 1
+        passwordTextfield.grid.columns = 7
+        passwordTextfield.grid.offset.rows = 6
+        passwordTextfield.grid.offset.columns = 5
+
+        phoneTextfield.grid.rows = 1
+        phoneTextfield.grid.columns = 7
+        phoneTextfield.grid.offset.rows = 7
+        phoneTextfield.grid.offset.columns = 5
+
+        githubTextfield.grid.rows = 1
+        githubTextfield.grid.columns = 7
+        githubTextfield.grid.offset.rows = 8
+        githubTextfield.grid.offset.columns = 5
+
+        linkedinTextfield.grid.rows = 1
+        linkedinTextfield.grid.columns = 7
+        linkedinTextfield.grid.offset.rows = 9
+        linkedinTextfield.grid.offset.columns = 5
 
         cardView.grid.spacing = 2
         cardView.grid.axis.direction = .None
         cardView.grid.contentInsetPreset = .Square3
         cardView.grid.views = [
+            switchbutton,
+            profileView,
+
             photoView,
+            nameView,
+            titleView,
+            companyView,
+            emailView,
+            passwordView,
+            phoneView,
+            githubView,
+            linkedinView,
+            
             photoLabel,
             shareContact,
             profileView,
@@ -210,8 +385,16 @@ class ProfileViewController: UIViewController {
             phoneLabel,
             githubLabel,
             linkedinLabel,
-            switchbutton,
-            profileView
+            
+            nameTextfield,
+            titleTextfield,
+            companyTextfield,
+            emailTextfield,
+            passwordTextfield,
+            phoneTextfield,
+            githubTextfield,
+            linkedinTextfield
+
         ]
     }
  

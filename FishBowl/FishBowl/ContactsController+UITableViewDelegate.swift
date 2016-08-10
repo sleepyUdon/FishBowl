@@ -57,25 +57,25 @@ extension ContactsViewController: UITableViewDelegate {
             let nameLabel: UILabel = UILabel()
             nameLabel.text = "VIVIANE CHAN"
             nameLabel.textAlignment = .Center
-            nameLabel.font = RobotoFont.regularWithSize(12)
+            nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
             nameLabel.textColor = MaterialColor.black
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
             titleLabel.text = "iOSDeveloper"
             titleLabel.textAlignment = .Center
-            titleLabel.font = RobotoFont.regularWithSize(12)
-            titleLabel.textColor = MaterialColor.black
+            titleLabel.font = UIFont(name: "Avenir", size: 15)
+            titleLabel.textColor = MaterialColor.grey.darken2
             contentView.addSubview(titleLabel)
         
             let companyLabel: UILabel = UILabel()
-            companyLabel.font = RobotoFont.regularWithSize(12)
+            companyLabel.font = UIFont(name: "Avenir", size: 15)
             companyLabel.text = "Lighthouse Labs"
             companyLabel.textAlignment = .Center
-            companyLabel.textColor = MaterialColor.blueGrey.darken4
+            companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)
         
-            let mailImage: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+            let mailImage: UIImage? = UIImage(named: "mail")?.imageWithRenderingMode(.AlwaysTemplate)
             let mailButton: IconButton = IconButton()
             mailButton.pulseColor = MaterialColor.blueGrey.darken4
             mailButton.tintColor = MaterialColor.blueGrey.darken4
@@ -85,17 +85,17 @@ extension ContactsViewController: UITableViewDelegate {
             contentView.addSubview(mailButton)
         
         
-            let messageImage: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+            let messageImage: UIImage? = UIImage(named: "message")?.imageWithRenderingMode(.AlwaysTemplate)
             let messageButton: IconButton = IconButton()
             messageButton.pulseColor = MaterialColor.blueGrey.darken4
             messageButton.tintColor = MaterialColor.blueGrey.darken4
-            messageButton.backgroundColor = MaterialColor.grey.lighten3
+//            messageButton.backgroundColor = MaterialColor.grey.lighten3
             messageButton.setImage(messageImage, forState: .Normal)
             messageButton.setImage(messageImage, forState: .Highlighted)
             contentView.addSubview(messageButton)
 
 
-            let phoneImage: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+            let phoneImage: UIImage? = UIImage(named:"phone.png")?.imageWithRenderingMode(.AlwaysTemplate)
             let phoneButton: IconButton = IconButton()
             phoneButton.pulseColor = MaterialColor.blueGrey.darken4
             phoneButton.tintColor = MaterialColor.blueGrey.darken4
@@ -105,7 +105,7 @@ extension ContactsViewController: UITableViewDelegate {
             contentView.addSubview(phoneButton)
         
         
-            let githubImage: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+            let githubImage: UIImage? = UIImage(named: "github")?.imageWithRenderingMode(.AlwaysTemplate)
             let githubButton: IconButton = IconButton()
             githubButton.pulseColor = MaterialColor.blueGrey.darken4
             githubButton.tintColor = MaterialColor.blueGrey.darken4
@@ -115,7 +115,7 @@ extension ContactsViewController: UITableViewDelegate {
             contentView.addSubview(githubButton)
         
         
-            let linkedinImage: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+            let linkedinImage: UIImage? = UIImage(named: "linkedin")?.imageWithRenderingMode(.AlwaysTemplate)
             let linkedinButton: IconButton = IconButton()
             linkedinButton.pulseColor = MaterialColor.blueGrey.darken4
             linkedinButton.tintColor = MaterialColor.blueGrey.darken4

@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
 
         let registerLabel: UILabel = UILabel()
         registerLabel.font = UIFont(name: "Avenir", size: 15)
-        registerLabel.text = "REGISTER"
+        registerLabel.text = "SIGN UP WITH MEETUP"
         registerLabel.textColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         registerLabel.backgroundColor = MaterialColor.clear
         contentViewbottom.addSubview(registerLabel)
