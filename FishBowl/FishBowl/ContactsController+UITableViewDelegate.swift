@@ -48,8 +48,6 @@ extension ContactsViewController: UITableViewDelegate {
             profileView.image = UIImage(named: "VivianeChan")
             profileView.contentsGravityPreset = .ResizeAspectFill
             profileView.shape = .Circle
-            Layout.centerVertically(topImageView, child: profileView)
-            Layout.centerHorizontally(topImageView, child: profileView)
             topImageView.addSubview(profileView)
         
             let contentView: MaterialView = MaterialView()
@@ -195,7 +193,7 @@ extension ContactsViewController: UITableViewDelegate {
                 githubButton,
                 linkedinButton
             ]
-        
+        topImageView.grid.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
         topImageView.grid.views = [
             profileView        ]
         }
