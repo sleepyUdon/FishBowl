@@ -78,8 +78,8 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        // set index
-      defaultLabel.text = dataManager.events["Group"]
+        let eventGroup = menumodel.events["Event1"]
+        defaultLabel.text = eventGroup!["Group"]!
         defaultLabel.textColor = MaterialColor.grey.lighten2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
