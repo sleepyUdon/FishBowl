@@ -20,7 +20,6 @@
 		7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */; };
 		7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A261D590E7800716BBD /* UIViewController.swift */; };
 		7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A301D5929D800716BBD /* ProfileViewController.swift */; };
-		7CDD2A381D59335400716BBD /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A361D59335400716BBD /* EventDetailViewController.swift */; };
 		7CDD2A391D59335400716BBD /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A371D59335400716BBD /* EventsViewController.swift */; };
 		7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */; };
 		7CDD2A411D596CCE00716BBD /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */; };
@@ -30,7 +29,6 @@
 		7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A491D59EF6E00716BBD /* DataManager.swift */; };
 		7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A4B1D59F25B00716BBD /* LoginViewController.swift */; };
 		7CDD2A521D5A9B4300716BBD /* ParticipantsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A4D1D5A9B4200716BBD /* ParticipantsModel.swift */; };
-		7CDD2A531D5A9B4300716BBD /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A4E1D5A9B4300716BBD /* ParticipantsViewController.swift */; };
 		7CDD2A541D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A4F1D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift */; };
 		7CDD2A551D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A501D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift */; };
 		7CDD2A5D1D5AB4EF00716BBD /* ContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A581D5AB4EF00716BBD /* ContactsModel.swift */; };
@@ -38,6 +36,8 @@
 		7CDD2A601D5AB4EF00716BBD /* ContactsViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A5B1D5AB4EF00716BBD /* ContactsViewController+UITableViewDataSource.swift */; };
 		7CDD2A641D5AB59D00716BBD /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A631D5AB59D00716BBD /* ContactsTableViewCell.swift */; };
 		7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A651D5AB79800716BBD /* ContactsViewController.swift */; };
+		7CDD2A681D5AB9F700716BBD /* ContactsController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */; };
+		7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,7 +69,6 @@
 		7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
 		7CDD2A261D590E7800716BBD /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		7CDD2A301D5929D800716BBD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		7CDD2A361D59335400716BBD /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		7CDD2A371D59335400716BBD /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationDrawerController.swift; sourceTree = "<group>"; };
 		7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
@@ -79,7 +78,6 @@
 		7CDD2A491D59EF6E00716BBD /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7CDD2A4B1D59F25B00716BBD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7CDD2A4D1D5A9B4200716BBD /* ParticipantsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsModel.swift; sourceTree = "<group>"; };
-		7CDD2A4E1D5A9B4300716BBD /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		7CDD2A4F1D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParticipantsViewController+Configuration.swift"; sourceTree = "<group>"; };
 		7CDD2A501D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParticipantsViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		7CDD2A581D5AB4EF00716BBD /* ContactsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsModel.swift; sourceTree = "<group>"; };
@@ -87,6 +85,8 @@
 		7CDD2A5B1D5AB4EF00716BBD /* ContactsViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactsViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		7CDD2A631D5AB59D00716BBD /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		7CDD2A651D5AB79800716BBD /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactsController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,22 +126,21 @@
 				7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */,
 				7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */,
 				7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */,
-				7CDD2A301D5929D800716BBD /* ProfileViewController.swift */,
-				7CDD2A361D59335400716BBD /* EventDetailViewController.swift */,
-				7CDD2A371D59335400716BBD /* EventsViewController.swift */,
 				7CDD2A461D59D9BB00716BBD /* Objects */,
+				7CDD2A691D5ABB3600716BBD /* Profile View */,
 				7CDD2A621D5AB4F500716BBD /* Contacts TableView */,
 				7CDD2A571D5A9B4A00716BBD /* Participants TableView */,
-				7CDD2A211D590E5500716BBD /* Menu View extensions */,
+				7CDD2A211D590E5500716BBD /* Events TableView */,
 				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
 				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
 			);
 			path = FishBowl;
 			sourceTree = "<group>";
 		};
-		7CDD2A211D590E5500716BBD /* Menu View extensions */ = {
+		7CDD2A211D590E5500716BBD /* Events TableView */ = {
 			isa = PBXGroup;
 			children = (
+				7CDD2A371D59335400716BBD /* EventsViewController.swift */,
 				7CDD2A171D590E4D00716BBD /* MenuModel.swift */,
 				7CDD2A181D590E4D00716BBD /* MenuViewController.swift */,
 				7CDD2A191D590E4D00716BBD /* MenuViewController+Configuration.swift */,
@@ -150,7 +149,7 @@
 				7CDD2A221D590E7100716BBD /* EventsTableViewCell.swift */,
 				7CDD2A261D590E7800716BBD /* UIViewController.swift */,
 			);
-			name = "Menu View extensions";
+			name = "Events TableView";
 			sourceTree = "<group>";
 		};
 		7CDD2A461D59D9BB00716BBD /* Objects */ = {
@@ -166,8 +165,8 @@
 		7CDD2A571D5A9B4A00716BBD /* Participants TableView */ = {
 			isa = PBXGroup;
 			children = (
+				7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */,
 				7CDD2A4D1D5A9B4200716BBD /* ParticipantsModel.swift */,
-				7CDD2A4E1D5A9B4300716BBD /* ParticipantsViewController.swift */,
 				7CDD2A4F1D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift */,
 				7CDD2A501D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift */,
 				7CDD2A421D59755C00716BBD /* ParticipantsTableViewCell.swift */,
@@ -181,10 +180,19 @@
 				7CDD2A581D5AB4EF00716BBD /* ContactsModel.swift */,
 				7CDD2A651D5AB79800716BBD /* ContactsViewController.swift */,
 				7CDD2A5A1D5AB4EF00716BBD /* ContactsViewController+Configuration.swift */,
+				7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */,
 				7CDD2A5B1D5AB4EF00716BBD /* ContactsViewController+UITableViewDataSource.swift */,
 				7CDD2A631D5AB59D00716BBD /* ContactsTableViewCell.swift */,
 			);
 			name = "Contacts TableView";
+			sourceTree = "<group>";
+		};
+		7CDD2A691D5ABB3600716BBD /* Profile View */ = {
+			isa = PBXGroup;
+			children = (
+				7CDD2A301D5929D800716BBD /* ProfileViewController.swift */,
+			);
+			name = "Profile View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,10 +268,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */,
+				7CDD2A681D5AB9F700716BBD /* ContactsController+UITableViewDelegate.swift in Sources */,
 				7CDD2A551D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
 				7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */,
-				7CDD2A381D59335400716BBD /* EventDetailViewController.swift in Sources */,
 				7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */,
 				7CDD2A601D5AB4EF00716BBD /* ContactsViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */,
@@ -273,6 +281,7 @@
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
 				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
 				7CDD2A541D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift in Sources */,
+				7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */,
 				7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */,
 				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
 				7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */,
@@ -281,7 +290,6 @@
 				7CDD2A451D59D9B300716BBD /* Event.swift in Sources */,
 				7CDD2A5F1D5AB4EF00716BBD /* ContactsViewController+Configuration.swift in Sources */,
 				7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */,
-				7CDD2A531D5A9B4300716BBD /* ParticipantsViewController.swift in Sources */,
 				7CDD2A521D5A9B4300716BBD /* ParticipantsModel.swift in Sources */,
 				7CDD2A5D1D5AB4EF00716BBD /* ContactsModel.swift in Sources */,
 				7CDD2A431D59755C00716BBD /* ParticipantsTableViewCell.swift in Sources */,

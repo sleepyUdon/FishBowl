@@ -16,7 +16,7 @@ extension MenuViewController: UITableViewDelegate {
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let destination = ParticipantsViewController()
+        let destination = EventDetailViewController()
         navigationController?.pushViewController(destination, animated: true)
 
         // didSelect

@@ -93,7 +93,7 @@ public class EventsTableViewCell: UITableViewCell {
         defaultDescription.font = UIFont.systemFontOfSize(12.0)
         let eventTitle = menumodel.events["Event1"]
         defaultDescription.text = eventTitle!["EventTitle"]!
-        defaultDescription.textColor = UIColor.blackColor()
+        defaultDescription.textColor = MaterialColor.black
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
     }

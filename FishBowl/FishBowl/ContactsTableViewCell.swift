@@ -57,8 +57,8 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareNameLabel() {
         nameLabel.font = UIFont.systemFontOfSize(12.0)
-        nameLabel.text = "Viviane Chan"
-        nameLabel.textColor = MaterialColor.grey.lighten2
+        nameLabel.text = "VIVIANE CHAN"
+        nameLabel.textColor = MaterialColor.black
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
@@ -70,7 +70,7 @@ public class ContactsTableViewCell: UITableViewCell {
     public func prepareTitleLabel() {
         titleLabel.font = UIFont.systemFontOfSize(12.0)
         titleLabel.text = "iOS Developer"
-        titleLabel.textColor = UIColor.blackColor()
+        titleLabel.textColor = MaterialColor.grey.lighten2
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }

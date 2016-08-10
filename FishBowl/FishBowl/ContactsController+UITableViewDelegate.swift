@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension MenuViewController: UITableViewDelegate {
+extension ContactsViewController: UITableViewDelegate {
 
     /*
     @name   required didSelectRowAtIndexPath
@@ -16,10 +16,12 @@ extension MenuViewController: UITableViewDelegate {
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let destination = ParticipantsViewController()
-        navigationController?.pushViewController(destination, animated: true)
-
-        // didSelect
+//        let destination = EventDetailViewController()
+//        navigationController?.pushViewController(destination, animated: true)
+//
+//        // didSelect
+        
+        
     }
 
     }

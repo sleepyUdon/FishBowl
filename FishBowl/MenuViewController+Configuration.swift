@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension ContactsViewController {
+public extension MenuViewController {
     /*
     @name   prepareView
     */
@@ -22,7 +22,7 @@ public extension ContactsViewController {
     public func prepareTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(ContactsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerClass(EventsTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
     }
     
