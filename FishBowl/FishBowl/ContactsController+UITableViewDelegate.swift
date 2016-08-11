@@ -9,12 +9,22 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // required didSelectRowAtIndexPath
 
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        prepareLargeCardViewExample()
         
-//        let destination = EventDetailViewController()
-//        navigationController?.pushViewController(destination, animated: true)
-//
-//        // didSelect
-        prepareLargeCardViewExample(indexPath)
+        
+//        var cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactsTableViewCell
+        switch selectedIndexPath {
+        case nil:
+            selectedIndexPath = indexPath
+        default:
+            if selectedIndexPath! == indexPath {
+                selectedIndexPath = nil
+            } else {
+                selectedIndexPath = indexPath
+            }
+        }
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
 
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -32,10 +42,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         }
     }
 
-    private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
-        
-            let users = ContactsModel().getUsers()
-            let user = users[indexPath.row]
+    
+    
+    private func prepareLargeCardViewExample() {
         
             // set container views
 
@@ -47,12 +56,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
 
             let topImageView: MaterialView = MaterialView()
             cardView.addSubview(topImageView)
-        
-            let profileView: MaterialView = MaterialView()
-            profileView.image = UIImage(data: user.image!)
-            profileView.contentsGravityPreset = .ResizeAspectFill
-            profileView.shape = .Circle
-            topImageView.addSubview(profileView)
         
             let contentView: MaterialView = MaterialView()
             cardView.addSubview(contentView)
@@ -76,14 +79,14 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             // set labels
             
             let nameLabel: UILabel = UILabel()
-            nameLabel.text = user.name
+            nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
             nameLabel.textAlignment = .Center
             nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
             nameLabel.textColor = MaterialColor.black
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
-            titleLabel.text = user.title
+            titleLabel.text = "iOSDeveloper" //#PASSDATA title from participant
             titleLabel.textAlignment = .Center
             titleLabel.font = UIFont(name: "Avenir", size: 15)
             titleLabel.textColor = MaterialColor.grey.darken2
@@ -91,7 +94,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             let companyLabel: UILabel = UILabel()
             companyLabel.font = UIFont(name: "Avenir", size: 15)
-            companyLabel.text = user.company
+            companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
             companyLabel.textAlignment = .Center
             companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)
@@ -105,9 +108,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             contentView.addSubview(mailButton)
             mailButton.addTarget(self, action: #selector(handleMailButton), forControlEvents: .TouchUpInside)
         
-            let messageImage: UIImage? = UIImage(named: "message")?.imageWithRenderingMode(.AlwaysTemplate)
-            let messageButton: IconButton = IconButton()
-            messageButton.pulseColor = MaterialColor.blueGrey.darken4
+
+            let messageImage: UIImage? = UIImage(named: "message")
+            let messageButton: UIButton = UIButton()
             messageButton.tintColor = MaterialColor.blueGrey.darken4
             messageButton.setImage(messageImage, forState: .Normal)
             messageButton.setImage(messageImage, forState: .Highlighted)
