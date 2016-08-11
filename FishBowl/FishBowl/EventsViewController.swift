@@ -69,7 +69,8 @@ class EventsViewController: UIViewController {
         
         let image = UIImage(named: "menuprofile")
         profileButton = IconButton()
-        profileButton.contentMode = .ScaleAspectFit // VIV MAKES THIS #SCALETOFIT
+        profileButton.enabled = true
+        profileButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 18, bottom: 7, right: 18)
         profileButton.pulseColor = MaterialColor.white
         profileButton.tintColor = Color.baseColor1
         profileButton.setImage(image, forState: .Normal)

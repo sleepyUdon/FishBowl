@@ -15,8 +15,9 @@ public extension ParticipantsViewController {
     */
     public func prepareTableView() {
         tableView.dataSource = self
-//        tableView.delegate = self
+        tableView.delegate = self
         tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
+//        tableView.
         view.addSubview(tableView)
     }
     

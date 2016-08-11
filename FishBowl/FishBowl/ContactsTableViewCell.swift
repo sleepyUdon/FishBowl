@@ -76,10 +76,10 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   layoutDefaultImageView
      */
     public func layoutImageView() {
-        let x = CGFloat(20)
-        let y = CGFloat(DefaultOptions.ImageView.Padding.Vertical)
-        let w = CGFloat(contentView.bounds.size.height - (DefaultOptions.ImageView.Padding.Vertical * 2))
-        let h = w
+        let x = CGFloat(20.0)
+        let y = CGFloat(10.0)
+        let w = CGFloat(50.0)
+        let h = CGFloat(50.0)
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
         // FIX ME: Make dynamic
         profileView.layer.cornerRadius = w / 2
@@ -87,21 +87,24 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 6) - (15.0)
+        let x = CGFloat(100.0)
+        let y = CGFloat(10.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(60.0)
+        let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
     public func layoutTitleLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let x = CGFloat(100.0)
+        let y = CGFloat(30.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(60.0)
+        let h = CGFloat(30.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
 }
+
+
+

@@ -7,12 +7,39 @@ import MessageUI
 extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
 
     // required didSelectRowAtIndexPath
-    
+
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         prepareLargeCardViewExample()
-        // VIV #DISMISS CARD
-        // VIV #FADE BACKGROUND
+        
+        
+//        var cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactsTableViewCell
+        switch selectedIndexPath {
+        case nil:
+            selectedIndexPath = indexPath
+        default:
+            if selectedIndexPath! == indexPath {
+                selectedIndexPath = nil
+            } else {
+                selectedIndexPath = indexPath
+            }
+        }
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
 
+    
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let smallHeight: CGFloat = 70.0
+        let expandedHeight: CGFloat = 450.0
+        let ip = indexPath
+        if selectedIndexPath != nil {
+            if ip == selectedIndexPath! {
+                return expandedHeight
+            } else {
+                return smallHeight
+            }
+        } else {
+            return smallHeight
+        }
     }
 
     
@@ -21,26 +48,34 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             // set container views
 
-            let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 400))
+            let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 100, view.bounds.width, 450.0))
             cardView.pulseColor = MaterialColor.blueGrey.base
             cardView.depth = .Depth1
+        
             view.addSubview(cardView)
 
             let topImageView: MaterialView = MaterialView()
-            topImageView.contentsGravityPreset = .ResizeAspectFill
             cardView.addSubview(topImageView)
         
-            let profileView: MaterialView = MaterialView()
-            profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
-            profileView.contentsGravityPreset = .ResizeAspectFill
-            profileView.shape = .Circle
-            topImageView.addSubview(profileView)
-        
             let contentView: MaterialView = MaterialView()
-            contentView.backgroundColor = MaterialColor.clear
             cardView.addSubview(contentView)
         
+            let profileView: UIImageView = UIImageView()
+            profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
+//            profileView.contentsGravityPreset = .ResizeAspectFill
+//            profileView.shape = .Circle
+            profileView.contentMode = .ScaleAspectFill
+            topImageView.addSubview(profileView)
         
+            let closeImage: UIImage? = MaterialIcon.cm.close
+            let closeButton: UIButton = UIButton()
+            closeButton.tintColor = MaterialColor.blueGrey.darken4
+            closeButton.setImage(closeImage, forState: .Normal)
+            closeButton.setImage(closeImage, forState: .Highlighted)
+            topImageView.addSubview(closeButton)
+            closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
+        
+
             // set labels
             
             let nameLabel: UILabel = UILabel()
@@ -116,25 +151,45 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             topImageView.grid.rows = 4
             topImageView.grid.columns = 12
-            topImageView.backgroundColor = MaterialColor.clear
     
             contentView.grid.rows = 7
+            contentView.grid.columns = 12
             contentView.grid.offset.rows = 4
         
             cardView.grid.axis.direction = .None
             cardView.grid.spacing = 4
+            cardView.grid.contentInsetPreset = .Square3
+
             cardView.grid.views = [
                 topImageView,
                 contentView
             ]
 
         
-            // layout labels
+            // layout labels topimageView
         
-            profileView.grid.rows = 4
+            profileView.grid.rows = 6
             profileView.grid.columns = 6
+            profileView.grid.offset.rows = 2
             profileView.grid.offset.columns = 3
-            profileView.grid.offset.rows = 3
+        
+            closeButton.grid.rows = 3
+            closeButton.grid.columns = 2
+            closeButton.grid.offset.rows = 0
+            closeButton.grid.offset.columns = 11
+
+
+            topImageView.grid.spacing = 8
+            topImageView.grid.axis.direction = .None
+            topImageView.grid.contentInsetPreset = .Square3
+        
+            topImageView.grid.views = [
+            profileView, 
+            closeButton
+            ]
+        
+        
+        // layout labels bottomimageView
 
             nameLabel.grid.rows = 3
             nameLabel.grid.columns = 12
@@ -185,9 +240,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
                 githubButton,
                 linkedinButton
             ]
-        topImageView.grid.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
-        topImageView.grid.views = [
-            profileView        ]
+        
+        
+        self.view.addSubview(cardView)
+        
         }
     
     
@@ -261,7 +317,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     UIApplication.sharedApplication().openURL(NSURL(string:"https://www.linkedin.com/in/vivianechan")!) //#PASSDATA linkedin from participant
 }
 
+
     
+    // handle close button
+    
+    func handleCloseButton() {
+    }
+
 }
 
 

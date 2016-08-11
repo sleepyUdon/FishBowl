@@ -9,6 +9,9 @@ public class ContactsViewController: UIViewController {
     
     private var containerView: UIView!
     
+    var selectedIndexPath: NSIndexPath? = nil
+
+    
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
 
@@ -18,9 +21,10 @@ public class ContactsViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
-        prepareContainerView()
-        prepareSearchBar() //#SEARCHBAR VIV search bar not showing
+//        prepareContainerView()
         prepareTableView()
+        prepareSearchBar() //#SEARCHBAR VIV search bar not showing
+
     }
     
     //  viewDidLayoutSubviews
@@ -30,26 +34,21 @@ public class ContactsViewController: UIViewController {
         layoutTableView()
     }
     
-    /// Prepares the containerView.
-    
-    private func prepareContainerView() {
-        containerView = UIView()
-        view.layout(containerView).edges(top: 0, left: 0, right: 0)
-    }
     
     /// Prepares the searchBar
     
     private func prepareSearchBar() {
         searchBar = SearchBar()
+        searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
-        containerView.addSubview(searchBar)
-        let image: UIImage? = MaterialIcon.cm.search
-
-    // More button.
+        view.addSubview(searchBar)
         
+        // More button.
+
+        let image: UIImage? = MaterialIcon.cm.search
         let moreButton: IconButton = IconButton()
         moreButton.pulseColor = MaterialColor.grey.base
-        moreButton.tintColor = Color.baseColor2
+        moreButton.tintColor = Color.accentColor1
         moreButton.setImage(image, forState: .Normal)
         moreButton.setImage(image, forState: .Highlighted)
         

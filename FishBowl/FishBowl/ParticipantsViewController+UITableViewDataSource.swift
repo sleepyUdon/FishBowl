@@ -28,6 +28,7 @@ extension ParticipantsViewController: UITableViewDataSource {
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
+        cell.selectionStyle = .None
         return cell
     }
     
