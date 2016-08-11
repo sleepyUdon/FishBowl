@@ -322,6 +322,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // handle close button
     
     func handleCloseButton() {
+        self.view.removeFromSuperview()  //REMOVECONTACT
     }
 
 }
