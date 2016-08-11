@@ -1,10 +1,3 @@
-//
-//  MenuViewController+UITableViewDataSource.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-06-25.
-//  Copyright (c) 2015 Adam Dahan. All rights reserved.
-//
 
 import UIKit
 
@@ -46,6 +39,7 @@ extension ContactsViewController: UITableViewDataSource {
         cell.profileView.image = UIImage(data: user.image!)
         
         return cell
+        // #PASSDATA
     }
     
 }

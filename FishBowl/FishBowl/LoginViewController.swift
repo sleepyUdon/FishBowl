@@ -15,20 +15,17 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareLargeCardViewExample()
-
     }
     
     
     // Layout View
         
     private func prepareLargeCardViewExample() {
-//        _: UIImage? = UIImage(named: "CosmicMindInverted")
         
         let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.pulseColor = MaterialColor.blueGrey.base
         cardView.depth = .Depth1
         view.addSubview(cardView)
-        
         
         let contentViewTop: MaterialView = MaterialView()
         contentViewTop.backgroundColor = MaterialColor.blueGrey.darken4
@@ -53,7 +50,6 @@ class LoginViewController: UIViewController {
         smallLoginTitleLabel.backgroundColor = MaterialColor.clear
         contentViewbottom.addSubview(smallLoginTitleLabel)
         
-        
         let loginButton: UIButton = UIButton()
         loginButton.setTitle("LOGIN", forState:UIControlState.Normal)
         loginButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: UIControlState.Normal)
@@ -61,7 +57,6 @@ class LoginViewController: UIViewController {
         loginButton.titleLabel?.font = UIFont(name: "Avenir", size: 15)
         contentViewbottom.addSubview(loginButton)
         loginButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
-
 
         let registerLabel: UILabel = UILabel()
         registerLabel.font = UIFont(name: "Avenir", size: 15)
@@ -138,10 +133,11 @@ class LoginViewController: UIViewController {
             usernameTextField,
             passwordTextField,
             loginButton
-//            alarmLabel,
-//            alarmButton
         ]
     }
+    
+    
+    // handle login button
     
     internal func handleLoginButton() {
         let eventsViewController = EventsViewController()

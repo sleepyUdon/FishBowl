@@ -1,10 +1,3 @@
-//
-//  EventDetailTableViewCell.swift
-//  FishBowl
-//
-//  Created by Viviane Chan on 2016-08-08.
-//  Copyright © 2016 LightHouse Labs. All rights reserved.
-//
 
 import UIKit
 import Material
@@ -47,7 +40,7 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
-    profileView.image = UIImage(named: "VivianeChan")
+    profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
     profileView.shape = .Circle
     profileView.backgroundColor = UIColor.blackColor()
     profileView.clipsToBounds = true
@@ -59,8 +52,8 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont.systemFontOfSize(12.0)
-        nameLabel.text = "VIVIANE CHAN"
+        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
+        nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
         nameLabel.textColor = MaterialColor.black
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
@@ -71,9 +64,9 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont.systemFontOfSize(12.0)
-        titleLabel.text = "iOS Developer"
-        titleLabel.textColor = MaterialColor.grey.lighten2
+        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.text = "iOS Developer" //#PASSDATA title from participant
+        titleLabel.textColor = MaterialColor.grey.darken2
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -83,10 +76,10 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   layoutDefaultImageView
      */
     public func layoutImageView() {
-        let x = CGFloat(20)
-        let y = CGFloat(DefaultOptions.ImageView.Padding.Vertical)
-        let w = CGFloat(contentView.bounds.size.height - (DefaultOptions.ImageView.Padding.Vertical * 2))
-        let h = w
+        let x = CGFloat(20.0)
+        let y = CGFloat(10.0)
+        let w = CGFloat(50.0)
+        let h = CGFloat(50.0)
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
         // FIX ME: Make dynamic
         profileView.layer.cornerRadius = w / 2
@@ -94,21 +87,24 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 6) - (15.0)
+        let x = CGFloat(100.0)
+        let y = CGFloat(10.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(60.0)
+        let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
     public func layoutTitleLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let x = CGFloat(100.0)
+        let y = CGFloat(30.0)
         let w = CGFloat(200.0)
-        let h = CGFloat(60.0)
+        let h = CGFloat(30.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
 }
+
+
+

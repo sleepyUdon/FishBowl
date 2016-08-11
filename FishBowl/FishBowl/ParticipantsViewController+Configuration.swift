@@ -1,10 +1,4 @@
-//
-//  MenuViewController+Configuration.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-06-25.
-//  Copyright (c) 2015 Adam Dahan. All rights reserved.
-//
+
 
 import UIKit
 
@@ -21,8 +15,9 @@ public extension ParticipantsViewController {
     */
     public func prepareTableView() {
         tableView.dataSource = self
-//        tableView.delegate = self
+        tableView.delegate = self
         tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
+//        tableView.
         view.addSubview(tableView)
     }
     

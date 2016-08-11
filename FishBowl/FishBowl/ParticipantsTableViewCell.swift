@@ -11,7 +11,7 @@ import Material
 
 
 public class ParticipantsTableViewCell: UITableViewCell {
-    public lazy var profileView: UIImageView = UIImageView()
+    public lazy var profileView: MaterialView = MaterialView()
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
     public lazy var addedButton: UIButton = UIButton()
@@ -51,18 +51,21 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
+        profileView.image = UIImage(named: "VivianeChan") //#PASSDATA picture from participants
+        profileView.shape = .Circle
         profileView.backgroundColor = UIColor.clearColor()
         profileView.clipsToBounds = true
         contentView.addSubview(profileView)
     }
+
     
     /*
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont.systemFontOfSize(12.0)
-        nameLabel.text = "Viviane Chan"
-        nameLabel.textColor = MaterialColor.grey.lighten2
+        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 14)
+        nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
+        nameLabel.textColor = MaterialColor.black
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
@@ -72,9 +75,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont.systemFontOfSize(12.0)
-        titleLabel.text = "iOS Developer"
-        titleLabel.textColor = UIColor.blackColor()
+        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.text = "iOS Developer" //#PASSDATA title from participants
+        titleLabel.textColor = MaterialColor.grey.darken2
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -83,12 +86,16 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareAddedButton() {
-        addedButton.titleLabel?.font = UIFont.systemFontOfSize(12.0)
-        addedButton.titleLabel?.text = "added"
-        addedButton.backgroundColor = MaterialColor.grey.lighten2
+        addedButton.setImage(UIImage(named: "AddButton"), forState: UIControlState.Normal)
+        addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
         addSubview(addedButton)
     }
     
+    
+    func handleAddedButton() {
+        addedButton.setImage(UIImage(named: "okButton"), forState: UIControlState.Highlighted) // VIV FIX #ADDBUTTON
+    }
+
     /*
      @name   layoutDefaultImageView
      */
@@ -106,7 +113,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public func layoutNameLabel() {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
         let y = (contentView.bounds.size.height / 6) - (15.0)
-        let w = CGFloat(200.0)
+        let w = (contentView.bounds.size.width - 120.0)
         let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
@@ -115,16 +122,16 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public func layoutTitleLabel() {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
         let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(200.0)
+        let w = (contentView.bounds.size.width - 120.0)
         let h = CGFloat(30.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     public func layoutAddedButton() {
-        let x = CGRectGetMaxX(titleLabel.frame) + DefaultOptions.Label.Padding.Horizontal
+        let x = (contentView.bounds.size.width) - (50.0)
         let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(15.0)
-        let h = CGFloat(15.0)
+        let w = CGFloat(50.0)
+        let h = CGFloat(50.0)
         addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
