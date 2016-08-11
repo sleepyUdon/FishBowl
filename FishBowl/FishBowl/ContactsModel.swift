@@ -2,7 +2,7 @@
 import Foundation
 import UIKit
 
-public class Contacts: NSObject {
+public class ContactsModel: NSObject {
     
     
     /*
@@ -10,13 +10,18 @@ public class Contacts: NSObject {
     */
     public class func sectionsCount() -> Int { return 1 }
     
+    func getUsers() -> Array<User> {
+        
+        let users = DataManager().createUserDummyData()
+        
+        return users
+        
+    }
+    
     /*
     @name   required initWithCoder
     */
-    var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
-
-
     
-
+    
 
 }

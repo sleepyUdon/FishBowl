@@ -43,6 +43,7 @@ class ProfileViewController: UIViewController {
     
     private func prepareLargeCardViewExample() {
         
+        
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.pulseColor = MaterialColor.white
         view.addSubview(cardView)
