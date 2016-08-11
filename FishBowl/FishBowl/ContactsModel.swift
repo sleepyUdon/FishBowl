@@ -1,10 +1,3 @@
-//
-//  MenuTableViewModel.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-06-25.
-//  Copyright (c) 2015 Adam Dahan. All rights reserved.
-//
 
 import Foundation
 import UIKit

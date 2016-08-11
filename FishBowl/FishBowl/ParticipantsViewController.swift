@@ -43,7 +43,8 @@ private func prepareSearchBar() {
     searchBar = SearchBar()
     containerView.addSubview(searchBar)
     let image: UIImage? = MaterialIcon.cm.search
-    
+    searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
+
     // More button.
     let moreButton: IconButton = IconButton()
     moreButton.pulseColor = MaterialColor.grey.base

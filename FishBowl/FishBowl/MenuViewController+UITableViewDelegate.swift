@@ -1,27 +1,24 @@
-//
-//  MenuViewController+UITableViewDelegate.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-11-02.
-//  Copyright © 2015 Adam Dahan. All rights reserved.
-//
+
 
 import UIKit
+import Material
 
 extension MenuViewController: UITableViewDelegate {
 
     /*
     @name   required didSelectRowAtIndexPath
-    */
+     */
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let destination = ParticipantsViewController()
         navigationController?.pushViewController(destination, animated: true)
-
-        // didSelect
-    }
-
+        destination.navigationItem.title = "Participants"
+        destination.navigationItem.titleLabel.textColor = MaterialColor.white
+        destination.navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
     }
     
+}
+
+
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3DB32288699343BC079DAC63 /* Pods_FishBowl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */; };
+		7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C41D5C189A00ECDE02 /* Color.swift */; };
+		7C6080C71D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */; };
+		7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C81D5C9D1100ECDE02 /* Fonts.swift */; };
 		7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */; };
 		7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */; };
 		7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A131D590CD000716BBD /* AppDelegate.swift */; };
@@ -54,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		61233D508E3E0182B21D4E0E /* Pods-FishBowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.release.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.release.xcconfig"; sourceTree = "<group>"; };
+		7C6080C41D5C189A00ECDE02 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParticipantsViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		7C6080C81D5C9D1100ECDE02 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		7CAB2A211D58DB7F00735CF4 /* FishBowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FishBowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CAB2A2E1D58DB7F00735CF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -168,6 +174,8 @@
 				7CDD2A441D59D9B300716BBD /* Event.swift */,
 				7CDD2A471D59D9D900716BBD /* User.swift */,
 				7CDD2A491D59EF6E00716BBD /* DataManager.swift */,
+				7C6080C41D5C189A00ECDE02 /* Color.swift */,
+				7C6080C81D5C9D1100ECDE02 /* Fonts.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -177,6 +185,7 @@
 			children = (
 				7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */,
 				7CDD2A4D1D5A9B4200716BBD /* ParticipantsModel.swift */,
+				7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */,
 				7CDD2A4F1D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift */,
 				7CDD2A501D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift */,
 				7CDD2A421D59755C00716BBD /* ParticipantsTableViewCell.swift */,
@@ -347,10 +356,12 @@
 				7CDD2A481D59D9D900716BBD /* User.swift in Sources */,
 				7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */,
+				7C6080C71D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift in Sources */,
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
 				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
 				7CDD2A541D5A9B4300716BBD /* ParticipantsViewController+Configuration.swift in Sources */,
 				7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */,
+				7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */,
 				7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */,
 				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
 				7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */,
@@ -360,6 +371,7 @@
 				7CDD2A5F1D5AB4EF00716BBD /* ContactsViewController+Configuration.swift in Sources */,
 				7CDD2A1D1D590E4D00716BBD /* MenuViewController.swift in Sources */,
 				7CDD2A521D5A9B4300716BBD /* ParticipantsModel.swift in Sources */,
+				7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */,
 				7CDD2A5D1D5AB4EF00716BBD /* ContactsModel.swift in Sources */,
 				7CDD2A431D59755C00716BBD /* ParticipantsTableViewCell.swift in Sources */,
 				7CDD2A641D5AB59D00716BBD /* ContactsTableViewCell.swift in Sources */,

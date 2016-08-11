@@ -1,10 +1,4 @@
-//
-//  DefaultTableViewCell.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-06-25.
-//  Copyright (c) 2015 Adam Dahan. All rights reserved.
-//
+
 
 import UIKit
 import Material
@@ -24,21 +18,19 @@ public struct DefaultOptions {
     }
 }
 
+
 public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultImageView: UIImageView = UIImageView()
     public lazy var defaultLabel: UILabel = UILabel()
     public lazy var defaultDescription: UILabel = UILabel()
     public lazy var defaultParticipants: UILabel = UILabel()
     public lazy var menumodel: MenuModel = MenuModel()
-    var dataManager: DataManager = DataManager()
     
     /*
     @name   required initWithCoder
     */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-        //
     }
     
     /*
@@ -46,11 +38,9 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        prepareDefaultImageView()
         prepareDefaultLabel()
         prepareDefaultDescription()
         prepareDefaultParticipants()
-
     }
     
     /*
@@ -58,29 +48,20 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public override func layoutSubviews() {
         super.layoutSubviews()
-        layoutDefaultImageView()
         layoutDefaultLabel()
         layoutDefaultDescription()
         layoutDefaultParticipants()
     }
     
-    /*
-    @name   prepareDefaultImageView
-    */
-    public func prepareDefaultImageView() {
-        defaultImageView.backgroundColor = UIColor.clearColor()
-        defaultImageView.clipsToBounds = true
-        contentView.addSubview(defaultImageView)
-    }
     
     /*
     @name   prepareDefaultLabel
     */
     public func prepareDefaultLabel() {
-        defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        let eventGroup = menumodel.events["Event1"]
+        defaultLabel.font = UIFont(name: "Avenir", size: 14)
+        let eventGroup = menumodel.events["Event1"] //#PASSDATA group from events
         defaultLabel.text = eventGroup!["Group"]!
-        defaultLabel.textColor = MaterialColor.grey.lighten2
+        defaultLabel.textColor = MaterialColor.grey.darken2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
     }
@@ -90,42 +71,35 @@ public class EventsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareDefaultDescription() {
-        defaultDescription.font = UIFont.systemFontOfSize(12.0)
+        defaultDescription.font = UIFont(name: "Avenir-Heavy", size: 14)
         let eventTitle = menumodel.events["Event1"]
-        defaultDescription.text = eventTitle!["EventTitle"]!
+        defaultDescription.text = eventTitle!["EventTitle"]! //#PASSDATA description from events
         defaultDescription.textColor = MaterialColor.black
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
     }
     
+    //#ADDDATE VIV add a label for date in upper right corner
+    
     /*
      @name   prepareDefaultParticipants
      */
     public func prepareDefaultParticipants() {
-        defaultParticipants.font = UIFont.systemFontOfSize(12.0)
+        defaultParticipants.font = UIFont(name: "Avenir", size: 14)
         let participants = menumodel.events["Event1"]
-        defaultParticipants.text = participants!["Participants"]!
-        defaultParticipants.textColor = MaterialColor.grey.lighten2
+        defaultParticipants.text = participants!["Participants"]! //#PASSDATA participants from events
+        defaultParticipants.textColor = MaterialColor.grey.darken2
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)
     }
     
+    
     /*
-    @name   layoutDefaultImageView
+    @name   layout labels
     */
-    public func layoutDefaultImageView() {
-        let x = CGFloat(20.0)
-        let y = CGFloat(DefaultOptions.ImageView.Padding.Vertical)
-        let w = CGFloat(contentView.bounds.size.height - (DefaultOptions.ImageView.Padding.Vertical * 2))
-        let h = w
-        defaultImageView.frame = CGRect(x: x, y: y, width: w, height: h)
-       
-        // FIX ME: Make dynamic
-        defaultImageView.layer.cornerRadius = w / 2
-    }
     
     public func layoutDefaultLabel() {
-        let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
+        let x = CGFloat(50.0)
         let y = (contentView.bounds.size.height / 6) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
@@ -134,19 +108,26 @@ public class EventsTableViewCell: UITableViewCell {
     
     
     public func layoutDefaultDescription() {
-        let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
+        let x = CGFloat(50.0)
         let y = (contentView.bounds.size.height / 2) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
     }
+    
 
     public func layoutDefaultParticipants() {
-        let x = CGRectGetMaxX(defaultImageView.frame) + DefaultOptions.Label.Padding.Horizontal
+        let x = CGFloat(50.0)
         let y = (contentView.bounds.size.height / 6 * 5) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
+    }
+
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return 200.0;//VIV SET ROW HEIGHT!!!!
     }
 
 }

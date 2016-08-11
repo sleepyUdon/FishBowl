@@ -26,6 +26,7 @@ class EventsViewController: UIViewController {
     private var profileButton: IconButton!
 
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -50,7 +51,7 @@ class EventsViewController: UIViewController {
         let image: UIImage? = MaterialIcon.cm.menu
         menuButton = IconButton()
         menuButton.pulseColor = MaterialColor.white
-        menuButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+        menuButton.tintColor = Color.accentColor1
         menuButton.setImage(image, forState: .Normal)
         menuButton.setImage(image, forState: .Highlighted)
         menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
@@ -68,8 +69,9 @@ class EventsViewController: UIViewController {
         
         let image = UIImage(named: "menuprofile")
         profileButton = IconButton()
+        profileButton.contentMode = .ScaleAspectFit // VIV MAKES THIS #SCALETOFIT
         profileButton.pulseColor = MaterialColor.white
-        profileButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+        profileButton.tintColor = Color.baseColor1
         profileButton.setImage(image, forState: .Normal)
         profileButton.setImage(image, forState: .Highlighted)
         profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
@@ -94,13 +96,16 @@ class EventsViewController: UIViewController {
     /// Prepares the searchBar
     private func prepareSearchBar() {
     searchBar = SearchBar()
+    searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
     containerView.addSubview(searchBar)
     let image: UIImage? = MaterialIcon.cm.search
     
+        
     // More button.
     let moreButton: IconButton = IconButton()
     moreButton.pulseColor = MaterialColor.grey.base
     moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+    moreButton.titleLabel?.font = UIFont(name: "Avenir", size: CGFloat(15.0))
     moreButton.setImage(image, forState: .Normal)
     moreButton.setImage(image, forState: .Highlighted)
     

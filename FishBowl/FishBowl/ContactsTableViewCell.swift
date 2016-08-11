@@ -1,10 +1,3 @@
-//
-//  EventDetailTableViewCell.swift
-//  FishBowl
-//
-//  Created by Viviane Chan on 2016-08-08.
-//  Copyright © 2016 LightHouse Labs. All rights reserved.
-//
 
 import UIKit
 import Material
@@ -47,7 +40,7 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
-    profileView.image = UIImage(named: "VivianeChan")
+    profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
     profileView.shape = .Circle
     profileView.backgroundColor = UIColor.blackColor()
     profileView.clipsToBounds = true
@@ -59,8 +52,8 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont.systemFontOfSize(12.0)
-        nameLabel.text = "VIVIANE CHAN"
+        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
+        nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
         nameLabel.textColor = MaterialColor.black
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
@@ -71,9 +64,9 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont.systemFontOfSize(12.0)
-        titleLabel.text = "iOS Developer"
-        titleLabel.textColor = MaterialColor.grey.lighten2
+        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.text = "iOS Developer" //#PASSDATA title from participant
+        titleLabel.textColor = MaterialColor.grey.darken2
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }

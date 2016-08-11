@@ -1,10 +1,3 @@
-//
-//  MenuViewController+UITableViewDelegate.swift
-//  Claremont
-//
-//  Created by Adam Dahan on 2015-11-02.
-//  Copyright © 2015 Adam Dahan. All rights reserved.
-//
 
 import UIKit
 import Material
@@ -13,31 +6,32 @@ import MessageUI
 
 extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
 
-    /*
-    @name   required didSelectRowAtIndexPath
-    */
+    // required didSelectRowAtIndexPath
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         prepareLargeCardViewExample()
+        // VIV #DISMISS CARD
+        // VIV #FADE BACKGROUND
 
     }
 
+    
+    
     private func prepareLargeCardViewExample() {
-
         
+            // set container views
+
             let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 400))
             cardView.pulseColor = MaterialColor.blueGrey.base
             cardView.depth = .Depth1
             view.addSubview(cardView)
-            
 
             let topImageView: MaterialView = MaterialView()
             topImageView.contentsGravityPreset = .ResizeAspectFill
             cardView.addSubview(topImageView)
         
             let profileView: MaterialView = MaterialView()
-            profileView.image = UIImage(named: "VivianeChan")
+            profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
             profileView.contentsGravityPreset = .ResizeAspectFill
             profileView.shape = .Circle
             topImageView.addSubview(profileView)
@@ -45,16 +39,19 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             let contentView: MaterialView = MaterialView()
             contentView.backgroundColor = MaterialColor.clear
             cardView.addSubview(contentView)
+        
+        
+            // set labels
             
             let nameLabel: UILabel = UILabel()
-            nameLabel.text = "VIVIANE CHAN"
+            nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
             nameLabel.textAlignment = .Center
             nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
             nameLabel.textColor = MaterialColor.black
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
-            titleLabel.text = "iOSDeveloper"
+            titleLabel.text = "iOSDeveloper" //#PASSDATA title from participant
             titleLabel.textAlignment = .Center
             titleLabel.font = UIFont(name: "Avenir", size: 15)
             titleLabel.textColor = MaterialColor.grey.darken2
@@ -62,7 +59,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             let companyLabel: UILabel = UILabel()
             companyLabel.font = UIFont(name: "Avenir", size: 15)
-            companyLabel.text = "Lighthouse Labs"
+            companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
             companyLabel.textAlignment = .Center
             companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)
@@ -80,7 +77,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             let messageImage: UIImage? = UIImage(named: "message")
             let messageButton: UIButton = UIButton()
             messageButton.tintColor = MaterialColor.blueGrey.darken4
-//            messageButton.backgroundColor = MaterialColor.grey.lighten3
             messageButton.setImage(messageImage, forState: .Normal)
             messageButton.setImage(messageImage, forState: .Highlighted)
             contentView.addSubview(messageButton)
@@ -94,7 +90,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             phoneButton.setImage(phoneImage, forState: .Normal)
             phoneButton.setImage(phoneImage, forState: .Highlighted)
             contentView.addSubview(phoneButton)
-        
+            phoneButton.addTarget(self, action: #selector(handlePhoneButton), forControlEvents: .TouchUpInside)
+
         
             let githubImage: UIImage? = UIImage(named: "github")
             let githubButton: UIButton = UIButton()
@@ -103,7 +100,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             githubButton.setImage(githubImage, forState: .Normal)
             githubButton.setImage(githubImage, forState: .Highlighted)
             contentView.addSubview(githubButton)
-        
+            githubButton.addTarget(self, action: #selector(handleGithubButton), forControlEvents: .TouchUpInside)
+
         
             let linkedinImage: UIImage? = UIImage(named: "linkedin")
             let linkedinButton: UIButton = UIButton()
@@ -112,6 +110,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             linkedinButton.setImage(linkedinImage, forState: .Normal)
             linkedinButton.setImage(linkedinImage, forState: .Highlighted)
             contentView.addSubview(linkedinButton)
+            linkedinButton.addTarget(self, action: #selector(handleLinkedinButton), forControlEvents: .TouchUpInside)
+
+            // layout containers
         
             topImageView.grid.rows = 4
             topImageView.grid.columns = 12
@@ -127,6 +128,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
                 contentView
             ]
 
+        
+            // layout labels
+        
             profileView.grid.rows = 4
             profileView.grid.columns = 6
             profileView.grid.offset.columns = 3
@@ -142,30 +146,29 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             companyLabel.grid.rows = 3
             companyLabel.grid.columns = 12
             companyLabel.grid.offset.rows = 4
-        
 
-            mailButton.grid.rows = 2
-            mailButton.grid.columns = 2
-            mailButton.grid.offset.rows = 8
+            mailButton.grid.rows = 3
+            mailButton.grid.columns = 3
+            mailButton.grid.offset.rows = 7
             mailButton.grid.offset.columns = 2
         
-            messageButton.grid.rows = 2
-            messageButton.grid.columns = 2
-            messageButton.grid.offset.rows = 8
+            messageButton.grid.rows = 3
+            messageButton.grid.columns = 3
+            messageButton.grid.offset.rows = 7
             messageButton.grid.offset.columns = 5
 
-            phoneButton.grid.rows = 2
-            phoneButton.grid.columns = 2
-            phoneButton.grid.offset.rows = 8
+            phoneButton.grid.rows = 3
+            phoneButton.grid.columns = 3
+            phoneButton.grid.offset.rows = 7
             phoneButton.grid.offset.columns = 8
 
-            githubButton.grid.rows = 2
-            githubButton.grid.columns = 2
+            githubButton.grid.rows = 3
+            githubButton.grid.columns = 3
             githubButton.grid.offset.rows = 10
             githubButton.grid.offset.columns = 2
 
-            linkedinButton.grid.rows = 2
-            linkedinButton.grid.columns = 2
+            linkedinButton.grid.rows = 3
+            linkedinButton.grid.columns = 3
             linkedinButton.grid.offset.rows = 10
             linkedinButton.grid.offset.columns = 5
 
@@ -195,7 +198,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         email.mailComposeDelegate = self
         email.setSubject("Hello")
 //        email.setMessageBody("Some example text", isHTML: false)
-        email.setToRecipients(["vivianechan@hotmail.com"]) // the recipient email address
+        email.setToRecipients(["vivianechan@hotmail.com"]) // VIV #PASSDATA email from participant
         if MFMailComposeViewController.canSendMail() {
             presentViewController(email, animated: true, completion: nil)
         }
@@ -211,10 +214,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     func handleMessageButton(){
     let messageVC = MFMessageComposeViewController()
-    messageVC.body = "Message string"
-    messageVC.recipients = [] // Optionally add some tel numbers
+    messageVC.recipients = []  // VIV #PASSDATA phone from participant
     messageVC.messageComposeDelegate = self
-    // Open the SMS View controller
     presentViewController(messageVC, animated: true, completion: nil)
     }
     
@@ -235,7 +236,34 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         }
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
+
+    
+    // handle phone button
+    
+    func handlePhoneButton() {
+        let phone = "tel://6474477768"; //#PASSDATA phone from participant
+        let url:NSURL = NSURL(string:phone)!;
+        UIApplication.sharedApplication().openURL(url);
+    }
+    
+
+
+// handle github button
+
+    func handleGithubButton() {
+    UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sleepyUdon/")!) //#PASSDATA github from participant
 }
+
+
+// handle linkedin button
+
+    func handleLinkedinButton() {
+    UIApplication.sharedApplication().openURL(NSURL(string:"https://www.linkedin.com/in/vivianechan")!) //#PASSDATA linkedin from participant
+}
+
+    
+}
+
 
 
 
