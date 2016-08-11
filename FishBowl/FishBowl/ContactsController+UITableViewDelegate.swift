@@ -21,12 +21,14 @@ extension ContactsViewController: UITableViewDelegate {
 //        navigationController?.pushViewController(destination, animated: true)
 //
 //        // didSelect
-        prepareLargeCardViewExample()
+        prepareLargeCardViewExample(indexPath)
 
     }
 
-    private func prepareLargeCardViewExample() {
-
+    private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
+        
+            let users = ContactsModel().getUsers()
+            let user = users[indexPath.row]
         
             let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 400))
             cardView.pulseColor = MaterialColor.blueGrey.base
@@ -45,7 +47,7 @@ extension ContactsViewController: UITableViewDelegate {
             cardView.addSubview(topImageView)
         
             let profileView: MaterialView = MaterialView()
-            profileView.image = UIImage(named: "VivianeChan")
+            profileView.image = UIImage(data: user.image!)
             profileView.contentsGravityPreset = .ResizeAspectFill
             profileView.shape = .Circle
             topImageView.addSubview(profileView)
@@ -55,14 +57,14 @@ extension ContactsViewController: UITableViewDelegate {
             cardView.addSubview(contentView)
             
             let nameLabel: UILabel = UILabel()
-            nameLabel.text = "VIVIANE CHAN"
+            nameLabel.text = user.name
             nameLabel.textAlignment = .Center
             nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
             nameLabel.textColor = MaterialColor.black
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
-            titleLabel.text = "iOSDeveloper"
+            titleLabel.text = user.title
             titleLabel.textAlignment = .Center
             titleLabel.font = UIFont(name: "Avenir", size: 15)
             titleLabel.textColor = MaterialColor.grey.darken2
@@ -70,7 +72,7 @@ extension ContactsViewController: UITableViewDelegate {
         
             let companyLabel: UILabel = UILabel()
             companyLabel.font = UIFont(name: "Avenir", size: 15)
-            companyLabel.text = "Lighthouse Labs"
+            companyLabel.text = user.company
             companyLabel.textAlignment = .Center
             companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)
@@ -83,7 +85,6 @@ extension ContactsViewController: UITableViewDelegate {
             mailButton.setImage(mailImage, forState: .Normal)
             mailButton.setImage(mailImage, forState: .Highlighted)
             contentView.addSubview(mailButton)
-        
         
             let messageImage: UIImage? = UIImage(named: "message")?.imageWithRenderingMode(.AlwaysTemplate)
             let messageButton: IconButton = IconButton()

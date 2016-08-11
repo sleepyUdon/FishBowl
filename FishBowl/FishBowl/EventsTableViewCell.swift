@@ -30,7 +30,7 @@ public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultDescription: UILabel = UILabel()
     public lazy var defaultParticipants: UILabel = UILabel()
     public lazy var menumodel: MenuModel = MenuModel()
-    var dataManager: DataManager = DataManager()
+//    var dataManager: DataManager = DataManager()
     
     /*
     @name   required initWithCoder
@@ -67,7 +67,7 @@ public class EventsTableViewCell: UITableViewCell {
     /*
     @name   prepareDefaultImageView
     */
-    public func prepareDefaultImageView() {
+    public func prepareDefaultImageView() { // I dont' know what this is for
         defaultImageView.backgroundColor = UIColor.clearColor()
         defaultImageView.clipsToBounds = true
         contentView.addSubview(defaultImageView)
@@ -76,10 +76,9 @@ public class EventsTableViewCell: UITableViewCell {
     /*
     @name   prepareDefaultLabel
     */
-    public func prepareDefaultLabel() {
+    public func prepareDefaultLabel() { // This should be changed to titleLabel
         defaultLabel.font = UIFont.systemFontOfSize(12.0)
-        let eventGroup = menumodel.events["Event1"]
-        defaultLabel.text = eventGroup!["Group"]!
+        defaultLabel.text = ""
         defaultLabel.textColor = MaterialColor.grey.lighten2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
@@ -89,10 +88,9 @@ public class EventsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultDescription
      */
-    public func prepareDefaultDescription() {
+    public func prepareDefaultDescription() { // This should be changed to groupLabel
         defaultDescription.font = UIFont.systemFontOfSize(12.0)
-        let eventTitle = menumodel.events["Event1"]
-        defaultDescription.text = eventTitle!["EventTitle"]!
+        defaultDescription.text = ""
         defaultDescription.textColor = MaterialColor.black
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
@@ -101,10 +99,9 @@ public class EventsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultParticipants
      */
-    public func prepareDefaultParticipants() {
+    public func prepareDefaultParticipants() { // This should be changed to dateLabel
         defaultParticipants.font = UIFont.systemFontOfSize(12.0)
-        let participants = menumodel.events["Event1"]
-        defaultParticipants.text = participants!["Participants"]!
+        defaultParticipants.text = ""
         defaultParticipants.textColor = MaterialColor.grey.lighten2
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)

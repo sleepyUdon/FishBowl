@@ -15,7 +15,7 @@ extension MenuViewController: UITableViewDataSource {
     @name   numberOfSectionsInTableView
     */
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return MenuModel.sectionsCount()
+        return 1
     }
     
     /*
@@ -26,7 +26,9 @@ extension MenuViewController: UITableViewDataSource {
 //        let key = Array(sections.keys)[section]
 //        let section = sections[key] as! [String]
         
-        return 3
+        let rows = MenuModel().getEvents().count
+        
+        return rows
     }
     
     /*
@@ -34,6 +36,19 @@ extension MenuViewController: UITableViewDataSource {
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
+        
+        let events = MenuModel().getEvents()
+        let event = events[indexPath.row]
+        
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        let dateString = formatter.stringFromDate(event.date)
+        
+        cell.defaultLabel.text = event.title            // Change the label names
+        cell.defaultDescription.text = event.group      // together with those in
+        cell.defaultParticipants.text = dateString      // EventsTableViewCell
+        
+        
         return cell
     }
     

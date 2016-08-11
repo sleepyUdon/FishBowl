@@ -37,6 +37,11 @@
 		7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A651D5AB79800716BBD /* ContactsViewController.swift */; };
 		7CDD2A681D5AB9F700716BBD /* ContactsController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */; };
 		7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */; };
+		A70E46D41D5CE55200FB4A5C /* billgates.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A70E46CF1D5CE55200FB4A5C /* billgates.jpeg */; };
+		A70E46D51D5CE55200FB4A5C /* justintrudeau.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A70E46D01D5CE55200FB4A5C /* justintrudeau.jpg */; };
+		A70E46D61D5CE55200FB4A5C /* larrypage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A70E46D11D5CE55200FB4A5C /* larrypage.jpg */; };
+		A70E46D71D5CE55200FB4A5C /* marissamayer.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A70E46D21D5CE55200FB4A5C /* marissamayer.jpeg */; };
+		A70E46D81D5CE55200FB4A5C /* markzuckerberg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A70E46D31D5CE55200FB4A5C /* markzuckerberg.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +91,11 @@
 		7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactsController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishBowl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A70E46CF1D5CE55200FB4A5C /* billgates.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = billgates.jpeg; sourceTree = "<group>"; };
+		A70E46D01D5CE55200FB4A5C /* justintrudeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = justintrudeau.jpg; sourceTree = "<group>"; };
+		A70E46D11D5CE55200FB4A5C /* larrypage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = larrypage.jpg; sourceTree = "<group>"; };
+		A70E46D21D5CE55200FB4A5C /* marissamayer.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = marissamayer.jpeg; sourceTree = "<group>"; };
+		A70E46D31D5CE55200FB4A5C /* markzuckerberg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = markzuckerberg.jpeg; sourceTree = "<group>"; };
 		E35261A031AB838E2C8A18FC /* Pods-FishBowl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +153,11 @@
 				7CDD2A211D590E5500716BBD /* Events TableView */,
 				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
 				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
+				A70E46CF1D5CE55200FB4A5C /* billgates.jpeg */,
+				A70E46D01D5CE55200FB4A5C /* justintrudeau.jpg */,
+				A70E46D11D5CE55200FB4A5C /* larrypage.jpg */,
+				A70E46D21D5CE55200FB4A5C /* marissamayer.jpeg */,
+				A70E46D31D5CE55200FB4A5C /* markzuckerberg.jpeg */,
 			);
 			path = FishBowl;
 			sourceTree = "<group>";
@@ -277,7 +292,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */,
+				A70E46D41D5CE55200FB4A5C /* billgates.jpeg in Resources */,
 				7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */,
+				A70E46D61D5CE55200FB4A5C /* larrypage.jpg in Resources */,
+				A70E46D51D5CE55200FB4A5C /* justintrudeau.jpg in Resources */,
+				A70E46D71D5CE55200FB4A5C /* marissamayer.jpeg in Resources */,
+				A70E46D81D5CE55200FB4A5C /* markzuckerberg.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
