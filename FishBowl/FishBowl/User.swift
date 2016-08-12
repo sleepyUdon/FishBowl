@@ -11,16 +11,17 @@ import Foundation
 class User: NSObject {
     var name: String
     var email: String
-    var image: String
+    var image: NSData
     var phone: NSNumber
     var github: String
     var linkedin: String
     var title: String
+    var company: String
     //    var user: User()
     
     
     
-    init(name: String, email:String,image:String, phone: NSNumber, github:String, linkedin:String, title: String) {
+    init(name: String, email:String,image: NSData, phone: NSNumber, github:String, linkedin:String, title: String, company: String) {
         self.name = name
         self.email = email
         self.image = image
@@ -28,6 +29,7 @@ class User: NSObject {
         self.github = github
         self.linkedin = linkedin
         self.title = title
+        self.company = company
         
     }
 }
