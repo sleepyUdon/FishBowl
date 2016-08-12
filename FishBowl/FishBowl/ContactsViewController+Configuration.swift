@@ -22,7 +22,6 @@ public extension ContactsViewController {
     // layoutTableView
     
         public func layoutTableView() {
-        tableView.frame = view.bounds
-        view.layout(tableView).edges(top: 44, left: 0, right: 0) //#SEARCHBAR - searchbar overlap tableview
+        view.layout(tableView).edges(top: 44, left: 0, right: 0) 
     }
 }

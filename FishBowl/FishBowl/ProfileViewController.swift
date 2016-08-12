@@ -11,17 +11,58 @@ import Material
 
 /// NavigationBar save button.
 private var saveButton: MaterialButton!
+private var scrollView: UIScrollView = UIScrollView()
+var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 
 class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareSaveButton()
-        // #ADD SCROLLVIEW
-        prepareLargeCardViewExample()
+        prepareCardView()
         prepareNavigationItem()
         prepareNavigationBar()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+
     }
+    
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification)
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        var bottomConstraint =
+            NSLayoutConstraint(item: view,
+                               attribute: NSLayoutAttribute.Bottom,
+                               relatedBy: NSLayoutRelation.Equal,
+                               toItem: self.view,
+                               attribute: NSLayoutAttribute.Bottom,
+                               multiplier: 1.0,
+                               constant: 0)
+
+        var userInfo = notification.userInfo!
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
+        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
+        bottomConstraint.constant += changeInHeight //#KEYBOARDDISMISS
+        })
+    }
+    
+
+    
+    
     
     private func prepareSaveButton() {
         saveButton = MaterialButton()
@@ -41,75 +82,80 @@ class ProfileViewController: UIViewController {
     
     // Layout View
     
-    private func prepareLargeCardViewExample() {
+    private func prepareCardView() {
         
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.pulseColor = MaterialColor.white
-        view.addSubview(cardView)
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        scrollView.contentSize = cardView.bounds.size
+        scrollView.addSubview(cardView)
+        view.addSubview(scrollView)
         
         let switchbutton = MaterialSwitch(state: .On, style: .Default, size: .Small)
         switchbutton.trackOnColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         switchbutton.buttonOnColor = MaterialColor.blueGrey.darken4
         switchbutton.buttonOffColor = MaterialColor.blueGrey.darken4
-        view.addSubview(switchbutton)
+        cardView.addSubview(switchbutton)
 
         let shareContact: UILabel = UILabel()
         shareContact.text = "Share Contacts"
         shareContact.font = UIFont(name: "Avenir", size: 14)
         shareContact.textColor = MaterialColor.black
-        view.addSubview(shareContact)
+        cardView.addSubview(shareContact)
 
         // prepare icons
         
         let profileView: MaterialView = MaterialView()
         profileView.image = UIImage(named: "VivianeChan")
         profileView.shape = .Circle
-        view.addSubview(profileView)
+        cardView.addSubview(profileView)
         
         let photoView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
         photoView.image = UIImage(named: "camera")
         photoView.backgroundColor = MaterialColor.white
-        view.addSubview(photoView)
+        cardView.addSubview(photoView)
         
         let nameView: UIImageView = UIImageView()
         nameView.image = UIImage(named: "profile")
         nameView.backgroundColor = MaterialColor.white
-        view.addSubview(nameView)
+        cardView.addSubview(nameView)
         
         let titleView: UIImageView = UIImageView()
         titleView.image = UIImage(named: "profile")
         titleView.backgroundColor = MaterialColor.white
-        view.addSubview(titleView)
+        cardView.addSubview(titleView)
         
         let companyView: UIImageView = UIImageView()
         companyView.image = UIImage(named: "profile")
         companyView.backgroundColor = MaterialColor.white
-        view.addSubview(companyView)
+        cardView.addSubview(companyView)
         
         let emailView: UIImageView = UIImageView()
         emailView.image = UIImage(named: "mail")
         emailView.backgroundColor = MaterialColor.white
-        view.addSubview(emailView)
+        cardView.addSubview(emailView)
 
         let passwordView: UIImageView = UIImageView()
         passwordView.image = UIImage(named: "password")
         passwordView.backgroundColor = MaterialColor.white
-        view.addSubview(passwordView)
+        cardView.addSubview(passwordView)
         
         let phoneView: UIImageView = UIImageView()
         phoneView.image = UIImage(named: "phone")
         phoneView.backgroundColor = MaterialColor.white
-        view.addSubview(phoneView)
+        cardView.addSubview(phoneView)
 
         let githubView: UIImageView = UIImageView()
         githubView.image = UIImage(named: "github")
         githubView.backgroundColor = MaterialColor.white
-        view.addSubview(githubView)
+        cardView.addSubview(githubView)
         
         let linkedinView: UIImageView = UIImageView()
         linkedinView.image = UIImage(named: "linkedin")
         linkedinView.backgroundColor = MaterialColor.white
-        view.addSubview(linkedinView)
+        cardView.addSubview(linkedinView)
         
         
         // prepare labels
@@ -118,55 +164,55 @@ class ProfileViewController: UIViewController {
         photoLabel.text = "Photo"
         photoLabel.font = UIFont(name: "Avenir", size: 14)
         photoLabel.textColor = MaterialColor.black
-        view.addSubview(photoLabel)
+        cardView.addSubview(photoLabel)
 
         let nameLabel: UILabel = UILabel()
         nameLabel.text = "Name"
         nameLabel.font = UIFont(name: "Avenir", size: 14)
         nameLabel.textColor = MaterialColor.black
-        view.addSubview(nameLabel)
+        cardView.addSubview(nameLabel)
 
         let titleLabel: UILabel = UILabel()
         titleLabel.text = "Title"
         titleLabel.font = UIFont(name: "Avenir", size: 14)
         titleLabel.textColor = MaterialColor.black
-        view.addSubview(titleLabel)
+        cardView.addSubview(titleLabel)
         
         let companyLabel: UILabel = UILabel()
         companyLabel.text = "Company"
         companyLabel.font = UIFont(name: "Avenir", size: 14)
         companyLabel.textColor = MaterialColor.black
-        view.addSubview(companyLabel)
+        cardView.addSubview(companyLabel)
         
         let emailLabel: UILabel = UILabel()
         emailLabel.text = "Email"
         emailLabel.font = UIFont(name: "Avenir", size: 14)
         emailLabel.textColor = MaterialColor.black
-        view.addSubview(emailLabel)
+        cardView.addSubview(emailLabel)
         
         let passwordLabel: UILabel = UILabel()
         passwordLabel.text = "Password"
         passwordLabel.font = UIFont(name: "Avenir", size: 14)
         passwordLabel.textColor = MaterialColor.black
-        view.addSubview(passwordLabel)
+        cardView.addSubview(passwordLabel)
         
         let phoneLabel: UILabel = UILabel()
         phoneLabel.text = "Phone"
         phoneLabel.font = UIFont(name: "Avenir", size: 14)
         phoneLabel.textColor = MaterialColor.black
-        view.addSubview(phoneLabel)
+        cardView.addSubview(phoneLabel)
 
         let githubLabel: UILabel = UILabel()
         githubLabel.text = "Github"
         githubLabel.font = UIFont(name: "Avenir", size: 14)
         githubLabel.textColor = MaterialColor.black
-        view.addSubview(githubLabel)
+        cardView.addSubview(githubLabel)
         
         let linkedinLabel: UILabel = UILabel()
         linkedinLabel.text = "linkedIn"
         linkedinLabel.font = UIFont(name: "Avenir", size: 14)
         linkedinLabel.textColor = MaterialColor.black
-        view.addSubview(linkedinLabel)
+        cardView.addSubview(linkedinLabel)
 
         
         // prepare textfields
@@ -175,51 +221,50 @@ class ProfileViewController: UIViewController {
         nameTextfield.placeholder = "Viviane Chan" //#PASSDATA from user
         nameTextfield.font = UIFont(name: "Avenir", size: 14)
         nameTextfield.textColor = MaterialColor.black
-        view.addSubview(nameTextfield)
+        cardView.addSubview(nameTextfield)
 
         let titleTextfield: UITextField = UITextField()
         titleTextfield.placeholder = "iOS Developer" //#PASSDATA from user
         titleTextfield.font = UIFont(name: "Avenir", size: 14)
         titleTextfield.textColor = MaterialColor.black
-        view.addSubview(titleTextfield)
+        cardView.addSubview(titleTextfield)
         
         let companyTextfield: UITextField = UITextField()
         companyTextfield.placeholder = "Lighthouse Labs" //#PASSDATA from user
         companyTextfield.font = UIFont(name: "Avenir", size: 14)
         companyTextfield.textColor = MaterialColor.black
-        view.addSubview(companyTextfield)
+        cardView.addSubview(companyTextfield)
 
         let emailTextfield: UITextField = UITextField()
         emailTextfield.placeholder = "vivianechan@hotmail.com" //#PASSDATA from user
         emailTextfield.font = UIFont(name: "Avenir", size: 14)
         emailTextfield.textColor = MaterialColor.black
-        view.addSubview(emailTextfield)
+        cardView.addSubview(emailTextfield)
 
         let passwordTextfield: UITextField = UITextField()
         passwordTextfield.placeholder = "*****" //#PASSDATA from user
         passwordTextfield.secureTextEntry = true
-
         passwordTextfield.font = UIFont(name: "Avenir", size: 14)
         passwordTextfield.textColor = MaterialColor.black
-        view.addSubview(passwordTextfield)
+        cardView.addSubview(passwordTextfield)
 
         let phoneTextfield: UITextField = UITextField() //VIV #PHONEINPUT
         phoneTextfield.placeholder = "(647)836 5162" //#PASSDATA from user
         phoneTextfield.font = UIFont(name: "Avenir", size: 14)
         emailTextfield.textColor = MaterialColor.black
-        view.addSubview(phoneTextfield)
+        cardView.addSubview(phoneTextfield)
 
         let githubTextfield: UITextField = UITextField()
         githubTextfield.placeholder = "github.com/sleepyUdon" //#PASSDATA from user
         githubTextfield.font = UIFont(name: "Avenir", size: 14)
         githubTextfield.textColor = MaterialColor.black
-        view.addSubview(githubTextfield)
+        cardView.addSubview(githubTextfield)
 
         let linkedinTextfield: UITextField = UITextField()
         linkedinTextfield.placeholder = "https://www.linkedin.com/in/vivianechan" //#PASSDATA from user
         linkedinTextfield.font = UIFont(name: "Avenir", size: 14)
         linkedinTextfield.textColor = MaterialColor.black
-        view.addSubview(linkedinTextfield)
+        cardView.addSubview(linkedinTextfield)
 
         
         // layout elements
@@ -428,7 +473,7 @@ class ProfileViewController: UIViewController {
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
         navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
-        
     }
+    
 
 }
