@@ -27,6 +27,8 @@ public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultDate: UILabel = UILabel()
     public lazy var menumodel: MenuModel = MenuModel()
     
+    var apiVC = ApiController()
+    
     /*
     @name   required initWithCoder
     */
@@ -63,6 +65,7 @@ public class EventsTableViewCell: UITableViewCell {
     @name   prepareDefaultLabel
     */
     public func prepareDefaultLabel() {
+        var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = UIFont(name: "Avenir", size: 14)
         defaultLabel.text = ""
         defaultLabel.textColor = MaterialColor.grey.darken2

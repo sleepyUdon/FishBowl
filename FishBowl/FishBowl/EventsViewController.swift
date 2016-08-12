@@ -8,9 +8,11 @@
 
 import UIKit
 import Material
+import OAuthSwift
 
-class EventsViewController: UIViewController {
+class EventsViewController: UIViewController{
     
+
 
     private var containerView: UIView!
 
@@ -149,9 +151,8 @@ class EventsViewController: UIViewController {
 
     }
     
-    
-    
-    
 }
+
+
 
 

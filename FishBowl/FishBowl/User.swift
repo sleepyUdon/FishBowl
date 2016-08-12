@@ -2,34 +2,30 @@
 //  User.swift
 //  FishBowl
 //
-//  Created by Viviane Chan on 2016-08-09.
-//  Copyright © 2016 LightHouse Labs. All rights reserved.
+//  Created by Yevhen Kim on 2016-08-09.
+//  Copyright © 2016 Yevhen Kim. All rights reserved.
 //
 
 import Foundation
 
 class User: NSObject {
+    var userId: String
     var name: String
-    var email: String
-    var image: NSData
-    var phone: NSNumber
-    var github: String
-    var linkedin: String
-    var title: String
-    var company: String
-    //    var user: User()
+    var bio: String
+    var email: String?
+    var image: NSData?
+    var phone: NSNumber?
+    var github: String?
+    var linkedin: String?
     
     
-    
-    init(name: String, email:String,image: NSData, phone: NSNumber, github:String, linkedin:String, title: String, company: String) {
+    init(userId: String, name: String, bio:String,image:NSData?)
+    {
         self.name = name
-        self.email = email
+        self.userId = userId
         self.image = image
-        self.phone = phone
-        self.github = github
-        self.linkedin = linkedin
-        self.title = title
-        self.company = company
+        self.bio = bio
+
         
     }
 }

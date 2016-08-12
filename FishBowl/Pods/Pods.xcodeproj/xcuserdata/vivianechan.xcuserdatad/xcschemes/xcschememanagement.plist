@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>OAuthSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FishBowl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,12 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9CFFB71A70C720CD2B98720CAEB726B4</key>
+		<key>1D456DE6BE87B39E2E6A6CDCBC91F05E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A51CDDB13534365B74F5381021965188</key>
+		<key>45935B91DF0442390E2CA6DEEF68AE99</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9CFFB71A70C720CD2B98720CAEB726B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

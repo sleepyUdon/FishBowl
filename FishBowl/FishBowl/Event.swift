@@ -10,18 +10,21 @@
 import Foundation
 
 class Event: NSObject {
-    var title: String
-    var location: String
-    var date: NSDate
-    var group: String
-    //    var participants: participants()
+    var eventId: String
+    var title: String?
+    var time: NSNumber
+    var yesRsvpCount: NSInteger
+    var eventStatus: String
+    var eventDescription: String?
     
     
-    init(title: String, location:String,date:NSDate, group: String) {
+    init(eventId:String, title: String, time:NSNumber, yesRsvpCount: NSInteger, eventStatus: String)
+    {
+        self.eventId = eventId
         self.title = title
-        self.location = location
-        self.date = date
-        self.group = group
+        self.time = time
+        self.eventStatus = eventStatus
+        self.yesRsvpCount = yesRsvpCount
         
     }
 }
