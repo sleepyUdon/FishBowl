@@ -15,6 +15,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
     public lazy var addedButton: UIButton = UIButton()
+    public lazy var buttonSelected = false
     
     
     /*
@@ -93,8 +94,20 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     
     func handleAddedButton() {
-        addedButton.setImage(UIImage(named: "okButton"), forState: UIControlState.Highlighted) // VIV FIX #ADDBUTTON
+        if (buttonSelected == false) //BUTTONOFF
+        {
+            addedButton.setImage(UIImage(named: "okButton"),forState:  UIControlState.Normal);
+            buttonSelected = true
+
+        }
+        else
+        {
+            addedButton.setImage(UIImage(named: "AddButton"),forState: UIControlState.Normal);
+            buttonSelected = false
+        }
     }
+//        // #SAVETOCOREDATA
+//    }
 
     /*
      @name   layoutDefaultImageView
@@ -130,8 +143,8 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public func layoutAddedButton() {
         let x = (contentView.bounds.size.width) - (50.0)
         let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(50.0)
-        let h = CGFloat(50.0)
+        let w = CGFloat(25.0)
+        let h = CGFloat(25.0)
         addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     

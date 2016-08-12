@@ -14,10 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if accountAccess == true {
         let eventsViewController = EventsViewController ()
+        let loginViewController = LoginViewController ()
         let contactsViewController = ContactsViewController ()
         let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
         let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
-        let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController)
+            let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController, rightViewController: loginViewController)
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = navigationDrawerController
