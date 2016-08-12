@@ -8,9 +8,12 @@
 
 import Foundation
 import UIKit
+import OAuthSwift
 
 class DataManager: NSObject {
-
+    
+    var api = APIController()
+    
     var userList = [User]()
     var eventList = [Event]()
     
@@ -131,6 +134,8 @@ class DataManager: NSObject {
         
         return eventList
     }
+    
+    
     
     
 }

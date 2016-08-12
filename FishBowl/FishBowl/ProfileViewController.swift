@@ -15,12 +15,15 @@ private var scrollView: UIScrollView = UIScrollView()
 var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 
+
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
     
     var activeField: UITextField?
     let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
     let imagePicker = UIImagePickerController()
 //    imagePicker.delegate = self
+
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
