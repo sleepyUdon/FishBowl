@@ -14,6 +14,8 @@ public class MenuModel: NSObject {
     /*
     @name   required initWithCoder
     */
+    
+    
     var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
 

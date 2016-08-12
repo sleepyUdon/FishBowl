@@ -8,12 +8,20 @@
 
 import UIKit
 import Material
+import OAuthSwift
 
-class LoginViewController: UIViewController {
+class LoginViewController: OAuthViewController {
 
-        
+    var login = ApiController()
+    // oauth swift object (retain)
+    var oauthswift: OAuthSwift?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let controller = WebViewController()
+        controller.view = UIView(frame: UIScreen.mainScreen().bounds) // needed if no nib or not loaded from storyboard
+        //controller.delegate = self
         prepareLargeCardViewExample()
     }
     
@@ -35,53 +43,19 @@ class LoginViewController: UIViewController {
         contentViewbottom.backgroundColor = MaterialColor.clear
         cardView.addSubview(contentViewbottom)
         
-        let loginTitleLabel: UILabel = UILabel()
-        loginTitleLabel.text = "LOGIN"
-        loginTitleLabel.textColor = MaterialColor.blueGrey.darken4
-        loginTitleLabel.backgroundColor = MaterialColor.clear
-        contentViewbottom.addSubview(loginTitleLabel)
-        
-        let smallLoginTitleLabel: UILabel = UILabel()
-        smallLoginTitleLabel.numberOfLines = 0
-        smallLoginTitleLabel.lineBreakMode = .ByTruncatingTail
-        smallLoginTitleLabel.font = UIFont(name: "Avenir", size: 15)
-        smallLoginTitleLabel.text = "LOGIN"
-        smallLoginTitleLabel.textColor = MaterialColor.blueGrey.darken4
-        smallLoginTitleLabel.backgroundColor = MaterialColor.clear
-        contentViewbottom.addSubview(smallLoginTitleLabel)
-        
-        let loginButton: UIButton = UIButton()
-        loginButton.setTitle("LOGIN", forState:UIControlState.Normal)
-        loginButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: UIControlState.Normal)
-        loginButton.setTitleColor(UIColor.brownColor(), forState: UIControlState.Highlighted)
-        loginButton.titleLabel?.font = UIFont(name: "Avenir", size: 15)
-        contentViewbottom.addSubview(loginButton)
-        loginButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
 
-        let registerLabel: UILabel = UILabel()
-        registerLabel.font = UIFont(name: "Avenir", size: 15)
-        registerLabel.text = "SIGN UP WITH MEETUP"
-        registerLabel.textColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
-        registerLabel.backgroundColor = MaterialColor.clear
-        contentViewbottom.addSubview(registerLabel)
         
-        let usernameTextField: UITextField = UITextField()
-        usernameTextField.font = UIFont(name: "Avenir", size: 15)
-        usernameTextField.placeholder = "username"
-        usernameTextField.textAlignment = NSTextAlignment.Center
-        usernameTextField.textColor = MaterialColor.black
-        usernameTextField.tintColor = MaterialColor.white
-        usernameTextField.backgroundColor = UIColor(red: 200/255, green: 215/255, blue: 212/255, alpha: 100)
-        contentViewbottom.addSubview(usernameTextField)
+        
+        let loginWithMeetupButton: UIButton = UIButton()
+        loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", forState: UIControlState.Normal)
+        loginWithMeetupButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: UIControlState.Normal)
+        loginWithMeetupButton.setTitleColor(UIColor.brownColor(), forState: UIControlState.Highlighted)
+        loginWithMeetupButton.titleLabel?.font = UIFont(name: "Avenir", size: 15)
+        contentViewbottom.addSubview(loginWithMeetupButton)
+        loginWithMeetupButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
+        
+        
 
-        let passwordTextField: UITextField = UITextField()
-        passwordTextField.font = UIFont(name: "Avenir", size: 15)
-        passwordTextField.placeholder = "*******"
-        passwordTextField.textAlignment = NSTextAlignment.Center
-        passwordTextField.textColor = MaterialColor.black
-        passwordTextField.tintColor = MaterialColor.white
-        passwordTextField.backgroundColor = UIColor(red: 200/255, green: 215/255, blue: 212/255, alpha: 100)
-        contentViewbottom.addSubview(passwordTextField)
 
         contentViewTop.grid.rows = 6
         contentViewTop.grid.columns = 12
@@ -97,42 +71,19 @@ class LoginViewController: UIViewController {
             contentViewbottom
         ]
         
-        loginTitleLabel.grid.rows = 2
-        loginTitleLabel.grid.columns = 8
         
-        smallLoginTitleLabel.grid.rows = 1
-        smallLoginTitleLabel.grid.columns = 5
-        smallLoginTitleLabel.grid.offset.rows = 3
+        loginWithMeetupButton.grid.rows = 2
+        loginWithMeetupButton.grid.columns = 8
+        loginWithMeetupButton.grid.offset.rows = 10
         
-        registerLabel.grid.rows = 2
-        registerLabel.grid.columns = 8
-        registerLabel.grid.offset.rows = 10
-        
-        usernameTextField.grid.rows = 1
-        usernameTextField.grid.columns = 7
-        usernameTextField.grid.offset.rows = 3
-        usernameTextField.grid.offset.columns = 4
-
-        passwordTextField.grid.rows = 1
-        passwordTextField.grid.columns = 7
-        passwordTextField.grid.offset.rows = 5
-        passwordTextField.grid.offset.columns = 4
-
-        loginButton.grid.rows = 1
-        loginButton.grid.columns = 4
-        loginButton.grid.offset.rows = 7
-        loginButton.grid.offset.columns = 7
-
+       
         contentViewbottom.grid.spacing = 2
         contentViewbottom.grid.axis.direction = .None
         contentViewbottom.grid.contentInsetPreset = .Square3
         contentViewbottom.grid.views = [
-            loginTitleLabel,
-            registerLabel,
-            smallLoginTitleLabel,
-            usernameTextField,
-            passwordTextField,
-            loginButton
+
+            loginWithMeetupButton,
+
         ]
     }
     
@@ -140,13 +91,45 @@ class LoginViewController: UIViewController {
     // handle login button
     
     internal func handleLoginButton() {
-        let eventsViewController = EventsViewController()
-        let navc: NavigationController = NavigationController(rootViewController: eventsViewController)
-        navc.modalTransitionStyle = .CrossDissolve
-        presentViewController(navc, animated: true, completion: nil)
+        
+        self.presentViewController(login, animated: true) { 
+            self.login.doAuthMeetup()
+        }
+//        login.doAuthMeetup()
+
     }
+    
+    
 
 }
+
+//extension LoginViewController: OAuthWebViewControllerDelegate {
+//    
+//    func oauthWebViewControllerDidPresent() {
+//        
+//    }
+//    func oauthWebViewControllerDidDismiss() {
+//        
+//    }
+//    
+//    func oauthWebViewControllerWillAppear() {
+//        
+//    }
+//    func oauthWebViewControllerDidAppear() {
+//        
+//    }
+//    func oauthWebViewControllerWillDisappear() {
+//        //        let eventsViewController = EventsViewController()
+//        //        let navc: NavigationController = NavigationController(rootViewController: eventsViewController)
+//        //        navc.modalTransitionStyle = .CrossDissolve
+//        //        presentViewController(navc, animated: true, completion: nil)
+//        
+//    }
+//    func oauthWebViewControllerDidDisappear() {
+//        // Ensure all listeners are removed if presented web view close
+//        oauthswift?.cancel()
+//    }
+//}
 
 
 

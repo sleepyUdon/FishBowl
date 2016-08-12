@@ -1,12 +1,18 @@
 PODS:
+  - Graph (1.2.3)
   - Material (1.42.7)
+  - OAuthSwift (0.5.2)
 
 DEPENDENCIES:
+  - Graph
   - Material
+  - OAuthSwift (~> 0.5.0)
 
 SPEC CHECKSUMS:
+  Graph: c608a244d41299ad64af4e698764dbd60d50038b
   Material: 2d46a44719b1f19e52956518af8aea54ac714963
+  OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
 
-PODFILE CHECKSUM: 80162477cbf8e08de3f94189c9e4a3099536fbb8
+PODFILE CHECKSUM: 901d1c9804fbccfbcf3d3e980d11edff15c87d0a
 
 COCOAPODS: 1.0.1
