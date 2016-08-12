@@ -22,6 +22,7 @@ class ApiController: UIViewController {
     var userIds = [String]()
     var memberIds = [String]()
     var events = NSMutableArray()
+    var members = NSMutableArray()
     
     var userImageData: NSData?
     var memberImageData: NSData?
@@ -103,11 +104,11 @@ class ApiController: UIViewController {
                                             let url: NSURL = NSURL(string: photoLink as String)!
                                             self.userImageData = NSData(contentsOfURL: url)!
                                             
-                                        }
+                                        } else { self.userImageData = nil }
                                         //safe the user id in an array
                                         self.userIds.append(userId)
                                         //create a user object
-                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData!)
+                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData)
                                         //check if the user id is NOT in the array of Ids
                                         if !self.userIds.contains(userId) {
                                             
@@ -130,7 +131,7 @@ class ApiController: UIViewController {
     }
     
     //get all events under signed in user
-    func getEvents() {
+    func getEvents(handler:(eventsArray:NSArray)->()) {
         //print(self.user.userId)
         oauthswift.client.get("https://api.meetup.com/2/events?&sign=true&photo-host=public&fields=self&member_id=\(self.user.userId)&page=20",
                               success: {
@@ -161,10 +162,11 @@ class ApiController: UIViewController {
                                             //print(self.eventItem.eventId)
                                             //print(self.eventItem.eventName)
                                             //call getRSVPs
-                                            self.getRSVPs()
+                                            //self.getRSVPs()
                                             
                                         }
                                     }
+                                    handler(eventsArray: self.events)
                                     
                                 }
                                 catch let error as NSError{
@@ -180,7 +182,7 @@ class ApiController: UIViewController {
     
     
     //get RSVPs
-    func getRSVPs() {
+    func getRSVPs(handler:(membersArray:NSArray?)->()) {
         oauthswift.client.get("https://api.meetup.com/2/rsvps?&sign=true&photo-host=public&event_id=\(self.eventItem.eventId)&page=500",
                               success: {
                                 data, response in
@@ -210,12 +212,15 @@ class ApiController: UIViewController {
                                                 
                                                 //create member object
                                                 self.member = Member.init(memberId: memberId, memberName: memberName, memberImage: self.memberImageData!)
+                                                self.members.addObject(self.member)
+                                                
                                                 //self.getMembersInEvents()
                                                 
                                             }
                                             
                                         }
                                     }
+                                    handler(membersArray: self.members)
                                 }
                                 catch {
                                     print(error)
