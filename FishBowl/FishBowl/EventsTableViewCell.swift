@@ -65,7 +65,7 @@ public class EventsTableViewCell: UITableViewCell {
     @name   prepareDefaultLabel
     */
     public func prepareDefaultLabel() {
-        var eventObj = self.apiVC.events.firstObject
+//        var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = UIFont(name: "Avenir", size: 14)
         defaultLabel.text = ""
         defaultLabel.textColor = MaterialColor.grey.darken2

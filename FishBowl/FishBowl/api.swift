@@ -104,11 +104,11 @@ class ApiController: UIViewController {
                                             let url: NSURL = NSURL(string: photoLink as String)!
                                             self.userImageData = NSData(contentsOfURL: url)!
                                             
-                                        }
+                                        } else { self.userImageData = nil }
                                         //safe the user id in an array
                                         self.userIds.append(userId)
                                         //create a user object
-                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData!)
+                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData)
                                         //check if the user id is NOT in the array of Ids
                                         if !self.userIds.contains(userId) {
                                             

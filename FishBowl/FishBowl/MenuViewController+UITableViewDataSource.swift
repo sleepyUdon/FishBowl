@@ -34,14 +34,14 @@ extension MenuViewController: UITableViewDataSource {
         let events = MenuModel().getEvents()
         let event = events[indexPath.row]
         
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+//        let formatter = NSDateFormatter()
+//        formatter.dateStyle = NSDateFormatterStyle.LongStyle
         //let dateString = formatter.stringFromDate(event.time)
         
-        //cell.defaultLabel.text = event.bio            // Change the label names
-        //cell.defaultDescription.text = event.group      // together with those in
-        //cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
-        //cell.defaultDate.text = dateString
+        cell.defaultLabel.text = event.title           // Change the label names
+        cell.defaultDescription.text = event.time.stringValue      // together with those in
+        cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
+        cell.defaultDate.text = ""
         
         return cell
     }

@@ -13,12 +13,13 @@ class Event: NSObject {
     var eventId: String
     var title: String?
     var time: NSNumber
-    var yesRsvpCount: NSInteger
+//    var yesRsvpCount: NSInteger
+    var yesRsvpCount: NSNumber
     var eventStatus: String
-    var eventDescription: String?
+//    var eventDescription: String?
     
-    
-    init(eventId:String, title: String, time:NSNumber, yesRsvpCount: NSInteger, eventStatus: String)
+    init(eventId:String, title: String, time:NSNumber, yesRsvpCount: NSNumber, eventStatus: String)
+//    init(eventId:String, title: String, time:NSNumber, yesRsvpCount: NSInteger, eventStatus: String)
     {
         self.eventId = eventId
         self.title = title
