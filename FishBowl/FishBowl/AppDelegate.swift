@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 
-        if accountAccess == false {
+        if accountAccess == true {
         let eventsViewController = EventsViewController ()
         let contactsViewController = ContactsViewController ()
         let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)

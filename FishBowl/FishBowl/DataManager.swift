@@ -10,50 +10,44 @@ import Foundation
 import UIKit
 
 class DataManager: NSObject {
-
-    var userList = [User]()
-    var eventList = [Event]()
     
     func createUserDummyData() -> [User] {
+        
+        var userList = [User]()
         
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
             "phone": 6139924211,
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
-            "title":"Prime Minister",
-            "company":"Canada",
+            "title":"Prime Minister, Canada",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
             "phone":2067093100,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor",
-            "company":"Microsoft",
+            "title":"Technology Advisor, Microsoft",
             "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
             ["name":"Larry Page",
             "email":"larry@google.com",
             "phone":6502141722,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO",
-            "company":"Alphabet Inc.",
+            "title":"CEO, Alphabet Inc",
             "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
             "phone":16505434800,
             "github":"",
             "linkedin":"",
-            "title":"Chairman and CEO",
-            "company":"Facebook",
+            "title":"Chairman and CEO, Facebook",
             "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
             ["name":"Marissa Mayer",
             "email":"marissa.mayer@yahoo-inc.com",
             "phone":4083493300,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/marissamayer",
-            "title":"CEO",
-            "company":"Yahoo!",
+            "title":"CEO, Yahoo!",
             "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
         
         for user in users {
@@ -65,15 +59,31 @@ class DataManager: NSObject {
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
             let image = user["image"] as? NSData
-            let company = user["company"] as! String
             
+//            var userId: String
+//            var name: String
+//            var bio: String
+//            var email: String?
+//            var image: NSData?
+//            var phone: NSNumber?
+//            var github: String?
+//            var linkedin: String?
             
             
             //            let someUser:User = User(name: user["name"], email: user["email"], image: nil, phone: user["phone"], github: user["github"], linkedin: user["linkedin"], title: user["title"])
             
-            //let someUser = Member.init(memberId: <#T##String#>, memberName: <#T##String#>, memberImage: <#T##NSData#>)
+               //let someUser = Member.init(memberId: <#T##String#>, memberName: <#T##String#>, memberImage: <#T##NSData#>)
             
-            //self.userList.append(someUser)
+            let someUser = User(userId: "", name: "", bio: "", image: nil)
+            someUser.name = name
+            someUser.bio = title
+            someUser.email = email
+            someUser.phone = phone
+            someUser.image = image
+            someUser.linkedin = linkedin
+            someUser.github = github
+            
+            userList.append(someUser)
             
         }
         
@@ -82,50 +92,57 @@ class DataManager: NSObject {
 
     func createEventDummyData() -> [Event]{
         
+        var eventList = [Event]()
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let events = [["Group":"DevHub",
                         "EventTitle":"NSCoder Night Toronto",
-                        "EventLocation":"",
-                        "Date":"2016-08-30"],
+                        "EventRsvp":3,
+                        "Date":"2018-08-30"],
                       ["Group":"Mobile Growth Toronto",
                         "EventTitle":"Mobile Growth Toronto - December Meetup",
-                        "EventLocation":"",
-                        "Date":"2016-12-01"],
+                        "EventRsvp":5,
+                        "Date":"2018-12-01"],
                       ["Group":"Lighthouse Labs",
                         "EventTitle":"Hack & Tell: Round 9",
-                        "EventLocation":"",
-                        "Date":"2016-10-11"],
+                        "EventRsvp":2,
+                        "Date":"2018-10-11"],
                       ["Group":"Singles in Toronto!",
                         "EventTitle":"20 Questions 'The Fun Version' (Ages 25-39) - Meet with Singles & See who you like!",
-                        "EventLocation":"",
-                        "Date":"2016-08-13"],
+                        "EventRsvp":2,
+                        "Date":"2018-08-13"],
                       ["Group":"The Toronto Area Gamers (TAG)",
                         "EventTitle":"Fan Expo Canada 2016",
-                        "EventLocation":"",
-                        "Date":"2016-09-01"],
+                        "EventRsvp":1,
+                        "Date":"2018-09-01"],
                       ["Group":"Adult ART Attack",
                         "EventTitle":"Adult ART Attack - Painting with a twist!",
-                        "EventLocation":"",
-                        "Date":"2016-09-02"],
+                        "EventRsvp":2,
+                        "Date":"2018-09-02"],
                       ["Group":"Saturday Night For Singles",
                         "EventTitle":"The Thursday Night Pool, Party & Patio Bash! *Free Night of Dancing*",
-                        "EventLocation":"",
-                        "Date":"2016-08-25"],
+                        "EventRsvp":2,
+                        "Date":"2018-08-25"],
                       ["Group":"Toronto Short Trippers",
                         "EventTitle":"Beautiful Bruce Peninsula & Flowerpot Island (Day Trip from Toronto)",
-                        "EventLocation":"",
-                        "Date":"2016-08-27"]]
+                        "EventRsvp":1,
+                        "Date":"2018-08-27"]]
         
         
         for event in events {
             
-            //let date = dateFormatter.dateFromString(event["Date"]!)
+//            let date = dateFormatter.dateFromString(event["Date"]!)
+            
+            let someEvent = Event(eventId: "", title: "", time: 0, yesRsvpCount: 0, eventStatus: "")
+            
+                someEvent.title = event["EventTitle"] as? String
+                someEvent.yesRsvpCount = event["EventRsvp"] as! NSInteger
             
             //let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
             
-           // eventList.append(someEvent)
+            eventList.append(someEvent)
             
         }
         
