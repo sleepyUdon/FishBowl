@@ -1,5 +1,5 @@
 //
-//  AuthController.swift
+//  APIController.swift
 //  FishBowl
 //
 //  Created by Yevhen Kim on 2016-08-12.
