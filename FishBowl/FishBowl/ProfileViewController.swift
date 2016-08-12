@@ -15,12 +15,14 @@ private var scrollView: UIScrollView = UIScrollView()
 var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 
-class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var activeField: UITextField?
     let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
-    let imagePicker = UIImagePickerController()
-//    imagePicker.delegate = self
+    let picker = UIImagePickerController()
+    
+    var phoneTextfield: UITextField = UITextField()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func textFieldDidBeginEditing(textField: UITextField) {
         self.activeField = textField
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 
 
     func keyboardOnScreen(notification: NSNotification){
@@ -89,7 +97,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     private func prepareCardView() {
         
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        cardView.pulseColor = MaterialColor.white
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
         scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
@@ -253,6 +260,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         emailTextfield.textColor = MaterialColor.black
         cardView.addSubview(phoneTextfield)
         phoneTextfield.delegate = self
+        phoneTextfield.keyboardType = UIKeyboardType.NumberPad
+        phoneTextfield.tag = 22
+
 
         let githubTextfield: UITextField = UITextField()
         githubTextfield.placeholder = "github.com/sleepyUdon" //#PASSDATA from user
@@ -466,21 +476,20 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     
     func handleCameraButton(){
-        let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .Camera
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.sourceType = .Camera
         
-        presentViewController(imagePicker, animated: true, completion: nil)
+        presentViewController(picker, animated: true, completion: nil)
     }
     
-    
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileView.contentMode = .ScaleAspectFit
-            profileView.image = pickedImage
-        }
-        
-        dismissViewControllerAnimated(true, completion: nil)
+    let pickedImage: UIImage = (info as NSDictionary).objectForKey(UIImagePickerControllerOriginalImage) as! UIImage
+        profileView.contentMode = .ScaleAspectFit
+        profileView.image = pickedImage
+        picker.dismissViewControllerAnimated(true, completion: nil) //#PICTURE
     }
 
     
@@ -488,5 +497,57 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    // Format phone number 
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        if (textField.tag == 22)
+        {
+            let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            let components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+            
+            let decimalString = components.joinWithSeparator("") as NSString
+            let length = decimalString.length
+            let hasLeadingOne = length > 0 && decimalString.characterAtIndex(0) == (1 as unichar)
+            
+            if length == 0 || (length > 10 && !hasLeadingOne) || length > 11
+            {
+                let newLength = (textField.text! as NSString).length + (string as NSString).length - range.length as Int
+                return (newLength > 10) ? false : true
+            }
+            var index = 0 as Int
+            let formattedString = NSMutableString()
+            
+            if hasLeadingOne
+            {
+                formattedString.appendString("1 ")
+                index += 1
+            }
+            if (length - index) > 3
+            {
+                let areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
+                formattedString.appendFormat("(%@)", areaCode)
+                index += 3
+            }
+            if length - index > 3
+            {
+                let prefix = decimalString.substringWithRange(NSMakeRange(index, 3))
+                formattedString.appendFormat("%@-", prefix)
+                index += 3
+            }
+            
+            let remainder = decimalString.substringFromIndex(index)
+            formattedString.appendString(remainder)
+            textField.text = formattedString as String
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
 
+    
+    
 }
