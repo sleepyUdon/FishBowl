@@ -23,9 +23,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     var phoneTextfield: UITextField = UITextField()
 
-
-class ProfileViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareSaveButton()
