@@ -24,6 +24,7 @@ public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultLabel: UILabel = UILabel()
     public lazy var defaultDescription: UILabel = UILabel()
     public lazy var defaultParticipants: UILabel = UILabel()
+    public lazy var defaultDate: UILabel = UILabel()
     public lazy var menumodel: MenuModel = MenuModel()
     
     var apiVC = ApiController()
@@ -43,6 +44,8 @@ public class EventsTableViewCell: UITableViewCell {
         prepareDefaultLabel()
         prepareDefaultDescription()
         prepareDefaultParticipants()
+        prepareDefaultDate()
+
     }
     
     /*
@@ -53,6 +56,8 @@ public class EventsTableViewCell: UITableViewCell {
         layoutDefaultLabel()
         layoutDefaultDescription()
         layoutDefaultParticipants()
+        layoutDefaultDate()
+
     }
     
     
@@ -62,8 +67,7 @@ public class EventsTableViewCell: UITableViewCell {
     public func prepareDefaultLabel() {
         var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = UIFont(name: "Avenir", size: 14)
-        let eventGroup = menumodel.events["Event1"] //#PASSDATA group from events
-        defaultLabel.text = eventGroup!["Group"]!
+        defaultLabel.text = ""
         defaultLabel.textColor = MaterialColor.grey.darken2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
@@ -75,8 +79,7 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultDescription() {
         defaultDescription.font = UIFont(name: "Avenir-Heavy", size: 14)
-        let eventTitle = menumodel.events["Event1"]
-        defaultDescription.text = eventTitle!["EventTitle"]! //#PASSDATA description from events
+        defaultDescription.text = ""
         defaultDescription.textColor = MaterialColor.black
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
@@ -89,8 +92,7 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultParticipants() {
         defaultParticipants.font = UIFont(name: "Avenir", size: 14)
-        let participants = menumodel.events["Event1"]
-        defaultParticipants.text = participants!["Participants"]! //#PASSDATA participants from events
+        defaultParticipants.text = ""
         defaultParticipants.textColor = MaterialColor.grey.darken2
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)
@@ -98,12 +100,24 @@ public class EventsTableViewCell: UITableViewCell {
     
     
     /*
+     @name   prepareDefaultDate
+     */
+
+    public func prepareDefaultDate() {
+        defaultDate.font = UIFont(name: "Avenir", size: 14)
+        defaultDate.text = ""
+        defaultDate.textColor = MaterialColor.grey.darken2
+        defaultDate.textAlignment = .Left
+        addSubview(defaultDate)
+    }
+    
+    /*
     @name   layout labels
     */
     
     public func layoutDefaultLabel() {
         let x = CGFloat(50.0)
-        let y = (contentView.bounds.size.height / 6) - (15.0)
+        let y = (contentView.bounds.size.height / 8) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultLabel.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -112,7 +126,7 @@ public class EventsTableViewCell: UITableViewCell {
     
     public func layoutDefaultDescription() {
         let x = CGFloat(50.0)
-        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let y = (contentView.bounds.size.height / 8 * 3) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -121,16 +135,21 @@ public class EventsTableViewCell: UITableViewCell {
 
     public func layoutDefaultParticipants() {
         let x = CGFloat(50.0)
-        let y = (contentView.bounds.size.height / 6 * 5) - (15.0)
+        let y = (contentView.bounds.size.height / 8 * 5) - (15.0)
         let w = CGFloat(200.0)
         let h = CGFloat(30.0)
         defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
     }
 
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
-        return 200.0;//VIV SET ROW HEIGHT!!!!
+    public func layoutDefaultDate() {
+        let x = CGFloat(50.0)
+        let y = (contentView.bounds.size.height / 8 * 7) - (15.0)
+        let w = CGFloat(200.0)
+        let h = CGFloat(30.0)
+        defaultDate.frame = CGRect(x: x, y: y, width: w, height: h)
     }
+    
+ 
 
 }

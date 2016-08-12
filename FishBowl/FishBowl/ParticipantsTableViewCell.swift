@@ -86,11 +86,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareAddedButton() {
-        addedButton.enabled = false
         addedButton.setImage(UIImage(named: "AddButton"), forState: UIControlState.Normal)
         addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
         addSubview(addedButton)
-        
     }
     
     
@@ -130,10 +128,10 @@ public class ParticipantsTableViewCell: UITableViewCell {
     }
     
     public func layoutAddedButton() {
-        let x = CGRectGetMaxX(titleLabel.frame) + DefaultOptions.Label.Padding.Horizontal
+        let x = (contentView.bounds.size.width) - (50.0)
         let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(20.0)
-        let h = CGFloat(20.0)
+        let w = CGFloat(50.0)
+        let h = CGFloat(50.0)
         addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     

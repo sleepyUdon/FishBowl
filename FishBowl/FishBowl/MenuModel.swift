@@ -19,7 +19,12 @@ public class MenuModel: NSObject {
     var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
 
+    func getEvents() -> Array<Event> {
+        
+        let events = DataManager().createEventDummyData()
+        
+        return events
+        
+    }
     
-
-
 }

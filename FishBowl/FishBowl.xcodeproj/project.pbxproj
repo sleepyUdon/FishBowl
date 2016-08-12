@@ -98,6 +98,11 @@
 		7CDD2A671D5AB9F600716BBD /* ContactsController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactsController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		7CDD2A6C1D5ABCCC00716BBD /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FishBowl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A77B34721D5D552B0085AB14 /* billgates.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = billgates.jpeg; sourceTree = "<group>"; };
+		A77B34731D5D552B0085AB14 /* justintrudeau.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = justintrudeau.jpg; sourceTree = "<group>"; };
+		A77B34741D5D552B0085AB14 /* larrypage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = larrypage.jpg; sourceTree = "<group>"; };
+		A77B34751D5D552B0085AB14 /* marissamayer.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = marissamayer.jpeg; sourceTree = "<group>"; };
+		A77B34761D5D552B0085AB14 /* markzuckerberg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = markzuckerberg.jpeg; sourceTree = "<group>"; };
 		E35261A031AB838E2C8A18FC /* Pods-FishBowl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -295,7 +300,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */,
+				A77B34771D5D552B0085AB14 /* billgates.jpeg in Resources */,
 				7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */,
+				A77B34791D5D552B0085AB14 /* larrypage.jpg in Resources */,
+				A77B34781D5D552B0085AB14 /* justintrudeau.jpg in Resources */,
+				A77B347A1D5D552B0085AB14 /* marissamayer.jpeg in Resources */,
+				A77B347B1D5D552B0085AB14 /* markzuckerberg.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

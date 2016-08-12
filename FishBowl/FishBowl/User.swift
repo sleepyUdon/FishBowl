@@ -25,6 +25,7 @@ class User: NSObject {
         self.userId = userId
         self.image = image
         self.bio = bio
+
         
     }
 }
