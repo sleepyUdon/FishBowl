@@ -13,15 +13,15 @@ class Event: NSObject {
     var title: String
     var location: String
     var date: NSDate
-    var eventDescription: String
+    var group: String
     //    var participants: participants()
     
     
-    init(title: String, location:String,date:NSDate, eventDescription: String) {
+    init(title: String, location:String,date:NSDate, group: String) {
         self.title = title
         self.location = location
         self.date = date
-        self.eventDescription = eventDescription
+        self.group = group
         
     }
 }

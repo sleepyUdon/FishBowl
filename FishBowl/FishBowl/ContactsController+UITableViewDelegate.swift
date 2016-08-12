@@ -9,7 +9,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // required didSelectRowAtIndexPath
 
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        prepareLargeCardViewExample()
+        
+        prepareLargeCardViewExample(indexPath)
         
         
 //        var cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactsTableViewCell
@@ -44,7 +45,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
 
     
     
-    private func prepareLargeCardViewExample() {
+    private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
+        
+            let users = ContactsModel().getUsers()
+            let user = users[indexPath.row]
         
             // set container views
 
@@ -61,7 +65,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             cardView.addSubview(contentView)
         
             let profileView: UIImageView = UIImageView()
-            profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
+            profileView.image = UIImage(data: user.image) //#PASSDATA image from participant
 //            profileView.contentsGravityPreset = .ResizeAspectFill
 //            profileView.shape = .Circle
             profileView.contentMode = .ScaleAspectFill
@@ -79,14 +83,14 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             // set labels
             
             let nameLabel: UILabel = UILabel()
-            nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
+            nameLabel.text = user.name //#PASSDATA name from participant
             nameLabel.textAlignment = .Center
             nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
             nameLabel.textColor = MaterialColor.black
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
-            titleLabel.text = "iOSDeveloper" //#PASSDATA title from participant
+            titleLabel.text = user.title //#PASSDATA title from participant
             titleLabel.textAlignment = .Center
             titleLabel.font = UIFont(name: "Avenir", size: 15)
             titleLabel.textColor = MaterialColor.grey.darken2
@@ -94,7 +98,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             let companyLabel: UILabel = UILabel()
             companyLabel.font = UIFont(name: "Avenir", size: 15)
-            companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
+            companyLabel.text = user.company//#PASSDATA company from participant
             companyLabel.textAlignment = .Center
             companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)
