@@ -12,6 +12,11 @@ import OAuthSwift
 
 class DataManager: NSObject {
     
+    //var api = APIController()
+    
+    var userList = [User]()
+    var eventList = [Event]()
+    
     func createUserDummyData() -> [User] {
         
         var userList = [User]()

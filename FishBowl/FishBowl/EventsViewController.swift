@@ -12,7 +12,7 @@ import OAuthSwift
 
 class EventsViewController: UIViewController{
     
-
+    internal var api = ApiController()
 
     private var containerView: UIView!
 

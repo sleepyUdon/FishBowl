@@ -18,12 +18,13 @@ var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
     
+    var api = ApiController()
+
+    
     var activeField: UITextField?
     let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
     let imagePicker = UIImagePickerController()
 //    imagePicker.delegate = self
-
-class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,14 +222,14 @@ class ProfileViewController: UIViewController {
         // prepare textfields
         
         let nameTextfield: UITextField = UITextField()
-        nameTextfield.placeholder = "Viviane Chan" //#PASSDATA from user
+        nameTextfield.placeholder = self.api.user.name //#PASSDATA from user
         nameTextfield.font = UIFont(name: "Avenir", size: 14)
         nameTextfield.textColor = MaterialColor.black
         cardView.addSubview(nameTextfield)
         nameTextfield.delegate = self
 
         let titleTextfield: UITextField = UITextField()
-        titleTextfield.placeholder = "iOS Developer" //#PASSDATA from user
+        titleTextfield.placeholder = self.api.user.bio //#PASSDATA from user
         titleTextfield.font = UIFont(name: "Avenir", size: 14)
         titleTextfield.textColor = MaterialColor.black
         cardView.addSubview(titleTextfield)
