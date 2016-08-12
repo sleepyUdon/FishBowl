@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Graph.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Material-io.cosmicmind.material.fonts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,7 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>39266C7C7ED287FA22892CDD48B262BF</key>
+		<key>9CFFB71A70C720CD2B98720CAEB726B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A51CDDB13534365B74F5381021965188</key>
 		<dict>
 			<key>primary</key>
 			<true/>

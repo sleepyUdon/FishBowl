@@ -23,9 +23,8 @@ public class ContactsViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
-        //        prepareContainerView()
         prepareTableView()
-        prepareSearchBar() //#SEARCHBAR VIV search bar not showing
+        prepareSearchBar()
         
     }
     

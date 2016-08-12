@@ -15,52 +15,56 @@ private var scrollView: UIScrollView = UIScrollView()
 var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
+    
+    var activeField: UITextField?
+    let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
+    let imagePicker = UIImagePickerController()
+//    imagePicker.delegate = self
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareSaveButton()
         prepareCardView()
         prepareNavigationItem()
         prepareNavigationBar()
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOnScreen), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOffScreen), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.activeField = textField
+    }
+
+
+    func keyboardOnScreen(notification: NSNotification){
+        let info: NSDictionary  = notification.userInfo!
+        let kbSize = info.valueForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue().size
+        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, kbSize!.height, 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        var aRect: CGRect = self.view.frame
+        aRect.size.height -= kbSize!.height
+        //you may not need to scroll, see if the active field is already visible
+        if (!CGRectContainsPoint(aRect, activeField!.frame.origin) ) {
+            let scrollPoint:CGPoint = CGPointMake(0.0, activeField!.frame.origin.y - kbSize!.height)
+            scrollView.setContentOffset(scrollPoint, animated: true)
+        }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProfileViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
-
     }
     
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(true, notification: notification)
-    }
     
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(false, notification: notification)
+    func keyboardOffScreen(notification: NSNotification){
+        let contentInsets:UIEdgeInsets = UIEdgeInsetsZero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
     }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-        var bottomConstraint =
-            NSLayoutConstraint(item: view,
-                               attribute: NSLayoutAttribute.Bottom,
-                               relatedBy: NSLayoutRelation.Equal,
-                               toItem: self.view,
-                               attribute: NSLayoutAttribute.Bottom,
-                               multiplier: 1.0,
-                               constant: 0)
-
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
-        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
-        bottomConstraint.constant += changeInHeight //#KEYBOARDDISMISS
-        })
-    }
-    
-
     
     
     
@@ -93,6 +97,7 @@ class ProfileViewController: UIViewController {
         scrollView.addSubview(cardView)
         view.addSubview(scrollView)
         
+        
         let switchbutton = MaterialSwitch(state: .On, style: .Default, size: .Small)
         switchbutton.trackOnColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
         switchbutton.buttonOnColor = MaterialColor.blueGrey.darken4
@@ -117,6 +122,12 @@ class ProfileViewController: UIViewController {
         photoView.backgroundColor = MaterialColor.white
         cardView.addSubview(photoView)
         
+        let cameraButton = UIButton()
+        cameraButton.backgroundColor = MaterialColor.clear
+        cardView.addSubview(cameraButton)
+        cameraButton.addTarget(self, action: #selector(handleCameraButton), forControlEvents: .TouchUpInside)
+
+        
         let nameView: UIImageView = UIImageView()
         nameView.image = UIImage(named: "profile")
         nameView.backgroundColor = MaterialColor.white
@@ -136,11 +147,6 @@ class ProfileViewController: UIViewController {
         emailView.image = UIImage(named: "mail")
         emailView.backgroundColor = MaterialColor.white
         cardView.addSubview(emailView)
-
-        let passwordView: UIImageView = UIImageView()
-        passwordView.image = UIImage(named: "password")
-        passwordView.backgroundColor = MaterialColor.white
-        cardView.addSubview(passwordView)
         
         let phoneView: UIImageView = UIImageView()
         phoneView.image = UIImage(named: "phone")
@@ -190,12 +196,6 @@ class ProfileViewController: UIViewController {
         emailLabel.textColor = MaterialColor.black
         cardView.addSubview(emailLabel)
         
-        let passwordLabel: UILabel = UILabel()
-        passwordLabel.text = "Password"
-        passwordLabel.font = UIFont(name: "Avenir", size: 14)
-        passwordLabel.textColor = MaterialColor.black
-        cardView.addSubview(passwordLabel)
-        
         let phoneLabel: UILabel = UILabel()
         phoneLabel.text = "Phone"
         phoneLabel.font = UIFont(name: "Avenir", size: 14)
@@ -222,49 +222,51 @@ class ProfileViewController: UIViewController {
         nameTextfield.font = UIFont(name: "Avenir", size: 14)
         nameTextfield.textColor = MaterialColor.black
         cardView.addSubview(nameTextfield)
+        nameTextfield.delegate = self
 
         let titleTextfield: UITextField = UITextField()
         titleTextfield.placeholder = "iOS Developer" //#PASSDATA from user
         titleTextfield.font = UIFont(name: "Avenir", size: 14)
         titleTextfield.textColor = MaterialColor.black
         cardView.addSubview(titleTextfield)
+        titleTextfield.delegate = self
+
         
         let companyTextfield: UITextField = UITextField()
         companyTextfield.placeholder = "Lighthouse Labs" //#PASSDATA from user
         companyTextfield.font = UIFont(name: "Avenir", size: 14)
         companyTextfield.textColor = MaterialColor.black
         cardView.addSubview(companyTextfield)
+        companyTextfield.delegate = self
+
 
         let emailTextfield: UITextField = UITextField()
         emailTextfield.placeholder = "vivianechan@hotmail.com" //#PASSDATA from user
         emailTextfield.font = UIFont(name: "Avenir", size: 14)
         emailTextfield.textColor = MaterialColor.black
         cardView.addSubview(emailTextfield)
-
-        let passwordTextfield: UITextField = UITextField()
-        passwordTextfield.placeholder = "*****" //#PASSDATA from user
-        passwordTextfield.secureTextEntry = true
-        passwordTextfield.font = UIFont(name: "Avenir", size: 14)
-        passwordTextfield.textColor = MaterialColor.black
-        cardView.addSubview(passwordTextfield)
+        emailTextfield.delegate = self
 
         let phoneTextfield: UITextField = UITextField() //VIV #PHONEINPUT
         phoneTextfield.placeholder = "(647)836 5162" //#PASSDATA from user
         phoneTextfield.font = UIFont(name: "Avenir", size: 14)
         emailTextfield.textColor = MaterialColor.black
         cardView.addSubview(phoneTextfield)
+        phoneTextfield.delegate = self
 
         let githubTextfield: UITextField = UITextField()
         githubTextfield.placeholder = "github.com/sleepyUdon" //#PASSDATA from user
         githubTextfield.font = UIFont(name: "Avenir", size: 14)
         githubTextfield.textColor = MaterialColor.black
         cardView.addSubview(githubTextfield)
+        githubTextfield.delegate = self
 
         let linkedinTextfield: UITextField = UITextField()
         linkedinTextfield.placeholder = "https://www.linkedin.com/in/vivianechan" //#PASSDATA from user
         linkedinTextfield.font = UIFont(name: "Avenir", size: 14)
         linkedinTextfield.textColor = MaterialColor.black
         cardView.addSubview(linkedinTextfield)
+        linkedinTextfield.delegate = self
 
         
         // layout elements
@@ -280,7 +282,7 @@ class ProfileViewController: UIViewController {
         photoView.grid.columns = 2
         photoView.grid.offset.rows = 1
         photoView.grid.offset.columns = 0
-
+        
         nameView.grid.rows = 1
         nameView.grid.columns = 2
         nameView.grid.offset.rows = 2
@@ -301,24 +303,19 @@ class ProfileViewController: UIViewController {
         emailView.grid.offset.rows = 5
         emailView.grid.offset.columns = 0
 
-        passwordView.grid.rows = 1
-        passwordView.grid.columns = 2
-        passwordView.grid.offset.rows = 6
-        passwordView.grid.offset.columns = 0
-
         phoneView.grid.rows = 1
         phoneView.grid.columns = 2
-        phoneView.grid.offset.rows = 7
+        phoneView.grid.offset.rows = 6
         phoneView.grid.offset.columns = 0
 
         githubView.grid.rows = 1
         githubView.grid.columns = 2
-        githubView.grid.offset.rows = 8
+        githubView.grid.offset.rows = 7
         githubView.grid.offset.columns = 0
         
         linkedinView.grid.rows = 1
         linkedinView.grid.columns = 2
-        linkedinView.grid.offset.rows = 9
+        linkedinView.grid.offset.rows = 8
         linkedinView.grid.offset.columns = 0
 
         photoLabel.grid.rows = 1
@@ -330,6 +327,12 @@ class ProfileViewController: UIViewController {
         profileView.grid.columns = 2
         profileView.grid.offset.rows = 1
         profileView.grid.offset.columns = 5
+        
+        cameraButton.grid.rows = 1
+        cameraButton.grid.columns = 2
+        cameraButton.grid.offset.rows = 1
+        cameraButton.grid.offset.columns = 5
+
 
         nameLabel.grid.rows = 1
         nameLabel.grid.columns = 4
@@ -351,24 +354,19 @@ class ProfileViewController: UIViewController {
         emailLabel.grid.offset.rows = 5
         emailLabel.grid.offset.columns = 2
         
-        passwordLabel.grid.rows = 1
-        passwordLabel.grid.columns = 4
-        passwordLabel.grid.offset.rows = 6
-        passwordLabel.grid.offset.columns = 2
-
         phoneLabel.grid.rows = 1
         phoneLabel.grid.columns = 4
-        phoneLabel.grid.offset.rows = 7
+        phoneLabel.grid.offset.rows = 6
         phoneLabel.grid.offset.columns = 2
         
         githubLabel.grid.rows = 1
         githubLabel.grid.columns = 4
-        githubLabel.grid.offset.rows = 8
+        githubLabel.grid.offset.rows = 7
         githubLabel.grid.offset.columns = 2
         
         linkedinLabel.grid.rows = 1
         linkedinLabel.grid.columns = 4
-        linkedinLabel.grid.offset.rows = 9
+        linkedinLabel.grid.offset.rows = 8
         linkedinLabel.grid.offset.columns = 2
         
         nameTextfield.grid.rows = 1
@@ -391,24 +389,19 @@ class ProfileViewController: UIViewController {
         emailTextfield.grid.offset.rows = 5
         emailTextfield.grid.offset.columns = 5
 
-        passwordTextfield.grid.rows = 1
-        passwordTextfield.grid.columns = 7
-        passwordTextfield.grid.offset.rows = 6
-        passwordTextfield.grid.offset.columns = 5
-
         phoneTextfield.grid.rows = 1
         phoneTextfield.grid.columns = 7
-        phoneTextfield.grid.offset.rows = 7
+        phoneTextfield.grid.offset.rows = 6
         phoneTextfield.grid.offset.columns = 5
         
         githubTextfield.grid.rows = 1
         githubTextfield.grid.columns = 7
-        githubTextfield.grid.offset.rows = 8
+        githubTextfield.grid.offset.rows = 7
         githubTextfield.grid.offset.columns = 5
 
         linkedinTextfield.grid.rows = 1
-        linkedinTextfield.grid.columns = 7
-        linkedinTextfield.grid.offset.rows = 9
+        linkedinTextfield.grid.columns = 8
+        linkedinTextfield.grid.offset.rows = 8
         linkedinTextfield.grid.offset.columns = 5
 
         cardView.grid.spacing = 2
@@ -417,13 +410,12 @@ class ProfileViewController: UIViewController {
         cardView.grid.views = [
             switchbutton,
             profileView,
-
             photoView,
+            cameraButton,
             nameView,
             titleView,
             companyView,
             emailView,
-            passwordView,
             phoneView,
             githubView,
             linkedinView,
@@ -435,7 +427,6 @@ class ProfileViewController: UIViewController {
             titleLabel,
             companyLabel,
             emailLabel,
-            passwordLabel,
             phoneLabel,
             githubLabel,
             linkedinLabel,
@@ -444,11 +435,9 @@ class ProfileViewController: UIViewController {
             titleTextfield,
             companyTextfield,
             emailTextfield,
-            passwordTextfield,
             phoneTextfield,
             githubTextfield,
             linkedinTextfield
-
         ]
     }
  
@@ -473,6 +462,30 @@ class ProfileViewController: UIViewController {
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
         navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+    }
+    
+    
+    func handleCameraButton(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .Camera
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileView.contentMode = .ScaleAspectFit
+            profileView.image = pickedImage
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
 
