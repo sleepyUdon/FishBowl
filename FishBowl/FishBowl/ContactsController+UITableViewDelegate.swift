@@ -10,7 +10,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // required didSelectRowAtIndexPath
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        prepareLargeCardViewExample()
+        
+        prepareLargeCardViewExample(indexPath)
         
         
         //        var cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactsTableViewCell
@@ -45,7 +46,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     
     
-    private func prepareLargeCardViewExample() {
+    private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
+        
+            let users = ContactsModel().getUsers()
+            let user = users[indexPath.row]
         
         // set container views
         

@@ -64,8 +64,7 @@ public class EventsTableViewCell: UITableViewCell {
     */
     public func prepareDefaultLabel() {
         defaultLabel.font = UIFont(name: "Avenir", size: 14)
-        let eventGroup = menumodel.events["Event1"] //#PASSDATA group from events
-        defaultLabel.text = eventGroup!["Group"]!
+        defaultLabel.text = ""
         defaultLabel.textColor = MaterialColor.grey.darken2
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
@@ -77,8 +76,7 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultDescription() {
         defaultDescription.font = UIFont(name: "Avenir-Heavy", size: 14)
-        let eventTitle = menumodel.events["Event1"]
-        defaultDescription.text = eventTitle!["EventTitle"]! //#PASSDATA description from events
+        defaultDescription.text = ""
         defaultDescription.textColor = MaterialColor.black
         defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
@@ -91,8 +89,7 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultParticipants() {
         defaultParticipants.font = UIFont(name: "Avenir", size: 14)
-        let participants = menumodel.events["Event1"]
-        defaultParticipants.text = participants!["Participants"]! //#PASSDATA participants from events
+        defaultParticipants.text = ""
         defaultParticipants.textColor = MaterialColor.grey.darken2
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)
@@ -105,8 +102,7 @@ public class EventsTableViewCell: UITableViewCell {
 
     public func prepareDefaultDate() {
         defaultDate.font = UIFont(name: "Avenir", size: 14)
-//        let date = menumodel.events["Event1"]
-        defaultDate.text = "date" //#PASSDATA date from events
+        defaultDate.text = ""
         defaultDate.textColor = MaterialColor.grey.darken2
         defaultDate.textAlignment = .Left
         addSubview(defaultDate)
