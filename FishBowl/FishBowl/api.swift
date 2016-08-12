@@ -69,7 +69,7 @@ class ApiController: UIViewController {
                 //print(credential.oauth_token)
                 //print(parameters)
                 //call getUserDetails
-                self.getUserDetails()
+                //self.getUserDetails()
                 
             },
             failure: { error in
@@ -82,7 +82,7 @@ class ApiController: UIViewController {
     
     //MARK - Get Requests for
     
-    func getUserDetails() {
+    func getUserDetails(handler:(userArray:User)->()) {
         self.oauthswift.client.get("https://api.meetup.com/2/member/self",
                                    success: {
                                     data, response in
@@ -115,9 +115,9 @@ class ApiController: UIViewController {
                                             //save this data to DB or to local storage
 //                                            self.jsonManager.createUserWithName(self.user.userName, bio: self.user.userBio, userId: self.user.userId)
                                         }
-                                        
+                                        handler(userArray: self.user)
                                         //call getEvents here
-                                        self.getEvents()
+                                        //self.getEvents()
                                     }
                                     catch let error as NSError{
                                         print(error.localizedDescription)
@@ -163,10 +163,11 @@ class ApiController: UIViewController {
                                             //print(self.eventItem.eventName)
                                             //call getRSVPs
                                             //self.getRSVPs()
+                                            handler(eventsArray: self.events)
                                             
                                         }
                                     }
-                                    handler(eventsArray: self.events)
+                                    
                                     
                                 }
                                 catch let error as NSError{

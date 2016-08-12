@@ -15,6 +15,7 @@ private var saveButton: MaterialButton!
 
 class ProfileViewController: UIViewController {
     
+    var api = ApiController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,13 +175,13 @@ class ProfileViewController: UIViewController {
         // prepare textfields
         
         let nameTextfield: UITextField = UITextField()
-        nameTextfield.placeholder = "Viviane Chan" //#PASSDATA from user
+        nameTextfield.placeholder = self.api.user.name //#PASSDATA from user
         nameTextfield.font = UIFont(name: "Avenir", size: 14)
         nameTextfield.textColor = MaterialColor.black
         view.addSubview(nameTextfield)
 
         let titleTextfield: UITextField = UITextField()
-        titleTextfield.placeholder = "iOS Developer" //#PASSDATA from user
+        titleTextfield.placeholder = self.api.user.bio //#PASSDATA from user
         titleTextfield.font = UIFont(name: "Avenir", size: 14)
         titleTextfield.textColor = MaterialColor.black
         view.addSubview(titleTextfield)

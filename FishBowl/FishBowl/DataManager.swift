@@ -12,7 +12,7 @@ import OAuthSwift
 
 class DataManager: NSObject {
     
-    var api = APIController()
+    //var api = APIController()
     
     var userList = [User]()
     var eventList = [Event]()
