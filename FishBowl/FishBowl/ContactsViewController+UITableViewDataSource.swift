@@ -34,8 +34,8 @@ extension ContactsViewController: UITableViewDataSource {
         let user = users[indexPath.row]
         
         cell.nameLabel.text = user.name
-        cell.titleLabel.text = user.title
-        cell.profileView.image = UIImage(data: user.image)
+        cell.titleLabel.text = user.bio
+        cell.profileView.image = UIImage(data: user.image!)
         
         return cell
     }

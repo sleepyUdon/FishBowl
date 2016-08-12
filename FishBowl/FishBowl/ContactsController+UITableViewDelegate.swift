@@ -65,7 +65,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             cardView.addSubview(contentView)
         
             let profileView: UIImageView = UIImageView()
-            profileView.image = UIImage(data: user.image) //#PASSDATA image from participant
+            profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
 //            profileView.contentsGravityPreset = .ResizeAspectFill
 //            profileView.shape = .Circle
             profileView.contentMode = .ScaleAspectFill
@@ -90,7 +90,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             contentView.addSubview(nameLabel)
         
             let titleLabel: UILabel = UILabel()
-            titleLabel.text = user.title //#PASSDATA title from participant
+            titleLabel.text = user.bio //#PASSDATA title from participant
             titleLabel.textAlignment = .Center
             titleLabel.font = UIFont(name: "Avenir", size: 15)
             titleLabel.textColor = MaterialColor.grey.darken2
@@ -98,7 +98,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
             let companyLabel: UILabel = UILabel()
             companyLabel.font = UIFont(name: "Avenir", size: 15)
-            companyLabel.text = user.company//#PASSDATA company from participant
+            //companyLabel.text = user.company//#PASSDATA company from participant
             companyLabel.textAlignment = .Center
             companyLabel.textColor = MaterialColor.grey.darken4
             contentView.addSubview(companyLabel)

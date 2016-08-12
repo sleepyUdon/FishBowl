@@ -71,9 +71,9 @@ class DataManager: NSObject {
             
             //            let someUser:User = User(name: user["name"], email: user["email"], image: nil, phone: user["phone"], github: user["github"], linkedin: user["linkedin"], title: user["title"])
             
-            let someUser = User(name: name, email: email, image: image!, phone: phone, github: github, linkedin: linkedin, title: title, company:company)
+            //let someUser = Member.init(memberId: <#T##String#>, memberName: <#T##String#>, memberImage: <#T##NSData#>)
             
-            self.userList.append(someUser)
+            //self.userList.append(someUser)
             
         }
         
@@ -121,11 +121,11 @@ class DataManager: NSObject {
         
         for event in events {
             
-            let date = dateFormatter.dateFromString(event["Date"]!)
+            //let date = dateFormatter.dateFromString(event["Date"]!)
             
-            let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
+            //let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
             
-            eventList.append(someEvent)
+           // eventList.append(someEvent)
             
         }
         
