@@ -32,4 +32,24 @@ extension ParticipantsViewController: UITableViewDataSource {
         return cell
     }
     
+    
+    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    public func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        var addAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Add" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+            // 2
+            let shareMenu = UIAlertController(title: nil, message: "Add to contact list", preferredStyle: .ActionSheet)
+            
+            let addAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: nil)
+            
+            shareMenu.addAction(addAction)
+            
+            
+            self.presentViewController(shareMenu, animated: true, completion: nil)
+        })
+        
+        return [addAction]
+    }
+
 }

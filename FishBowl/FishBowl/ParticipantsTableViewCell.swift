@@ -33,7 +33,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         prepareImageView()
         prepareNameLabel()
         prepareTitleLabel()
-        prepareAddedButton()
+//        prepareAddedButton()
     }
     
     /*
@@ -44,7 +44,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         layoutImageView()
         layoutNameLabel()
         layoutTitleLabel()
-        layoutAddedButton()
+//        layoutAddedButton()
     }
     
     /*
@@ -86,11 +86,11 @@ public class ParticipantsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultParticipants
      */
-    public func prepareAddedButton() {
-        addedButton.setImage(UIImage(named: "AddButton"), forState: UIControlState.Normal)
-        addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
-        addSubview(addedButton)
-    }
+//    public func prepareAddedButton() {
+//        addedButton.setImage(UIImage(named: "AddButton"), forState: UIControlState.Normal)
+//        addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
+//        addSubview(addedButton)
+//    }
     
     
     func handleAddedButton() {
@@ -140,12 +140,12 @@ public class ParticipantsTableViewCell: UITableViewCell {
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
-    public func layoutAddedButton() {
-        let x = (contentView.bounds.size.width) - (50.0)
-        let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(25.0)
-        let h = CGFloat(25.0)
-        addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
-    }
+//    public func layoutAddedButton() {
+//        let x = (contentView.bounds.size.width) - (50.0)
+//        let y = (contentView.bounds.size.height / 2) - (15.0)
+//        let w = CGFloat(25.0)
+//        let h = CGFloat(25.0)
+//        addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
+//    }
     
 }

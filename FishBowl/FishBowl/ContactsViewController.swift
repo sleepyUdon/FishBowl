@@ -59,6 +59,6 @@ public class ContactsViewController: UIViewController {
          "View controller-based status bar appearance = NO"
          to your info.plist file and set the following property.
          */
-        searchBar.leftControls = [moreButton]
+        searchBar.leftControls = [searchButton]
     }
 }

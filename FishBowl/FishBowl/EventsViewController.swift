@@ -12,7 +12,7 @@ import OAuthSwift
 
 class EventsViewController: UIViewController{
     
-    internal var api = ApiController()
+//    internal var api = ApiController()
 
     private var containerView: UIView!
 
@@ -31,6 +31,10 @@ class EventsViewController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(AppDelegate.token)
+        if AppDelegate.token == nil {
+            prepareLoginView()
+        }
         prepareView()
         prepareMenuButton()
         prepareProfileButton()
@@ -46,6 +50,14 @@ class EventsViewController: UIViewController{
         private func prepareView() {
             view.backgroundColor = Color.accentColor1
         }
+    private func prepareLoginView() {
+        let loginViewController = LoginViewController()
+        self.presentViewController(loginViewController, animated: true) { 
+            print("login view presented")
+        }
+    }
+
+    
 
 
     /// Prepares the menuButton.

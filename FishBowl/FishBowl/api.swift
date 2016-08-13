@@ -51,11 +51,11 @@ class ApiController: UIViewController {
         print("authorizing")
         //login thru safari and go back to the view controller
         if #available(iOS 9.0, *) {
-           let eventsVC = EventsViewController()
+          let eventsVC = EventsViewController()
             self.presentViewController(eventsVC, animated: false, completion: {
                 self.oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
             })
-//           oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
+          // oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
         }
 //        else {
            // oauthswift.authorize_url_handler = WebViewController()
@@ -63,13 +63,15 @@ class ApiController: UIViewController {
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
+//            oauth-callback
             NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!,
             scope: "",state: "",
             success: { credential, response, parameters in
-                //print(credential.oauth_token)
+                print(credential.oauth_token)
                 //print(parameters)
                 //call getUserDetails
                 //self.getUserDetails()
+                AppDelegate.token = credential.oauth_token
                 
             },
             failure: { error in

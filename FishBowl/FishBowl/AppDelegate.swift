@@ -8,34 +8,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
     var accountAccess: Bool? = true
+    
+    static var token:String?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 
-        if accountAccess == true {
-        let eventsViewController = EventsViewController ()
-        let loginViewController = LoginViewController ()
-        let contactsViewController = ContactsViewController ()
-        let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
-        let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
-            let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController, rightViewController: loginViewController)
+//        if accountAccess == true {
+        createViewControllerStack()
 
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.rootViewController = navigationDrawerController
+//        }
+        return true
 
-            window!.makeKeyAndVisible()
-            return true
-
-        } else {
-        
-        let loginViewController = LoginViewController()
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.rootViewController = loginViewController
-        
-        window!.makeKeyAndVisible()
-        
-		return true
-	}
+    }
+//            else {
+//            let loginViewController = LoginViewController ()
+//            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//            window!.rootViewController = loginViewController
+//
+//        
+//        window!.makeKeyAndVisible()
+//        
+//		return true
+//	}
+//    }
+    
+    private func createViewControllerStack() {
+    let eventsViewController = EventsViewController ()
+    let contactsViewController = ContactsViewController ()
+    let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
+    let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
+    let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController)
+    
+    window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    window!.rootViewController = navigationDrawerController
+    
+    window!.makeKeyAndVisible()
     }
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -59,21 +67,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
     
-    func applicationHandleOpenURL(url: NSURL) {
-        if (url.host == "CardBowlTest") {
-            OAuthSwift.handleOpenURL(url)
-        }
-    }
-    
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        applicationHandleOpenURL(url)
-        return true
-    }
+
     
     @available(iOS 9.0, *)
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        applicationHandleOpenURL(url)
+        if (url.host == "CardBowlTest") {
+            OAuthSwift.handleOpenURL(url)
+      
+    } 
+//        if url != "CardBowlTest://CardBowlTest/Meetup" {
+//            self.application(UIApplication.sharedApplication(), openURL: NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!, options: [:])
+//            return false
+//        }
+        
+        self.window?.rootViewController = nil
+        createViewControllerStack()
+        
         return true
     }
+    
+    
 }
 

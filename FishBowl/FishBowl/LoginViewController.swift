@@ -43,9 +43,6 @@ class LoginViewController: OAuthViewController {
         contentViewbottom.backgroundColor = MaterialColor.clear
         cardView.addSubview(contentViewbottom)
         
-
-        
-        
         let loginWithMeetupButton: UIButton = UIButton()
         loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", forState: UIControlState.Normal)
         loginWithMeetupButton.setTitleColor(Color.accentColor1, forState: UIControlState.Normal)
@@ -93,15 +90,23 @@ class LoginViewController: OAuthViewController {
     internal func handleLoginButton() {
         
         self.presentViewController(login, animated: true) { 
-            self.login.doAuthMeetup()
+            //self.login.doAuthMeetup()
         }
-//        login.doAuthMeetup()
+        self.login.doAuthMeetup()
 
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+//        self.dismissViewControllerAnimated(false) { 
+//            print(#function, "fired")
+//        }
     }
     
     
 
 }
+
 
 //extension LoginViewController: OAuthWebViewControllerDelegate {
 //    

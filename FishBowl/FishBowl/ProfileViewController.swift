@@ -17,7 +17,7 @@ var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var api = ApiController()
+//    var api = ApiController()
 
     
     var activeField: UITextField?

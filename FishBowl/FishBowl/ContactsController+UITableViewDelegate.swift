@@ -5,7 +5,7 @@ import Material
 import MessageUI
 
 
-extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate,  {
+extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate  {
     
     // required didSelectRowAtIndexPath
     
@@ -69,7 +69,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         let profileView: MaterialView = MaterialView()
         profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
         profileView.shape = .Circle
-        profileView.contentMode = .ScaleAspectFit
         topImageView.addSubview(profileView)
         
         let closeImage: UIImage? = MaterialIcon.cm.close
@@ -170,6 +169,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         // layout labels topimageView
         
+        Layout.centerHorizontally(topImageView, child: profileView)
         profileView.grid.rows = 12
         profileView.grid.columns = 6
         profileView.grid.offset.rows = 2
