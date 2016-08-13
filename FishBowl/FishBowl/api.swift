@@ -163,10 +163,11 @@ class ApiController: UIViewController {
                                             //print(self.eventItem.eventName)
                                             //call getRSVPs
                                             //self.getRSVPs()
+                                            handler(eventsArray: self.events)
                                             
                                         }
                                     }
-                                    handler(eventsArray: self.events)
+                                    
                                     
                                 }
                                 catch let error as NSError{

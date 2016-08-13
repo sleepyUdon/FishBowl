@@ -17,6 +17,9 @@ var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var api = ApiController()
+
+    
     var activeField: UITextField?
     let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
     let picker = UIImagePickerController()

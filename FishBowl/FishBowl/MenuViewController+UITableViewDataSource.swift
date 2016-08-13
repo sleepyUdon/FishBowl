@@ -31,11 +31,25 @@ extension MenuViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         
-        let events = MenuModel().getEvents()
-        let event = events[indexPath.row]
+        //let events = MenuModel().getEvents()
+        //let event = events[indexPath.row]
         
+
 //        let formatter = NSDateFormatter()
 //        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        
+        let api = ApiController()
+        api.getEvents{(eventsArray: NSArray?) in
+            guard eventsArray != nil else {
+                print("events data should not be nil")
+                return
+            }
+            for item in eventsArray! {
+                let eventTxt = item.objectForKey("eventTitle") as? String
+                cell.defaultLabel.text = eventTxt
+            }
+            
+        }
         //let dateString = formatter.stringFromDate(event.time)
         
         cell.defaultLabel.text = event.title           // Change the label names
