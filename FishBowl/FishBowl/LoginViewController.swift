@@ -31,12 +31,12 @@ class LoginViewController: OAuthViewController {
     private func prepareLargeCardViewExample() {
         
         let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        cardView.pulseColor = MaterialColor.blueGrey.base
+        cardView.pulseColor = Color.baseColor1
         cardView.depth = .Depth1
         view.addSubview(cardView)
         
         let contentViewTop: MaterialView = MaterialView()
-        contentViewTop.backgroundColor = MaterialColor.blueGrey.darken4
+        contentViewTop.backgroundColor = Color.baseColor1
         cardView.addSubview(contentViewTop)
         
         let contentViewbottom: MaterialView = MaterialView()
@@ -48,7 +48,7 @@ class LoginViewController: OAuthViewController {
         
         let loginWithMeetupButton: UIButton = UIButton()
         loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", forState: UIControlState.Normal)
-        loginWithMeetupButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: UIControlState.Normal)
+        loginWithMeetupButton.setTitleColor(Color.accentColor1, forState: UIControlState.Normal)
         loginWithMeetupButton.setTitleColor(UIColor.brownColor(), forState: UIControlState.Highlighted)
         loginWithMeetupButton.titleLabel?.font = UIFont(name: "Avenir", size: 15)
         contentViewbottom.addSubview(loginWithMeetupButton)

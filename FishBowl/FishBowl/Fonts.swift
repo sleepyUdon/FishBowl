@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import Material
+
 
 
 public struct Fonts{
     
-    // #FONTS VIV set custom fonts
+
+    static let title = MaterialFont.boldSystemFontWithSize(16)
+    static let bodyGrey = MaterialFont.systemFontWithSize(16)
+    static let navigationTitle = MaterialFont.systemFontWithSize(24)
 
 }

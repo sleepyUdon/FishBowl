@@ -55,7 +55,7 @@ class DataManager: NSObject {
             
             let name = user["name"] as! String
             let email = user["email"] as! String
-            let phone = user["phone"] as! NSNumber
+//            let phone = user["phone"] as! NSNumber
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
@@ -79,7 +79,7 @@ class DataManager: NSObject {
             someUser.name = name
             someUser.bio = title
             someUser.email = email
-            someUser.phone = phone
+//            someUser.phone = phone
             someUser.image = image
             someUser.linkedin = linkedin
             someUser.github = github

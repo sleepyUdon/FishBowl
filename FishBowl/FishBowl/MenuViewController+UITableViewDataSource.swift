@@ -41,7 +41,7 @@ extension MenuViewController: UITableViewDataSource {
         cell.defaultLabel.text = event.title           // Change the label names
         cell.defaultDescription.text = event.time.stringValue      // together with those in
         cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
-        cell.defaultDate.text = ""
+        cell.defaultDate.text = "Aug 18"
         
         return cell
     }

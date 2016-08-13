@@ -14,8 +14,8 @@ extension MenuViewController: UITableViewDelegate {
         let destination = ParticipantsViewController()
         navigationController?.pushViewController(destination, animated: true)
         destination.navigationItem.title = "Participants"
-        destination.navigationItem.titleLabel.textColor = MaterialColor.white
-        destination.navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
+        destination.navigationItem.titleLabel.textColor = Color.accentColor1
+        destination.navigationItem.titleLabel.font = Fonts.navigationTitle
     }
  
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

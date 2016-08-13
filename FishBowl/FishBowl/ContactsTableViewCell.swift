@@ -42,7 +42,7 @@ public class ContactsTableViewCell: UITableViewCell {
  {
     profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
     profileView.shape = .Circle
-    profileView.backgroundColor = UIColor.blackColor()
+    profileView.backgroundColor = Color.greyDark
     profileView.clipsToBounds = true
     addSubview(profileView)
     }
@@ -52,9 +52,9 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
+        nameLabel.font = Fonts.title
         nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
-        nameLabel.textColor = MaterialColor.black
+        nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
@@ -64,9 +64,9 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.font = Fonts.title
         titleLabel.text = "iOS Developer" //#PASSDATA title from participant
-        titleLabel.textColor = MaterialColor.grey.darken2
+        titleLabel.textColor = Color.greyDark
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }

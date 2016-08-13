@@ -40,7 +40,7 @@ private func prepareSearchBar() {
     // More button.
     let moreButton: IconButton = IconButton()
     moreButton.pulseColor = MaterialColor.grey.base
-    moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+    moreButton.tintColor = Color.accentColor1
     moreButton.setImage(image, forState: .Normal)
     moreButton.setImage(image, forState: .Highlighted)
     

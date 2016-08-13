@@ -43,7 +43,7 @@ public class ContactsViewController: UIViewController {
     
     private func prepareSearchBar() {
         searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-        searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
+        searchBar.textField.font = Fonts.bodyGrey
         view.addSubview(searchBar)
         
         // More button.

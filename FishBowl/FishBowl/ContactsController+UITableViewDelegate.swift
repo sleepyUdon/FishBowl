@@ -48,12 +48,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
         
-            let users = ContactsModel().getUsers()
-            let user = users[indexPath.row]
+        let users = ContactsModel().getUsers()
+        let user = users[indexPath.row]
         
+
         // set container views
         
-        cardView.pulseColor = MaterialColor.blueGrey.base
+        cardView.pulseColor = Color.baseColor1
         cardView.depth = .Depth1
         
         view.addSubview(cardView)
@@ -65,48 +66,48 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         cardView.addSubview(contentView)
         
         let profileView: MaterialView = MaterialView()
-        profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
+        profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
         //            profileView.contentsGravityPreset = .ResizeAspectFill
         profileView.shape = .Circle
-        profileView.contentMode = .ScaleAspectFill
+        profileView.contentMode = .ScaleAspectFit
         topImageView.addSubview(profileView)
         
         let closeImage: UIImage? = MaterialIcon.cm.close
         let closeButton: UIButton = UIButton()
-        closeButton.tintColor = MaterialColor.blueGrey.darken4
+        closeButton.tintColor = Color.accentColor1
         closeButton.setImage(closeImage, forState: .Normal)
         closeButton.setImage(closeImage, forState: .Highlighted)
         topImageView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
         
+
         
         // set labels
         
         let nameLabel: UILabel = UILabel()
-        nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
+        nameLabel.text = user.name //#PASSDATA name from participant
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
-        nameLabel.textColor = MaterialColor.black
+        nameLabel.font = Fonts.title
+        nameLabel.textColor = Color.greyDark
         contentView.addSubview(nameLabel)
         
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = "iOSDeveloper" //#PASSDATA title from participant
+        titleLabel.text = user.bio//#PASSDATA title from participant
         titleLabel.textAlignment = .Center
-        titleLabel.font = UIFont(name: "Avenir", size: 15)
-        titleLabel.textColor = MaterialColor.grey.darken2
+        titleLabel.font = Fonts.bodyGrey
+        titleLabel.textColor = Color.greyMedium
         contentView.addSubview(titleLabel)
         
         let companyLabel: UILabel = UILabel()
-        companyLabel.font = UIFont(name: "Avenir", size: 15)
+        companyLabel.font = Fonts.title
         companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
         companyLabel.textAlignment = .Center
-        companyLabel.textColor = MaterialColor.grey.darken4
+        companyLabel.textColor = Color.greyMedium
         contentView.addSubview(companyLabel)
         
         let mailImage: UIImage? = UIImage(named: "mail")
         let mailButton: UIButton = UIButton()
-        mailButton.tintColor = MaterialColor.blueGrey.darken4
-        mailButton.backgroundColor = MaterialColor.grey.lighten3
+        mailButton.tintColor = Color.baseColor1
         mailButton.setImage(mailImage, forState: .Normal)
         mailButton.setImage(mailImage, forState: .Highlighted)
         contentView.addSubview(mailButton)
@@ -115,7 +116,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let messageImage: UIImage? = UIImage(named: "message")
         let messageButton: UIButton = UIButton()
-        messageButton.tintColor = MaterialColor.blueGrey.darken4
+        messageButton.tintColor = Color.baseColor1
         messageButton.setImage(messageImage, forState: .Normal)
         messageButton.setImage(messageImage, forState: .Highlighted)
         contentView.addSubview(messageButton)
@@ -124,8 +125,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let phoneImage: UIImage? = UIImage(named:"phone.png")
         let phoneButton: UIButton = UIButton()
-        phoneButton.tintColor = MaterialColor.blueGrey.darken4
-        phoneButton.backgroundColor = MaterialColor.grey.lighten3
+        phoneButton.tintColor = Color.baseColor1
         phoneButton.setImage(phoneImage, forState: .Normal)
         phoneButton.setImage(phoneImage, forState: .Highlighted)
         contentView.addSubview(phoneButton)
@@ -134,8 +134,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let githubImage: UIImage? = UIImage(named: "github")
         let githubButton: UIButton = UIButton()
-        githubButton.tintColor = MaterialColor.blueGrey.darken4
-        githubButton.backgroundColor = MaterialColor.grey.lighten3
+        githubButton.tintColor = Color.baseColor1
         githubButton.setImage(githubImage, forState: .Normal)
         githubButton.setImage(githubImage, forState: .Highlighted)
         contentView.addSubview(githubButton)
@@ -144,8 +143,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let linkedinImage: UIImage? = UIImage(named: "linkedin")
         let linkedinButton: UIButton = UIButton()
-        linkedinButton.tintColor = MaterialColor.blueGrey.darken4
-        linkedinButton.backgroundColor = MaterialColor.grey.lighten3
+        linkedinButton.tintColor = Color.baseColor1
         linkedinButton.setImage(linkedinImage, forState: .Normal)
         linkedinButton.setImage(linkedinImage, forState: .Highlighted)
         contentView.addSubview(linkedinButton)

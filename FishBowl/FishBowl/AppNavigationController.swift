@@ -44,7 +44,7 @@ class AppNavigationController: NavigationController {
 		
 	/// Prepares the navigationBar
 	private func prepareNavigationBar() {
-		navigationBar.tintColor = MaterialColor.white
-		navigationBar.backgroundColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
+		navigationBar.tintColor = Color.accentColor1
+		navigationBar.backgroundColor = Color.accentColor1
 	}
 }
