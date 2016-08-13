@@ -69,7 +69,7 @@ class ApiController: UIViewController {
                 //print(credential.oauth_token)
                 //print(parameters)
                 //call getUserDetails
-//                self.getUserDetails()
+                //self.getUserDetails()
                 
             },
             failure: { error in
@@ -82,53 +82,53 @@ class ApiController: UIViewController {
     
     //MARK - Get Requests for
     
-//    func getUserDetails() {
-//        self.oauthswift.client.get("https://api.meetup.com/2/member/self",
-//                                   success: {
-//                                    data, response in
-//                                    //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-//                                    //print(dataString)
-//                                    
-//                                    //parse data to json
-//                                    do {
-//                                        self.jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
-//                                        
-//                                        //get all necessary data from json
-//                                        let userId = self.jsonDict["id"]!.stringValue
-//                                        let userName = self.jsonDict["name"] as! String
-//                                        let userBio = self.jsonDict["bio"] as! String
-//                                        
-//                                        //get the thumbnail image of user
-//                                        if let photo = self.jsonDict["photo"] as? [String: AnyObject] {
-//                                            let photoLink = photo["thumb_link"] as! NSString
-//                                            let url: NSURL = NSURL(string: photoLink as String)!
-//                                            self.userImageData = NSData(contentsOfURL: url)!
-//                                            
-//                                        } else { self.userImageData = nil }
-//                                        //safe the user id in an array
-//                                        self.userIds.append(userId)
-//                                        //create a user object
-//                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData)
-//                                        //check if the user id is NOT in the array of Ids
-//                                        if !self.userIds.contains(userId) {
-//                                            
-//                                            //save this data to DB or to local storage
-////                                            self.jsonManager.createUserWithName(self.user.userName, bio: self.user.userBio, userId: self.user.userId)
-//                                        }
-//                                        
-//                                        //call getEvents here
-//                                        self.getEvents()
-//                                    }
-//                                    catch let error as NSError{
-//                                        print(error.localizedDescription)
-//                                    }
-//            },
-//           failure: {
-//            error in
-//            print(error)
-//        })
-//        
-//    }
+    func getUserDetails(handler:(userArray:User)->()) {
+        self.oauthswift.client.get("https://api.meetup.com/2/member/self",
+                                   success: {
+                                    data, response in
+                                    //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                                    //print(dataString)
+                                    
+                                    //parse data to json
+                                    do {
+                                        self.jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                                        
+                                        //get all necessary data from json
+                                        let userId = self.jsonDict["id"]!.stringValue
+                                        let userName = self.jsonDict["name"] as! String
+                                        let userBio = self.jsonDict["bio"] as! String
+                                        
+                                        //get the thumbnail image of user
+                                        if let photo = self.jsonDict["photo"] as? [String: AnyObject] {
+                                            let photoLink = photo["thumb_link"] as! NSString
+                                            let url: NSURL = NSURL(string: photoLink as String)!
+                                            self.userImageData = NSData(contentsOfURL: url)!
+                                            
+                                        } else { self.userImageData = nil }
+                                        //safe the user id in an array
+                                        self.userIds.append(userId)
+                                        //create a user object
+                                        self.user = User.init(userId: userId, name: userName, bio: userBio, image: self.userImageData)
+                                        //check if the user id is NOT in the array of Ids
+                                        if !self.userIds.contains(userId) {
+                                            
+                                            //save this data to DB or to local storage
+//                                            self.jsonManager.createUserWithName(self.user.userName, bio: self.user.userBio, userId: self.user.userId)
+                                        }
+                                        handler(userArray: self.user)
+                                        //call getEvents here
+                                        //self.getEvents()
+                                    }
+                                    catch let error as NSError{
+                                        print(error.localizedDescription)
+                                    }
+            },
+           failure: {
+            error in
+            print(error)
+        })
+        
+    }
     
     //get all events under signed in user
     func getEvents(handler:(eventsArray:NSArray)->()) {

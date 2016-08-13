@@ -46,9 +46,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "ProfileViewController"
-            landmarkType = "3">
+            endingLineNumber = "41">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,9 +60,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "494"
-            endingLineNumber = "494"
-            landmarkName = "textField(_:shouldChangeCharactersInRange:replacementString:)"
-            landmarkType = "5">
+            endingLineNumber = "494">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,9 +74,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "475"
-            endingLineNumber = "475"
-            landmarkName = "ProfileViewController"
-            landmarkType = "3">
+            endingLineNumber = "475">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,9 +88,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "553"
-            endingLineNumber = "553"
-            landmarkName = "handleColorSwatch4()"
-            landmarkType = "5">
+            endingLineNumber = "553">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

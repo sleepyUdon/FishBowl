@@ -52,10 +52,11 @@ extension MenuViewController: UITableViewDataSource {
         }
         //let dateString = formatter.stringFromDate(event.time)
         
-        cell.defaultLabel.text = event.title           // Change the label names
-        cell.defaultDescription.text = event.time.stringValue      // together with those in
-        cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
-        cell.defaultDate.text = "Aug 18"
+        //cell.defaultLabel.text =             // Change the label names
+        //cell.defaultDescription.text = event.group      // together with those in
+        //cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
+        //cell.defaultDate.text = dateString
+
         
         return cell
     }
