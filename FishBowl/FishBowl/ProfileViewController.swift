@@ -259,7 +259,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let linkedinTextfield: UITextField = UITextField() //VIV #PHONEINPUT
         linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"linkedin.com/in/vivianechan",
                                                                   attributes:[NSForegroundColorAttributeName: Color.greyMedium])
-        linkedinTextfield.font = MaterialFont.systemFontWithSize(1)
+        linkedinTextfield.font = MaterialFont.systemFontWithSize(13)
         linkedinTextfield.textAlignment = .Right
         linkedinTextfield.textColor = Color.greyMedium
         cardView.addSubview(linkedinTextfield)

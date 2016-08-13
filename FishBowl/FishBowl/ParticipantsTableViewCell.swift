@@ -64,9 +64,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 14)
+        nameLabel.font = Fonts.title
         nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
-        nameLabel.textColor = MaterialColor.black
+        nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
@@ -76,9 +76,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.font = Fonts.bodyGrey
         titleLabel.text = "iOS Developer" //#PASSDATA title from participants
-        titleLabel.textColor = MaterialColor.grey.darken2
+        titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -125,7 +125,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     public func layoutNameLabel() {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 6) - (15.0)
+        let y = (contentView.bounds.size.height / 4) - (15.0)
         let w = (contentView.bounds.size.width - 120.0)
         let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -134,7 +134,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     public func layoutTitleLabel() {
         let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 2) - (15.0)
+        let y = (contentView.bounds.size.height * 3 / 4) - (15.0)
         let w = (contentView.bounds.size.width - 120.0)
         let h = CGFloat(30.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)

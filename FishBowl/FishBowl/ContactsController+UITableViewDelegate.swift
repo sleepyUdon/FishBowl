@@ -5,7 +5,7 @@ import Material
 import MessageUI
 
 
-extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate,  {
     
     // required didSelectRowAtIndexPath
     
@@ -30,18 +30,19 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let smallHeight: CGFloat = 70.0
-        let expandedHeight: CGFloat = 450.0
-        let ip = indexPath
-        if selectedIndexPath != nil {
-            if ip == selectedIndexPath! {
-                return expandedHeight
-            } else {
-                return smallHeight
-            }
-        } else {
-            return smallHeight
-        }
+        return 60.0
+//        let smallHeight: CGFloat = 70.0
+//        let expandedHeight: CGFloat = 450.0
+//        let ip = indexPath
+//        if selectedIndexPath != nil {
+//            if ip == selectedIndexPath! {
+//                return expandedHeight
+//            } else {
+//                return smallHeight
+//            }
+//        } else {
+//            return smallHeight
+//        }
     }
     
     
@@ -67,7 +68,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let profileView: MaterialView = MaterialView()
         profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
-        //            profileView.contentsGravityPreset = .ResizeAspectFill
         profileView.shape = .Circle
         profileView.contentMode = .ScaleAspectFit
         topImageView.addSubview(profileView)

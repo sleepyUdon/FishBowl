@@ -6,8 +6,8 @@ import Material
 public struct DefaultOptions {
     public struct ImageView {
         public struct Padding {
-            public static let Vertical = CGFloat(5.0)
-            public static let Horizontal = CGFloat(5.0)
+            public static let Vertical = CGFloat(10.0)
+            public static let Horizontal = CGFloat(10.0)
         }
     }
     public struct Label {

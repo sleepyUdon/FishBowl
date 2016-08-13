@@ -64,9 +64,9 @@ public class ContactsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = Fonts.title
+        titleLabel.font = Fonts.bodyGrey
         titleLabel.text = "iOS Developer" //#PASSDATA title from participant
-        titleLabel.textColor = Color.greyDark
+        titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -87,18 +87,18 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGFloat(100.0)
+        let x = CGFloat(80.0)
         let y = CGFloat(10.0)
-        let w = CGFloat(200.0)
+        let w = contentView.frame.width - (80.0)
         let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
     public func layoutTitleLabel() {
-        let x = CGFloat(100.0)
+        let x = CGFloat(80.0)
         let y = CGFloat(30.0)
-        let w = CGFloat(200.0)
+        let w = contentView.frame.width - (80.0)
         let h = CGFloat(30.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }

@@ -99,25 +99,24 @@ class EventsViewController: UIViewController{
     /// Prepares the searchBar
     private func prepareSearchBar() {
     searchBar = SearchBar()
-    searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
+    searchBar.textField.font = Fonts.bodyGrey
     containerView.addSubview(searchBar)
-    let image: UIImage? = MaterialIcon.cm.search
-    
         
-    // More button.
-    let moreButton: IconButton = IconButton()
-    moreButton.pulseColor = MaterialColor.grey.base
-    moreButton.tintColor = Color.accentColor1
-    moreButton.titleLabel?.font = UIFont(name: "Avenir", size: CGFloat(15.0))
-    moreButton.setImage(image, forState: .Normal)
-    moreButton.setImage(image, forState: .Highlighted)
+        
+    /// Prepares the searchButton
+    let searchImage: UIImage? = MaterialIcon.cm.search
+    let searchButton: IconButton = IconButton()
+    searchButton.pulseColor = MaterialColor.grey.base
+    searchButton.tintColor = Color.accentColor1
+    searchButton.setImage(searchImage, forState: .Normal)
+    searchButton.setImage(searchImage, forState: .Highlighted)
     
     /*
      To lighten the status bar - add the
      "View controller-based status bar appearance = NO"
      to your info.plist file and set the following property.
      */
-    searchBar.leftControls = [moreButton]
+    searchBar.leftControls = [searchButton]
     }
 
     

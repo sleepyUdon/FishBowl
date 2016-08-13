@@ -7,12 +7,10 @@ import OAuthSwift
 public class ContactsViewController: UIViewController {
     
     let cardView: MaterialPulseView = MaterialPulseView(frame: CGRect.zero)
-    
     public lazy var tableView: UITableView = UITableView()
-    
     private var containerView: UIView!
-    
     var selectedIndexPath: NSIndexPath? = nil
+
     
     
     /// Reference for SearchBar.
@@ -35,7 +33,7 @@ public class ContactsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         layoutTableView()
         
-        cardView.frame = CGRectMake(0, 100, view.bounds.width, 450.0)
+        cardView.frame = CGRectMake(0, 44, view.bounds.width, 450.0)
     }
     
     
@@ -46,14 +44,15 @@ public class ContactsViewController: UIViewController {
         searchBar.textField.font = Fonts.bodyGrey
         view.addSubview(searchBar)
         
-        // More button.
         
-        let image: UIImage? = MaterialIcon.cm.search
-        let moreButton: IconButton = IconButton()
-        moreButton.pulseColor = MaterialColor.grey.base
-        moreButton.tintColor = Color.accentColor1
-        moreButton.setImage(image, forState: .Normal)
-        moreButton.setImage(image, forState: .Highlighted)
+        // Setup the Search Button
+        
+        let searchImage: UIImage? = MaterialIcon.cm.search
+        let searchButton: IconButton = IconButton()
+        searchButton.pulseColor = MaterialColor.grey.base
+        searchButton.tintColor = Color.accentColor1
+        searchButton.setImage(searchImage, forState: .Normal)
+        searchButton.setImage(searchImage, forState: .Highlighted)
         
         /*
          To lighten the status bar - add the
