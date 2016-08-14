@@ -42,29 +42,10 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     /// Prepares the searchBar
     
     private func prepareSearchBar() {
-        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-//        searchBar.textField.font = Fonts.bodyGrey
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width - 40, height: 44))
         searchBar.delegate = self
         view.addSubview(searchBar)
-        
-        
-        // Setup the Search Button
-        
-//        let searchImage: UIImage? = MaterialIcon.cm.search
-//        let searchButton: IconButton = IconButton()
-//        searchButton.pulseColor = MaterialColor.grey.base
-//        searchButton.tintColor = Color.accentColor1
-//        searchButton.setImage(searchImage, forState: .Normal)
-//        searchButton.setImage(searchImage, forState: .Highlighted)
-        
-        /*
-         To lighten the status bar - add the
-         "View controller-based status bar appearance = NO"
-         to your info.plist file and set the following property.
-         */
-//        searchBar.leftControls = [searchButton]
     }
-    
     
     public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true;
@@ -90,7 +71,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         
         for user in users {userNameArray.append(user.name)}
 
-        filtered = userNameArray.filter({ (text) -> Bool in 
+        filtered = userNameArray.filter({ (text) -> Bool in  
             let tmp: NSString = text
             let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
             return range.location != NSNotFound
@@ -100,7 +81,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         } else {
             searchActive = true;
         }
-        self.tableView.reloadData() // NOT UPDATING
+        self.tableView.reloadData() 
     }
 
     

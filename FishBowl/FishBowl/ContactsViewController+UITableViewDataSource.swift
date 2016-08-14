@@ -35,7 +35,15 @@ extension ContactsViewController: UITableViewDataSource {
         let cell: ContactsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
         
         if(searchActive){
+            let users = ContactsModel().getUsers() // VIV NOT RETURNING RIGHT TITLE AND IMAGE
+
             cell.nameLabel.text = filtered[indexPath.row]
+            for user in users
+            {if user.name == filtered[indexPath.row] {cell.titleLabel.text = user.bio}}
+            
+            for user in users
+            {if user.name == filtered[indexPath.row] {cell.profileView.image = UIImage(data: user.image!)}}
+
             
         } else {
             let users = ContactsModel().getUsers()
