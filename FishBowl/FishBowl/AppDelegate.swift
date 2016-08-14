@@ -8,16 +8,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
     var accountAccess: Bool? = true
-    
     static var token:String?
+    var dataManager : DataManager?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
+        dataManager = DataManager()
 
 //        if accountAccess == true {
         createViewControllerStack()
 
 //        }
+        
+
         return true
 
     }

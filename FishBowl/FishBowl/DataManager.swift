@@ -2,22 +2,22 @@
 //  DataManager.swift
 //  FishBowl
 //
-//  Created by Viviane Chan on 2016-08-09.
+//  Created by Rene Mojica on 2016-08-10.
 //  Copyright © 2016 LightHouse Labs. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import OAuthSwift
+import Graph
 
 class DataManager: NSObject {
     
-    //var api = APIController()
+    let graph = Graph()
+    let api = APIController()
+    var contactList : [User] = []
     
-    var userList = [User]()
-    var eventList = [Event]()
-    
-    func createUserDummyData() -> [User] {
+    class func createUserDummyData() -> [User] {
         
         var userList = [User]()
         
@@ -66,20 +66,6 @@ class DataManager: NSObject {
             let title = user["title"] as! String
             let image = user["image"] as? NSData
             
-//            var userId: String
-//            var name: String
-//            var bio: String
-//            var email: String?
-//            var image: NSData?
-//            var phone: NSNumber?
-//            var github: String?
-//            var linkedin: String?
-            
-            
-            //            let someUser:User = User(name: user["name"], email: user["email"], image: nil, phone: user["phone"], github: user["github"], linkedin: user["linkedin"], title: user["title"])
-            
-               //let someUser = Member.init(memberId: <#T##String#>, memberName: <#T##String#>, memberImage: <#T##NSData#>)
-            
             let someUser = User(userId: "", name: "", bio: "", image: nil)
             someUser.name = name
             someUser.bio = title
@@ -96,7 +82,7 @@ class DataManager: NSObject {
         return userList
     }
 
-    func createEventDummyData() -> [Event]{
+    class func createEventDummyData() -> [Event]{
         
         var eventList = [Event]()
         
@@ -155,11 +141,101 @@ class DataManager: NSObject {
         return eventList
     }
     
+    class func grabEventsFromAPI() -> [Event] {
+        
+        var eventArrayFromAPI:[Event] = []
+        
+        //        let api = ApiController()
+        //        api.getEvents{(eventsArray: NSArray?) in
+        //            guard eventsArray != nil else {
+        //                print("events data should not be nil")
+        //                return
+        //            }
+        
+        // eventArrayFromAPI = eventsArray 
+        
+        return eventArrayFromAPI
+        
+    }
+    
+    func saveContactListArray() {  // This is contacts Tableview datasource
     
     
+    }
+    
+    func saveToPhone() {
+        
+        let graph = Graph()
+        graph.async { (success: Bool, error: NSError?) in
+            
+            if success {
+                
+                print("Success: \(success)")
+                
+            } else {
+                
+                print("Error: \(error)")
+                
+            }
+            
+        }
+        
+    }
+    
+     func saveNewContact() {
+    
+        
+        
+    }
+    
+    func updateContact() {
+        
+        
+    
+    }
+    
+    func updateProperty() {
+    
+    
+    
+    }
+    
+    func updateContactPhoto() {
+    
+    
+    
+    }
+    
+    func deleteContact(user:User) {
+        
+        let users:Array<Entity> = graph.searchForEntity(properties: [(key: "name", value: user.name)])
+        
+        if !users.isEmpty {
+            
+            let user = users.first
+            
+            user?.delete()
+            
+            saveToPhone()  //  insert save to context here
+            
+        } else {
+            
+            print("User does not exist")
+
+        }
+    
+    }
+    
+    class func dateFromMilliseconds(ms: NSNumber) -> NSDate {
+        
+        let offset = -14400000 // 4 hours earlier == EST
+        let msec = ms.integerValue + offset
+        let date  = NSDate(timeIntervalSince1970:Double(msec) / 1000.0)
+        return date
+        
+    }
     
 }
-
 // Eugene
 
 /*
@@ -188,6 +264,4 @@ User profile:
 ContactsViewController:
  <[Participant: ParticipantTitle, Company, Email, phone, github, linkedin]>
 */
-
-
 
