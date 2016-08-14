@@ -14,17 +14,22 @@ public class MenuModel: NSObject {
     /*
     @name   required initWithCoder
     */
-    
-    
-    var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
-
-    func getEvents() -> Array<Event> {
+    func getEvents() -> [Event] {
         
-        let events = DataManager().createEventDummyData()
+        let dummyEvents = DataManager.createEventDummyData()
+        let eventsFromAPI = DataManager.grabEventsFromAPI()
         
-        return events
-        
+        if eventsFromAPI.isEmpty {
+            
+            let events = dummyEvents
+            return events
+            
+        } else {
+            
+            let events = dummyEvents + eventsFromAPI
+            return events
+            
+        }
     }
-    
 }
