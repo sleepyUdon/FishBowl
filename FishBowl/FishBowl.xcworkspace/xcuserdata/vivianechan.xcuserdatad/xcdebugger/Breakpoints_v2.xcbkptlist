@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/ProfileViewController.swift"
-            timestampString = "492775810.84369"
+            timestampString = "492823252.689682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "494"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/ProfileViewController.swift"
-            timestampString = "492775810.84369"
+            timestampString = "492823252.689682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "475"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/ProfileViewController.swift"
-            timestampString = "492775810.84369"
+            timestampString = "492823252.689682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "553"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/ContactsViewController.swift"
-            timestampString = "492795497.689665"
+            timestampString = "492861050.783241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "ContactsViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -96,22 +96,6 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "doAuthMeetup()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FishBowl/AppDelegate.swift"
-            timestampString = "492810083.330111"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,14 +137,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FishBowl/AppDelegate.swift"
-            timestampString = "492813436.141829"
+            filePath = "FishBowl/ContactsViewController.swift"
+            timestampString = "492863318.415836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "searchBar(_:textDidChange:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -169,13 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FishBowl/AppDelegate.swift"
-            timestampString = "492813437.172678"
+            filePath = "FishBowl/ContactsViewController+UITableViewDataSource.swift"
+            timestampString = "492865026.466007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "application(_:openURL:options:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

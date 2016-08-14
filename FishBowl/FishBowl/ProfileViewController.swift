@@ -91,6 +91,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     /// Handles the saveButton.
     internal func handleSaveButton() {
+
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -114,7 +115,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         scrollView.contentSize = cardView.bounds.size
         scrollView.addSubview(cardView)
         view.addSubview(scrollView)
-        
         
         let switchbutton = MaterialSwitch(state: .On, style: .Default, size:.Large)
         switchbutton.trackOnColor = Color.accentColor1

@@ -31,11 +31,7 @@ class APIController: UIViewController {
         print("authorizing")
         //login thru safari and go back to the view controller
         if #available(iOS 9.0, *) {
-            //let eventsVC = EventsViewController()
-           // self.presentViewController(eventsVC, animated: false, completion: {
-//        self.oauthswift.authorize_url_handler = SafariURLHandler()
             UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
-           // })
         }
 
         
@@ -58,8 +54,8 @@ class APIController: UIViewController {
     
     //MARK - Get Requests for
     
-    func getUserDetails(handler:(userDict:NSDictionary?)->()) {
-        self.oauthswift.client.get("https://api.meetup.com/2/member/self",
+    func getUserDetails(token: String) -> NSDictionary {
+        self.oauthswift.client.get("https://api.meetup.com/2/member/self?access_token=\(token)",
             success:
             {
                         data, response in
@@ -67,8 +63,6 @@ class APIController: UIViewController {
                         //parse data to json
                         do {
                             self.jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
-                            
-                            handler(userDict: self.jsonDict)
                         }
                         catch let error as NSError{
                             print(error.localizedDescription)
@@ -78,62 +72,65 @@ class APIController: UIViewController {
                         error in
                         print(error)
         })
+        return self.jsonDict
         
     }
     
     //get all events under signed in user
-//    func getEvents(handler:(eventsDict:NSDictionary?)->()) {
-//        //print(self.user.userId)
-//        oauthswift.client.get("https://api.meetup.com/2/events?&sign=true&photo-host=public&fields=self&member_id=\(self.user.userId)&page=20",
-//            success: {
-//                        data, response in
-//                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-//                        //print(dataString)
-//                        
-//                        //parse data to json
-//                        do {
-//                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-//                            handler(eventsDict:self.jsonRsvp)
-//
-//                        }
-//                        catch let error as NSError{
-//                            print(error.localizedDescription)
-//                        }
-//                
-//            },
-//              failure: {
-//                        error in
-//                        print(error)
-//        })
-//    }
+    func getEvents(token: String) -> NSDictionary {
+        //print(self.user.userId)
+        oauthswift.client.get("https://api.meetup.com/events?access_token=\(token)&page=20",
+            success: {
+                        data, response in
+                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                        //print(dataString)
+                        
+                        //parse data to json
+                        do {
+                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
+
+                        }
+                        catch let error as NSError{
+                            print(error.localizedDescription)
+                        }
+                
+            },
+              failure: {
+                        error in
+                        print(error)
+        })
+        return self.jsonRsvp
+    }
 
     //get RSVPs
-//    func getRSVPs(handler:(rsvpMembersDict:NSDictionary?)->()) {
-//        oauthswift.client.get("https://api.meetup.com/2/rsvps?&sign=true&photo-host=public&event_id=\(self.eventItem.eventId)&page=500",
-//            success: {
-//                        data, response in
-//                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-//                        //print(dataString)
-//                        //print("*********************************")
-//                        do {
-//                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-//                            handler(rsvpMembersDict:self.jsonMembers)
-//                            
-//                        }
-//                        catch {
-//                            print(error)
-//                        }
-//                
-//            },
-//              failure: {
-//                        error in
-//                        print(error)
-//        })
-//        
-//    }
-//    
+    //call this method when the user tap on event cell
+    func getRSVPs(eventId: String) {
+        oauthswift.client.get("https://api.meetup.com/2/rsvps?&sign=true&photo-host=public&event_id=\(eventId)&page=500",
+            success: {
+                        data, response in
+                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                        //print(dataString)
+                        //print("*********************************")
+                        do {
+                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
+                            
+                            
+                        }
+                        catch {
+                            print(error)
+                        }
+                
+            },
+              failure: {
+                        error in
+                        print(error)
+        })
+        
+    }
+    
     //get every member data in every event
-    func getMembersInEvents(handler:(memberDict:NSDictionary?)->()) {
+    //call this method when the user tap on participant cell
+    func getMembersInEvents() {
         oauthswift.client.get("https://api.meetup.com/2/member/39478612?&sign=true&photo-host=public&page=20x",
             success: {
                         data, response in
@@ -144,7 +141,7 @@ class APIController: UIViewController {
                 
                         do {
                             self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                            handler(memberDict:self.jsonMembers)
+                           
                         }
                         catch {
                             print(error)

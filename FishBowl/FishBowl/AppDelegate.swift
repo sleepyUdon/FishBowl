@@ -77,11 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (url.host == "CardBowlTest") {
             OAuthSwift.handleOpenURL(url)
       
-    } 
-//        if url != "CardBowlTest://CardBowlTest/Meetup" {
-//            self.application(UIApplication.sharedApplication(), openURL: NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!, options: [:])
-//            return false
-//        }
+        }
         
         self.window?.rootViewController = nil
         createViewControllerStack()
