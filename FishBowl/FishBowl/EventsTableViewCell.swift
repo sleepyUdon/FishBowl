@@ -67,7 +67,7 @@ public class EventsTableViewCell: UITableViewCell {
     public func prepareDefaultLabel() {
 //        var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = Fonts.bodyGrey
-        defaultLabel.textColor = Color.greyMedium
+        defaultLabel.textColor = Color.greyDark
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
     }
@@ -77,9 +77,9 @@ public class EventsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareDefaultDescription() {
-        defaultDescription.font = Fonts.title
+        defaultDescription.font = Fonts.smallfont
         defaultDescription.textColor = Color.greyDark
-        defaultDescription.textAlignment = .Left
+        defaultDescription.textAlignment = .Right
         addSubview(defaultDescription)
     }
     
@@ -113,7 +113,7 @@ public class EventsTableViewCell: UITableViewCell {
     
     public func layoutDefaultLabel() {
         let x = CGFloat(20.0)
-        let y = (contentView.bounds.size.height / 8) - (15.0)
+        let y = CGFloat(20.0)
         let w = contentView.frame.width - (40.0)
         let h = CGFloat(30.0)
         defaultLabel.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -122,17 +122,17 @@ public class EventsTableViewCell: UITableViewCell {
     
     public func layoutDefaultDescription() {
         let x = CGFloat(20.0)
-        let y = (contentView.bounds.size.height / 8 * 3) - (15.0)
-        let w = CGFloat(200.0)
-        let h = CGFloat(30.0)
+        let y = CGFloat(0.0)
+        let w = contentView.frame.width - (40.0)
+        let h = CGFloat(20.0)
         defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
 
     public func layoutDefaultParticipants() {
         let x = CGFloat(20.0)
-        let y = (contentView.bounds.size.height / 8 * 5) - (15.0)
-        let w = CGFloat(200.0)
+        let y = CGFloat(50.0)
+        let w = contentView.frame.width - (40.0)
         let h = CGFloat(30.0)
         defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
     }

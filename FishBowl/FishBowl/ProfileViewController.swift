@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     
     var activeField: UITextField?
-    let profileView: UIImageView = UIImageView() //#IMAGEPICKER VIV add imagepicker for profile picture
+    var profileView: MaterialView!
     let picker = UIImagePickerController()
     
     var phoneTextfield: UITextField = UITextField()
@@ -134,6 +134,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         profileView.image = UIImage(named: "VivianeChan")
         profileView.shape = .Circle
         cardView.addSubview(profileView)
+        self.profileView = profileView
 
         let cameraButton = UIButton()
         cameraButton.backgroundColor = MaterialColor.clear
@@ -272,25 +273,25 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         // prepare Color Swtches
         
         let colorSwatch1: MaterialButton = MaterialButton()
-        colorSwatch1.backgroundColor = MaterialColor.pink.base
+        colorSwatch1.backgroundColor = MaterialColor.pink.accent2
         colorSwatch1.shape = .Square
         cardView.addSubview(colorSwatch1)
         colorSwatch1.addTarget(self, action: #selector(handleColorSwatch1), forControlEvents: .TouchUpInside)
         
         let colorSwatch2: MaterialButton = MaterialButton()
-        colorSwatch2.backgroundColor = MaterialColor.blue.base
+        colorSwatch2.backgroundColor = MaterialColor.blue.accent2
         colorSwatch2.shape = .Square
         cardView.addSubview(colorSwatch2)
         colorSwatch2.addTarget(self, action: #selector(handleColorSwatch2), forControlEvents: .TouchUpInside)
         
         let colorSwatch3: MaterialButton = MaterialButton()
-        colorSwatch3.backgroundColor = MaterialColor.lightGreen.base
+        colorSwatch3.backgroundColor = MaterialColor.green.accent3
         colorSwatch3.shape = .Square
         cardView.addSubview(colorSwatch3)
         colorSwatch3.addTarget(self, action: #selector(handleColorSwatch3), forControlEvents: .TouchUpInside)
 
         let colorSwatch4: MaterialButton = MaterialButton()
-        colorSwatch4.backgroundColor = MaterialColor.purple.base
+        colorSwatch4.backgroundColor = MaterialColor.purple.accent3
         colorSwatch4.shape = .Square
         cardView.addSubview(colorSwatch4)
         colorSwatch4.addTarget(self, action: #selector(handleColorSwatch4), forControlEvents: .TouchUpInside)
@@ -481,10 +482,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     let pickedImage: UIImage = (info as NSDictionary).objectForKey(UIImagePickerControllerOriginalImage) as! UIImage
         profileView.contentMode = .ScaleAspectFit
         profileView.image = pickedImage
-        picker.dismissViewControllerAnimated(true, completion: nil) //#PICTURE
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    
+
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -542,19 +543,19 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     
     func handleColorSwatch1(){
-        Color.accentColor1 = MaterialColor.pink.base
+        Color.accentColor1 = MaterialColor.pink.accent2 //UPDATECOLOR
     }
 
    func handleColorSwatch2(){
-        Color.accentColor1 = MaterialColor.blue.base
+        Color.accentColor1 = MaterialColor.blue.accent2
     }
 
     func handleColorSwatch3(){
-        Color.accentColor1 = MaterialColor.lightGreen.base
+        Color.accentColor1 = MaterialColor.green.accent3
     }
 
     func handleColorSwatch4(){
-        Color.accentColor1 = MaterialColor.purple.base
+        Color.accentColor1 = MaterialColor.purple.accent3
     }
 
     

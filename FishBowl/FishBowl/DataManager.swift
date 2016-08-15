@@ -92,7 +92,7 @@ class DataManager: NSObject {
         let events = [["Group":"DevHub",
                         "EventTitle":"NSCoder Night Toronto",
                         "EventRsvp":3,
-                        "Date":"2018-08-30"],
+                        "Date":0],
                       ["Group":"Mobile Growth Toronto",
                         "EventTitle":"Mobile Growth Toronto - December Meetup",
                         "EventRsvp":5,
@@ -100,23 +100,23 @@ class DataManager: NSObject {
                       ["Group":"Lighthouse Labs",
                         "EventTitle":"Hack & Tell: Round 9",
                         "EventRsvp":2,
-                        "Date":"2018-10-11"],
+                        "Date":0],
                       ["Group":"Singles in Toronto!",
                         "EventTitle":"20 Questions 'The Fun Version' (Ages 25-39) - Meet with Singles & See who you like!",
                         "EventRsvp":2,
-                        "Date":"2018-08-13"],
+                        "Date":0],
                       ["Group":"The Toronto Area Gamers (TAG)",
                         "EventTitle":"Fan Expo Canada 2016",
                         "EventRsvp":1,
-                        "Date":"2018-09-01"],
+                        "Date":0],
                       ["Group":"Adult ART Attack",
                         "EventTitle":"Adult ART Attack - Painting with a twist!",
                         "EventRsvp":2,
-                        "Date":"2018-09-02"],
+                        "Date":0],
                       ["Group":"Saturday Night For Singles",
                         "EventTitle":"The Thursday Night Pool, Party & Patio Bash! *Free Night of Dancing*",
                         "EventRsvp":2,
-                        "Date":"2018-08-25"],
+                        "Date":0],
                       ["Group":"Toronto Short Trippers",
                         "EventTitle":"Beautiful Bruce Peninsula & Flowerpot Island (Day Trip from Toronto)",
                         "EventRsvp":1,
@@ -226,7 +226,7 @@ class DataManager: NSObject {
     
     }
     
-    class func dateFromMilliseconds(ms: NSNumber) -> NSDate {
+    class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
         
         let offset = -14400000 // 4 hours earlier == EST
         let msec = ms.integerValue + offset
