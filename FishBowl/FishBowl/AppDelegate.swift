@@ -14,27 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
         dataManager = DataManager()
-
-//        if accountAccess == true {
         createViewControllerStack()
-
-//        }
-        
 
         return true
 
     }
-//            else {
-//            let loginViewController = LoginViewController ()
-//            window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//            window!.rootViewController = loginViewController
-//
-//        
-//        window!.makeKeyAndVisible()
-//        
-//		return true
-//	}
-//    }
     
     private func createViewControllerStack() {
     let eventsViewController = EventsViewController ()
@@ -81,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = nil
         createViewControllerStack()
-        
+
         return true
     }
     

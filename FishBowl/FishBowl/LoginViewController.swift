@@ -12,16 +12,13 @@ import OAuthSwift
 
 class LoginViewController: OAuthViewController {
 
-    var login = ApiController()
+    var login = APIController()
     // oauth swift object (retain)
     var oauthswift: OAuthSwift?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let controller = WebViewController()
-        controller.view = UIView(frame: UIScreen.mainScreen().bounds) // needed if no nib or not loaded from storyboard
-        //controller.delegate = self
         prepareLargeCardViewExample()
     }
     
@@ -89,18 +86,13 @@ class LoginViewController: OAuthViewController {
     
     internal func handleLoginButton() {
         
-        self.presentViewController(login, animated: true) { 
-            //self.login.doAuthMeetup()
-        }
         self.login.doAuthMeetup()
 
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-//        self.dismissViewControllerAnimated(false) { 
-//            print(#function, "fired")
-//        }
+
     }
     
     
@@ -108,33 +100,6 @@ class LoginViewController: OAuthViewController {
 }
 
 
-//extension LoginViewController: OAuthWebViewControllerDelegate {
-//    
-//    func oauthWebViewControllerDidPresent() {
-//        
-//    }
-//    func oauthWebViewControllerDidDismiss() {
-//        
-//    }
-//    
-//    func oauthWebViewControllerWillAppear() {
-//        
-//    }
-//    func oauthWebViewControllerDidAppear() {
-//        
-//    }
-//    func oauthWebViewControllerWillDisappear() {
-//        //        let eventsViewController = EventsViewController()
-//        //        let navc: NavigationController = NavigationController(rootViewController: eventsViewController)
-//        //        navc.modalTransitionStyle = .CrossDissolve
-//        //        presentViewController(navc, animated: true, completion: nil)
-//        
-//    }
-//    func oauthWebViewControllerDidDisappear() {
-//        // Ensure all listeners are removed if presented web view close
-//        oauthswift?.cancel()
-//    }
-//}
 
 
 

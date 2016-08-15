@@ -14,7 +14,7 @@ import Graph
 class DataManager: NSObject {
     
     let graph = Graph()
-    let api = APIController()
+    //let api = APIController()
     var contactList : [User] = []
     
     class func createUserDummyData() -> [User] {
@@ -81,80 +81,34 @@ class DataManager: NSObject {
         
         return userList
     }
-
-    class func createEventDummyData() -> [Event]{
-        
-        var eventList = [Event]()
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let events = [["Group":"DevHub",
-                        "EventTitle":"NSCoder Night Toronto",
-                        "EventRsvp":3,
-                        "Date":"2018-08-30"],
-                      ["Group":"Mobile Growth Toronto",
-                        "EventTitle":"Mobile Growth Toronto - December Meetup",
-                        "EventRsvp":5,
-                        "Date":"2018-12-01"],
-                      ["Group":"Lighthouse Labs",
-                        "EventTitle":"Hack & Tell: Round 9",
-                        "EventRsvp":2,
-                        "Date":"2018-10-11"],
-                      ["Group":"Singles in Toronto!",
-                        "EventTitle":"20 Questions 'The Fun Version' (Ages 25-39) - Meet with Singles & See who you like!",
-                        "EventRsvp":2,
-                        "Date":"2018-08-13"],
-                      ["Group":"The Toronto Area Gamers (TAG)",
-                        "EventTitle":"Fan Expo Canada 2016",
-                        "EventRsvp":1,
-                        "Date":"2018-09-01"],
-                      ["Group":"Adult ART Attack",
-                        "EventTitle":"Adult ART Attack - Painting with a twist!",
-                        "EventRsvp":2,
-                        "Date":"2018-09-02"],
-                      ["Group":"Saturday Night For Singles",
-                        "EventTitle":"The Thursday Night Pool, Party & Patio Bash! *Free Night of Dancing*",
-                        "EventRsvp":2,
-                        "Date":"2018-08-25"],
-                      ["Group":"Toronto Short Trippers",
-                        "EventTitle":"Beautiful Bruce Peninsula & Flowerpot Island (Day Trip from Toronto)",
-                        "EventRsvp":1,
-                        "Date":"2018-08-27"]]
-        
-        
-        for event in events {
-            
-//            let date = dateFormatter.dateFromString(event["Date"]!)
-            
-            let someEvent = Event(eventId: "", title: "", time: 0, yesRsvpCount: 0, eventStatus: "")
-            
-                someEvent.title = event["EventTitle"] as? String
-                someEvent.yesRsvpCount = event["EventRsvp"] as! NSInteger
-            
-            //let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
-            
-            eventList.append(someEvent)
-            
-        }
-        
-        return eventList
-    }
     
-    class func grabEventsFromAPI() -> [Event] {
+    class func grabEventsFromAPI(handler:(events: [Event])->()){
         
-        var eventArrayFromAPI:[Event] = []
+        var eventsArray:[Event] = []
+        let api = APIController()
         
-        //        let api = ApiController()
-        //        api.getEvents{(eventsArray: NSArray?) in
-        //            guard eventsArray != nil else {
-        //                print("events data should not be nil")
-        //                return
-        //            }
-        
-        // eventArrayFromAPI = eventsArray 
-        
-        return eventArrayFromAPI
+        if AppDelegate.token != nil {
+            
+            api.getEvents(AppDelegate.token!, handler: { (eventsDict: NSArray) in
+            
+                for result in eventsDict {
+                    let eventId = result["id"] as! String
+                    let eventName = result["name"] as! String
+                    let eventTime = result["time"] as! NSNumber
+                    let eventYesRsvpCount = result["yes_rsvp_count"] as! NSInteger
+                    let eventStatus = result["status"] as! String
+                    
+                    //create an event object
+                    let eventItem = Event.init(eventId:eventId, title: eventName, time:eventTime, yesRsvpCount: eventYesRsvpCount, eventStatus: eventStatus)
+                    //print(self.eventItem)
+                    
+                    //now add eventItem object to events array
+                    eventsArray.append(eventItem)
+                    
+                }
+                handler(events: eventsArray)
+            })
+        }
         
     }
     

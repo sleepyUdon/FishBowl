@@ -12,7 +12,7 @@ import OAuthSwift
 class APIController: UIViewController {
     
     var jsonDict: NSDictionary!
-    var jsonRsvp: NSDictionary!
+    var jsonRsvp: NSArray!
     var jsonMembers: NSDictionary!
     
     
@@ -30,9 +30,9 @@ class APIController: UIViewController {
     func doAuthMeetup() {
         print("authorizing")
         //login thru safari and go back to the view controller
-        if #available(iOS 9.0, *) {
-            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
-        }
+//        if #available(iOS 9.0, *) {
+//            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
+//        }
 
         
         //authorization callback
@@ -77,17 +77,18 @@ class APIController: UIViewController {
     }
     
     //get all events under signed in user
-    func getEvents(token: String) -> NSDictionary {
+    func getEvents(token: String, handler:(eventsDict: NSArray)->()) {
         //print(self.user.userId)
-        oauthswift.client.get("https://api.meetup.com/events?access_token=\(token)&page=20",
+        oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=20",
             success: {
                         data, response in
-                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-                        //print(dataString)
+                        let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                        print(dataString)
                         
                         //parse data to json
                         do {
-                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
+                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSArray
+                            handler(eventsDict: self.jsonRsvp)
 
                         }
                         catch let error as NSError{
@@ -99,7 +100,6 @@ class APIController: UIViewController {
                         error in
                         print(error)
         })
-        return self.jsonRsvp
     }
 
     //get RSVPs
