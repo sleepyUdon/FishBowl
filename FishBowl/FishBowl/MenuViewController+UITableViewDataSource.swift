@@ -20,7 +20,7 @@ extension MenuViewController: UITableViewDataSource {
 //        let key = Array(sections.keys)[section]
 //        let section = sections[key] as! [String]
         
-        let rows = MenuModel().getEvents().count
+        let rows = eventsData.events.count
         
         return rows
     }
@@ -31,7 +31,7 @@ extension MenuViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         
-        let events = MenuModel().getEvents()
+        let events = eventsData.events
         let event = events[indexPath.row]
         
 

@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = nil
         createViewControllerStack()
-        
+
         return true
     }
     

@@ -9,7 +9,7 @@
 
 import Foundation
 
-class Event: NSObject {
+public class Event: NSObject {
     var eventId: String
     var title: String?
     var time: NSNumber

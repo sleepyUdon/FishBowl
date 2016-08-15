@@ -27,7 +27,7 @@ public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultDate: UILabel = UILabel()
     public lazy var menumodel: MenuModel = MenuModel()
     
-    var apiVC = ApiController()
+    var apiVC = APIController()
     
     /*
     @name   required initWithCoder

@@ -14,7 +14,7 @@ import Graph
 class DataManager: NSObject {
     
     let graph = Graph()
-    let api = APIController()
+    //let api = APIController()
     var contactList : [User] = []
     
     class func createUserDummyData() -> [User] {
@@ -141,20 +141,33 @@ class DataManager: NSObject {
         return eventList
     }
     
-    class func grabEventsFromAPI() -> [Event] {
+    class func grabEventsFromAPI(handler:(events: [Event])->()){
         
-        var eventArrayFromAPI:[Event] = []
+        var eventsArray:[Event] = []
+        let api = APIController()
         
-        //        let api = ApiController()
-        //        api.getEvents{(eventsArray: NSArray?) in
-        //            guard eventsArray != nil else {
-        //                print("events data should not be nil")
-        //                return
-        //            }
-        
-        // eventArrayFromAPI = eventsArray 
-        
-        return eventArrayFromAPI
+        if AppDelegate.token != nil {
+            
+            api.getEvents(AppDelegate.token!, handler: { (eventsDict: NSArray) in
+            
+                for result in eventsDict {
+                    let eventId = result["id"] as! String
+                    let eventName = result["name"] as! String
+                    let eventTime = result["time"] as! NSNumber
+                    let eventYesRsvpCount = result["yes_rsvp_count"] as! NSInteger
+                    let eventStatus = result["status"] as! String
+                    
+                    //create an event object
+                    let eventItem = Event.init(eventId:eventId, title: eventName, time:eventTime, yesRsvpCount: eventYesRsvpCount, eventStatus: eventStatus)
+                    //print(self.eventItem)
+                    
+                    //now add eventItem object to events array
+                    eventsArray.append(eventItem)
+                    
+                }
+                handler(events: eventsArray)
+            })
+        }
         
     }
     
