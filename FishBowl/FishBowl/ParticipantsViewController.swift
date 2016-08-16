@@ -43,24 +43,25 @@ private func prepareSearchBar() {
     participantsSearchBar.delegate = self
     view.addSubview(participantsSearchBar)
 }
+    
     public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
+        participantsSearchBar.showsCancelButton = true
         participantsSearchActive = true;
     }
     
     public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
+        participantsSearchBar.showsCancelButton = false
+        participantsSearchBar.text = ""
         participantsSearchActive = false;
     }
     
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.endEditing(true)
+        participantsSearchBar.endEditing(true)
         participantsSearchActive = false;
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchBar.endEditing(true)
+        participantsSearchBar.endEditing(true)
         participantsSearchActive = false;
     }
     

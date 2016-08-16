@@ -21,7 +21,7 @@ extension MenuViewController: UITableViewDelegate {
         let destination = ParticipantsViewController()
         
         navigationController?.pushViewController(destination, animated: false)
-        destination.navigationItem.title = "Participants"
+        destination.navigationItem.title = "Participants   "
         destination.navigationItem.titleLabel.textColor = Color.accentColor1
         destination.navigationItem.titleLabel.font = Fonts.navigationTitle
     }
