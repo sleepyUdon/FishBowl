@@ -52,7 +52,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         let users = ContactsModel().getUsers()
         let user = users[indexPath.row]
         
-
         // set container views
         
         cardView.pulseColor = Color.baseColor1
@@ -67,7 +66,12 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         cardView.addSubview(contentView)
         
         let profileView: MaterialView = MaterialView()
+        if filtered.count != 0 {
+        for user in users
+        {if user.name == filtered[indexPath.row] {profileView.image = UIImage(data: user.image!)}}
+        } else {
         profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
+        }
         profileView.shape = .Circle
         topImageView.addSubview(profileView)
         
@@ -84,14 +88,25 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         // set labels
         
         let nameLabel: UILabel = UILabel()
-        nameLabel.text = user.name //#PASSDATA name from participant
+        if filtered.count != 0 {
+        for user in users
+        {if user.name == filtered[indexPath.row] {nameLabel.text = user.name}}
+        } else {
+            nameLabel.text = user.name
+        }
         nameLabel.textAlignment = .Center
         nameLabel.font = Fonts.title
         nameLabel.textColor = Color.greyDark
         contentView.addSubview(nameLabel)
         
+        
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = user.bio//#PASSDATA title from participant
+        if filtered.count != 0 {
+        for user in users
+        {if user.bio == filtered[indexPath.row] {titleLabel.text = user.bio}}
+        } else {
+                titleLabel.text = user.bio
+            }
         titleLabel.textAlignment = .Center
         titleLabel.font = Fonts.bodyGrey
         titleLabel.textColor = Color.greyMedium
@@ -243,9 +258,11 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             linkedinButton
         ]
         
-        
         self.view.addSubview(cardView)
-        
+        UIView.animateWithDuration(0.3) {
+            self.tableView.alpha = 0
+            self.cardView.alpha = 1
+        }
     }
     
     
@@ -298,8 +315,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle phone button
     
-    func handlePhoneButton() {
-        let phone = "tel://6474477768"; //#PASSDATA phone from participant
+    func handlePhoneButton(indexPath:NSIndexPath) {
+        let users = DataManager.createUserDummyData()
+        var phone = "tel://6474477768"; //#PASSDATA phone from participant
+
+            for user in users
+            {if user.name == filtered[indexPath.row] {phone = user.phone!}}
+
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }
@@ -324,7 +346,14 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // handle close button
     
     func handleCloseButton() {
-        cardView.removeFromSuperview()  //REMOVECONTACT
+        UIView.animateWithDuration(0.3) { 
+            self.cardView.alpha = 0
+            UIView.animateWithDuration(0.3, animations: { 
+                self.tableView.alpha = 1
+                }, completion: { (completed) in
+                    self.cardView.removeFromSuperview()  //REMOVECONTACT
+            })
+        }
     }
     
 }

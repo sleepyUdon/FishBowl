@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
         dataManager = DataManager()
         createViewControllerStack()
+        
+        self.window!.tintColor = MaterialColor.green.accent4
 
         return true
 

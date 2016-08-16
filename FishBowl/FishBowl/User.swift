@@ -14,7 +14,7 @@ class User: NSObject {
     var bio: String     
     var email: String?
     var image: NSData?
-    var phone: NSNumber?
+    var phone: String?
     var github: String?
     var linkedin: String?
     

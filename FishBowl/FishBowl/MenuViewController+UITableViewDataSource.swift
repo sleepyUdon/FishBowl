@@ -35,14 +35,18 @@ extension MenuViewController: UITableViewDataSource {
         let event = events[indexPath.row]
         
 
-//        let formatter = NSDateFormatter()
-//        formatter.dateStyle = NSDateFormatterStyle.LongStyle
-        
-        //let dateString = formatter.stringFromDate(event.time)
-        
+        let formatter = NSDateFormatter()
+        //        formatter.dateStyle = .LongStyle  
+        //NSDateFormatterStyle.LongStyle         
+        formatter.dateFormat = "MMM dd, yy h:mm a"
+        //        formatter.timeStyle = .ShortStyle         
+        let someDate = DataManager.getDateFromMilliseconds(event.time)
+        let dateString = formatter.stringFromDate(someDate)
         cell.defaultLabel.text = event.title
-        cell.defaultDescription.text = event.time.stringValue
+        cell.defaultDescription.text = dateString
         cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
+        cell.defaultDate.text = ""
+        
 
         
         return cell
