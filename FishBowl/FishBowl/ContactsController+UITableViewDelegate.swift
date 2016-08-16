@@ -124,6 +124,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         mailButton.tintColor = Color.baseColor1
         mailButton.setImage(mailImage, forState: .Normal)
         mailButton.setImage(mailImage, forState: .Highlighted)
+        mailButton.layer.setValue(user.email, forKey: "email")
         contentView.addSubview(mailButton)
         mailButton.addTarget(self, action: #selector(handleMailButton), forControlEvents: .TouchUpInside)
         
@@ -133,6 +134,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         messageButton.tintColor = Color.baseColor1
         messageButton.setImage(messageImage, forState: .Normal)
         messageButton.setImage(messageImage, forState: .Highlighted)
+        messageButton.layer.setValue(user.phone, forKey: "phone")
         contentView.addSubview(messageButton)
         messageButton.addTarget(self, action: #selector(handleMessageButton), forControlEvents: .TouchUpInside)
         
@@ -142,6 +144,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         phoneButton.tintColor = Color.baseColor1
         phoneButton.setImage(phoneImage, forState: .Normal)
         phoneButton.setImage(phoneImage, forState: .Highlighted)
+        phoneButton.layer.setValue(user.phone, forKey: "phone")
         contentView.addSubview(phoneButton)
         phoneButton.addTarget(self, action: #selector(handlePhoneButton), forControlEvents: .TouchUpInside)
         
@@ -151,6 +154,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         githubButton.tintColor = Color.baseColor1
         githubButton.setImage(githubImage, forState: .Normal)
         githubButton.setImage(githubImage, forState: .Highlighted)
+        githubButton.layer.setValue(user.github, forKey: "github")
         contentView.addSubview(githubButton)
         githubButton.addTarget(self, action: #selector(handleGithubButton), forControlEvents: .TouchUpInside)
         
@@ -160,6 +164,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         linkedinButton.tintColor = Color.baseColor1
         linkedinButton.setImage(linkedinImage, forState: .Normal)
         linkedinButton.setImage(linkedinImage, forState: .Highlighted)
+        linkedinButton.layer.setValue(user.linkedin, forKey: "linkedin")
         contentView.addSubview(linkedinButton)
         linkedinButton.addTarget(self, action: #selector(handleLinkedinButton), forControlEvents: .TouchUpInside)
         
@@ -268,12 +273,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle email button
     
-    func handleMailButton() {
+    func handleMailButton(button:UIButton) {
         let email = MFMailComposeViewController()
+        let emailAddress = button.layer.valueForKey("email") as! String
         email.mailComposeDelegate = self
         email.setSubject("Hello")
         //        email.setMessageBody("Some example text", isHTML: false)
-        email.setToRecipients(["vivianechan@hotmail.com"]) // VIV #PASSDATA email from participant
+        email.setToRecipients([emailAddress]) // VIV #PASSDATA email from participant
         if MFMailComposeViewController.canSendMail() {
             presentViewController(email, animated: true, completion: nil)
         }
@@ -287,9 +293,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle message button
     
-    func handleMessageButton(){
+    func handleMessageButton(button:UIButton){
         let messageVC = MFMessageComposeViewController()
-        messageVC.recipients = []  // VIV #PASSDATA phone from participant
+        let phoneNumber = button.layer.valueForKey("phone")
+        messageVC.recipients = [(phoneNumber?.stringValue)!]  
         messageVC.messageComposeDelegate = self
         presentViewController(messageVC, animated: true, completion: nil)
     }
@@ -315,13 +322,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle phone button
     
-    func handlePhoneButton(indexPath:NSIndexPath) {
-        let users = DataManager.createUserDummyData()
-        var phone = "tel://6474477768"; //#PASSDATA phone from participant
-
-            for user in users
-            {if user.name == filtered[indexPath.row] {phone = user.phone!}}
-
+    func handlePhoneButton(button:UIButton) {
+        
+        let phoneNumber = button.layer.valueForKey("phone")
+        let phone = "tel://" + (phoneNumber?.stringValue)!
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }
@@ -330,15 +334,25 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle github button
     
-    func handleGithubButton() {
-        UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sleepyUdon/")!) //#PASSDATA github from participant
+    func handleGithubButton(button:UIButton) {
+        
+        let github = button.layer.valueForKey("github") as! String
+        
+            UIApplication.sharedApplication().openURL(NSURL(string:github)!)
+        
     }
     
     
     // handle linkedin button
     
-    func handleLinkedinButton() {
-        UIApplication.sharedApplication().openURL(NSURL(string:"https://www.linkedin.com/in/vivianechan")!) //#PASSDATA linkedin from participant
+    func handleLinkedinButton(button:UIButton) {
+        
+        let linkedin = button.layer.valueForKey("linkedin") as! String
+        if linkedin != "" {
+        
+            UIApplication.sharedApplication().openURL(NSURL(string:linkedin)!)
+        
+        }
     }
     
     
