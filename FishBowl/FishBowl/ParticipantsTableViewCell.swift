@@ -52,7 +52,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
-        profileView.image = UIImage(named: "VivianeChan") //#PASSDATA picture from participants
+        profileView.image = UIImage(named: "photoplaceholder.png") //#PASSDATA picture from participants
         profileView.shape = .Circle
         profileView.backgroundColor = UIColor.clearColor()
         profileView.clipsToBounds = true
@@ -65,7 +65,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareNameLabel() {
         nameLabel.font = Fonts.title
-        nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
+        //nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
         nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
@@ -77,7 +77,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareTitleLabel() {
         titleLabel.font = Fonts.bodyGrey
-        titleLabel.text = "iOS Developer" //#PASSDATA title from participants
+        //titleLabel.text = "iOS Developer" //#PASSDATA title from participants
         titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)

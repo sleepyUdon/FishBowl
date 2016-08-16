@@ -180,7 +180,7 @@ class DataManager: NSObject {
         
         var membersArray:[Member] = []
         let api = APIController()
-        var memberImageData: NSData?
+        
         
         print(self.eventId)
         
@@ -188,12 +188,13 @@ class DataManager: NSObject {
             if let memberResults = membersDict["results"] as? [[String:AnyObject]] {
                 //go through every member
                 for memberObject in memberResults {
+                    var memberImageData: NSData?
                     if let memberPhoto = memberObject["member_photo"] as? NSDictionary{
                         //get photo of the member
                         let memberPhotoLink = memberPhoto["thumb_link"] as! String
                         let url: NSURL = NSURL(string: memberPhotoLink as String)!
                         memberImageData = NSData(contentsOfURL: url)! as NSData
-                        
+                        print(memberImageData)
                     }
                     
                     if let member = memberObject["member"] as? NSDictionary {
@@ -203,9 +204,9 @@ class DataManager: NSObject {
                         //print(memberName, memberId)
                         
                         //create member object
-                        let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData!)
+                        let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
                         membersArray.append(member)
-                        
+                        print(membersArray)
                         
                     }
                                             

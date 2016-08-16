@@ -30,6 +30,7 @@ extension ParticipantsViewController: UITableViewDataSource {
     /*
     @name   cellForRowAtIndexPath
     */
+    
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
         cell.selectionStyle = .None
@@ -43,21 +44,37 @@ extension ParticipantsViewController: UITableViewDataSource {
                 }}
             
             for member in members
-            {if member.memberName == filteredParticipants[indexPath.row] {cell.profileView.image = UIImage(data: member.memberImage!)}}
+            {if member.memberName == filteredParticipants[indexPath.row] {
+                
+                if let imageData = member.memberImage {
+                    let image = UIImage(data: imageData)
+                    cell.profileView.image = image
+                }
+                else {
+                    cell.profileView.image = UIImage(named: "photoplaceholder.png")
+                }
+                }
+            }
             
             for member in members
             {if member.memberName == filteredParticipants[indexPath.row] {cell.titleLabel.text = member.memberBio}}
-                
+            
         } else {
-                
-                let members = membersData.members
-                let member = members[indexPath.row]
-                
-                cell.profileView.image = UIImage(data: member.memberImage!)
-                cell.titleLabel.text = member.memberBio
-                cell.nameLabel.text = member.memberName
+            
+            let members = membersData.members
+            let member = members[indexPath.row]
+            if let imageData = member.memberImage {
+                let image = UIImage(data: imageData)
+                cell.profileView.image = image
+            }
+            else {
+                cell.profileView.image = UIImage(named: "photoplaceholder.png")
+            }
+            
+            cell.titleLabel.text = member.memberBio
+            cell.nameLabel.text = member.memberName
         }
         
-                return cell
-            }
+        return cell
+    }
 }
