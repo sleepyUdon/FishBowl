@@ -18,15 +18,27 @@ extension ContactsViewController: UITableViewDataSource {
 //        var sections = MenuModel.sections()
 //        let key = Array(sections.keys)[section]
 //        let section = sections[key] as! [String]
+        
+//        if(participantsSearchActive) {
+//            if filteredParticipants.count == 0{
+//                return membersData.members.count
+//            } else {
+//                return self.filteredParticipants.count
+//            }
+//            let rows = ContactsModel().getUsers().count
+//            
+//            return rows
         if(searchActive) {
-            return filtered.count
+            if filtered.count == 0{
+                return ContactsModel().getUsers().count
+            } else {
+                return self.filtered.count
+            }
+        } else {
+            return ContactsModel().getUsers().count
         }
-
-        
-        let rows = ContactsModel().getUsers().count
-        
-        return rows
     }
+    
     
     /*
     @name   cellForRowAtIndexPath
@@ -35,7 +47,7 @@ extension ContactsViewController: UITableViewDataSource {
         let cell: ContactsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
         
         if(searchActive){
-            let users = ContactsModel().getUsers() // VIV NOT RETURNING RIGHT TITLE AND IMAGE
+            let users = ContactsModel().getUsers() 
 
             cell.nameLabel.text = filtered[indexPath.row]
             for user in users

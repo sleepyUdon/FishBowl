@@ -1,6 +1,7 @@
 
 
 import UIKit
+import Material
 
 extension MenuViewController: UITableViewDataSource {
     
@@ -43,13 +44,27 @@ extension MenuViewController: UITableViewDataSource {
         let someDate = DataManager.getDateFromMilliseconds(event.time)
         let dateString = formatter.stringFromDate(someDate)
         cell.defaultLabel.text = event.title
-        cell.defaultDescription.text = dateString
+        cell.defaultDescription.text = "    " + dateString
         cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
         cell.defaultDate.text = ""
         
+        let seconds = NSDate().timeIntervalSince1970
+        let milliseconds = seconds * 1000.0
 
+        // grey out past events
+        if (milliseconds > event.time.doubleValue) {
+            cell.backgroundColor = MaterialColor.grey.lighten3
+        }
+        else {cell.backgroundColor = MaterialColor.white
+        }
         
         return cell
     }
     
+    public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        cellToDeSelect.contentView.backgroundColor = MaterialColor.white //VIV DESELECT ROW
+    }
+    
 }
+
