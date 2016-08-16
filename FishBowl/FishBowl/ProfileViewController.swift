@@ -90,10 +90,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     
     internal func handleSaveButton() {
-        dismissViewControllerAnimated(true, completion: {
-
-            
-        })
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     
