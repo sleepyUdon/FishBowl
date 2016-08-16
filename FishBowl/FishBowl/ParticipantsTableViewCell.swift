@@ -141,9 +141,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     public func layoutNameLabel() {
         let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
-        let y = CGFloat(5.0)
+        let y = contentView.bounds.size.height/2 - (15.0)
         let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
-        let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
+        let h = CGFloat(30.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     

@@ -16,11 +16,15 @@ extension ParticipantsViewController: UITableViewDataSource {
     @name   numberOfRowsInSection
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        var sections = MenuModel.sections()
-//        let key = Array(sections.keys)[section]
-//        let section = sections[key] as! [String]
-        
-        return membersData.members.count
+        if(participantsSearchActive) {
+            if filteredParticipants.count == 0{
+                return membersData.members.count
+            } else {
+                return self.filteredParticipants.count
+            }
+        } else {
+            return membersData.members.count
+        }
     }
     
     /*
@@ -30,34 +34,30 @@ extension ParticipantsViewController: UITableViewDataSource {
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
         cell.selectionStyle = .None
         
-        let members = membersData.members
-        let member = members[indexPath.row]
+        if(participantsSearchActive){
+            let members = membersData.members
+            
+            cell.nameLabel.text = filteredParticipants[indexPath.row]
+            for member in members
+            {if member.memberName == filteredParticipants[indexPath.row] {cell.nameLabel.text = member.memberName
+                }}
+            
+            for member in members
+            {if member.memberName == filteredParticipants[indexPath.row] {cell.profileView.image = UIImage(data: member.memberImage!)}}
+            
+            for member in members
+            {if member.memberName == filteredParticipants[indexPath.row] {cell.titleLabel.text = member.memberBio}}
+                
+        } else {
+                
+                let members = membersData.members
+                let member = members[indexPath.row]
+                
+                cell.profileView.image = UIImage(data: member.memberImage!)
+                cell.titleLabel.text = member.memberBio
+                cell.nameLabel.text = member.memberName
+        }
         
-        cell.imageView?.image = UIImage(data: member.memberImage!)
-        cell.titleLabel.text = member.memberBio
-        cell.nameLabel.text = member.memberName
-        
-        return cell
-    }
-    
-    
-    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    
-    public func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        var addAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Add" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-            // 2
-            let shareMenu = UIAlertController(title: nil, message: "Add to contact list", preferredStyle: .ActionSheet)
-            
-            let addAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: nil)
-            
-            shareMenu.addAction(addAction)
-            
-            
-            self.presentViewController(shareMenu, animated: true, completion: nil)
-        })
-        
-        return [addAction]
-    }
-
+                return cell
+            }
 }

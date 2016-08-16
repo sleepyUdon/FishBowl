@@ -1,15 +1,15 @@
 import UIKit
 import Material
 
-public class ParticipantsViewController: UIViewController {
+public class ParticipantsViewController: UIViewController, UISearchBarDelegate {
     
     public lazy var tableView: UITableView = UITableView()
     public var membersData: ParticipantsModel = ParticipantsModel()
-    
-//    private var containerView: UIView!
-    
+    var participantsSearchActive : Bool = false
+    var filteredParticipants:[String] = []
+
     /// Reference for SearchBar.
-    private var searchBar: SearchBar!
+    private var participantsSearchBar: UISearchBar!
 
     
     /*
@@ -39,23 +39,51 @@ public class ParticipantsViewController: UIViewController {
 
 /// Prepares the searchBar
 private func prepareSearchBar() {
-    searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-    view.addSubview(searchBar)
-    let image: UIImage? = MaterialIcon.cm.search
-    searchBar.textField.font = Fonts.bodyGrey
-
-    // More button.
-    let moreButton: IconButton = IconButton()
-    moreButton.pulseColor = MaterialColor.grey.base
-    moreButton.tintColor = Color.accentColor1
-    moreButton.setImage(image, forState: .Normal)
-    moreButton.setImage(image, forState: .Highlighted)
-    
-    /*
-     To lighten the status bar - add the
-     "View controller-based status bar appearance = NO"
-     to your info.plist file and set the following property.
-     */
-    searchBar.leftControls = [moreButton]
+    participantsSearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+    participantsSearchBar.delegate = self
+    view.addSubview(participantsSearchBar)
 }
+    public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        participantsSearchActive = true;
+    }
+    
+    public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        participantsSearchActive = false;
+    }
+    
+    public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        participantsSearchActive = false;
+    }
+    
+    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        participantsSearchActive = false;
+    }
+    
+    public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let members = membersData.members
+        
+        var participantsNameArray = [String]()
+        
+        for member in members {participantsNameArray.append(member.memberName)}
+        
+        filteredParticipants = participantsNameArray.filter({ (text) -> Bool in
+            let tmp: NSString = text
+            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return range.location != NSNotFound
+        })
+        if(filteredParticipants.count == 0){
+            participantsSearchActive = false;
+        } else {
+            participantsSearchActive = true;
+        }
+        self.tableView.reloadData()
+    }
+    
+
 }
