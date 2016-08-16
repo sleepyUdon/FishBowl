@@ -4,6 +4,7 @@ import Material
 public class ParticipantsViewController: UIViewController {
     
     public lazy var tableView: UITableView = UITableView()
+    public var membersData: ParticipantsModel = ParticipantsModel()
     
 //    private var containerView: UIView!
     
@@ -16,6 +17,8 @@ public class ParticipantsViewController: UIViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMemebers), name: ParticipantsModel.setParticipants, object: self.membersData)
+        membersData.getMembers()
         prepareView()
         prepareTableView()
         prepareSearchBar()
@@ -27,6 +30,10 @@ public class ParticipantsViewController: UIViewController {
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
+    }
+    
+    func didUpdateMemebers() {
+        self.tableView.reloadData()
     }
 
 
