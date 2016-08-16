@@ -77,8 +77,9 @@ public class EventsTableViewCell: UITableViewCell {
      */
     public func prepareDefaultDescription() {
         defaultDescription.font = Fonts.smallfont
+        defaultDescription.backgroundColor = MaterialColor.grey.lighten2
         defaultDescription.textColor = Color.greyDark
-        defaultDescription.textAlignment = .Right
+        defaultDescription.textAlignment = .Left
         addSubview(defaultDescription)
     }
     
@@ -120,9 +121,9 @@ public class EventsTableViewCell: UITableViewCell {
     
     
     public func layoutDefaultDescription() {
-        let x = CGFloat(20.0)
+        let x = CGFloat(0.0)
         let y = CGFloat(0.0)
-        let w = contentView.frame.width - (40.0)
+        let w = contentView.frame.width
         let h = CGFloat(20.0)
         defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
     }

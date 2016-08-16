@@ -10,8 +10,6 @@ extension MenuViewController: UITableViewDelegate {
      */
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -22,13 +20,12 @@ extension MenuViewController: UITableViewDelegate {
         
         navigationController?.pushViewController(destination, animated: false)
         destination.navigationItem.title = "Participants"
+        destination.navigationItem.titleLabel.textAlignment = .Center
         destination.navigationItem.titleLabel.textColor = Color.accentColor1
         destination.navigationItem.titleLabel.font = Fonts.navigationTitle
     }
  
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        return cell.height() VIVFIX THIS
         return 100.0
     }
 }

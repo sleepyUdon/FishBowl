@@ -10,14 +10,11 @@ import UIKit
 import Material
 import OAuthSwift
 
-class EventsViewController: UIViewController{
+class EventsViewController: UIViewController, UISearchBarDelegate {
     
     //    internal var api = ApiController()
 
     private var containerView: UIView!
-
-    /// Reference for SearchBar.
-    private var searchBar: SearchBar!
     
     /// NavigationBar menu button.
     private var menuButton: IconButton!
@@ -38,7 +35,6 @@ class EventsViewController: UIViewController{
         prepareMenuButton()
         prepareProfileButton()
         prepareContainerView()
-        prepareSearchBar()
         prepareTableView()
         prepareNavigationItem()
         prepareNavigationBar()
@@ -104,36 +100,13 @@ class EventsViewController: UIViewController{
         containerView = UIView()
         view.layout(containerView).edges(top: 0, left: 0, right: 0)
     }
-
-
-    /// Prepares the searchBar
-    private func prepareSearchBar() {
-    searchBar = SearchBar()
-    searchBar.textField.font = Fonts.bodyGrey
-    containerView.addSubview(searchBar)
-        
-        
-    /// Prepares the searchButton
-    let searchImage: UIImage? = MaterialIcon.cm.search
-    let searchButton: IconButton = IconButton()
-    searchButton.pulseColor = MaterialColor.grey.base
-    searchButton.tintColor = Color.accentColor1
-    searchButton.setImage(searchImage, forState: .Normal)
-    searchButton.setImage(searchImage, forState: .Highlighted)
     
-    /*
-     To lighten the status bar - add the
-     "View controller-based status bar appearance = NO"
-     to your info.plist file and set the following property.
-     */
-    searchBar.leftControls = [searchButton]
-    }
 
     
     /// Prepares the tableView
     
     private func prepareTableView() {
-        displayContentController(MenuViewController(), frame: CGRect(x: 0, y: searchBar.bounds.maxY, width: view.bounds.size.width, height: view.bounds.size.height - searchBar.bounds.size.height))
+        displayContentController(MenuViewController(), frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
     }
     
     
