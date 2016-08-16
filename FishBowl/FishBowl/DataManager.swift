@@ -25,13 +25,13 @@ class DataManager: NSObject {
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
 
-            "phone": "tel://6478365162",
+            "phone":6478365162,
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
-            "phone":"tel://6478365162",
+            "phone":6478365162,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/williamhgates",
             "title":"Technology Advisor, Microsoft",
@@ -39,7 +39,7 @@ class DataManager: NSObject {
             ["name":"Larry Page",
             "email":"larry@google.com",
 
-            "phone":"tel://6478365162",
+            "phone":6478365162,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/tlytle",
             "title":"CEO, Alphabet Inc",
@@ -47,7 +47,7 @@ class DataManager: NSObject {
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
 
-            "phone":"tel://6478365162",
+            "phone":6478365162,
             "github":"",
             "linkedin":"",
             "title":"Chairman and CEO, Facebook",
@@ -55,7 +55,7 @@ class DataManager: NSObject {
             ["name":"Marissa Mayer",
             "email":"marissa.mayer@yahoo-inc.com",
 
-            "phone":"tel://6478365162",
+            "phone":6478365162,
             "github":"",
             "linkedin":"https://www.linkedin.com/in/marissamayer",
             "title":"CEO, Yahoo!",
