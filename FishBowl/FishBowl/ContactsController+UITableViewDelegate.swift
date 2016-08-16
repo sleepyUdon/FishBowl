@@ -268,13 +268,12 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle email button
     
-    func handleMailButton(button:UIButton) {
+    func handleMailButton() {
         let email = MFMailComposeViewController()
-        let emailAddress : String = button.layer.valueForKey("email") as! String
         email.mailComposeDelegate = self
         email.setSubject("Hello")
         //        email.setMessageBody("Some example text", isHTML: false)
-        email.setToRecipients([emailAddress]) // VIV #PASSDATA email from participant
+        email.setToRecipients(["vivianechan@hotmail.com"]) // VIV #PASSDATA email from participant
         if MFMailComposeViewController.canSendMail() {
             presentViewController(email, animated: true, completion: nil)
         }
@@ -288,10 +287,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle message button
     
-    func handleMessageButton(button:UIButton){
+    func handleMessageButton(){
         let messageVC = MFMessageComposeViewController()
-        let phoneNumber : NSNumber = button.layer.valueForKey("phone") as! NSNumber
-        messageVC.recipients = [phoneNumber.stringValue]  // VIV #PASSDATA phone from participant
+        messageVC.recipients = []  // VIV #PASSDATA phone from participant
         messageVC.messageComposeDelegate = self
         presentViewController(messageVC, animated: true, completion: nil)
     }
@@ -317,10 +315,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle phone button
     
-    func handlePhoneButton(button:UIButton) {
-        
-        let phoneNumber : NSNumber = button.layer.valueForKey("phone") as! NSNumber
-        let phone = "tel://" + phoneNumber.stringValue
+    func handlePhoneButton(indexPath:NSIndexPath) {
+        let users = DataManager.createUserDummyData()
+        var phone = "tel://6474477768"; //#PASSDATA phone from participant
+
+            for user in users
+            {if user.name == filtered[indexPath.row] {phone = user.phone!}}
+
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }
@@ -329,21 +330,18 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle github button
     
-    func handleGithubButton(button:UIButton) {
-        
-        let github : String = button.layer.valueForKey("github") as! String
-        UIApplication.sharedApplication().openURL(NSURL(string:github)!) //#PASSDATA github from participant
+    func handleGithubButton() {
+        UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/sleepyUdon/")!) //#PASSDATA github from participant
     }
     
     
     // handle linkedin button
     
-    func handleLinkedinButton(button:UIButton) {
-        let linkedin : String = button.layer.valueForKey("linkedin") as! String
-        
-        UIApplication.sharedApplication().openURL(NSURL(string:linkedin)!)
-    
+    func handleLinkedinButton() {
+        UIApplication.sharedApplication().openURL(NSURL(string:"https://www.linkedin.com/in/vivianechan")!) //#PASSDATA linkedin from participant
     }
+    
+    
     
     // handle close button
     
