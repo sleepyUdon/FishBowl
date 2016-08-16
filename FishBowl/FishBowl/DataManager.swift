@@ -2,7 +2,7 @@
 //  DataManager.swift
 //  FishBowl
 //
-//  Created by Rene Mojica on 2016-08-10.
+//  Created by Rene Mojica, Yevhen Kim on 2016-08-10.
 //  Copyright © 2016 LightHouse Labs. All rights reserved.
 //
 
@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import OAuthSwift
 import Graph
+
 
 class DataManager: NSObject {
     
@@ -194,7 +195,7 @@ class DataManager: NSObject {
                         let memberPhotoLink = memberPhoto["thumb_link"] as! String
                         let url: NSURL = NSURL(string: memberPhotoLink as String)!
                         memberImageData = NSData(contentsOfURL: url)! as NSData
-                        print(memberImageData)
+                        //print(memberImageData)
                     }
                     
                     if let member = memberObject["member"] as? NSDictionary {
@@ -206,7 +207,7 @@ class DataManager: NSObject {
                         //create member object
                         let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
                         membersArray.append(member)
-                        print(membersArray)
+                        //print(membersArray)
                         
                     }
                                             
@@ -245,9 +246,7 @@ class DataManager: NSObject {
     }
     
      func saveNewContact() {
-    
-        
-        
+
     }
     
     func updateContact() {

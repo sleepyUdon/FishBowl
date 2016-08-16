@@ -31,8 +31,8 @@ extension ParticipantsViewController: UITableViewDataSource {
         cell.selectionStyle = .None
         
         let members = membersData.members
-        debugPrint("Members with no images!")
-        debugPrint(members.filter({$0.memberImage == nil}))
+        //debugPrint("Members with no images!")
+        //debugPrint(members.filter({$0.memberImage == nil}))
         let member = members[indexPath.row]
         if let imageData = member.memberImage {
             let image = UIImage(data: imageData)

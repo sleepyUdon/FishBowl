@@ -12,7 +12,7 @@ import OAuthSwift
 
 class LoginViewController: OAuthViewController {
     
-    var login = ApiController()
+    var login = APIController()
     // oauth swift object (retain)
     var oauthswift: OAuthSwift?
     
@@ -22,9 +22,6 @@ class LoginViewController: OAuthViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let controller = WebViewController()
-        controller.view = UIView(frame: UIScreen.mainScreen().bounds) // needed if no nib or not loaded from storyboard
-        //controller.delegate = self
         prepareView()
     }
     
