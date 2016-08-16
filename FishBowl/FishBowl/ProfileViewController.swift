@@ -11,7 +11,9 @@ import Material
 
 private var saveButton: MaterialButton!
 private var scrollView: UIScrollView = UIScrollView()
-var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
+private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
+
+
 
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -22,7 +24,15 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var activeField: UITextField?
     var profileView: MaterialView!
     let picker = UIImagePickerController()
-    var phoneTextfield: UITextField = UITextField()
+//    var phoneTextfield: UITextField = UITextField()
+    
+    var nameTextField : UITextField!
+    var titleTextField : UITextField!
+    var companyTextField : UITextField!
+    var emailTextField : UITextField!
+    var phoneTextField : UITextField!
+    var githubTextField : UITextField!
+    var linkedinTextField : UITextField!
     
     //    viewDid Load
 
@@ -89,7 +99,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
 
     
-    internal func handleSaveButton() {
+     func handleSaveButton() {
+        
+        let name = nameTextField.text
+        let title = titleTextField.text
+        let company = companyTextField.text
+        let email = emailTextField.text
+        let phone : Int = Int((phoneTextField.text)!)!
+        let github = githubTextField.text
+        let linkedin = linkedinTextField.text
+        let image = UIImagePNGRepresentation(self.profileView.image!)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let dm = appDelegate.dataManager! as DataManager
+        dm.saveCurrentUser(name!, title:title!, company:company!, email:email!, phone:phone, github:github!, linkedin:linkedin!, image:image!)
+       
+        
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -193,7 +219,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         // prepare textfields
         
-        let nameTextfield: UITextField = UITextField()//#PASSDATA from user
+        let nameTextfield: UITextField = UITextField()
         nameTextfield.attributedPlaceholder = NSAttributedString(string:"Viviane Chan",
                                                                   attributes:[NSForegroundColorAttributeName: Color.greyMedium])
         nameTextfield.font = Fonts.bodyGrey
@@ -201,6 +227,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         nameTextfield.textColor = Color.greyMedium
         cardView.addSubview(nameTextfield)
         nameTextfield.delegate = self
+        nameTextfield.text = "Anyone"
+        nameTextField = nameTextfield
+        
+        
 
         let titleTextfield: UITextField = UITextField()//#PASSDATA from user
         titleTextfield.attributedPlaceholder = NSAttributedString(string:"iOS Developer",
@@ -210,6 +240,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         titleTextfield.textColor = Color.greyMedium
         cardView.addSubview(titleTextfield)
         titleTextfield.delegate = self
+        titleTextField = titleTextfield
 
         
         let companyTextfield: UITextField = UITextField()//#PASSDATA from user
@@ -220,6 +251,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         companyTextfield.textColor = Color.greyMedium
         cardView.addSubview(companyTextfield)
         companyTextfield.delegate = self
+        companyTextField = companyTextfield
 
 
         let emailTextfield: UITextField = UITextField()//#PASSDATA from user
@@ -230,6 +262,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         emailTextfield.textColor = Color.greyMedium
         cardView.addSubview(emailTextfield)
         emailTextfield.delegate = self
+        emailTextField = emailTextfield
 
         let phoneTextfield: UITextField = UITextField() //VIV #PHONEINPUT
         phoneTextfield.attributedPlaceholder = NSAttributedString(string:"(647)836 5162",
@@ -241,6 +274,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         phoneTextfield.delegate = self
         phoneTextfield.keyboardType = UIKeyboardType.NumberPad
         phoneTextfield.tag = 22
+        phoneTextField = phoneTextfield
 
 
         let githubTextfield: UITextField = UITextField() //VIV #PHONEINPUT
@@ -251,6 +285,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         githubTextfield.textColor = Color.greyMedium
         cardView.addSubview(githubTextfield)
         githubTextfield.delegate = self
+        githubTextField = githubTextfield
 
         let linkedinTextfield: UITextField = UITextField() //VIV #PHONEINPUT
         linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"linkedin.com/in/vivianechan",
@@ -260,6 +295,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinTextfield.textColor = Color.greyMedium
         cardView.addSubview(linkedinTextfield)
         linkedinTextfield.delegate = self
+        linkedinTextField = linkedinTextfield
         
         
         // layout elements

@@ -186,7 +186,46 @@ class DataManager: NSObject {
         
     }
     
-     func saveNewContact() {
+    func saveCurrentUser(name:String, title:String, company:String, email:String, phone: NSNumber, github:String, linkedin:String, image:NSData) {
+        
+        //check if currentUser exists
+        let users = graph.searchForEntity(types: ["CurrentUser"])
+        if users.count == 0 {
+        
+        let user: Entity = Entity(type: "CurrentUser")
+        user["type"] = "default"
+        user["name"] = name
+        user["title"] = title
+        user["company"] = company
+        user["email"] = email
+        user["phone"] = phone
+        user["github"] = github
+        user["linkedin"] = linkedin
+        user["image"] = image
+        
+        } else {
+            
+         let users = graph.searchForEntity(types: ["CurrentUser"])
+         let user = users.first! as Entity
+
+            user["type"] = "default"
+            user["name"] = name
+            user["title"] = title
+            user["company"] = company
+            user["email"] = email
+            user["phone"] = phone
+            user["github"] = github
+            user["linkedin"] = linkedin
+            user["image"] = image
+
+        
+        }
+        
+        saveToPhone()
+
+    }
+    
+    func saveNewContact() {
     
         
         
@@ -237,6 +276,8 @@ class DataManager: NSObject {
         return date
         
     }
+    
+
     
 }
 
