@@ -20,7 +20,7 @@ class Member: NSObject {
     var memberLinkedin: String?
     
     
-    init(memberId:String, memberName:String, memberImage: NSData) {
+    init(memberId:String, memberName:String, memberImage: NSData?) {
         self.memberId = memberId
         self.memberName = memberName
         self.memberImage = memberImage

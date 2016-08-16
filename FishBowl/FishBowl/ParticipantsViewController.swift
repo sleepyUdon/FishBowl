@@ -17,6 +17,9 @@ public class ParticipantsViewController: UIViewController {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        tableView.backgroundView = activityIndicatorView
+        activityIndicatorView.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMemebers), name: ParticipantsModel.setParticipants, object: self.membersData)
         membersData.getMembers()
         prepareView()
