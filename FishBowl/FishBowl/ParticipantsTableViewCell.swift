@@ -123,7 +123,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func layoutImageView() {
         let y = CGFloat(5.0)
-        let x = CGFloat(5.0)
+        let x = CGFloat(10.0)
         let h = contentView.bounds.size.height - (10.0)
         let w = h
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -140,7 +140,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0)
+        let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
         let y = CGFloat(5.0)
         let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
         let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
@@ -149,7 +149,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     
     public func layoutTitleLabel() {
-        let x = CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0)
+        let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
         let y = CGFloat(5.0) + (nameLabel.frame.height)
         let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
         let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2

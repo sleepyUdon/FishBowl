@@ -27,6 +27,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareTableView()
         prepareSearchBar()
         
+        cardView.alpha = 0.0
     }
     
     //  viewDidLayoutSubviews

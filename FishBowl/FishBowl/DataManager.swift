@@ -23,34 +23,34 @@ class DataManager: NSObject {
         
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
-//            "phone": 6139924211,
+            "phone": "tel://6478365162",
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
-//            "phone":2067093100,
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/williamhgates",
             "title":"Technology Advisor, Microsoft",
             "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
             ["name":"Larry Page",
             "email":"larry@google.com",
-//            "phone":6502141722,
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/tlytle",
             "title":"CEO, Alphabet Inc",
             "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
-//            "phone":16505434800,
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"",
             "title":"Chairman and CEO, Facebook",
             "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
             ["name":"Marissa Mayer",
             "email":"marissa.mayer@yahoo-inc.com",
-//            "phone":4083493300,
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/marissamayer",
             "title":"CEO, Yahoo!",
@@ -60,7 +60,7 @@ class DataManager: NSObject {
             
             let name = user["name"] as! String
             let email = user["email"] as! String
-//            let phone = user["phone"] as! NSNumber
+            let phone = user["phone"] as! String
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
@@ -70,7 +70,7 @@ class DataManager: NSObject {
             someUser.name = name
             someUser.bio = title
             someUser.email = email
-//            someUser.phone = phone
+            someUser.phone = phone
             someUser.image = image
             someUser.linkedin = linkedin
             someUser.github = github

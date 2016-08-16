@@ -62,11 +62,12 @@ public class EventsTableViewCell: UITableViewCell {
     
     
     /*
-    @name   prepareDefaultLabel
+    @name   prepareDefaultLabel (Events Title)
     */
     public func prepareDefaultLabel() {
 //        var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = Fonts.bodyGrey
+        defaultLabel.numberOfLines = 0
         defaultLabel.textColor = Color.greyDark
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
@@ -74,7 +75,7 @@ public class EventsTableViewCell: UITableViewCell {
     
     
     /*
-     @name   prepareDefaultDescription
+     @name   prepareDefaultDescription (Events Date)
      */
     public func prepareDefaultDescription() {
         defaultDescription.font = Fonts.smallfont
@@ -89,7 +90,7 @@ public class EventsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareDefaultParticipants() {
-        defaultParticipants.font = Fonts.bodyGrey
+        defaultParticipants.font = Fonts.smallfont
         defaultParticipants.textColor = Color.greyMedium
         defaultParticipants.textAlignment = .Left
         addSubview(defaultParticipants)
@@ -115,7 +116,7 @@ public class EventsTableViewCell: UITableViewCell {
         let x = CGFloat(20.0)
         let y = CGFloat(20.0)
         let w = contentView.frame.width - (40.0)
-        let h = CGFloat(30.0)
+        let h = CGFloat(60.0)
         defaultLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
@@ -131,9 +132,9 @@ public class EventsTableViewCell: UITableViewCell {
 
     public func layoutDefaultParticipants() {
         let x = CGFloat(20.0)
-        let y = CGFloat(50.0)
+        let y = CGFloat(80.0)
         let w = contentView.frame.width - (40.0)
-        let h = CGFloat(30.0)
+        let h = CGFloat(20.0)
         defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
     }
 

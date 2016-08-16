@@ -9,7 +9,6 @@
 import UIKit
 import Material
 
-/// NavigationBar save button.
 private var saveButton: MaterialButton!
 private var scrollView: UIScrollView = UIScrollView()
 var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
@@ -17,14 +16,15 @@ var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-//    var api = ApiController()
+    //    var api = ApiController()
 
     
     var activeField: UITextField?
     var profileView: MaterialView!
     let picker = UIImagePickerController()
-    
     var phoneTextfield: UITextField = UITextField()
+    
+    //    viewDid Load
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOffScreen), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    
+    //    Setup Keyboard an textfields
+
     func textFieldDidBeginEditing(textField: UITextField) {
         self.activeField = textField
     }
@@ -52,8 +53,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         return true
     }
     
-
-
     func keyboardOnScreen(notification: NSNotification){
         let info: NSDictionary  = notification.userInfo!
         let kbSize = info.valueForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue().size
@@ -78,7 +77,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     
-    
+    //    Prepare and Handle Save Button
+
     private func prepareSaveButton() {
         saveButton = MaterialButton()
         saveButton.setTitle("Save", forState: .Normal)
@@ -89,9 +89,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
 
     
-    /// Handles the saveButton.
     internal func handleSaveButton() {
-
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -192,12 +190,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinLabel.textColor = MaterialColor.black
         cardView.addSubview(linkedinLabel)
 
-        let colorLabel: UILabel = UILabel()
-        colorLabel.text = "Color"
-        colorLabel.font = Fonts.title
-        colorLabel.textColor = MaterialColor.black
-        cardView.addSubview(colorLabel)
-
         
         // prepare textfields
         
@@ -270,35 +262,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinTextfield.delegate = self
         
         
-        // prepare Color Swtches
-        
-        let colorSwatch1: MaterialButton = MaterialButton()
-        colorSwatch1.backgroundColor = MaterialColor.pink.accent2
-        colorSwatch1.shape = .Square
-        cardView.addSubview(colorSwatch1)
-        colorSwatch1.addTarget(self, action: #selector(handleColorSwatch1), forControlEvents: .TouchUpInside)
-        
-        let colorSwatch2: MaterialButton = MaterialButton()
-        colorSwatch2.backgroundColor = MaterialColor.blue.accent2
-        colorSwatch2.shape = .Square
-        cardView.addSubview(colorSwatch2)
-        colorSwatch2.addTarget(self, action: #selector(handleColorSwatch2), forControlEvents: .TouchUpInside)
-        
-        let colorSwatch3: MaterialButton = MaterialButton()
-        colorSwatch3.backgroundColor = MaterialColor.green.accent3
-        colorSwatch3.shape = .Square
-        cardView.addSubview(colorSwatch3)
-        colorSwatch3.addTarget(self, action: #selector(handleColorSwatch3), forControlEvents: .TouchUpInside)
-
-        let colorSwatch4: MaterialButton = MaterialButton()
-        colorSwatch4.backgroundColor = MaterialColor.purple.accent3
-        colorSwatch4.shape = .Square
-        cardView.addSubview(colorSwatch4)
-        colorSwatch4.addTarget(self, action: #selector(handleColorSwatch4), forControlEvents: .TouchUpInside)
-        
-
-
-        
         // layout elements
         
         switchbutton.grid.rows = 1
@@ -350,9 +313,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinLabel.grid.columns = 5
         linkedinLabel.grid.offset.rows = 8
         
-        colorLabel.grid.rows = 1
-        colorLabel.grid.columns = 5
-        colorLabel.grid.offset.rows = 9
+//        colorLabel.grid.rows = 1
+//        colorLabel.grid.columns = 5
+//        colorLabel.grid.offset.rows = 9
         
         nameTextfield.grid.rows = 1
         nameTextfield.grid.columns = 8
@@ -389,26 +352,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinTextfield.grid.offset.rows = 8
         linkedinTextfield.grid.offset.columns = 4
         
-        colorSwatch1.grid.rows = 1
-        colorSwatch1.grid.columns = 2
-        colorSwatch1.grid.offset.rows = 9
-        colorSwatch1.grid.offset.columns = 4
-        
-        colorSwatch2.grid.rows = 1
-        colorSwatch2.grid.columns = 2
-        colorSwatch2.grid.offset.rows = 9
-        colorSwatch2.grid.offset.columns = 6
-
-        colorSwatch3.grid.rows = 1
-        colorSwatch3.grid.columns = 2
-        colorSwatch3.grid.offset.rows = 9
-        colorSwatch3.grid.offset.columns = 8
-
-        colorSwatch4.grid.rows = 1
-        colorSwatch4.grid.columns = 2
-        colorSwatch4.grid.offset.rows = 9
-        colorSwatch4.grid.offset.columns = 10
-
         cardView.grid.spacing = 2
         cardView.grid.axis.direction = .None
         cardView.grid.contentInsetPreset = .Square3
@@ -427,7 +370,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             phoneLabel,
             githubLabel,
             linkedinLabel,
-            colorLabel,
             
             nameTextfield,
             titleTextfield,
@@ -437,10 +379,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             githubTextfield,
             linkedinTextfield,
             
-            colorSwatch1,
-            colorSwatch2,
-            colorSwatch3,
-            colorSwatch4
         ]
     }
  
@@ -468,6 +406,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     
+    /// Handle Camera Button
+
     func handleCameraButton(){
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -477,6 +417,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         presentViewController(picker, animated: true, completion: nil)
     }
     
+    /// Save Picture
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     let pickedImage: UIImage = (info as NSDictionary).objectForKey(UIImagePickerControllerOriginalImage) as! UIImage
@@ -485,6 +426,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    /// Dismiss Image Picker
 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -499,11 +441,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         {
             let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
             let components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
-            
             let decimalString = components.joinWithSeparator("") as NSString
             let length = decimalString.length
             let hasLeadingOne = length > 0 && decimalString.characterAtIndex(0) == (1 as unichar)
-            
             if length == 0 || (length > 10 && !hasLeadingOne) || length > 11
             {
                 let newLength = (textField.text! as NSString).length + (string as NSString).length - range.length as Int
@@ -511,7 +451,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             }
             var index = 0 as Int
             let formattedString = NSMutableString()
-            
             if hasLeadingOne
             {
                 formattedString.appendString("1 ")
@@ -529,7 +468,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 formattedString.appendFormat("%@-", prefix)
                 index += 3
             }
-            
             let remainder = decimalString.substringFromIndex(index)
             formattedString.appendString(remainder)
             textField.text = formattedString as String
@@ -542,21 +480,5 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
 
     
-    func handleColorSwatch1(){
-        Color.accentColor1 = MaterialColor.pink.accent2 //UPDATECOLOR
-    }
-
-   func handleColorSwatch2(){
-        Color.accentColor1 = MaterialColor.blue.accent2
-    }
-
-    func handleColorSwatch3(){
-        Color.accentColor1 = MaterialColor.green.accent3
-    }
-
-    func handleColorSwatch4(){
-        Color.accentColor1 = MaterialColor.purple.accent3
-    }
-
     
 }

@@ -258,9 +258,11 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             linkedinButton
         ]
         
-        
         self.view.addSubview(cardView)
-        
+        UIView.animateWithDuration(0.3) {
+            self.tableView.alpha = 0
+            self.cardView.alpha = 1
+        }
     }
     
     
@@ -313,8 +315,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle phone button
     
-    func handlePhoneButton() {
-        let phone = "tel://6474477768"; //#PASSDATA phone from participant
+    func handlePhoneButton(indexPath:NSIndexPath) {
+        let users = DataManager.createUserDummyData()
+        var phone = "tel://6474477768"; //#PASSDATA phone from participant
+
+            for user in users
+            {if user.name == filtered[indexPath.row] {phone = user.phone!}}
+
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }
@@ -339,7 +346,14 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // handle close button
     
     func handleCloseButton() {
-        cardView.removeFromSuperview()  //REMOVECONTACT
+        UIView.animateWithDuration(0.3) { 
+            self.cardView.alpha = 0
+            UIView.animateWithDuration(0.3, animations: { 
+                self.tableView.alpha = 1
+                }, completion: { (completed) in
+                    self.cardView.removeFromSuperview()  //REMOVECONTACT
+            })
+        }
     }
     
 }
