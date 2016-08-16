@@ -16,6 +16,7 @@ class DataManager: NSObject {
     let graph = Graph()
     //let api = APIController()
     var contactList : [User] = []
+    var eventId: String!
     
     class func createUserDummyData() -> [User] {
         
@@ -111,6 +112,49 @@ class DataManager: NSObject {
         }
         
     }
+    
+    func grabMembersFromAPI(handler:(members:[Member])->()) {
+        
+        var membersArray:[Member] = []
+        let api = APIController()
+        var memberImageData: NSData?
+        
+        print(self.eventId)
+        
+        api.getRSVPs(self.eventId, token: AppDelegate.token!, handler: { (membersDict: NSDictionary) in
+            if let memberResults = membersDict["results"] as? [[String:AnyObject]] {
+                //go through every member
+                for memberObject in memberResults {
+                    if let memberPhoto = memberObject["member_photo"] as? NSDictionary{
+                        //get photo of the member
+                        let memberPhotoLink = memberPhoto["thumb_link"] as! String
+                        let url: NSURL = NSURL(string: memberPhotoLink as String)!
+                        memberImageData = NSData(contentsOfURL: url)! as NSData
+                        
+                    }
+                    
+                    if let member = memberObject["member"] as? NSDictionary {
+                        //get all details under every member
+                        let memberId = member["member_id"]!.stringValue
+                        let memberName = member["name"] as! String
+                        //print(memberName, memberId)
+                        
+                        //create member object
+                        let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData!)
+                        membersArray.append(member)
+                        
+                        
+                    }
+                                            
+                }
+            }
+            handler(members: membersArray)
+        })
+    }
+    
+    
+    
+    
     
     func saveContactListArray() {  // This is contacts Tableview datasource
     

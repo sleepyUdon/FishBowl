@@ -18,7 +18,7 @@ public class ContactsModel: NSObject {
         
         let contactsFromDummyData = DataManager.createUserDummyData()
         let contactsFromPhone : [User] = []
-        let contacts = contactsFromDummyData + contactsFromPhone
+        let contacts = contactsFromDummyData
         
         return contacts
     
