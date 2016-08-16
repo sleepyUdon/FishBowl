@@ -290,40 +290,12 @@ class DataManager: NSObject {
     
     class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
         
-        let offset = -14400000 // 4 hours earlier == EST
-        let msec = ms.integerValue + offset
+        let msec = ms.integerValue
         let date  = NSDate(timeIntervalSince1970:Double(msec) / 1000.0)
         return date
         
     }
     
 }
-// Eugene
 
-/*
- EventsViewController:
- <[MyMeetup: GroupName, EventTitle, Number of participants, event date]>
- (sorted by event date)
-*/
-
-/*
- EventsDetailViewController:
- <[EventTitle: Participant, ParticipantTitle, inContactList]>
- (sorted alphabetically by participant first name)
- */
-
-
-
-// Rene
-
-/*
-User profile:
-[photo, name, title, company, email, password, phone, github, linkedin, meetup account]
- */
-
-
-/*
-ContactsViewController:
- <[Participant: ParticipantTitle, Company, Email, phone, github, linkedin]>
-*/
 
