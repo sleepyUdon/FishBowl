@@ -31,11 +31,20 @@ extension ParticipantsViewController: UITableViewDataSource {
         cell.selectionStyle = .None
         
         let members = membersData.members
+        debugPrint("Members with no images!")
+        debugPrint(members.filter({$0.memberImage == nil}))
         let member = members[indexPath.row]
-        
-        cell.profileView.image = UIImage(data: member.memberImage!)
+        if let imageData = member.memberImage {
+            let image = UIImage(data: imageData)
+            cell.profileView.image = image
+
+        }
+        else {
+            cell.profileView.image = UIImage(named: "photoplaceholder.png")
+        }
         cell.titleLabel.text = member.memberBio
         cell.nameLabel.text = member.memberName
+        
         
         return cell
     }
