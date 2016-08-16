@@ -104,16 +104,16 @@ class APIController: UIViewController {
 
     //get RSVPs
     //call this method when the user tap on event cell
-    func getRSVPs(eventId: String) {
-        oauthswift.client.get("https://api.meetup.com/2/rsvps?&sign=true&photo-host=public&event_id=\(eventId)&page=500",
+    func getRSVPs(eventId: String, token: String, handler:(membersDict: NSDictionary)->()) {
+        oauthswift.client.get("https://api.meetup.com/2/rsvps?&access_token=\(token)&event_id=\(eventId)&page=500",
             success: {
                         data, response in
                         //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
                         //print(dataString)
                         //print("*********************************")
                         do {
-                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                            
+                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            handler(membersDict: self.jsonMembers)
                             
                         }
                         catch {

@@ -20,7 +20,7 @@ extension ParticipantsViewController: UITableViewDataSource {
 //        let key = Array(sections.keys)[section]
 //        let section = sections[key] as! [String]
         
-        return 3
+        return membersData.members.count
     }
     
     /*
@@ -29,6 +29,14 @@ extension ParticipantsViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
         cell.selectionStyle = .None
+        
+        let members = membersData.members
+        let member = members[indexPath.row]
+        
+        cell.imageView?.image = UIImage(data: member.memberImage!)
+        cell.titleLabel.text = member.memberBio
+        cell.nameLabel.text = member.memberName
+        
         return cell
     }
     

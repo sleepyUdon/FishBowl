@@ -4,7 +4,7 @@ import UIKit
 
 public class MenuViewController: UIViewController {
     
-    public lazy var tableView: UITableView = UITableView()
+    public var tableView: UITableView = UITableView()
     public var eventsData: MenuModel = MenuModel()
     
     /*
