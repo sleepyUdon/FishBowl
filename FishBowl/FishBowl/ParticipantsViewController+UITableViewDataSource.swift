@@ -33,7 +33,7 @@ extension ParticipantsViewController: UITableViewDataSource {
         let members = membersData.members
         let member = members[indexPath.row]
         
-        cell.imageView?.image = UIImage(data: member.memberImage!)
+        cell.profileView.image = UIImage(data: member.memberImage!)
         cell.titleLabel.text = member.memberBio
         cell.nameLabel.text = member.memberName
         
