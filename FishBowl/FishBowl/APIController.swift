@@ -12,7 +12,7 @@ import OAuthSwift
 class APIController: UIViewController {
     
     var jsonDict: NSDictionary!
-    var jsonRsvp: NSDictionary!
+    var jsonRsvp: NSArray!
     var jsonMembers: NSDictionary!
     
     
@@ -30,12 +30,9 @@ class APIController: UIViewController {
     func doAuthMeetup() {
         print("authorizing")
         //login thru safari and go back to the view controller
-        if #available(iOS 9.0, *) {
-            let eventsVC = EventsViewController()
-            self.presentViewController(eventsVC, animated: false, completion: {
-                self.oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
-            })
-        }
+//        if #available(iOS 9.0, *) {
+//            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
+//        }
 
         
         //authorization callback
@@ -45,7 +42,7 @@ class APIController: UIViewController {
             success: { credential, response, parameters in
                 print(credential.oauth_token)
                 //print(parameters)
-                
+                AppDelegate.token = credential.oauth_token
             },
             failure: { error in
                 print(error.localizedDescription)
@@ -57,8 +54,8 @@ class APIController: UIViewController {
     
     //MARK - Get Requests for
     
-    func getUserDetails(handler:(userDict:NSDictionary?)->()) {
-        self.oauthswift.client.get("https://api.meetup.com/2/member/self",
+    func getUserDetails(token: String) -> NSDictionary {
+        self.oauthswift.client.get("https://api.meetup.com/2/member/self?access_token=\(token)",
             success:
             {
                         data, response in
@@ -66,8 +63,6 @@ class APIController: UIViewController {
                         //parse data to json
                         do {
                             self.jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
-                            
-                            handler(userDict: self.jsonDict)
                         }
                         catch let error as NSError{
                             print(error.localizedDescription)
@@ -77,22 +72,23 @@ class APIController: UIViewController {
                         error in
                         print(error)
         })
+        return self.jsonDict
         
     }
     
     //get all events under signed in user
-    func getEvents(handler:(eventsDict:NSDictionary?)->()) {
+    func getEvents(token: String, handler:(eventsDict: NSArray)->()) {
         //print(self.user.userId)
-        oauthswift.client.get("https://api.meetup.com/2/events?&sign=true&photo-host=public&fields=self&member_id=\(self.user.userId)&page=20",
+        oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=20",
             success: {
                         data, response in
-                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-                        //print(dataString)
+                        let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                        print(dataString)
                         
                         //parse data to json
                         do {
-                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                            handler(eventsDict:self.jsonRsvp)
+                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSArray
+                            handler(eventsDict: self.jsonRsvp)
 
                         }
                         catch let error as NSError{
@@ -107,16 +103,17 @@ class APIController: UIViewController {
     }
 
     //get RSVPs
-    func getRSVPs(handler:(rsvpMembersDict:NSDictionary?)->()) {
-        oauthswift.client.get("https://api.meetup.com/2/rsvps?&sign=true&photo-host=public&event_id=\(self.eventItem.eventId)&page=500",
+    //call this method when the user tap on event cell
+    func getRSVPs(eventId: String, token: String, handler:(membersDict: NSDictionary)->()) {
+        oauthswift.client.get("https://api.meetup.com/2/rsvps?&access_token=\(token)&event_id=\(eventId)&page=500",
             success: {
                         data, response in
                         //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
                         //print(dataString)
                         //print("*********************************")
                         do {
-                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                            handler(rsvpMembersDict:self.jsonMembers)
+                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            handler(membersDict: self.jsonMembers)
                             
                         }
                         catch {
@@ -132,7 +129,8 @@ class APIController: UIViewController {
     }
     
     //get every member data in every event
-    func getMembersInEvents(handler:(memberDict:NSDictionary?)->()) {
+    //call this method when the user tap on participant cell
+    func getMembersInEvents() {
         oauthswift.client.get("https://api.meetup.com/2/member/39478612?&sign=true&photo-host=public&page=20x",
             success: {
                         data, response in
@@ -143,7 +141,7 @@ class APIController: UIViewController {
                 
                         do {
                             self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                            handler(memberDict:self.jsonMembers)
+                           
                         }
                         catch {
                             print(error)

@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Material
 
 // #COLORSCHEME
 
 public struct Color{
     
-    static let baseColor1 = UIColor(red: 38/255, green: 50/255, blue: 56/255, alpha: 100)
-    static let accentColor1 = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
-    static let baseColor2 = UIColor(red: 255/255, green: 0/255, blue: 87/255, alpha: 100)
-        static let accentColor2 = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 100)
+    static var baseColor1 = MaterialColor.white
+    static var accentColor1 = MaterialColor.pink.accent2
+    static var greyMedium = MaterialColor.grey.darken2
+    static var greyDark = MaterialColor.grey.darken4
+    static var baseColor2 = UIColor(red: 255/255, green: 0/255, blue: 87/255, alpha: 100)
+    static var accentColor2 = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 100)
 }
 
 

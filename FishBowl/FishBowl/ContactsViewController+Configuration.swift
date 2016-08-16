@@ -6,7 +6,7 @@ public extension ContactsViewController {
     // prepareView
     
     public func prepareView() {
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.whiteColor()
     }
     
     // prepareTableView
@@ -24,4 +24,8 @@ public extension ContactsViewController {
         public func layoutTableView() {
         view.layout(tableView).edges(top: 44, left: 0, right: 0) 
     }
+    
+
 }
+
+

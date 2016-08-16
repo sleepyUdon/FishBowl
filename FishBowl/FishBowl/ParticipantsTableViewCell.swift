@@ -14,7 +14,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public lazy var profileView: MaterialView = MaterialView()
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
-    public lazy var addedButton: UIButton = UIButton()
+    public lazy var addedButton: MaterialButton = MaterialButton()
     public lazy var buttonSelected = false
     
     
@@ -42,9 +42,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public override func layoutSubviews() {
         super.layoutSubviews()
         layoutImageView()
+        layoutAddedButton()
         layoutNameLabel()
         layoutTitleLabel()
-        layoutAddedButton()
     }
     
     /*
@@ -64,9 +64,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultLabel
      */
     public func prepareNameLabel() {
-        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 14)
+        nameLabel.font = Fonts.title
         nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
-        nameLabel.textColor = MaterialColor.black
+        nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
@@ -76,9 +76,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = UIFont(name: "Avenir", size: 14)
+        titleLabel.font = Fonts.bodyGrey
         titleLabel.text = "iOS Developer" //#PASSDATA title from participants
-        titleLabel.textColor = MaterialColor.grey.darken2
+        titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -87,7 +87,12 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareAddedButton() {
-        addedButton.setImage(UIImage(named: "AddButton"), forState: UIControlState.Normal)
+        addedButton.setTitle("Add", forState: UIControlState.Normal)
+        addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
+        addedButton.backgroundColor = MaterialColor.grey.lighten4
+        addedButton.pulseColor = MaterialColor.white
+        addedButton.cornerRadius = 5.0
+        addedButton.titleLabel!.font = Fonts.bodyGrey
         addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
         addSubview(addedButton)
     }
@@ -96,14 +101,18 @@ public class ParticipantsTableViewCell: UITableViewCell {
     func handleAddedButton() {
         if (buttonSelected == false) //BUTTONOFF
         {
-            addedButton.setImage(UIImage(named: "okButton"),forState:  UIControlState.Normal);
+            addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
+            addedButton.setTitle("Added", forState: UIControlState.Normal)
+            addedButton.backgroundColor = MaterialColor.green.base
             buttonSelected = true
-
         }
         else
         {
-            addedButton.setImage(UIImage(named: "AddButton"),forState: UIControlState.Normal);
+            addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
+            addedButton.setTitle("Add", forState: UIControlState.Normal)
+            addedButton.backgroundColor = MaterialColor.grey.lighten4
             buttonSelected = false
+            
         }
     }
 //        // #SAVETOCOREDATA
@@ -113,39 +122,39 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   layoutDefaultImageView
      */
     public func layoutImageView() {
-        let x = CGFloat(20.0)
-        let y = CGFloat(DefaultOptions.ImageView.Padding.Vertical)
-        let w = CGFloat(contentView.bounds.size.height - (DefaultOptions.ImageView.Padding.Vertical * 2))
-        let h = w
+        let y = CGFloat(5.0)
+        let x = CGFloat(10.0)
+        let h = contentView.bounds.size.height - (10.0)
+        let w = h
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
-        
-        // FIX ME: Make dynamic
         profileView.layer.cornerRadius = w / 2
     }
     
+    
+    public func layoutAddedButton() {
+        let h = (contentView.bounds.size.height) - (30.0)
+        let w = h * 3
+        let x = (contentView.bounds.size.width) - w - (15.0)
+        let y = CGFloat(15.0)
+        addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
+    }
+    
     public func layoutNameLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 6) - (15.0)
-        let w = (contentView.bounds.size.width - 120.0)
-        let h = CGFloat(30.0)
+        let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
+        let y = CGFloat(5.0)
+        let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
+        let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
     public func layoutTitleLabel() {
-        let x = CGRectGetMaxX(profileView.frame) + DefaultOptions.Label.Padding.Horizontal
-        let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = (contentView.bounds.size.width - 120.0)
-        let h = CGFloat(30.0)
+        let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
+        let y = CGFloat(5.0) + (nameLabel.frame.height)
+        let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
+        let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
-    public func layoutAddedButton() {
-        let x = (contentView.bounds.size.width) - (50.0)
-        let y = (contentView.bounds.size.height / 2) - (15.0)
-        let w = CGFloat(25.0)
-        let h = CGFloat(25.0)
-        addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
-    }
     
 }

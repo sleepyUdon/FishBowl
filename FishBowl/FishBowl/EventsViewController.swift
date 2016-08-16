@@ -12,13 +12,12 @@ import OAuthSwift
 
 class EventsViewController: UIViewController{
     
-    internal var api = ApiController()
+    //    internal var api = ApiController()
 
     private var containerView: UIView!
 
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
-    
     
     /// NavigationBar menu button.
     private var menuButton: IconButton!
@@ -31,6 +30,10 @@ class EventsViewController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(AppDelegate.token)
+        if AppDelegate.token == nil {
+            prepareLoginView()
+        }
         prepareView()
         prepareMenuButton()
         prepareProfileButton()
@@ -42,17 +45,24 @@ class EventsViewController: UIViewController{
     }
     
         
-    /// General preparation statements.
-        private func prepareView() {
-            view.backgroundColor = MaterialColor.white
+    /// General prepare LoginView
+        private func prepareLoginView() {
+        let loginViewController = LoginViewController()
+        self.presentViewController(loginViewController, animated: true) { 
+            print("login view presented")
         }
+    }
 
-
+    /// General preparation statements.
+    private func prepareView() {
+        view.backgroundColor = Color.accentColor1
+    }
+    
     /// Prepares the menuButton.
     private func prepareMenuButton() {
         let image: UIImage? = MaterialIcon.cm.menu
         menuButton = IconButton()
-        menuButton.pulseColor = MaterialColor.white
+        menuButton.pulseColor = Color.accentColor1
         menuButton.tintColor = Color.accentColor1
         menuButton.setImage(image, forState: .Normal)
         menuButton.setImage(image, forState: .Highlighted)
@@ -69,12 +79,12 @@ class EventsViewController: UIViewController{
     /// Prepares the profileButton.
     private func prepareProfileButton() {
         
-        let image = UIImage(named: "menuprofile")
+        let image: UIImage? = MaterialIcon.cm.settings
         profileButton = IconButton()
         profileButton.enabled = true
-        profileButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 18, bottom: 7, right: 18)
-        profileButton.pulseColor = MaterialColor.white
-        profileButton.tintColor = Color.baseColor1
+        profileButton.imageEdgeInsets = UIEdgeInsetsZero
+        profileButton.pulseColor = Color.accentColor1
+        profileButton.tintColor = Color.accentColor1
         profileButton.setImage(image, forState: .Normal)
         profileButton.setImage(image, forState: .Highlighted)
         profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
@@ -99,25 +109,24 @@ class EventsViewController: UIViewController{
     /// Prepares the searchBar
     private func prepareSearchBar() {
     searchBar = SearchBar()
-    searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
+    searchBar.textField.font = Fonts.bodyGrey
     containerView.addSubview(searchBar)
-    let image: UIImage? = MaterialIcon.cm.search
-    
         
-    // More button.
-    let moreButton: IconButton = IconButton()
-    moreButton.pulseColor = MaterialColor.grey.base
-    moreButton.tintColor = UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100)
-    moreButton.titleLabel?.font = UIFont(name: "Avenir", size: CGFloat(15.0))
-    moreButton.setImage(image, forState: .Normal)
-    moreButton.setImage(image, forState: .Highlighted)
+        
+    /// Prepares the searchButton
+    let searchImage: UIImage? = MaterialIcon.cm.search
+    let searchButton: IconButton = IconButton()
+    searchButton.pulseColor = MaterialColor.grey.base
+    searchButton.tintColor = Color.accentColor1
+    searchButton.setImage(searchImage, forState: .Normal)
+    searchButton.setImage(searchImage, forState: .Highlighted)
     
     /*
      To lighten the status bar - add the
      "View controller-based status bar appearance = NO"
      to your info.plist file and set the following property.
      */
-    searchBar.leftControls = [moreButton]
+    searchBar.leftControls = [searchButton]
     }
 
     
@@ -133,8 +142,8 @@ class EventsViewController: UIViewController{
     private func prepareNavigationItem() {
         navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
-        navigationItem.titleLabel.textColor = MaterialColor.white
-        navigationItem.titleLabel.font = UIFont(name: "Avenir", size: 15)
+        navigationItem.titleLabel.textColor = Color.accentColor1
+        navigationItem.titleLabel.font = Fonts.navigationTitle
         
         navigationItem.leftControls = [menuButton]
         navigationItem.rightControls = [profileButton]
@@ -147,7 +156,7 @@ class EventsViewController: UIViewController{
          to "NO" in the info.plist.
          */
         navigationController?.navigationBar.statusBarStyle = .LightContent
-        navigationController?.navigationBar.backgroundColor = MaterialColor.blueGrey.darken4
+        navigationController?.navigationBar.backgroundColor = Color.baseColor1
 
     }
     

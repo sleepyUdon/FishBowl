@@ -22,7 +22,7 @@ extension ParticipantsViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         //        let cell = tableView.cellForRowAtIndexPath(indexPath)
         //        return cell.height() VIVFIX THIS
-        return 80
+        return 60
     }
     
 }

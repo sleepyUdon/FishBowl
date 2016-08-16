@@ -20,7 +20,7 @@ extension MenuViewController: UITableViewDataSource {
 //        let key = Array(sections.keys)[section]
 //        let section = sections[key] as! [String]
         
-        let rows = MenuModel().getEvents().count
+        let rows = eventsData.events.count
         
         return rows
     }
@@ -31,31 +31,22 @@ extension MenuViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         
-        //let events = MenuModel().getEvents()
-        //let event = events[indexPath.row]
+        let events = eventsData.events
+        let event = events[indexPath.row]
         
 
-//        let formatter = NSDateFormatter()
-//        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        let formatter = NSDateFormatter()
+        //        formatter.dateStyle = .LongStyle  
+        //NSDateFormatterStyle.LongStyle         
+        formatter.dateFormat = "MMM dd, yy h:mm a"
+        //        formatter.timeStyle = .ShortStyle         
+        let someDate = DataManager.getDateFromMilliseconds(event.time)
+        let dateString = formatter.stringFromDate(someDate)
+        cell.defaultLabel.text = event.title
+        cell.defaultDescription.text = dateString
+        cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
+        cell.defaultDate.text = ""
         
-        let api = ApiController()
-        api.getEvents{(eventsArray: NSArray?) in
-            guard eventsArray != nil else {
-                print("events data should not be nil")
-                return
-            }
-            for item in eventsArray! {
-                let eventTxt = item.objectForKey("eventTitle") as? String
-                cell.defaultLabel.text = eventTxt
-            }
-            
-        }
-        //let dateString = formatter.stringFromDate(event.time)
-        
-        //cell.defaultLabel.text =             // Change the label names
-        //cell.defaultDescription.text = event.group      // together with those in
-        //cell.defaultParticipants.text = event.yesRsvpCount.stringValue      // EventsTableViewCell
-        //cell.defaultDate.text = dateString
 
         
         return cell

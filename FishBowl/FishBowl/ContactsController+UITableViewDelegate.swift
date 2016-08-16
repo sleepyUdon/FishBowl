@@ -5,7 +5,7 @@ import Material
 import MessageUI
 
 
-extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate  {
     
     // required didSelectRowAtIndexPath
     
@@ -30,30 +30,31 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let smallHeight: CGFloat = 70.0
-        let expandedHeight: CGFloat = 450.0
-        let ip = indexPath
-        if selectedIndexPath != nil {
-            if ip == selectedIndexPath! {
-                return expandedHeight
-            } else {
-                return smallHeight
-            }
-        } else {
-            return smallHeight
-        }
+        return 60.0
+//        let smallHeight: CGFloat = 70.0
+//        let expandedHeight: CGFloat = 450.0
+//        let ip = indexPath
+//        if selectedIndexPath != nil {
+//            if ip == selectedIndexPath! {
+//                return expandedHeight
+//            } else {
+//                return smallHeight
+//            }
+//        } else {
+//            return smallHeight
+//        }
     }
     
     
     
     private func prepareLargeCardViewExample(indexPath:NSIndexPath) {
         
-            let users = ContactsModel().getUsers()
-            let user = users[indexPath.row]
+        let users = ContactsModel().getUsers()
+        let user = users[indexPath.row]
         
         // set container views
         
-        cardView.pulseColor = MaterialColor.blueGrey.base
+        cardView.pulseColor = Color.baseColor1
         cardView.depth = .Depth1
         
         view.addSubview(cardView)
@@ -65,48 +66,62 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         cardView.addSubview(contentView)
         
         let profileView: MaterialView = MaterialView()
-        profileView.image = UIImage(named: "VivianeChan") //#PASSDATA image from participant
-        //            profileView.contentsGravityPreset = .ResizeAspectFill
+        if filtered.count != 0 {
+        for user in users
+        {if user.name == filtered[indexPath.row] {profileView.image = UIImage(data: user.image!)}}
+        } else {
+        profileView.image = UIImage(data: user.image!) //#PASSDATA image from participant
+        }
         profileView.shape = .Circle
-        profileView.contentMode = .ScaleAspectFill
         topImageView.addSubview(profileView)
         
         let closeImage: UIImage? = MaterialIcon.cm.close
         let closeButton: UIButton = UIButton()
-        closeButton.tintColor = MaterialColor.blueGrey.darken4
+        closeButton.tintColor = Color.accentColor1
         closeButton.setImage(closeImage, forState: .Normal)
         closeButton.setImage(closeImage, forState: .Highlighted)
         topImageView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
         
+
         
         // set labels
         
         let nameLabel: UILabel = UILabel()
-        nameLabel.text = "VIVIANE CHAN" //#PASSDATA name from participant
+        if filtered.count != 0 {
+        for user in users
+        {if user.name == filtered[indexPath.row] {nameLabel.text = user.name}}
+        } else {
+            nameLabel.text = user.name
+        }
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "Avenir-Heavy", size: 15)
-        nameLabel.textColor = MaterialColor.black
+        nameLabel.font = Fonts.title
+        nameLabel.textColor = Color.greyDark
         contentView.addSubview(nameLabel)
         
+        
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = "iOSDeveloper" //#PASSDATA title from participant
+        if filtered.count != 0 {
+        for user in users
+        {if user.bio == filtered[indexPath.row] {titleLabel.text = user.bio}}
+        } else {
+                titleLabel.text = user.bio
+            }
         titleLabel.textAlignment = .Center
-        titleLabel.font = UIFont(name: "Avenir", size: 15)
-        titleLabel.textColor = MaterialColor.grey.darken2
+        titleLabel.font = Fonts.bodyGrey
+        titleLabel.textColor = Color.greyMedium
         contentView.addSubview(titleLabel)
         
         let companyLabel: UILabel = UILabel()
-        companyLabel.font = UIFont(name: "Avenir", size: 15)
+        companyLabel.font = Fonts.title
         companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
         companyLabel.textAlignment = .Center
-        companyLabel.textColor = MaterialColor.grey.darken4
+        companyLabel.textColor = Color.greyMedium
         contentView.addSubview(companyLabel)
         
         let mailImage: UIImage? = UIImage(named: "mail")
         let mailButton: UIButton = UIButton()
-        mailButton.tintColor = MaterialColor.blueGrey.darken4
-        mailButton.backgroundColor = MaterialColor.grey.lighten3
+        mailButton.tintColor = Color.baseColor1
         mailButton.setImage(mailImage, forState: .Normal)
         mailButton.setImage(mailImage, forState: .Highlighted)
         contentView.addSubview(mailButton)
@@ -115,7 +130,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let messageImage: UIImage? = UIImage(named: "message")
         let messageButton: UIButton = UIButton()
-        messageButton.tintColor = MaterialColor.blueGrey.darken4
+        messageButton.tintColor = Color.baseColor1
         messageButton.setImage(messageImage, forState: .Normal)
         messageButton.setImage(messageImage, forState: .Highlighted)
         contentView.addSubview(messageButton)
@@ -124,8 +139,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let phoneImage: UIImage? = UIImage(named:"phone.png")
         let phoneButton: UIButton = UIButton()
-        phoneButton.tintColor = MaterialColor.blueGrey.darken4
-        phoneButton.backgroundColor = MaterialColor.grey.lighten3
+        phoneButton.tintColor = Color.baseColor1
         phoneButton.setImage(phoneImage, forState: .Normal)
         phoneButton.setImage(phoneImage, forState: .Highlighted)
         contentView.addSubview(phoneButton)
@@ -134,8 +148,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let githubImage: UIImage? = UIImage(named: "github")
         let githubButton: UIButton = UIButton()
-        githubButton.tintColor = MaterialColor.blueGrey.darken4
-        githubButton.backgroundColor = MaterialColor.grey.lighten3
+        githubButton.tintColor = Color.baseColor1
         githubButton.setImage(githubImage, forState: .Normal)
         githubButton.setImage(githubImage, forState: .Highlighted)
         contentView.addSubview(githubButton)
@@ -144,8 +157,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let linkedinImage: UIImage? = UIImage(named: "linkedin")
         let linkedinButton: UIButton = UIButton()
-        linkedinButton.tintColor = MaterialColor.blueGrey.darken4
-        linkedinButton.backgroundColor = MaterialColor.grey.lighten3
+        linkedinButton.tintColor = Color.baseColor1
         linkedinButton.setImage(linkedinImage, forState: .Normal)
         linkedinButton.setImage(linkedinImage, forState: .Highlighted)
         contentView.addSubview(linkedinButton)
@@ -172,6 +184,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         // layout labels topimageView
         
+        Layout.centerHorizontally(topImageView, child: profileView)
         profileView.grid.rows = 12
         profileView.grid.columns = 6
         profileView.grid.offset.rows = 2
@@ -245,9 +258,11 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             linkedinButton
         ]
         
-        
         self.view.addSubview(cardView)
-        
+        UIView.animateWithDuration(0.3) {
+            self.tableView.alpha = 0
+            self.cardView.alpha = 1
+        }
     }
     
     
@@ -300,8 +315,13 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     // handle phone button
     
-    func handlePhoneButton() {
-        let phone = "tel://6474477768"; //#PASSDATA phone from participant
+    func handlePhoneButton(indexPath:NSIndexPath) {
+        let users = DataManager.createUserDummyData()
+        var phone = "tel://6474477768"; //#PASSDATA phone from participant
+
+            for user in users
+            {if user.name == filtered[indexPath.row] {phone = user.phone!}}
+
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }
@@ -326,7 +346,14 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     // handle close button
     
     func handleCloseButton() {
-        cardView.removeFromSuperview()  //REMOVECONTACT
+        UIView.animateWithDuration(0.3) { 
+            self.cardView.alpha = 0
+            UIView.animateWithDuration(0.3, animations: { 
+                self.tableView.alpha = 1
+                }, completion: { (completed) in
+                    self.cardView.removeFromSuperview()  //REMOVECONTACT
+            })
+        }
     }
     
 }

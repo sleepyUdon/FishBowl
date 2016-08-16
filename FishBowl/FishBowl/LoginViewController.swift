@@ -11,10 +11,13 @@ import Material
 import OAuthSwift
 
 class LoginViewController: OAuthViewController {
-
+    
     var login = ApiController()
     // oauth swift object (retain)
     var oauthswift: OAuthSwift?
+    
+    let backgroundView: MaterialPulseView = MaterialPulseView()
+    
     
     
     override func viewDidLoad() {
@@ -22,108 +25,99 @@ class LoginViewController: OAuthViewController {
         let controller = WebViewController()
         controller.view = UIView(frame: UIScreen.mainScreen().bounds) // needed if no nib or not loaded from storyboard
         //controller.delegate = self
-        prepareLargeCardViewExample()
+        prepareView()
     }
     
     
     // Layout View
+    
+    private func prepareView() {
+        let backgroundView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
+        backgroundView.backgroundColor = MaterialColor.pink.accent2
+        view.addSubview(backgroundView)
         
-    private func prepareLargeCardViewExample() {
-        
-        let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        cardView.pulseColor = MaterialColor.blueGrey.base
-        cardView.depth = .Depth1
-        view.addSubview(cardView)
-        
-        let contentViewTop: MaterialView = MaterialView()
-        contentViewTop.backgroundColor = MaterialColor.blueGrey.darken4
-        cardView.addSubview(contentViewTop)
-        
-        let contentViewbottom: MaterialView = MaterialView()
-        contentViewbottom.backgroundColor = MaterialColor.clear
-        cardView.addSubview(contentViewbottom)
+        let fishBowlLabel : UILabel = UILabel()
+        fishBowlLabel.frame = CGRect(x: backgroundView.frame.width/2 - 100.0, y: (25.0), width: CGFloat(200.0), height: CGFloat(30.0))
+        fishBowlLabel.text = "F I S H B O W L"
+        fishBowlLabel.textAlignment = .Center
+        fishBowlLabel.textColor = MaterialColor.white
+        fishBowlLabel.font = Fonts.title
+        backgroundView.addSubview(fishBowlLabel)
         
 
         
+        let imageName = "fishbowl"
+        let image = UIImage(named: imageName)
+        let imageView = UIImageView(image: image!)
+        imageView.frame = CGRect(x: backgroundView.frame.width/2 - 50.0, y: backgroundView.frame.height/2 - (50.0), width: CGFloat(100.0), height: CGFloat(100.0))
+        backgroundView.addSubview(imageView)
         
-        let loginWithMeetupButton: UIButton = UIButton()
+        
+        let loginWithMeetupButton: MaterialButton = MaterialButton()
+        loginWithMeetupButton.pulseColor = MaterialColor.pink.lighten1
         loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", forState: UIControlState.Normal)
-        loginWithMeetupButton.setTitleColor(UIColor(red: 175/255, green: 165/255, blue: 118/255, alpha: 100), forState: UIControlState.Normal)
-        loginWithMeetupButton.setTitleColor(UIColor.brownColor(), forState: UIControlState.Highlighted)
-        loginWithMeetupButton.titleLabel?.font = UIFont(name: "Avenir", size: 15)
-        contentViewbottom.addSubview(loginWithMeetupButton)
+        loginWithMeetupButton.setTitleColor(MaterialColor.white, forState: UIControlState.Normal)
+        loginWithMeetupButton.setTitleColor(MaterialColor.pink.lighten1, forState: UIControlState.Highlighted)
+        loginWithMeetupButton.titleLabel?.font = Fonts.title
+        loginWithMeetupButton.backgroundColor = MaterialColor.pink.lighten1
+        
+        loginWithMeetupButton.frame = CGRect(x: CGFloat(0.0), y: backgroundView.frame.height - (50.0), width: backgroundView.frame.width, height: (60.0))
+        backgroundView.addSubview(loginWithMeetupButton)
         loginWithMeetupButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
         
         
-
-
-        contentViewTop.grid.rows = 6
-        contentViewTop.grid.columns = 12
-
-        contentViewbottom.grid.rows = 6
-        contentViewbottom.grid.columns = 12
-        contentViewbottom.grid.offset.rows = 6
-        
-        cardView.grid.axis.direction = .None
-        cardView.grid.spacing = 4
-        cardView.grid.views = [
-            contentViewTop,
-            contentViewbottom
-        ]
-        
-        
-        loginWithMeetupButton.grid.rows = 2
-        loginWithMeetupButton.grid.columns = 8
-        loginWithMeetupButton.grid.offset.rows = 10
-        
+        UIView.animateWithDuration(3.0, animations: { () -> Void in
+            backgroundView.backgroundColor = MaterialColor.purple.accent3
+        }) { (Bool) -> Void in
        
-        contentViewbottom.grid.spacing = 2
-        contentViewbottom.grid.axis.direction = .None
-        contentViewbottom.grid.contentInsetPreset = .Square3
-        contentViewbottom.grid.views = [
-
-            loginWithMeetupButton,
-
-        ]
+                            UIView.animateWithDuration(3.0, animations: { () -> Void in
+                                backgroundView.backgroundColor = MaterialColor.pink.accent2
+                                }, completion:nil)
+        }
     }
-    
-    
-    // handle login button
     
     internal func handleLoginButton() {
         
-        self.presentViewController(login, animated: true) { 
-            self.login.doAuthMeetup()
+        self.presentViewController(login, animated: true) {
+            //self.login.doAuthMeetup()
         }
-//        login.doAuthMeetup()
-
+        self.login.doAuthMeetup()
+        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        //        self.dismissViewControllerAnimated(false) {
+        //            print(#function, "fired")
+        //        }
     }
     
     
-
+    
 }
 
+
 //extension LoginViewController: OAuthWebViewControllerDelegate {
-//    
+//
 //    func oauthWebViewControllerDidPresent() {
-//        
+//
 //    }
 //    func oauthWebViewControllerDidDismiss() {
-//        
+//
 //    }
-//    
+//
 //    func oauthWebViewControllerWillAppear() {
-//        
+//
 //    }
 //    func oauthWebViewControllerDidAppear() {
-//        
+//
 //    }
 //    func oauthWebViewControllerWillDisappear() {
 //        //        let eventsViewController = EventsViewController()
 //        //        let navc: NavigationController = NavigationController(rootViewController: eventsViewController)
 //        //        navc.modalTransitionStyle = .CrossDissolve
 //        //        presentViewController(navc, animated: true, completion: nil)
-//        
+//
 //    }
 //    func oauthWebViewControllerDidDisappear() {
 //        // Ensure all listeners are removed if presented web view close

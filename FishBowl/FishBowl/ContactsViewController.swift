@@ -4,19 +4,19 @@ import UIKit
 import Material
 import OAuthSwift
 
-public class ContactsViewController: UIViewController {
+public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     let cardView: MaterialPulseView = MaterialPulseView(frame: CGRect.zero)
-    
     public lazy var tableView: UITableView = UITableView()
-    
     private var containerView: UIView!
-    
     var selectedIndexPath: NSIndexPath? = nil
+    var searchActive : Bool = false
+    var filtered:[String] = []
+
     
     
     /// Reference for SearchBar.
-    private var searchBar: SearchBar!
+    private var searchBar: UISearchBar!
     
     
     //  viewDidLoad
@@ -27,6 +27,7 @@ public class ContactsViewController: UIViewController {
         prepareTableView()
         prepareSearchBar()
         
+        cardView.alpha = 0.0
     }
     
     //  viewDidLayoutSubviews
@@ -35,31 +36,60 @@ public class ContactsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         layoutTableView()
         
-        cardView.frame = CGRectMake(0, 100, view.bounds.width, 450.0)
+        cardView.frame = CGRectMake(0, 44, view.bounds.width, 450.0)
     }
     
     
     /// Prepares the searchBar
     
     private func prepareSearchBar() {
-        searchBar = SearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-        searchBar.textField.font = UIFont(name: "Avenir", size: CGFloat(15.0))
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width - 40, height: 44))
+        searchBar.delegate = self
         view.addSubview(searchBar)
-        
-        // More button.
-        
-        let image: UIImage? = MaterialIcon.cm.search
-        let moreButton: IconButton = IconButton()
-        moreButton.pulseColor = MaterialColor.grey.base
-        moreButton.tintColor = Color.accentColor1
-        moreButton.setImage(image, forState: .Normal)
-        moreButton.setImage(image, forState: .Highlighted)
-        
-        /*
-         To lighten the status bar - add the
-         "View controller-based status bar appearance = NO"
-         to your info.plist file and set the following property.
-         */
-        searchBar.leftControls = [moreButton]
     }
+    
+    public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        searchActive = true;
+    }
+    
+    public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchActive = false;
+    }
+    
+    public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchActive = false;
+    }
+    
+    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchActive = false;
+    }
+    
+    public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let users = ContactsModel().getUsers()
+        
+        var userNameArray = [String]()
+        
+        for user in users {userNameArray.append(user.name)}
+
+        filtered = userNameArray.filter({ (text) -> Bool in  
+            let tmp: NSString = text
+            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return range.location != NSNotFound
+        })
+        if(filtered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.tableView.reloadData() 
+    }
+
+    
 }
+

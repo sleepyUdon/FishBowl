@@ -4,7 +4,13 @@ import Foundation
 import UIKit
 
 public class MenuModel: NSObject {
-    
+    static let setEventsName = "didSetEvents"
+    var events: [Event] = [] {
+        didSet {
+            let notification = NSNotification(name: MenuModel.setEventsName, object: self)
+            NSNotificationCenter.defaultCenter().postNotification(notification)
+        }
+    }
     
     /*
     @name   required initWithCoder
@@ -14,17 +20,12 @@ public class MenuModel: NSObject {
     /*
     @name   required initWithCoder
     */
-    
-    
-    var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
-
-    func getEvents() -> Array<Event> {
+    func getEvents() {
         
-        let events = DataManager().createEventDummyData()
-        
-        return events
+        DataManager.grabEventsFromAPI { (events) in
+            self.events = events
+        }  
         
     }
-    
 }

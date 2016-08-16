@@ -16,6 +16,7 @@ class ApiController: UIViewController {
     var jsonDict: NSDictionary!
     var jsonRsvp: NSDictionary!
     var jsonMembers: NSDictionary!
+    var jsonMember: NSDictionary!
     
     var jsonManager = DataManager()
     
@@ -51,25 +52,23 @@ class ApiController: UIViewController {
         print("authorizing")
         //login thru safari and go back to the view controller
         if #available(iOS 9.0, *) {
-           let eventsVC = EventsViewController()
+          let eventsVC = EventsViewController()
             self.presentViewController(eventsVC, animated: false, completion: {
                 self.oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
             })
-//           oauthswift.authorize_url_handler = SafariURLHandler(viewController:eventsVC)
         }
-//        else {
-           // oauthswift.authorize_url_handler = WebViewController()
-        //}
+
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
             NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!,
             scope: "",state: "",
             success: { credential, response, parameters in
-                //print(credential.oauth_token)
+                print(credential.oauth_token)
                 //print(parameters)
                 //call getUserDetails
                 //self.getUserDetails()
+                AppDelegate.token = credential.oauth_token
                 
             },
             failure: { error in
@@ -244,6 +243,33 @@ class ApiController: UIViewController {
                                 let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
                                 print("******************************")
                                 print(dataString)
+                                //parse data to json
+                                do {
+                                    self.jsonMember = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                                    
+                                    //get all necessary data from json
+                                    let participantId = self.jsonMember["id"]!.stringValue
+                                    let participantName = self.jsonMember["name"] as! String
+                                    
+                                    //get the thumbnail image of user
+                                    if let photo = self.jsonMember["photo"] as? [String: AnyObject] {
+                                        let photoLink = photo["thumb_link"] as! NSString
+                                        let url: NSURL = NSURL(string: photoLink as String)!
+                                        self.memberImageData = NSData(contentsOfURL: url)!
+                                        
+                                    } else { self.userImageData = nil }
+                                    
+                                    //create a user object
+                                    self.member = Member.init(memberId: participantId, memberName: participantName, memberImage: self.memberImageData!)
+                                    
+                                    
+                                }
+                                catch let error as NSError{
+                                    print(error.localizedDescription)
+                                }
+                                
+                                
+                                
             },
                               failure: {
                                 error in
