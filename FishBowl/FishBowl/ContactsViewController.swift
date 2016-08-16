@@ -27,6 +27,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareTableView()
         prepareSearchBar()
         
+        cardView.alpha = 0.0
     }
     
     //  viewDidLayoutSubviews
@@ -48,18 +49,23 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     }
     
     public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
         searchActive = true;
     }
     
     public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
         searchActive = false;
     }
     
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         searchActive = false;
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         searchActive = false;
     }
     

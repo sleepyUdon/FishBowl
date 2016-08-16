@@ -12,13 +12,12 @@ import OAuthSwift
 
 class EventsViewController: UIViewController{
     
-//    internal var api = ApiController()
+    //    internal var api = ApiController()
 
     private var containerView: UIView!
 
     /// Reference for SearchBar.
     private var searchBar: SearchBar!
-    
     
     /// NavigationBar menu button.
     private var menuButton: IconButton!
@@ -46,20 +45,19 @@ class EventsViewController: UIViewController{
     }
     
         
-    /// General preparation statements.
-        private func prepareView() {
-            view.backgroundColor = Color.accentColor1
-        }
-    private func prepareLoginView() {
+    /// General prepare LoginView
+        private func prepareLoginView() {
         let loginViewController = LoginViewController()
         self.presentViewController(loginViewController, animated: true) { 
             print("login view presented")
         }
     }
 
+    /// General preparation statements.
+    private func prepareView() {
+        view.backgroundColor = Color.accentColor1
+    }
     
-
-
     /// Prepares the menuButton.
     private func prepareMenuButton() {
         let image: UIImage? = MaterialIcon.cm.menu

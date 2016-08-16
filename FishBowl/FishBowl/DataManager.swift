@@ -24,34 +24,38 @@ class DataManager: NSObject {
         
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
-//            "phone": 6139924211,
+
+            "phone": "tel://6478365162",
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
-//            "phone":2067093100,
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/williamhgates",
             "title":"Technology Advisor, Microsoft",
             "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
             ["name":"Larry Page",
             "email":"larry@google.com",
-//            "phone":6502141722,
+
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/tlytle",
             "title":"CEO, Alphabet Inc",
             "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
-//            "phone":16505434800,
+
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"",
             "title":"Chairman and CEO, Facebook",
             "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
             ["name":"Marissa Mayer",
             "email":"marissa.mayer@yahoo-inc.com",
-//            "phone":4083493300,
+
+            "phone":"tel://6478365162",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/marissamayer",
             "title":"CEO, Yahoo!",
@@ -61,7 +65,7 @@ class DataManager: NSObject {
             
             let name = user["name"] as! String
             let email = user["email"] as! String
-//            let phone = user["phone"] as! NSNumber
+            let phone = user["phone"] as! String
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
@@ -71,7 +75,7 @@ class DataManager: NSObject {
             someUser.name = name
             someUser.bio = title
             someUser.email = email
-//            someUser.phone = phone
+            someUser.phone = phone
             someUser.image = image
             someUser.linkedin = linkedin
             someUser.github = github
@@ -81,6 +85,65 @@ class DataManager: NSObject {
         }
         
         return userList
+    }
+
+    class func createEventDummyData() -> [Event]{
+        
+        var eventList = [Event]()
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let events = [["Group":"DevHub",
+                        "EventTitle":"NSCoder Night Toronto",
+                        "EventRsvp":3,
+                        "Date":0],
+                      ["Group":"Mobile Growth Toronto",
+                        "EventTitle":"Mobile Growth Toronto - December Meetup",
+                        "EventRsvp":5,
+                        "Date":"2018-12-01"],
+                      ["Group":"Lighthouse Labs",
+                        "EventTitle":"Hack & Tell: Round 9",
+                        "EventRsvp":2,
+                        "Date":0],
+                      ["Group":"Singles in Toronto!",
+                        "EventTitle":"20 Questions 'The Fun Version' (Ages 25-39) - Meet with Singles & See who you like!",
+                        "EventRsvp":2,
+                        "Date":0],
+                      ["Group":"The Toronto Area Gamers (TAG)",
+                        "EventTitle":"Fan Expo Canada 2016",
+                        "EventRsvp":1,
+                        "Date":0],
+                      ["Group":"Adult ART Attack",
+                        "EventTitle":"Adult ART Attack - Painting with a twist!",
+                        "EventRsvp":2,
+                        "Date":0],
+                      ["Group":"Saturday Night For Singles",
+                        "EventTitle":"The Thursday Night Pool, Party & Patio Bash! *Free Night of Dancing*",
+                        "EventRsvp":2,
+                        "Date":0],
+                      ["Group":"Toronto Short Trippers",
+                        "EventTitle":"Beautiful Bruce Peninsula & Flowerpot Island (Day Trip from Toronto)",
+                        "EventRsvp":1,
+                        "Date":"2018-08-27"]]
+        
+        
+        for event in events {
+            
+//            let date = dateFormatter.dateFromString(event["Date"]!)
+            
+            let someEvent = Event(eventId: "", title: "", time: 0, yesRsvpCount: 0, eventStatus: "")
+            
+                someEvent.title = event["EventTitle"] as? String
+                someEvent.yesRsvpCount = event["EventRsvp"] as! NSInteger
+            
+            //let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
+            
+            eventList.append(someEvent)
+            
+        }
+        
+        return eventList
     }
     
     class func grabEventsFromAPI(handler:(events: [Event])->()){
@@ -224,7 +287,7 @@ class DataManager: NSObject {
     
     }
     
-    class func dateFromMilliseconds(ms: NSNumber) -> NSDate {
+    class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
         
         let offset = -14400000 // 4 hours earlier == EST
         let msec = ms.integerValue + offset
