@@ -80,8 +80,8 @@ extension ParticipantsViewController: UITableViewDataSource {
             cell.titleLabel.text = member.memberBio
             cell.nameLabel.text = member.memberName
             
-            if member in members
-            {
+//            if member in members
+//            {
 //            if member.isAdded == true {cell.buttonSelected = true} else {cell.buttonSelected = false}}
 //            VIV UNCOMMENT THIS
         }
