@@ -107,7 +107,7 @@ class DataManager: NSObject {
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
-            let company = user["company"] as! String
+            let company = user["company"] as? String
             let image = user["image"] as? NSData
             
             let someUser = User(userId: "", name: "", bio: "", image: nil)
