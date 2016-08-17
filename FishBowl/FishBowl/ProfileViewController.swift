@@ -10,6 +10,7 @@ import UIKit
 import Material
 
 private var saveButton: MaterialButton!
+private var cancelButton: MaterialButton!
 private var scrollView: UIScrollView = UIScrollView()
 private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
@@ -40,6 +41,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         super.viewDidLoad()
         prepareView()
         prepareSaveButton()
+        prepareCancelButton()
         prepareCardView()
         prepareNavigationItem()
         prepareNavigationBar()
@@ -97,6 +99,17 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         saveButton.titleLabel!.font = Fonts.title
         saveButton.addTarget(self, action: #selector(handleSaveButton), forControlEvents: .TouchUpInside)
     }
+
+    private func prepareCancelButton() {
+        cancelButton = MaterialButton()
+        cancelButton.setTitle("Cancel", forState: .Normal)
+        cancelButton.setTitleColor(Color.accentColor1, forState: .Normal)
+        cancelButton.pulseColor = Color.accentColor1
+        cancelButton.titleLabel!.font = Fonts.title
+        cancelButton.addTarget(self, action: #selector(handleCancelButton), forControlEvents: .TouchUpInside)
+
+    }
+
     
     
     
@@ -123,6 +136,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
        
         
         
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    internal func handleCancelButton() {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -455,7 +472,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         navigationItem.titleLabel.textColor = Color.accentColor1
         navigationItem.titleLabel.font = Fonts.navigationTitle
         navigationItem.rightControls = [saveButton]
-
+        navigationItem.leftControls = [cancelButton]
     }
     
     /// Prepares the navigationBar.

@@ -67,6 +67,7 @@ public class ContactsTableViewCell: UITableViewCell {
         titleLabel.font = Fonts.bodyGrey
         titleLabel.text = "iOS Developer" //#PASSDATA title from participant
         titleLabel.textColor = Color.greyMedium
+        titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -78,8 +79,8 @@ public class ContactsTableViewCell: UITableViewCell {
     public func layoutImageView() {
         let x = CGFloat(20.0)
         let y = CGFloat(10.0)
-        let w = CGFloat(50.0)
-        let h = CGFloat(50.0)
+        let w = CGFloat(60.0)
+        let h = CGFloat(60.0)
         profileView.frame = CGRect(x: x, y: y, width: w, height: h)
         // FIX ME: Make dynamic
         profileView.layer.cornerRadius = w / 2
@@ -87,19 +88,19 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGFloat(80.0)
+        let x = CGFloat(100.0)
         let y = CGFloat(10.0)
         let w = contentView.frame.width - (80.0)
-        let h = CGFloat(30.0)
+        let h = CGFloat(20.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     
     public func layoutTitleLabel() {
-        let x = CGFloat(80.0)
-        let y = CGFloat(30.0)
-        let w = contentView.frame.width - (80.0)
-        let h = CGFloat(30.0)
+        let x = CGFloat(100.0)
+        let y = CGFloat(20.0)
+        let w = contentView.frame.width - (110.0)
+        let h = CGFloat(60.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
