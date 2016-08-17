@@ -68,6 +68,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         //nameLabel.text = "Viviane Chan" //#PASSDATA name from participants
         nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
+        nameLabel.numberOfLines = 0
         addSubview(nameLabel)
     }
     
@@ -90,13 +91,13 @@ public class ParticipantsTableViewCell: UITableViewCell {
         // check button state and assign corresponding color
         
         if buttonSelected == true {
-        addedButton.setTitle("Add", forState: UIControlState.Normal)
         addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
         addedButton.setTitle("Added", forState: UIControlState.Normal)
         addedButton.backgroundColor = MaterialColor.green.base
         buttonSelected = true
         } else {
         addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
+        addedButton.setTitle("Add", forState: UIControlState.Normal)
         addedButton.backgroundColor = MaterialColor.grey.lighten4
         addedButton.pulseColor = MaterialColor.white
         addedButton.cornerRadius = 5.0
@@ -139,7 +140,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     public func layoutAddedButton() {
         let h = (contentView.bounds.size.height) - (30.0)
-        let w = h * 3
+        let w = h * 2.5
         let x = (contentView.bounds.size.width) - w - (15.0)
         let y = CGFloat(15.0)
         addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
@@ -147,9 +148,9 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     public func layoutNameLabel() {
         let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
-        let y = contentView.bounds.size.height/2 - (15.0)
-        let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
-        let h = CGFloat(30.0)
+        let y = CGFloat(5.0)
+        let w = contentView.bounds.size.width - CGFloat(10.0) - (profileView.frame.width) - CGFloat(5.0) - addedButton.frame.width - CGFloat(10.0)
+        let h = CGFloat(50.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
