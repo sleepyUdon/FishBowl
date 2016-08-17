@@ -11,7 +11,7 @@ import Foundation
 class User: NSObject {
     var userId: String
     var name: String
-    var bio: String     
+    var bio: String?
     var email: String?
     var image: NSData?
     var phone: NSNumber?

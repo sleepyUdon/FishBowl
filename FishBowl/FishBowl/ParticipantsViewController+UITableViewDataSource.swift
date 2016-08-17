@@ -75,6 +75,8 @@ extension ParticipantsViewController: UITableViewDataSource {
             cell.nameLabel.text = member.memberName
         }
         
+        cell.addedButton.tag = indexPath.row
+        
         return cell
     }
 }
