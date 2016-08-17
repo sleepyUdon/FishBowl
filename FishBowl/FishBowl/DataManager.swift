@@ -65,39 +65,9 @@ class DataManager: NSObject {
             "linkedin":"https://www.linkedin.com/in/marissamayer",
             "title":"CEO, Yahoo!",
             "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!],
-        
-          ["name":"Bill Gates", "email":"billg@microsoft.com.",
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor, Microsoft",
-            "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
-        
-          ["name":"Larry Page",
-            "email":"larry@google.com",
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO, Alphabet Inc",
-            "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
-        
-          ["name":"Mark Zuckerberg",
-            "email":"zuck@fb.com",
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"",
-            "title":"Chairman and CEO, Facebook",
-            "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
-        
-          ["name":"Marissa Mayer",
-            "email":"marissa.mayer@yahoo-inc.com",
-            
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/marissamayer",
-            "title":"CEO, Yahoo!",
             "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
+        
+          
         
         for user in users {
             
