@@ -25,6 +25,7 @@ public class MenuModel: NSObject {
         
         DataManager.grabEventsFromAPI { (events) in
             self.events = events
+            
         }  
         
     }
