@@ -155,6 +155,17 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         contentView.addSubview(linkedinButton)
         linkedinButton.addTarget(self, action: #selector(handleLinkedinButton), forControlEvents: .TouchUpInside)
         
+        let phoneContactButton: MaterialButton = MaterialButton()
+        phoneContactButton.pulseColor = MaterialColor.white
+        phoneContactButton.depth = .Depth1
+        phoneContactButton.titleLabel?.font = Fonts.bodyGrey
+        phoneContactButton.cornerRadius = 5.0
+        phoneContactButton.setTitleColor(Color.greyDark, forState: .Normal)
+        phoneContactButton.setTitle("Save to Contacts", forState: UIControlState.Normal)
+        phoneContactButton.backgroundColor = MaterialColor.grey.lighten4
+        contentView.addSubview(phoneContactButton)
+
+        
         // layout containers
         
         topImageView.grid.rows = 4
@@ -236,6 +247,11 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         linkedinButton.grid.offset.rows = 12
         linkedinButton.grid.offset.columns = 5
         
+        phoneContactButton.grid.rows = 2
+        phoneContactButton.grid.columns = 8
+        phoneContactButton.grid.offset.rows = 7
+        phoneContactButton.grid.offset.columns = 2
+
         contentView.grid.spacing = 8
         contentView.grid.axis.direction = .None
         contentView.grid.contentInsetPreset = .Square3
@@ -247,7 +263,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             messageButton,
             phoneButton,
             githubButton,
-            linkedinButton
+            linkedinButton,
+            phoneContactButton
         ]
         
         self.view.addSubview(cardView)
