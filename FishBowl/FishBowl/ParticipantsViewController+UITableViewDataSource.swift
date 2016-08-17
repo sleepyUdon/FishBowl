@@ -59,6 +59,12 @@ extension ParticipantsViewController: UITableViewDataSource {
             for member in members
             {if member.memberName == filteredParticipants[indexPath.row] {cell.titleLabel.text = member.memberBio}}
             
+//            for member in members
+//            {if member.memberName == filteredParticipants[indexPath.row] {if member.isAdded == true {cell.buttonSelected = true} else
+//            {cell.buttonSelected = false}}}
+//            //VIV UNCOMMENT THIS
+
+            
         } else {
             
             let members = membersData.members
@@ -73,8 +79,12 @@ extension ParticipantsViewController: UITableViewDataSource {
             
             cell.titleLabel.text = member.memberBio
             cell.nameLabel.text = member.memberName
+            
+            if member in members
+            {
+//            if member.isAdded == true {cell.buttonSelected = true} else {cell.buttonSelected = false}}
+//            VIV UNCOMMENT THIS
         }
-        
         return cell
     }
 }

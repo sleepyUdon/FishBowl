@@ -62,6 +62,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)
         searchActive = false;
+        tableView.reloadData()
+
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {

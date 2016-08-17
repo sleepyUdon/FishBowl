@@ -244,8 +244,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         // prepare textfields
         
         let nameTextfield: UITextField = UITextField()
-        nameTextfield.attributedPlaceholder = NSAttributedString(string:"Viviane Chan",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        nameTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Name",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         nameTextfield.font = Fonts.bodyGrey
         nameTextfield.textAlignment = .Right
         nameTextfield.textColor = Color.greyMedium
@@ -257,8 +257,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
 
         let titleTextfield: UITextField = UITextField()//#PASSDATA from user
-        titleTextfield.attributedPlaceholder = NSAttributedString(string:"iOS Developer",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        titleTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Title",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         titleTextfield.font = Fonts.bodyGrey
         titleTextfield.textAlignment = .Right
         titleTextfield.textColor = Color.greyMedium
@@ -268,29 +268,27 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
         
         let companyTextfield: UITextField = UITextField()//#PASSDATA from user
-        companyTextfield.attributedPlaceholder = NSAttributedString(string:"LighthouseLabs",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        companyTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Company",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         companyTextfield.font = Fonts.bodyGrey
         companyTextfield.textAlignment = .Right
-        companyTextfield.textColor = Color.greyMedium
         cardView.addSubview(companyTextfield)
         companyTextfield.delegate = self
         self.companyTextField = companyTextfield
 
 
         let emailTextfield: UITextField = UITextField()//#PASSDATA from user
-        emailTextfield.attributedPlaceholder = NSAttributedString(string:"vivianechan@hotmail.com",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        emailTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Email",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         emailTextfield.font = Fonts.bodyGrey
         emailTextfield.textAlignment = .Right
-        emailTextfield.textColor = Color.greyMedium
         cardView.addSubview(emailTextfield)
         emailTextfield.delegate = self
         self.emailTextField = emailTextfield
 
         let phoneTextfield: UITextField = UITextField() //VIV #PHONEINPUT
-        phoneTextfield.attributedPlaceholder = NSAttributedString(string:"(647)836 5162",
-                                                               attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        phoneTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Phone",
+                                                               attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         phoneTextfield.font = Fonts.bodyGrey
         phoneTextfield.textAlignment = .Right
         phoneTextfield.textColor = Color.greyMedium
@@ -302,8 +300,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
 
         let githubTextfield: UITextField = UITextField() //VIV #PHONEINPUT
-        githubTextfield.attributedPlaceholder = NSAttributedString(string:"github.com/sleepyUdon",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        githubTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Github",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         githubTextfield.font = Fonts.bodyGrey
         githubTextfield.textAlignment = .Right
         githubTextfield.textColor = Color.greyMedium
@@ -312,8 +310,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.githubTextField = githubTextfield
 
         let linkedinTextfield: UITextField = UITextField() //VIV #PHONEINPUT
-        linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"linkedin.com/in/vivianechan",
-                                                                  attributes:[NSForegroundColorAttributeName: Color.greyMedium])
+        linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"Enter LinkedIn",
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         linkedinTextfield.font = MaterialFont.systemFontWithSize(13)
         linkedinTextfield.textAlignment = .Right
         linkedinTextfield.textColor = Color.greyMedium
