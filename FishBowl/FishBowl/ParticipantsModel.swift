@@ -6,8 +6,12 @@ public class ParticipantsModel: NSObject {
     static let setParticipants = "didSetParticipants"
     var members: [Member] = [] {
         didSet {
-            let notification = NSNotification(name: ParticipantsModel.setParticipants, object: self)
-            NSNotificationCenter.defaultCenter().postNotification(notification)
+            // do this on the main thread
+            dispatch_async(dispatch_get_main_queue(), {
+                let notification = NSNotification(name: ParticipantsModel.setParticipants, object: self)
+                NSNotificationCenter.defaultCenter().postNotification(notification)
+            })
+            
         }
     }
     
