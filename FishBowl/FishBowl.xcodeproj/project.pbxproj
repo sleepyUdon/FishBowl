@@ -358,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */,
-				44C8B6001D5D0C1200604FCE /* WebViewController.swift in Sources */,
 				7CDD2A681D5AB9F700716BBD /* ContactsController+UITableViewDelegate.swift in Sources */,
 				7CDD2A551D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
