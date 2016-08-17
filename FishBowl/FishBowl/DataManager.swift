@@ -25,42 +25,42 @@ class DataManager: NSObject {
         
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
-
+            
             "phone": "tel://6478365162",
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
-            ["name":"Bill Gates", "email":"billg@microsoft.com.",
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor, Microsoft",
-            "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
-            ["name":"Larry Page",
-            "email":"larry@google.com",
-
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO, Alphabet Inc",
-            "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
-            ["name":"Mark Zuckerberg",
-            "email":"zuck@fb.com",
-
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"",
-            "title":"Chairman and CEO, Facebook",
-            "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
-            ["name":"Marissa Mayer",
-            "email":"marissa.mayer@yahoo-inc.com",
-
-            "phone":"tel://6478365162",
-            "github":"",
-            "linkedin":"https://www.linkedin.com/in/marissamayer",
-            "title":"CEO, Yahoo!",
-            "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
+                                                      ["name":"Bill Gates", "email":"billg@microsoft.com.",
+                                                        "phone":"tel://6478365162",
+                                                        "github":"",
+                                                        "linkedin":"https://www.linkedin.com/in/williamhgates",
+                                                        "title":"Technology Advisor, Microsoft",
+                                                        "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
+                                                      ["name":"Larry Page",
+                                                        "email":"larry@google.com",
+                                                        
+                                                        "phone":"tel://6478365162",
+                                                        "github":"",
+                                                        "linkedin":"https://www.linkedin.com/in/tlytle",
+                                                        "title":"CEO, Alphabet Inc",
+                                                        "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
+                                                      ["name":"Mark Zuckerberg",
+                                                        "email":"zuck@fb.com",
+                                                        
+                                                        "phone":"tel://6478365162",
+                                                        "github":"",
+                                                        "linkedin":"",
+                                                        "title":"Chairman and CEO, Facebook",
+                                                        "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
+                                                      ["name":"Marissa Mayer",
+                                                        "email":"marissa.mayer@yahoo-inc.com",
+                                                        
+                                                        "phone":"tel://6478365162",
+                                                        "github":"",
+                                                        "linkedin":"https://www.linkedin.com/in/marissamayer",
+                                                        "title":"CEO, Yahoo!",
+                                                        "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
         
         for user in users {
             
@@ -87,7 +87,7 @@ class DataManager: NSObject {
         
         return userList
     }
-
+    
     class func createEventDummyData() -> [Event]{
         
         var eventList = [Event]()
@@ -96,9 +96,9 @@ class DataManager: NSObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let events = [["Group":"DevHub",
-                        "EventTitle":"NSCoder Night Toronto",
-                        "EventRsvp":3,
-                        "Date":0],
+            "EventTitle":"NSCoder Night Toronto",
+            "EventRsvp":3,
+            "Date":0],
                       ["Group":"Mobile Growth Toronto",
                         "EventTitle":"Mobile Growth Toronto - December Meetup",
                         "EventRsvp":5,
@@ -131,12 +131,12 @@ class DataManager: NSObject {
         
         for event in events {
             
-//            let date = dateFormatter.dateFromString(event["Date"]!)
+            //            let date = dateFormatter.dateFromString(event["Date"]!)
             
             let someEvent = Event(eventId: "", title: "", time: 0, yesRsvpCount: 0, eventStatus: "")
             
-                someEvent.title = event["EventTitle"] as? String
-                someEvent.yesRsvpCount = event["EventRsvp"] as! NSInteger
+            someEvent.title = event["EventTitle"] as? String
+            someEvent.yesRsvpCount = event["EventRsvp"] as! NSInteger
             
             //let someEvent = Event(title: event["EventTitle"]!, location: event["EventLocation"]!, date: date!, group: event["Group"]!)
             
@@ -155,7 +155,7 @@ class DataManager: NSObject {
         if AppDelegate.token != nil {
             
             api.getEvents(AppDelegate.token!, handler: { (eventsDict: NSArray) in
-            
+                
                 for result in eventsDict {
                     let eventId = result["id"] as! String
                     let eventName = result["name"] as! String
@@ -194,26 +194,40 @@ class DataManager: NSObject {
                         //get photo of the member
                         let memberPhotoLink = memberPhoto["thumb_link"] as! String
                         let url: NSURL = NSURL(string: memberPhotoLink as String)!
-                        memberImageData = NSData(contentsOfURL: url)! as NSData
-                        //print(memberImageData)
-                    }
-                    
-                    if let member = memberObject["member"] as? NSDictionary {
-                        //get all details under every member
-                        let memberId = member["member_id"]!.stringValue
-                        let memberName = member["name"] as! String
-                        //print(memberName, memberId)
                         
-                        //create member object
-                        let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
-                        membersArray.append(member)
-                        //print(membersArray)
-                        
+                        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {
+                            data, response, error in
+                            
+                            //check for error
+                            if error != nil {
+                                print("error=\(error)")
+                                return
+                            }
+                            
+                            guard let data = data else {
+                                print("data is nil")
+                                return
+                            }
+                            
+                            memberImageData = data
+                            
+                            if let member = memberObject["member"] as? NSDictionary {
+                                //get all details under every member
+                                let memberId = member["member_id"]!.stringValue
+                                let memberName = member["name"] as! String
+                                //print(memberName, memberId)
+                                
+                                //create member object
+                                let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
+                                membersArray.append(member)
+                                //print(membersArray)
+                                handler(members: membersArray)
+                            }
+                        })
+                        task.resume()
                     }
-                                            
                 }
             }
-            handler(members: membersArray)
         })
     }
     
@@ -222,8 +236,8 @@ class DataManager: NSObject {
     
     
     func saveContactListArray() {  // This is contacts Tableview datasource
-    
-    
+        
+        
     }
     
     func saveToPhone() {
@@ -245,26 +259,26 @@ class DataManager: NSObject {
         
     }
     
-     func saveNewContact() {
-
+    func saveNewContact() {
+        
     }
     
     func updateContact() {
         
         
-    
+        
     }
     
     func updateProperty() {
-    
-    
-    
+        
+        
+        
     }
     
     func updateContactPhoto() {
-    
-    
-    
+        
+        
+        
     }
     
     func deleteContact(user:User) {
@@ -282,9 +296,9 @@ class DataManager: NSObject {
         } else {
             
             print("User does not exist")
-
+            
         }
-    
+        
     }
     
     class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
