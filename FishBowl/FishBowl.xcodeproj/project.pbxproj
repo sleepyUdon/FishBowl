@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		3DB32288699343BC079DAC63 /* Pods_FishBowl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */; };
 		44C8B5FA1D5CD29900604FCE /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5F91D5CD29900604FCE /* Member.swift */; };
-		44C8B5FC1D5CD4D600604FCE /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5FB1D5CD4D600604FCE /* api.swift */; };
-		44C8B6001D5D0C1200604FCE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5FF1D5D0C1200604FCE /* WebViewController.swift */; };
 		7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C41D5C189A00ECDE02 /* Color.swift */; };
 		7C6080C71D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */; };
 		7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C81D5C9D1100ECDE02 /* Fonts.swift */; };
@@ -61,8 +59,6 @@
 
 /* Begin PBXFileReference section */
 		44C8B5F91D5CD29900604FCE /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		44C8B5FB1D5CD4D600604FCE /* api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = api.swift; sourceTree = "<group>"; };
-		44C8B5FF1D5D0C1200604FCE /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		61233D508E3E0182B21D4E0E /* Pods-FishBowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.release.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.release.xcconfig"; sourceTree = "<group>"; };
 		7C6080C41D5C189A00ECDE02 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParticipantsViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
@@ -158,8 +154,6 @@
 				7CDD2A211D590E5500716BBD /* Events TableView */,
 				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
 				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
-				44C8B5FB1D5CD4D600604FCE /* api.swift */,
-				44C8B5FF1D5D0C1200604FCE /* WebViewController.swift */,
 			);
 			path = FishBowl;
 			sourceTree = "<group>";
@@ -270,7 +264,7 @@
 				TargetAttributes = {
 					7CAB2A201D58DB7F00735CF4 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 256HHE87HY;
+						DevelopmentTeam = 63KC5QA6CB;
 					};
 				};
 			};
@@ -388,7 +382,6 @@
 				7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */,
 				7CDD2A5D1D5AB4EF00716BBD /* ContactsModel.swift in Sources */,
 				7CDD2A431D59755C00716BBD /* ParticipantsTableViewCell.swift in Sources */,
-				44C8B5FC1D5CD4D600604FCE /* api.swift in Sources */,
 				7CDD2A641D5AB59D00716BBD /* ContactsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
@@ -514,6 +508,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
