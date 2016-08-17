@@ -71,6 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.window?.endEditing(true)
+    }
     
 }
 

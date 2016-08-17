@@ -36,7 +36,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         super.viewDidLayoutSubviews()
         layoutTableView()
         
-        cardView.frame = CGRectMake(0, 44, view.bounds.width, 450.0)
+        cardView.frame = CGRectMake(0, 0, view.bounds.width, 450.0)
     }
     
     

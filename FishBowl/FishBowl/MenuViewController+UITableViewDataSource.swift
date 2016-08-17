@@ -53,18 +53,13 @@ extension MenuViewController: UITableViewDataSource {
 
         // grey out past events
         if (milliseconds > event.time.doubleValue) {
-            cell.backgroundColor = MaterialColor.grey.lighten3
+            cell.backgroundColor = MaterialColor.grey.lighten2
         }
         else {cell.backgroundColor = MaterialColor.white
         }
         
         return cell
     }
-    
-    public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
-        cellToDeSelect.contentView.backgroundColor = MaterialColor.white //VIV DESELECT ROW
-    }
-    
+        
 }
 

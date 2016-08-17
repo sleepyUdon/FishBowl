@@ -23,11 +23,18 @@ extension MenuViewController: UITableViewDelegate {
         destination.navigationItem.titleLabel.textAlignment = .Center
         destination.navigationItem.titleLabel.textColor = Color.accentColor1
         destination.navigationItem.titleLabel.font = Fonts.navigationTitle
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        
+        
+
     }
  
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100.0
     }
+    
 }
 
 

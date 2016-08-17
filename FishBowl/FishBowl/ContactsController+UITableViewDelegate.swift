@@ -30,19 +30,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60.0
-//        let smallHeight: CGFloat = 70.0
-//        let expandedHeight: CGFloat = 450.0
-//        let ip = indexPath
-//        if selectedIndexPath != nil {
-//            if ip == selectedIndexPath! {
-//                return expandedHeight
-//            } else {
-//                return smallHeight
-//            }
-//        } else {
-//            return smallHeight
-//        }
+        return 80.0
     }
     
     
@@ -55,7 +43,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         // set container views
         
         cardView.pulseColor = Color.baseColor1
-        cardView.depth = .Depth1
+        cardView.borderWidth = 0
         
         view.addSubview(cardView)
         
@@ -83,7 +71,6 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         topImageView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
         
-
         
         // set labels
         
@@ -226,27 +213,27 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         mailButton.grid.rows = 3
         mailButton.grid.columns = 3
-        mailButton.grid.offset.rows = 7
+        mailButton.grid.offset.rows = 9
         mailButton.grid.offset.columns = 2
         
         messageButton.grid.rows = 3
         messageButton.grid.columns = 3
-        messageButton.grid.offset.rows = 7
+        messageButton.grid.offset.rows = 9
         messageButton.grid.offset.columns = 5
         
         phoneButton.grid.rows = 3
         phoneButton.grid.columns = 3
-        phoneButton.grid.offset.rows = 7
+        phoneButton.grid.offset.rows = 9
         phoneButton.grid.offset.columns = 8
         
         githubButton.grid.rows = 3
         githubButton.grid.columns = 3
-        githubButton.grid.offset.rows = 10
+        githubButton.grid.offset.rows = 12
         githubButton.grid.offset.columns = 2
         
         linkedinButton.grid.rows = 3
         linkedinButton.grid.columns = 3
-        linkedinButton.grid.offset.rows = 10
+        linkedinButton.grid.offset.rows = 12
         linkedinButton.grid.offset.columns = 5
         
         contentView.grid.spacing = 8
