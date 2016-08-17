@@ -187,8 +187,52 @@ class DataManager: NSObject {
         
     }
     
-     func saveNewContact() {
+    func saveCurrentUser(name:String, title:String, company:String, email:String, phone: NSNumber?, github:String, linkedin:String, image:NSData) {
+        
+        //check if currentUser exists
+        let users = graph.searchForEntity(types: ["CurrentUser"])
+        if users.count == 0 {
+        
+        let user: Entity = Entity(type: "CurrentUser")
+        user["type"] = "default"
+        user["name"] = name
+        user["title"] = title
+        user["company"] = company
+        user["email"] = email
+        user["phone"] = phone
+        user["github"] = github
+        user["linkedin"] = linkedin
+        user["image"] = image
+        
+        } else {
+            
+         let users = graph.searchForEntity(types: ["CurrentUser"])
+         let user = users.first! as Entity
 
+            user["type"] = "default"
+            user["name"] = name
+            user["title"] = title
+            user["company"] = company
+            user["email"] = email
+            user["phone"] = phone
+            user["github"] = github
+            user["linkedin"] = linkedin
+            user["image"] = image
+
+        
+        }
+        
+        saveToPhone()
+
+    }
+    
+    class func getCurrentUser() -> Array<Entity> {
+        
+        let graph = Graph()
+        let users = graph.searchForEntity(types: ["CurrentUser"])
+        
+        return users
+        
     }
     
     func updateContact() {
@@ -236,6 +280,13 @@ class DataManager: NSObject {
         return date
         
     }
+    
+    class func removeNonNumericCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
+
     
 }
 

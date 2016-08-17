@@ -55,12 +55,13 @@ private func prepareSearchBar() {
     public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         participantsSearchBar.showsCancelButton = false
         participantsSearchBar.text = ""
-        participantsSearchActive = false;
+        participantsSearchActive = false
     }
     
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         participantsSearchBar.endEditing(true)
         participantsSearchActive = false;
+        tableView.reloadData()
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {

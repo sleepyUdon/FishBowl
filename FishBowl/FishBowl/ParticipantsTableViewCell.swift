@@ -77,7 +77,6 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareTitleLabel() {
         titleLabel.font = Fonts.bodyGrey
-        //titleLabel.text = "iOS Developer" //#PASSDATA title from participants
         titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
@@ -87,12 +86,22 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareAddedButton() {
+        
+        // check button state and assign corresponding color
+        
+        if buttonSelected == true {
         addedButton.setTitle("Add", forState: UIControlState.Normal)
+        addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
+        addedButton.setTitle("Added", forState: UIControlState.Normal)
+        addedButton.backgroundColor = MaterialColor.green.base
+        buttonSelected = true
+        } else {
         addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
         addedButton.backgroundColor = MaterialColor.grey.lighten4
         addedButton.pulseColor = MaterialColor.white
         addedButton.cornerRadius = 5.0
         addedButton.titleLabel!.font = Fonts.bodyGrey
+        }
         addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
         addSubview(addedButton)
     }
@@ -112,10 +121,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         else
             
         {
-            addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
-            addedButton.setTitle("Add", forState: UIControlState.Normal)
-            addedButton.backgroundColor = MaterialColor.grey.lighten4
-            buttonSelected = false
+            addedButton.enabled = false
             
         }
         
