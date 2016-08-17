@@ -18,6 +18,8 @@ class Member: NSObject {
     var memberEmail: String?
     var memberGithub: String?
     var memberLinkedin: String?
+    var memberCompany: String?
+    var memberIsAdded: Bool?
     
     
     init(memberId:String, memberName:String, memberImage: NSData?) {

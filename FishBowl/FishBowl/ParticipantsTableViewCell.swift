@@ -99,14 +99,18 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     
     func handleAddedButton() {
+        
         if (buttonSelected == false) //BUTTONOFF
+            
         {
             addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
             addedButton.setTitle("Added", forState: UIControlState.Normal)
             addedButton.backgroundColor = MaterialColor.green.base
             buttonSelected = true
         }
+            
         else
+            
         {
             addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
             addedButton.setTitle("Add", forState: UIControlState.Normal)
@@ -114,6 +118,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
             buttonSelected = false
             
         }
+        
     }
 //        // #SAVETOCOREDATA
 //    }
