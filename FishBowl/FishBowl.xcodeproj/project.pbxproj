@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3DB32288699343BC079DAC63 /* Pods_FishBowl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */; };
+		44116CD91D63D6CF0032F8C4 /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116CD81D63D6CF0032F8C4 /* AddressBook.swift */; };
 		44C8B5FA1D5CD29900604FCE /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5F91D5CD29900604FCE /* Member.swift */; };
 		7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C41D5C189A00ECDE02 /* Color.swift */; };
 		7C6080C71D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C61D5C96CB00ECDE02 /* ParticipantsViewController+UITableViewDelegate.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		44116CD81D63D6CF0032F8C4 /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		44C8B5F91D5CD29900604FCE /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		61233D508E3E0182B21D4E0E /* Pods-FishBowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.release.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.release.xcconfig"; sourceTree = "<group>"; };
 		7C6080C41D5C189A00ECDE02 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				7C6080C41D5C189A00ECDE02 /* Color.swift */,
 				7C6080C81D5C9D1100ECDE02 /* Fonts.swift */,
 				44C8B5F91D5CD29900604FCE /* Member.swift */,
+				44116CD81D63D6CF0032F8C4 /* AddressBook.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				7CDD2A1E1D590E4D00716BBD /* MenuViewController+Configuration.swift in Sources */,
 				7CDD2A681D5AB9F700716BBD /* ContactsController+UITableViewDelegate.swift in Sources */,
 				7CDD2A551D5A9B4300716BBD /* ParticipantsViewController+UITableViewDataSource.swift in Sources */,
+				44116CD91D63D6CF0032F8C4 /* AddressBook.swift in Sources */,
 				7CDD2A141D590CD000716BBD /* AppDelegate.swift in Sources */,
 				7CDD2A201D590E4D00716BBD /* MenuViewController+UITableViewDelegate.swift in Sources */,
 				7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */,
@@ -495,7 +499,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
+				PRODUCT_BUNDLE_IDENTIFIER = EugeneKim.FishBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -514,7 +518,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VivianeChan.FishBowl;
+				PRODUCT_BUNDLE_IDENTIFIER = EugeneKim.FishBowl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
