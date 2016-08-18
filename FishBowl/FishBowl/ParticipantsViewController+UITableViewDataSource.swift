@@ -34,6 +34,10 @@ extension ParticipantsViewController: UITableViewDataSource {
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
         cell.selectionStyle = .None
+        cell.addedButton.tag = indexPath.row
+       
+        
+//        var currentMember: Member!
         
         if(participantsSearchActive){
             let members = membersData.members
@@ -59,17 +63,16 @@ extension ParticipantsViewController: UITableViewDataSource {
             for member in members
             {if member.memberName == filteredParticipants[indexPath.row] {cell.titleLabel.text = member.memberBio}}
             
-//            for member in members
-//            {if member.memberName == filteredParticipants[indexPath.row] {if member.isAdded == true {cell.buttonSelected = true} else
-//            {cell.buttonSelected = false}}}
-//            //VIV UNCOMMENT THIS
+            for member in members
+            {if member.memberName == filteredParticipants[indexPath.row] {if member.memberIsAdded == true {cell.buttonSelected = true} else
+            {cell.buttonSelected = false}}}
 
             
         } else {
             
             let members = membersData.members
-            let member = members[indexPath.row]
-            if let imageData = member.memberImage {
+            let currentMember = members[indexPath.row] as Member
+            if let imageData = currentMember.memberImage {
                 let image = UIImage(data: imageData)
                 cell.profileView.image = image
             }
@@ -77,19 +80,27 @@ extension ParticipantsViewController: UITableViewDataSource {
                 cell.profileView.image = UIImage(named: "photoplaceholder.png")
             }
             
-            cell.titleLabel.text = member.memberBio
-            cell.nameLabel.text = member.memberName
+            cell.titleLabel.text = currentMember.memberBio
+            cell.nameLabel.text = currentMember.memberName
             
-//            if member in members
-//            {
-//            if member.isAdded == true {cell.buttonSelected = true} else {cell.buttonSelected = false}}
-//            VIV UNCOMMENT THIS
+            for member in members
+            {
+                if member.memberIsAdded == true {cell.buttonSelected = true} else {cell.buttonSelected = false}
+            }
+            
+            cell.member = currentMember
+            
+            if DataManager.getMemberIDsFromContacts().contains(currentMember.memberId) {
+            
+                cell.buttonSelected = true
+                
+            }
         }
+        
+        
+        
 
         
-        cell.addedButton.tag = indexPath.row
-        
-
         return cell
     }
 }

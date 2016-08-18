@@ -14,18 +14,16 @@ class User: NSObject {
     var bio: String?
     var email: String?
     var image: NSData?
-    var phone: NSNumber?
+    var phone: String?
     var github: String?
     var linkedin: String?
     var company:String?
     
     
-    init(userId: String, name: String, bio:String?, image:NSData?)
+    init(userId: String, name: String)
     {
         self.name = name
         self.userId = userId
-        self.image = image
-        self.bio = bio!
 
         
     }

@@ -11,11 +11,14 @@ import Material
 
 
 public class ParticipantsTableViewCell: UITableViewCell {
-    public lazy var profileView: MaterialView = MaterialView()
-    public lazy var nameLabel: UILabel = UILabel()
-    public lazy var titleLabel: UILabel = UILabel()
-    public lazy var addedButton: MaterialButton = MaterialButton()
-    public lazy var buttonSelected = false
+    
+    
+    lazy var profileView: MaterialView = MaterialView()
+    lazy var nameLabel: UILabel = UILabel()
+    lazy var titleLabel: UILabel = UILabel()
+    lazy var addedButton: MaterialButton = MaterialButton()
+    lazy var buttonSelected = false
+    var member : Member = Member(memberId: "someMemberId", memberName: "someMember", memberImage: nil)
     
     
     /*
@@ -107,7 +110,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     }
     
     
-    func handleAddedButton() {
+    func handleAddedButton(button:UIButton) {
         
         if (buttonSelected == false) //BUTTONOFF
             
@@ -116,6 +119,25 @@ public class ParticipantsTableViewCell: UITableViewCell {
             addedButton.setTitle("Added", forState: UIControlState.Normal)
             addedButton.backgroundColor = MaterialColor.green.base
             buttonSelected = true
+            
+            //
+            let member : Member = self.member
+            
+            let memberID = member.memberId
+            let name = member.memberName
+            let title = member.memberBio
+            let company = member.memberCompany
+            let email = member.memberEmail
+            let phone = member.memberPhone
+           
+            let github = member.memberGithub
+            let linkedin = member.memberLinkedin
+            let image = member.memberImage
+            
+            let dm = DataManager()
+            
+            dm.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
+            
         }
             
         else
@@ -124,6 +146,8 @@ public class ParticipantsTableViewCell: UITableViewCell {
             addedButton.enabled = false
             
         }
+        
+        
         
     }
 //        // #SAVETOCOREDATA
