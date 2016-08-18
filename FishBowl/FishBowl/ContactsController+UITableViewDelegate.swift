@@ -25,7 +25,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
                 selectedIndexPath = indexPath
             }
         }
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.reloadData()
     }
     
     

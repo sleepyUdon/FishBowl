@@ -114,7 +114,6 @@ public class ParticipantsTableViewCell: UITableViewCell {
     func handleAddedButton(button:UIButton) {
         
         if (buttonSelected == false) //BUTTONOFF
-            
         {
             addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
             addedButton.setTitle("Added", forState: UIControlState.Normal)
@@ -138,18 +137,11 @@ public class ParticipantsTableViewCell: UITableViewCell {
             let dm = DataManager()
             
             dm.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
-            
+            NSNotificationCenter.defaultCenter().postNotificationName("NewParticipantAdded", object: nil)
         }
-            
-        else
-            
-        {
+        else {
             addedButton.enabled = false
-            
         }
-        
-        
-        
     }
 //        // #SAVETOCOREDATA
 //    }

@@ -121,14 +121,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let company = companyTextField.text
         let email = emailTextField.text
         
-        let phoneString = DataManager.removeNonNumericCharsFromString(phoneTextField.text!)
-        let phone : Int = Int((phoneString))!
+        let phone = DataManager.removeNonNumericCharsFromString(phoneTextField.text!)
         let github = githubTextField.text
         let linkedin = linkedinTextField.text
         let image = UIImagePNGRepresentation(self.profileView.image!)
         
-        print(phoneTextField.text)
-        print(phoneString)
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let dm = appDelegate.dataManager! as DataManager

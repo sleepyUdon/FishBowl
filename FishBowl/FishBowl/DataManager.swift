@@ -183,7 +183,6 @@ class DataManager: NSObject {
 
     func saveToPhone() {
         
-        let graph = Graph()
         graph.async { (success: Bool, error: NSError?) in
             
             if success {
@@ -201,7 +200,7 @@ class DataManager: NSObject {
     }
     
     
-    func saveCurrentUser(name:String, title:String, company:String, email:String, phone: NSNumber?, github:String, linkedin:String, image:NSData) {
+    func saveCurrentUser(name:String, title:String, company:String, email:String, phone: String?, github:String, linkedin:String, image:NSData) {
         
         //check if currentUser exists
         let users = graph.searchForEntity(types: ["CurrentUser"])
