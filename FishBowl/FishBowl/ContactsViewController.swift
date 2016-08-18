@@ -12,7 +12,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     var selectedIndexPath: NSIndexPath? = nil
     var searchActive : Bool = false
     var filtered:[String] = []
-
+    public var userData: ContactsModel = ContactsModel()
     
     
     /// Reference for SearchBar.
@@ -21,15 +21,24 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     //  viewDidLoad
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    public override func viewWillAppear(animated: Bool) {
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.didUpdateContacs), name: ContactsModel.setContacts, object: self.userData)
+
+        
         prepareView()
         prepareTableView()
+        didUpdateContacs()
         prepareSearchBar()
+        
         
         cardView.alpha = 0.0
         
-        
+    }
+    
+    
+    func didUpdateContacs() {
+        self.tableView.reloadData()
     }
     
     
@@ -41,7 +50,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         
         cardView.frame = CGRectMake(0, 0, view.bounds.width, 450.0)
         
-        tableView.reloadData()
+        
+        
     }
     
     

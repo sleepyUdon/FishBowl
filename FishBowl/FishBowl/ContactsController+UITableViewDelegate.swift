@@ -101,7 +101,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         let companyLabel: UILabel = UILabel()
         companyLabel.font = Fonts.title
-        companyLabel.text = "Lighthouse Labs" //#PASSDATA company from participant
+        companyLabel.text = user.company //#PASSDATA company from participant
         companyLabel.textAlignment = .Center
         companyLabel.textColor = Color.greyMedium
         contentView.addSubview(companyLabel)
@@ -220,40 +220,40 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         
         titleLabel.grid.rows = 3
         titleLabel.grid.columns = 12
-        titleLabel.grid.offset.rows = 2
+        titleLabel.grid.offset.rows = 1
         
         companyLabel.grid.rows = 3
         companyLabel.grid.columns = 12
-        companyLabel.grid.offset.rows = 4
+        companyLabel.grid.offset.rows = 3
         
         mailButton.grid.rows = 3
         mailButton.grid.columns = 3
-        mailButton.grid.offset.rows = 9
+        mailButton.grid.offset.rows = 7
         mailButton.grid.offset.columns = 2
         
         messageButton.grid.rows = 3
         messageButton.grid.columns = 3
-        messageButton.grid.offset.rows = 9
+        messageButton.grid.offset.rows = 7
         messageButton.grid.offset.columns = 5
         
         phoneButton.grid.rows = 3
         phoneButton.grid.columns = 3
-        phoneButton.grid.offset.rows = 9
+        phoneButton.grid.offset.rows = 7
         phoneButton.grid.offset.columns = 8
         
         githubButton.grid.rows = 3
         githubButton.grid.columns = 3
-        githubButton.grid.offset.rows = 12
+        githubButton.grid.offset.rows = 9
         githubButton.grid.offset.columns = 2
         
         linkedinButton.grid.rows = 3
         linkedinButton.grid.columns = 3
-        linkedinButton.grid.offset.rows = 12
+        linkedinButton.grid.offset.rows = 9
         linkedinButton.grid.offset.columns = 5
         
         phoneContactButton.grid.rows = 2
         phoneContactButton.grid.columns = 8
-        phoneContactButton.grid.offset.rows = 7
+        phoneContactButton.grid.offset.rows = 5
         phoneContactButton.grid.offset.columns = 2
 
         contentView.grid.spacing = 8

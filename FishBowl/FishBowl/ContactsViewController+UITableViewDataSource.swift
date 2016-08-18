@@ -15,24 +15,12 @@ extension ContactsViewController: UITableViewDataSource {
     @name   numberOfRowsInSection
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        var sections = MenuModel.sections()
-//        let key = Array(sections.keys)[section]
-//        let section = sections[key] as! [String]
-        
-//        if(participantsSearchActive) {
-//            if filteredParticipants.count == 0{
-//                return membersData.members.count
-//            } else {
-//                return self.filteredParticipants.count
-//            }
-//            let rows = ContactsModel().getUsers().count
-//            
-//            return rows
+
         if(searchActive) {
             if filtered.count == 0{
                 return ContactsModel().getUsers().count
             } else {
-                return self.filtered.count
+                return self.filtered.count 
             }
         } else {
             return ContactsModel().getUsers().count
@@ -45,7 +33,6 @@ extension ContactsViewController: UITableViewDataSource {
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ContactsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
-        
         if(searchActive){
             let users = ContactsModel().getUsers() 
 

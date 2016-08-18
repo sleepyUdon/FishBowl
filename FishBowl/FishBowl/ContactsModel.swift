@@ -3,7 +3,13 @@ import Foundation
 import UIKit
 
 public class ContactsModel: NSObject {
-    
+    static let setContacts = "didSetContacts"
+    var user: [User] = [] {
+        didSet {
+            let notification = NSNotification(name: ContactsModel.setContacts, object: self)
+            NSNotificationCenter.defaultCenter().postNotification(notification)
+        }
+    }
     
     /*
     @name   required initWithCoder
