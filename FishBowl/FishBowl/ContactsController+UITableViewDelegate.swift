@@ -282,8 +282,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     func handleMessageButton(button:UIButton){
         let messageVC = MFMessageComposeViewController()
-        let phoneNumber = button.layer.valueForKey("phone")
-        messageVC.recipients = [(phoneNumber?.stringValue)!]  
+        let phoneNumber = button.layer.valueForKey("phone") as! String
+        messageVC.recipients = [phoneNumber]
         messageVC.messageComposeDelegate = self
         presentViewController(messageVC, animated: true, completion: nil)
     }
@@ -311,8 +311,8 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     
     func handlePhoneButton(button:UIButton) {
         
-        let phoneNumber = button.layer.valueForKey("phone")
-        let phone = "tel://" + (phoneNumber?.stringValue)!
+        let phoneNumber = button.layer.valueForKey("phone") as! String
+        let phone = "tel://" + phoneNumber
         let url:NSURL = NSURL(string:phone)!;
         UIApplication.sharedApplication().openURL(url);
     }

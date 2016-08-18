@@ -28,7 +28,10 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareSearchBar()
         
         cardView.alpha = 0.0
+        
+        
     }
+    
     
     //  viewDidLayoutSubviews
     
@@ -37,6 +40,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         layoutTableView()
         
         cardView.frame = CGRectMake(0, 0, view.bounds.width, 450.0)
+        
+        tableView.reloadData()
     }
     
     
@@ -62,6 +67,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)
         searchActive = false;
+        tableView.reloadData()
+
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {

@@ -11,11 +11,14 @@ import Material
 
 
 public class ParticipantsTableViewCell: UITableViewCell {
-    public lazy var profileView: MaterialView = MaterialView()
-    public lazy var nameLabel: UILabel = UILabel()
-    public lazy var titleLabel: UILabel = UILabel()
-    public lazy var addedButton: MaterialButton = MaterialButton()
-    public lazy var buttonSelected = false
+    
+    
+    lazy var profileView: MaterialView = MaterialView()
+    lazy var nameLabel: UILabel = UILabel()
+    lazy var titleLabel: UILabel = UILabel()
+    lazy var addedButton: MaterialButton = MaterialButton()
+    lazy var buttonSelected = false
+    var member : Member = Member(memberId: "someMemberId", memberName: "someMember", memberImage: nil)
     
     
     /*
@@ -77,7 +80,6 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public func prepareTitleLabel() {
         titleLabel.font = Fonts.bodyGrey
-        //titleLabel.text = "iOS Developer" //#PASSDATA title from participants
         titleLabel.textColor = Color.greyMedium
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
@@ -87,18 +89,28 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultParticipants
      */
     public func prepareAddedButton() {
+        
+        // check button state and assign corresponding color
+        
+        if buttonSelected == true {
         addedButton.setTitle("Add", forState: UIControlState.Normal)
+        addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
+        addedButton.setTitle("Added", forState: UIControlState.Normal)
+        addedButton.backgroundColor = MaterialColor.green.base
+        buttonSelected = true
+        } else {
         addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
         addedButton.backgroundColor = MaterialColor.grey.lighten4
         addedButton.pulseColor = MaterialColor.white
         addedButton.cornerRadius = 5.0
         addedButton.titleLabel!.font = Fonts.bodyGrey
+        }
         addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
         addSubview(addedButton)
     }
     
     
-    func handleAddedButton() {
+    func handleAddedButton(button:UIButton) {
         
         if (buttonSelected == false) //BUTTONOFF
             
@@ -107,17 +119,35 @@ public class ParticipantsTableViewCell: UITableViewCell {
             addedButton.setTitle("Added", forState: UIControlState.Normal)
             addedButton.backgroundColor = MaterialColor.green.base
             buttonSelected = true
+            
+            //
+            let member : Member = self.member
+            
+            let memberID = member.memberId
+            let name = member.memberName
+            let title = member.memberBio
+            let company = member.memberCompany
+            let email = member.memberEmail
+            let phone = member.memberPhone
+           
+            let github = member.memberGithub
+            let linkedin = member.memberLinkedin
+            let image = member.memberImage
+            
+            let dm = DataManager()
+            
+            dm.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
+            
         }
             
         else
             
         {
-            addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
-            addedButton.setTitle("Add", forState: UIControlState.Normal)
-            addedButton.backgroundColor = MaterialColor.grey.lighten4
-            buttonSelected = false
+            addedButton.enabled = false
             
         }
+        
+        
         
     }
 //        // #SAVETOCOREDATA

@@ -16,39 +16,39 @@ class DataManager: NSObject {
     
     let graph = Graph()
     //let api = APIController()
-    var contactList : [User] = []
+//    var contactList = Array<User>()
     var eventId: String!
     
-    class func createUserDummyData() -> [User] {
+    class func createUserDummyData() -> Array<User> {
         
-        var userList = [User]()
+        var userList = Array<User>()
         
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
-//            "phone": 6478365162,
+            "phone": "18885696898",
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "company": "",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
-//            "phone":6478365162,
+            "phone":"18885696898",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor, Microsoft",
-            "company": "",
+            "title":"Technology Advisor",
+            "company": "Microsoft",
             "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
             ["name":"Larry Page",
             "email":"larry@google.com",
-//            "phone":6478365162,
+            "phone":"18885696898",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO, Alphabet Inc",
-            "company": "",
+            "title":"CEO",
+            "company": "Alphabet Inc",
             "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
-//            "phone":6478365162,
+            "phone":"18885696898",
             "github":"",
             "linkedin":"",
             "title":"Chairman and CEO, Facebook",
@@ -56,8 +56,7 @@ class DataManager: NSObject {
             "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
             ["name":"Marissa Mayer",
             "email":"marissa.mayer@yahoo-inc.com",
-
-//            "phone":6478365162,
+            "phone":"18885696898",
             "github":"",
             "linkedin":"https://www.linkedin.com/in/marissamayer",
             "title":"CEO, Yahoo!",
@@ -68,18 +67,19 @@ class DataManager: NSObject {
             
             let name = user["name"] as! String
             let email = user["email"] as! String
-//            let phone = user["phone"] as! NSNumber
+            let phone = user["phone"] as! String
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
             let company = user["company"] as! String
             let image = user["image"] as? NSData
             
-            let someUser = User(userId: "", name: "", bio: "", image: nil)
-            someUser.name = name
+            let someUser = User(userId: "", name: name)
+           
+            
             someUser.bio = title
             someUser.email = email
-//            someUser.phone = phone
+            someUser.phone = phone
             someUser.image = image
             someUser.linkedin = linkedin
             someUser.github = github
@@ -162,12 +162,6 @@ class DataManager: NSObject {
         })
     }
     
-    
-    func saveContactListArray() {  // This is contacts Tableview datasource
-    
-    
-    }
-    
     func saveToPhone() {
         
         let graph = Graph()
@@ -194,7 +188,6 @@ class DataManager: NSObject {
         if users.count == 0 {
         
         let user: Entity = Entity(type: "CurrentUser")
-        user["type"] = "default"
         user["name"] = name
         user["title"] = title
         user["company"] = company
@@ -208,8 +201,7 @@ class DataManager: NSObject {
             
          let users = graph.searchForEntity(types: ["CurrentUser"])
          let user = users.first! as Entity
-
-            user["type"] = "default"
+            
             user["name"] = name
             user["title"] = title
             user["company"] = company
@@ -226,6 +218,24 @@ class DataManager: NSObject {
 
     }
     
+    func addContact(userID: String, name:String, title:String?, company:String?, email:String?, phone: String?, github:String?, linkedin:String?, image:NSData?) {
+    
+        let contact: Entity = Entity(type: "Contact")
+        
+        contact["userID"] = userID
+        contact["name"] = name
+        contact["title"] = title
+        contact["company"] = company
+        contact["email"] = email
+        contact["phone"] = phone
+        contact["github"] = github
+        contact["linkedin"] = linkedin
+        contact["image"] = image
+        
+        saveToPhone()
+    
+    }
+    
     class func getCurrentUser() -> Array<Entity> {
         
         let graph = Graph()
@@ -235,23 +245,67 @@ class DataManager: NSObject {
         
     }
     
-    func updateContact() {
+    class func getContacts() -> Array<User> {
         
+        let graph = Graph()
+        var contactList = Array<User>()
         
+        let contacts = graph.searchForEntity(types: ["Contact"])
+        
+        if contacts.count > 0 {
+        
+            for contact in contacts {
+        
+                let id = contact["userID"] as! String
+                let name = contact["name"] as! String
+                let title = "" //contact["title"] as! String
+                let company = "" //contact["company"] as! String
+                let email = "" //"contact["email"] as! String
+                let phone = "" //contact["phone"] as! String
+                let github = "" //contact["github"] as! String
+                let linkedin = "" //contact["linkedin"] as! String
+                let image = contact["image"] as! NSData
+            
+                let user = User(userId: id, name: name)
+                user.image = image
+                user.bio = title
+                user.email = email
+                user.phone = phone
+                user.github = github
+                user.linkedin = linkedin
+                user.company = company
+            
+                contactList.append(user)
+            }
+        }
+
+        return contactList
     
     }
     
-    func updateProperty() {
     
-    
-    
+    class func getMemberIDsFromContacts() -> Set<String> {
+        let graph = Graph()
+        var savedContacts = Set<String>()
+        let contacts = graph.searchForEntity(types:["Contact"])
+        if contacts.count == 0 {
+            
+            return savedContacts
+            
+        } else {
+        
+            for contact in contacts {
+            
+                savedContacts.insert(contact["userID"] as! String)
+            
+            }
+            
+            return savedContacts
+        
+        }
+        
     }
     
-    func updateContactPhoto() {
-    
-    
-    
-    }
     
     func deleteContact(user:User) {
         
