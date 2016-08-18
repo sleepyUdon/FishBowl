@@ -17,9 +17,17 @@ public class ParticipantsViewController: UIViewController, UISearchBarDelegate {
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        //create an activity indicator
+        let activityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 100, 100))
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityIndicatorView.center = tableView.center
+        //transform the indicator
+        var transform = CGAffineTransform()
+        transform = CGAffineTransformMakeScale(1.5, 1.5)
+        activityIndicatorView.transform = transform
         tableView.backgroundView = activityIndicatorView
         activityIndicatorView.startAnimating()
+        //add ParticipantVC as an observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMemebers), name: ParticipantsModel.setParticipants, object: self.membersData)
         membersData.getMembers()
         prepareView()

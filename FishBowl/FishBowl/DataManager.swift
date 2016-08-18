@@ -26,11 +26,13 @@ class DataManager: NSObject {
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
             "phone": "18885696898",
+
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
             "company": "",
             "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
+                                                      
             ["name":"Bill Gates", "email":"billg@microsoft.com.",
             "phone":"18885696898",
             "github":"",
@@ -38,6 +40,7 @@ class DataManager: NSObject {
             "title":"Technology Advisor",
             "company": "Microsoft",
             "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
+            
             ["name":"Larry Page",
             "email":"larry@google.com",
             "phone":"18885696898",
@@ -46,6 +49,7 @@ class DataManager: NSObject {
             "title":"CEO",
             "company": "Alphabet Inc",
             "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
+            
             ["name":"Mark Zuckerberg",
             "email":"zuck@fb.com",
             "phone":"18885696898",
@@ -63,6 +67,8 @@ class DataManager: NSObject {
             "company": "",
             "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
         
+          
+        
         for user in users {
             
             let name = user["name"] as! String
@@ -71,7 +77,7 @@ class DataManager: NSObject {
             let github = user["github"] as! String
             let linkedin = user["linkedin"] as! String
             let title = user["title"] as! String
-            let company = user["company"] as! String
+            let company = user["company"] as? String
             let image = user["image"] as? NSData
             
             let someUser = User(userId: "", name: name)
@@ -100,7 +106,7 @@ class DataManager: NSObject {
         if AppDelegate.token != nil {
             
             api.getEvents(AppDelegate.token!, handler: { (eventsDict: NSArray) in
-            
+                
                 for result in eventsDict {
                     let eventId = result["id"] as! String
                     let eventName = result["name"] as! String
@@ -139,29 +145,44 @@ class DataManager: NSObject {
                         //get photo of the member
                         let memberPhotoLink = memberPhoto["thumb_link"] as! String
                         let url: NSURL = NSURL(string: memberPhotoLink as String)!
-                        memberImageData = NSData(contentsOfURL: url)! as NSData
-                        //print(memberImageData)
-                    }
-                    
-                    if let member = memberObject["member"] as? NSDictionary {
-                        //get all details under every member
-                        let memberId = member["member_id"]!.stringValue
-                        let memberName = member["name"] as! String
-                        //print(memberName, memberId)
                         
-                        //create member object
-                        let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
-                        membersArray.append(member)
-                        //print(membersArray)
-                        
+                        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {
+                            data, response, error in
+                            
+                            //check for error
+                            if error != nil {
+                                print("error=\(error)")
+                                return
+                            }
+                            
+                            guard let data = data else {
+                                print("data is nil")
+                                return
+                            }
+                            
+                            memberImageData = data
+                            
+                            if let member = memberObject["member"] as? NSDictionary {
+                                //get all details under every member
+                                let memberId = member["member_id"]!.stringValue
+                                let memberName = member["name"] as! String
+                                //print(memberName, memberId)
+                                
+                                //create member object
+                                let member = Member.init(memberId: memberId, memberName: memberName, memberImage: memberImageData)
+                                membersArray.append(member)
+                                //print(membersArray)
+                                handler(members: membersArray)
+                            }
+                        })
+                        task.resume()
                     }
-                                            
                 }
             }
-            handler(members: membersArray)
         })
     }
     
+
     func saveToPhone() {
         
         let graph = Graph()
@@ -180,6 +201,7 @@ class DataManager: NSObject {
         }
         
     }
+    
     
     func saveCurrentUser(name:String, title:String, company:String, email:String, phone: NSNumber?, github:String, linkedin:String, image:NSData) {
         
@@ -218,6 +240,7 @@ class DataManager: NSObject {
 
     }
     
+
     func addContact(userID: String, name:String, title:String?, company:String?, email:String?, phone: String?, github:String?, linkedin:String?, image:NSData?) {
     
         let contact: Entity = Entity(type: "Contact")
@@ -234,6 +257,7 @@ class DataManager: NSObject {
         
         saveToPhone()
     
+
     }
     
     class func getCurrentUser() -> Array<Entity> {
@@ -306,6 +330,7 @@ class DataManager: NSObject {
         
     }
     
+
     
     func deleteContact(user:User) {
         
@@ -322,9 +347,9 @@ class DataManager: NSObject {
         } else {
             
             print("User does not exist")
-
+            
         }
-    
+        
     }
     
     class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
