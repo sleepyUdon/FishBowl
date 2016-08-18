@@ -164,6 +164,10 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         phoneContactButton.setTitle("Save to Contacts", forState: UIControlState.Normal)
         phoneContactButton.backgroundColor = MaterialColor.grey.lighten4
         contentView.addSubview(phoneContactButton)
+        ////
+        phoneContactButton.tag = indexPath.row
+        ////
+        phoneContactButton.addTarget(self, action: #selector(handlerSaveToAddressBook), forControlEvents: .TouchUpInside)
 
         
         // layout containers
@@ -357,6 +361,23 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
             UIApplication.sharedApplication().openURL(NSURL(string:linkedin)!)
         
         }
+    }
+    
+    //handle saving to AddressBook
+    
+    func handlerSaveToAddressBook(button: UIButton) {
+        let buttonTag = button.tag
+        let users = ContactsModel().getUsers()
+        let user = users[buttonTag]
+        if #available(iOS 9.0, *) {
+            let saveToAddressBook = AddressBook()
+            if user.phone != nil {
+                saveToAddressBook.saveToAddressBook(user.image, name: user.name, email: user.email, phone: user.phone!)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
     

@@ -12,21 +12,23 @@ import Contacts
 class AddressBook {
     //creating a muatble object to add to the contact
     let contact = CNMutableContact()
+    
+    
      
-    func saveToAddressBook() {
+    func saveToAddressBook(image: NSData?, name: String, email: String?, phone: String) {
         
         //the profile image
-        contact.imageData = NSData()
-        contact.givenName = "Eugene"
-        contact.familyName = "Kim"
+        contact.imageData = image
+        contact.givenName = name
+        contact.familyName = ""
         
-        let homeEmail = CNLabeledValue(label: CNLabelHome, value: "fortranibm@gmail.com")
-        let workEmail = CNLabeledValue(label: CNLabelWork, value: "yevhenkim@gmail.com")
+        let homeEmail = CNLabeledValue(label: CNLabelHome, value: "")
+        let workEmail = CNLabeledValue(label: CNLabelWork, value: email!)
         contact.emailAddresses = [homeEmail, workEmail]
         
         contact.phoneNumbers = [ CNLabeledValue(
             label: CNLabelPhoneNumberiPhone,
-            value: CNPhoneNumber(stringValue:"(647) 447-7768")
+            value: CNPhoneNumber(stringValue:phone)
         )]
         
         //save new contact
