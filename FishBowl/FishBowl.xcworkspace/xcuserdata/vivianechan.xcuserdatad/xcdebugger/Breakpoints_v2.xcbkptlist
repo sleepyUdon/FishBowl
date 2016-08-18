@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FishBowl/ContactsController+UITableViewDelegate.swift"
-            timestampString = "493074555.651036"
+            timestampString = "493163174.437165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
             landmarkName = "handleLinkedinButton(_:)"
             landmarkType = "5">
          </BreakpointContent>
