@@ -15,8 +15,6 @@ import Graph
 class DataManager: NSObject {
     
     let graph = Graph()
-    //let api = APIController()
-//    var contactList = Array<User>()
     var eventId: String!
     
     class func createUserDummyData() -> Array<User> {
@@ -26,7 +24,6 @@ class DataManager: NSObject {
         let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
             "email":"justin.trudeau@parl.gc.ca",
             "phone": "18885696898",
-
             "github":"",
             "linkedin":"https://ca.linkedin.com/in/justintrudeau",
             "title":"Prime Minister, Canada",
