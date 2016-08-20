@@ -6,5 +6,5 @@
 ![Alt text](/screenshots/fishbowl4.png?raw=true "Profile")           
 ![Alt text](/screenshots/fishbowl5.png?raw=true "Contacts")           
 ![Alt text](/screenshots/fishbowl6.png?raw=true "Contact Card")           
-![Alt text](/screenshots/fishbowl.mov?raw=true "Tutorial")           
+![Alt text](/screenshots/fishbowl.mov?raw=false "Tutorial")           
 
