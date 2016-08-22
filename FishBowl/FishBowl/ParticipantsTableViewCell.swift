@@ -2,7 +2,7 @@
 //  EventDetailTableViewCell.swift
 //  FishBowl
 //
-//  Created by Viviane Chan on 2016-08-08.
+//  Created by Viviane Chan, Yevhen Kim on 2016-08-08.
 //  Copyright © 2016 LightHouse Labs. All rights reserved.
 //
 
@@ -16,10 +16,39 @@ public class ParticipantsTableViewCell: UITableViewCell {
     lazy var profileView: MaterialView = MaterialView()
     lazy var nameLabel: UILabel = UILabel()
     lazy var titleLabel: UILabel = UILabel()
-    lazy var addedButton: MaterialButton = MaterialButton()
-    lazy var buttonSelected = false
-    var member : Member = Member(memberId: "someMemberId", memberName: "someMember", memberImage: nil)
+    var button: MaterialButton!
+    var dataManager: DataManager!
     
+    // get button state from data
+    var buttonSelected:Bool! {
+        didSet {
+            if buttonSelected == true {
+                button.enabled = false
+            }
+        }
+    }
+    
+    // passing member
+    
+    //    var member : Member = Member(memberId: "someMemberId", memberName: "someMember", memberImage: nil)
+    var member : Member! {
+        didSet {
+            populateCell()
+        }
+    }
+    
+    private func populateCell() {
+        titleLabel.text = member.memberBio
+        nameLabel.text = member.memberName
+        if DataManager.getMemberIDsFromContacts().contains(member.memberId) {
+            buttonSelected = true
+        }
+        guard let imageData = member.memberImage else {
+            profileView.image = UIImage(named: "photoplaceholder.png")
+            return
+        }
+        profileView.image = UIImage(data: imageData)
+    }
     
     /*
      @name   required initWithCoder
@@ -33,12 +62,67 @@ public class ParticipantsTableViewCell: UITableViewCell {
      */
     public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupView()
+    }
+    
+    private func setupView() {
+        // calls into extension
+        
+        setupDataManager()
         prepareImageView()
         prepareNameLabel()
         prepareTitleLabel()
-        prepareAddedButton()
+        createButton()
+        configureButtonForSelectedState()
     }
     
+    private func setupDataManager() {
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        dataManager = delegate.dataManager
+    }
+    
+    private func createButton() {
+        button = nil
+        button = MaterialButton()
+        addSubview(button)
+        buttonSelected = false
+        button.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
+        configureButtonForSelectedState()
+    }
+    
+    
+    func handleAddedButton(button:UIButton) {
+        
+        if ( buttonSelected == false) //BUTTONOFF
+        {
+            buttonSelected = true
+            //
+            let member : Member = self.member
+            
+            let memberID = member.memberId
+            let name = member.memberName
+            let title = member.memberBio
+            let company = member.memberCompany
+            let email = member.memberEmail
+            let phone = member.memberPhone
+            
+            let github = member.memberGithub
+            let linkedin = member.memberLinkedin
+            let image = member.memberImage
+            dataManager.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
+            //            NSNotificationCenter.defaultCenter().postNotificationName("NewParticipantAdded", object: nil)
+        }
+        
+        
+        configureButtonForSelectedState()
+    }
+    //        // #SAVETOCOREDATA
+    //    }
+    
+}
+
+extension ParticipantsTableViewCell {
+    // View Setup
     /*
      @name   layoutSubviews
      */
@@ -54,14 +138,14 @@ public class ParticipantsTableViewCell: UITableViewCell {
      @name   prepareDefaultImageView
      */
     public func prepareImageView()
- {
+    {
         profileView.image = UIImage(named: "photoplaceholder.png") //#PASSDATA picture from participants
         profileView.shape = .Circle
         profileView.backgroundColor = UIColor.clearColor()
         profileView.clipsToBounds = true
         contentView.addSubview(profileView)
     }
-
+    
     
     /*
      @name   prepareDefaultLabel
@@ -89,63 +173,28 @@ public class ParticipantsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultParticipants
      */
-    public func prepareAddedButton() {
+    public func configureButtonForSelectedState() {
         
         // check button state and assign corresponding color
         
         if buttonSelected == true {
-        addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
-        addedButton.setTitle("Added", forState: UIControlState.Normal)
-        addedButton.backgroundColor = MaterialColor.green.base
-        buttonSelected = true
+            button.setTitleColor(MaterialColor.white, forState: .Normal)
+            button.setTitle("Added", forState: UIControlState.Normal)
+            button.backgroundColor = MaterialColor.green.base
         } else {
-        addedButton.setTitleColor(Color.greyMedium, forState: .Normal)
-        addedButton.setTitle("Add", forState: UIControlState.Normal)
-        addedButton.backgroundColor = MaterialColor.grey.lighten4
-        addedButton.pulseColor = MaterialColor.white
-        addedButton.cornerRadius = 5.0
-        addedButton.titleLabel!.font = Fonts.bodyGrey
-        }
-        addedButton.addTarget(self, action: #selector(handleAddedButton), forControlEvents: .TouchUpInside)
-        addSubview(addedButton)
-    }
-    
-    
-    func handleAddedButton(button:UIButton) {
-        
-        if (buttonSelected == false) //BUTTONOFF
-        {
-            addedButton.setTitleColor(MaterialColor.white, forState: .Normal)
-            addedButton.setTitle("Added", forState: UIControlState.Normal)
-            addedButton.backgroundColor = MaterialColor.green.base
-            buttonSelected = true
-            
-            //
-            let member : Member = self.member
-            
-            let memberID = member.memberId
-            let name = member.memberName
-            let title = member.memberBio
-            let company = member.memberCompany
-            let email = member.memberEmail
-            let phone = member.memberPhone
-           
-            let github = member.memberGithub
-            let linkedin = member.memberLinkedin
-            let image = member.memberImage
-            
-            let dm = DataManager()
-            
-            dm.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
-            NSNotificationCenter.defaultCenter().postNotificationName("NewParticipantAdded", object: nil)
-        }
-        else {
-            addedButton.enabled = false
+            button.setTitleColor(Color.greyMedium, forState: .Normal)
+            button.setTitle("Add", forState: UIControlState.Normal)
+            button.backgroundColor = MaterialColor.grey.lighten4
+            button.pulseColor = MaterialColor.white
+            button.cornerRadius = 5.0
+            button.titleLabel!.font = Fonts.bodyGrey
         }
     }
-//        // #SAVETOCOREDATA
-//    }
+    
+}
 
+extension ParticipantsTableViewCell {
+    // layout code
     /*
      @name   layoutDefaultImageView
      */
@@ -164,13 +213,13 @@ public class ParticipantsTableViewCell: UITableViewCell {
         let w = h * 2.5
         let x = (contentView.bounds.size.width) - w - (15.0)
         let y = CGFloat(15.0)
-        addedButton.frame = CGRect(x: x, y: y, width: w, height: h)
+        button.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
     public func layoutNameLabel() {
         let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
         let y = CGFloat(5.0)
-        let w = contentView.bounds.size.width - CGFloat(10.0) - (profileView.frame.width) - CGFloat(5.0) - addedButton.frame.width - CGFloat(10.0)
+        let w = contentView.bounds.size.width - CGFloat(10.0) - (profileView.frame.width) - CGFloat(5.0) - button.frame.width - CGFloat(10.0)
         let h = CGFloat(50.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
@@ -179,10 +228,8 @@ public class ParticipantsTableViewCell: UITableViewCell {
     public func layoutTitleLabel() {
         let x = CGFloat(10.0) + (profileView.frame.width) + CGFloat(5.0)
         let y = CGFloat(5.0) + (nameLabel.frame.height)
-        let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - addedButton.frame.width - CGFloat(5.0)
+        let w = contentView.bounds.size.width - CGFloat(5.0) + (profileView.frame.width) + CGFloat(5.0) - button.frame.width - CGFloat(5.0)
         let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
-    
-    
 }

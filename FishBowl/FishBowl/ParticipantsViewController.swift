@@ -1,16 +1,36 @@
 import UIKit
 import Material
 
-public class ParticipantsViewController: UIViewController, UISearchBarDelegate {
+public class ParticipantsViewController: UIViewController {
     
-    public lazy var tableView: UITableView = UITableView()
-    public var membersData: ParticipantsModel = ParticipantsModel()
-    var participantsSearchActive : Bool = false
-    var filteredParticipants:[String] = []
-
+    lazy var tableView: UITableView = UITableView()
+    
+    var currentData:[Member] = []
+    var filteredParticipants:[Member] = []
+    var participantsModel: ParticipantsModel = ParticipantsModel()
+    
+    var participantsSearchActive : Bool! {
+        didSet {
+            updateModel()
+        }
+    }
+    
+    private func updateModel() {
+        if participantsSearchActive == true && filteredParticipants.count > 0 {
+            currentData = filteredParticipants
+        } else {
+            currentData = participantsModel.members
+        }
+        self.tableView.reloadData()
+    }
+    
+    
+    var activityIndicator: UIActivityIndicatorView!
+    
+    
     /// Reference for SearchBar.
-    private var participantsSearchBar: UISearchBar!
-
+    private var searchBar: UISearchBar!
+    
     
     /*
      @name   viewDidLoad
@@ -18,21 +38,18 @@ public class ParticipantsViewController: UIViewController, UISearchBarDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         //create an activity indicator
-        let activityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 100, 100))
-        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        activityIndicatorView.center = tableView.center
-        //transform the indicator
-        var transform = CGAffineTransform()
-        transform = CGAffineTransformMakeScale(1.5, 1.5)
-        activityIndicatorView.transform = transform
-        tableView.backgroundView = activityIndicatorView
-        activityIndicatorView.startAnimating()
         //add ParticipantVC as an observer
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMemebers), name: ParticipantsModel.setParticipants, object: self.membersData)
-        membersData.getMembers()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMembers), name: ParticipantsModel.setParticipants, object: nil)
+        createActivityIndicator()
+        updateMembers()
         prepareView()
         prepareTableView()
         prepareSearchBar()
+    }
+    
+    private func updateMembers() {
+        activityIndicator.startAnimating()
+        participantsModel.getMembers()
     }
     
     /*
@@ -43,60 +60,177 @@ public class ParticipantsViewController: UIViewController, UISearchBarDelegate {
         layoutTableView()
     }
     
-    func didUpdateMemebers() {
-        self.tableView.reloadData()
+    func didUpdateMembers() {
+        self.activityIndicator.stopAnimating()
+        self.participantsSearchActive = false
     }
-
-
-/// Prepares the searchBar
-private func prepareSearchBar() {
-    participantsSearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
-    participantsSearchBar.delegate = self
-    view.addSubview(participantsSearchBar)
+    
+    deinit {
+        // remove notifications
+    }
 }
+
+extension ParticipantsViewController: UISearchBarDelegate {
+    /// Prepares the searchBar
+    private func prepareSearchBar() {
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+    }
     
     public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        participantsSearchBar.showsCancelButton = true
+        searchBar.showsCancelButton = true
         participantsSearchActive = true;
     }
     
     public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        participantsSearchBar.showsCancelButton = false
-        participantsSearchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
         participantsSearchActive = false
     }
     
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        participantsSearchBar.endEditing(true)
+        searchBar.endEditing(true)
         participantsSearchActive = false;
         tableView.reloadData()
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        participantsSearchBar.endEditing(true)
+        searchBar.endEditing(true)
         participantsSearchActive = false;
     }
     
     public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
-        let members = membersData.members
+        let members = participantsModel.members
         
-        var participantsNameArray = [String]()
+        //        var participantsNameArray = [String]()
         
-        for member in members {participantsNameArray.append(member.memberName)}
+        //        for member in members {
+        //            participantsNameArray.append(member)
+        //        }
         
-        filteredParticipants = participantsNameArray.filter({ (text) -> Bool in
-            let tmp: NSString = text
-            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-            return range.location != NSNotFound
-        })
-        if(filteredParticipants.count == 0){
-            participantsSearchActive = false;
-        } else {
-            participantsSearchActive = true;
+        let results = members.filter {
+            let member = $0
+            return member.memberName.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
         }
-        self.tableView.reloadData()
+        
+        filteredParticipants = results
+        
+        updateModel()
+    }
+}
+
+extension ParticipantsViewController {
+    private func createActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 100, 100))
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityIndicator.center = tableView.center
+        //transform the indicator
+        var transform = CGAffineTransform()
+        transform = CGAffineTransformMakeScale(1.5, 1.5)
+        activityIndicator.transform = transform
+        tableView.backgroundView = activityIndicator
+        activityIndicator.hidesWhenStopped = true
+    }
+}
+
+public extension ParticipantsViewController {
+    /*
+     @name   prepareView
+     */
+    public func prepareView() {
+        view.backgroundColor = UIColor.redColor()
     }
     
+    /*
+     @name   prepareTableView
+     */
+    public func prepareTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        //        tableView.
+        view.addSubview(tableView)
+    }
+    
+    
+    /*
+     @name   layoutTableView
+     */
+    public func layoutTableView() {
+        //        tableView.frame = view.bounds
+        view.layout(tableView).edges(top: 44, left: 0, right: 0)
+    }
+}
 
+extension ParticipantsViewController: UITableViewDataSource {
+    
+    //    public lazy var menumodel:MenuModel = MenuModel()
+    /*
+     @name   numberOfSectionsInTableView
+     */
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return ParticipantsModel.sectionsCount()
+    }
+    
+    /*
+     @name   numberOfRowsInSection
+     */
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //        if participantsSearchActive && filteredParticipants.count > 0 {
+        //            return self.filteredParticipants.count
+        //        }
+        //        return participantsModel.members.count
+        return currentData.count
+    }
+    
+    /*
+     @name   cellForRowAtIndexPath
+     */
+    
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
+        cell.selectionStyle = .None
+        
+        //        cell.member = participantsSearchActive == true ? filteredParticipants[indexPath.row] : participantsModel.members[indexPath.row] as Member
+        cell.member = currentData[indexPath.row]
+        
+        //        if(participantsSearchActive){
+        //
+        //            currentMember = filteredParticipants[indexPath.row]
+        //
+        //        } else {
+        //
+        //            let members = participantsModel.members
+        //
+        //            currentMember = members[indexPath.row] as Member
+        //
+        //
+        //        }
+        
+        
+        
+        return cell
+    }
+    
+}
+
+extension ParticipantsViewController: UITableViewDelegate {
+    
+    /*
+     @name   required didSelectRowAtIndexPath
+     */
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        //        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        //        return cell.height() VIVFIX THIS
+        return 60
+    }
+    
 }

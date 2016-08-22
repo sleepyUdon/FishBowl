@@ -113,7 +113,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     
     
-     func handleSaveButton() {
+    func handleSaveButton() {
         
         
         let name = nameTextField.text
@@ -128,9 +128,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let dm = appDelegate.dataManager! as DataManager
+        let dm = appDelegate.dataManager
         dm.saveCurrentUser(name!, title:title!, company:company!, email:email!, phone:phone, github:github!, linkedin:linkedin!, image:image!)
-       
+        
         
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -176,7 +176,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         // prepare icons
         
         let profileView: MaterialView = MaterialView()
-        profileView.image = UIImage(named: "VivianeChan")
+        profileView.image = UIImage(named: "photoplaceholder")
         profileView.shape = .Circle
         cardView.addSubview(profileView)
         self.profileView = profileView

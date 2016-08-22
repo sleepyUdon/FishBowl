@@ -11,8 +11,6 @@ import Material
 import OAuthSwift
 
 class EventsViewController: UIViewController, UISearchBarDelegate {
-    
-    //    internal var api = ApiController()
 
     private var containerView: UIView!
     
@@ -27,10 +25,7 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(AppDelegate.token)
-        if AppDelegate.token == nil {
-            prepareLoginView()
-        }
+
         prepareView()
         prepareMenuButton()
         prepareProfileButton()
@@ -38,6 +33,14 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         prepareTableView()
         prepareNavigationItem()
         prepareNavigationBar()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print(AppDelegate.token)
+        if AppDelegate.token == nil {
+            prepareLoginView()
+        }
     }
     
         

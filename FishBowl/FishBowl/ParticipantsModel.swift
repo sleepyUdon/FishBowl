@@ -23,14 +23,13 @@ public class ParticipantsModel: NSObject {
     /*
     @name   required initWithCoder
     */
-    //var events = ["Event1":["Group":"Devhub","EventTitle":"Lighhouse Labs Demo Day","Date":"Monday","Participants" : "Viviane"]]
 
 
     func getMembers() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let dataManager = appDelegate.dataManager
         
-        dataManager!.grabMembersFromAPI { (members) in
+        dataManager.grabMembersFromAPI { (members) in
             self.members = members
             
         }
