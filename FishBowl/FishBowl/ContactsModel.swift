@@ -4,7 +4,7 @@ import UIKit
 
 public class ContactsModel: NSObject {
     static let setContacts = "didSetContacts"
-    var user: [User] = [] {
+    var contacts: [User] = [] {
         didSet {
             let notification = NSNotification(name: ContactsModel.setContacts, object: self)
             NSNotificationCenter.defaultCenter().postNotification(notification)
@@ -20,13 +20,13 @@ public class ContactsModel: NSObject {
     
     public class func sectionsCount() -> Int { return 1 }
     
-    func getUsers() -> Array<User> {
+    func getUsers() {
         
         let contactsFromDummyData = DataManager.createUserDummyData()
         let contactsFromPhone = DataManager.getContacts()
         let contacts = contactsFromPhone + contactsFromDummyData
-        
-        return contacts
+    
+        self.contacts = contacts
     
     }
 

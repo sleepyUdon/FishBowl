@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3DB32288699343BC079DAC63 /* Pods_FishBowl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A611B8BF64AB74AE8036313E /* Pods_FishBowl.framework */; };
 		44116CD91D63D6CF0032F8C4 /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116CD81D63D6CF0032F8C4 /* AddressBook.swift */; };
+		442319971D6C939D00A49F7D /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442319961D6C939D00A49F7D /* WebViewController.swift */; };
 		44C8B5FA1D5CD29900604FCE /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5F91D5CD29900604FCE /* Member.swift */; };
 		7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C41D5C189A00ECDE02 /* Color.swift */; };
 		7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C81D5C9D1100ECDE02 /* Fonts.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		44116CD81D63D6CF0032F8C4 /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
+		442319961D6C939D00A49F7D /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		44C8B5F91D5CD29900604FCE /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		61233D508E3E0182B21D4E0E /* Pods-FishBowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.release.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.release.xcconfig"; sourceTree = "<group>"; };
 		7C6080C41D5C189A00ECDE02 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				7CAB2A2B1D58DB7F00735CF4 /* Assets.xcassets */,
 				7CDD2A401D596CCE00716BBD /* AppNavigationController.swift */,
 				7CDD2A3C1D596BB400716BBD /* AppNavigationDrawerController.swift */,
+				442319961D6C939D00A49F7D /* WebViewController.swift */,
 				7CDD2A461D59D9BB00716BBD /* Objects */,
 				7CDD2A691D5ABB3600716BBD /* Profile View */,
 				7CDD2A621D5AB4F500716BBD /* Contacts TableView */,
@@ -347,6 +350,7 @@
 				7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */,
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
 				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
+				442319971D6C939D00A49F7D /* WebViewController.swift in Sources */,
 				7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */,
 				7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */,
 				7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */,

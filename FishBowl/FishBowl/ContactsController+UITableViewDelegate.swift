@@ -5,6 +5,7 @@ import Material
 import MessageUI
 
 
+@available(iOS 9.0, *)
 extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate  {
     
     // required didSelectRowAtIndexPath
@@ -369,14 +370,12 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         let buttonTag = button.tag
         let users = ContactsModel().getUsers()
         let user = users[buttonTag]
-        if #available(iOS 9.0, *) {
-            let saveToAddressBook = AddressBook()
-            if user.phone != nil {
-                saveToAddressBook.saveToAddressBook(user.image, name: user.name, email: user.email, phone: user.phone!)
-            }
-        } else {
-            // Fallback on earlier versions
+
+        let saveToAddressBook = AddressBook()
+        if user.phone != nil {
+            saveToAddressBook.saveToAddressBook(user.image, name: user.name, email: user.email, phone: user.phone!)
         }
+
         
     }
     

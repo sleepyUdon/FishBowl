@@ -67,6 +67,7 @@ public class ParticipantsViewController: UIViewController {
     
     deinit {
         // remove notifications
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
 

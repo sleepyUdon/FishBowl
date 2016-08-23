@@ -9,16 +9,34 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     let cardView: MaterialPulseView = MaterialPulseView(frame: CGRect.zero)
     public lazy var tableView: UITableView = UITableView()
     private var containerView: UIView!
-    var selectedIndexPath: NSIndexPath? = nil
-    var searchActive : Bool = false
-    var filtered:[String] = []
-    var users: [User] = [User]()
-    public var userData: ContactsModel = ContactsModel()
+//    var selectedIndexPath: NSIndexPath? = nil
+//    var searchActive : Bool = false
+//    var filtered:[String] = []
+//    var users: [User] = [User]()
+//    public var userData: ContactsModel = ContactsModel()
+    
+    var currentData:[User] = []
+    var filteredContacts:[User] = []
+    var contactsModel: ContactsModel = ContactsModel()
     
     
     /// Reference for SearchBar.
-    private var searchBar: UISearchBar!
+//    private var searchBar: UISearchBar!
+    var contactsSearchActive:Bool! {
+        didSet {
+            updateModel()
+        }
+    }
     
+    private func updateModel() {
+        if contactsSearchActive == true && filteredContacts.count > 0 {
+            currentData = filteredContacts
+        }
+        else {
+            currentData = contactsModel.contacts
+        }
+        self.tableView.reloadData()
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +53,15 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     
     func didUpdateContacs() {
-        users = ContactsModel().getUsers()
+        currentData = contactsModel.contacts
+        self.contactsSearchActive = false
         self.tableView.reloadData()
     }
     
+    deinit {
+        // remove notifications
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     //  viewDidLayoutSubviews
     
