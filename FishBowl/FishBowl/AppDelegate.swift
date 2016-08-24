@@ -42,12 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         if (url.host == "CardBowlTest") {
             OAuthSwift.handleOpenURL(url)
-      
+            //Dismiss webview once url is passed to extract authorization code
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
         }
         
         self.window = nil
         createViewControllerStack()
-
+        
+        
         return true
     }
     

@@ -33,7 +33,8 @@ class APIController: UIViewController {
 //        if #available(iOS 9.0, *) {
 //            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
 //        }
-
+        
+        //oauthswift.authorize_url_handler = WebViewController()
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
@@ -46,6 +47,7 @@ class APIController: UIViewController {
             },
             failure: { error in
                 print(error.localizedDescription)
+                
             }
         )
         
@@ -55,6 +57,10 @@ class APIController: UIViewController {
     //MARK - Get Requests for
     
     func getUserDetails(token: String) -> NSDictionary {
+        
+//        if self.oauthswift.client.credential.isTokenExpired() {
+//        }
+        
         self.oauthswift.client.get("https://api.meetup.com/2/member/self?access_token=\(token)",
             success:
             {
@@ -153,12 +159,49 @@ class APIController: UIViewController {
                         //print(error)
         })
     }
-
+    
+//    func getRefreshToken() {
+//        oauthswift.client.get("https://secure.meetup.com/oauth2/access", success: {
+//            
+//            },
+//            failure: {
+//        })
+//    }
+    
+//    func refreshToken() {
+//        oauthswift.client.get("https://secure.meetup.com/oauth2/access",
+//                              success: {
+//                                data, response in
+//                                print("\(data).")
+//            },
+//                              failure: { error in
+//                                if error.isExpireToken {
+//                                    // reconnect 
+//                                }
+//        })
+//        
+//        
+//            
+//            var isExpireToken: Bool {
+//                if self.code == 401 {
+//                    // if error.localizedDescription.rangeOfString("a string like token invalid") != nil
+//                    // or parse headers
+//                    if let reponseHeaders = error.userInfo["Response-Headers"] as? [String:String],
+//                        authenticateHeader = reponseHeaders["WWW-Authenticate"] ?? reponseHeaders["Www-Authenticate"] {
+//                        // you can split authenticateHeader to find "error"
+//                        let headerDictionary = authenticateHeader.headerDictionary
+//                        if let error = headerDictionary["error"] where error == "invalid_token" {
+//                            return true
+//                        }
+//                    }
+//                }
+//                return false
+//            }
+//            
+//        
+//    }
     
     
-
     
-    
-
     
 }

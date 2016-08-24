@@ -8,10 +8,9 @@
 
 import OAuthSwift
 
-#if os(iOS)
-    import UIKit
-    typealias WebView = UIWebView // WKWebView
-#endif
+import UIKit
+typealias WebView = UIWebView // WKWebView
+
 
 class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     
@@ -21,14 +20,13 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        #if os(iOS)
-            self.webView.frame = UIScreen.mainScreen().bounds
-            self.webView.scalesPageToFit = true
-            self.webView.delegate = self
-            self.view.addSubview(self.webView)
-            loadAddressURL()
-            
-        #endif
+
+        self.webView.frame = UIScreen.mainScreen().bounds
+        self.webView.scalesPageToFit = true
+        self.webView.delegate = self
+        self.view.addSubview(self.webView)
+        loadAddressURL()
+
     }
     
     override func handle(url: NSURL) {

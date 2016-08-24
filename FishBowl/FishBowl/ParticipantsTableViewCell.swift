@@ -18,6 +18,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = UILabel()
     var button: MaterialButton!
     var dataManager: DataManager!
+    //var participants:[String] = []
     
     // get button state from data
     var buttonSelected:Bool! {
@@ -92,7 +93,6 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     
     func handleAddedButton(button:UIButton) {
-        
         if ( buttonSelected == false) //BUTTONOFF
         {
             buttonSelected = true
