@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import CoreData
 
 
 public class ParticipantsTableViewCell: UITableViewCell {
@@ -18,7 +19,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = UILabel()
     var button: MaterialButton!
     var dataManager: DataManager!
-    //var participants:[String] = []
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // get button state from data
     var buttonSelected:Bool! {
@@ -68,8 +69,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     private func setupView() {
         // calls into extension
-        
-        setupDataManager()
+
         prepareImageView()
         prepareNameLabel()
         prepareTitleLabel()
@@ -77,10 +77,6 @@ public class ParticipantsTableViewCell: UITableViewCell {
         configureButtonForSelectedState()
     }
     
-    private func setupDataManager() {
-        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        dataManager = delegate.dataManager
-    }
     
     private func createButton() {
         button = nil
@@ -93,31 +89,40 @@ public class ParticipantsTableViewCell: UITableViewCell {
     
     
     func handleAddedButton(button:UIButton) {
+        let context = self.appDelegate.managedObjectContext
+        let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+        
         if ( buttonSelected == false) //BUTTONOFF
         {
             buttonSelected = true
             //
             let member : Member = self.member
             
-            let memberID = member.memberId
-            let name = member.memberName
-            let title = member.memberBio
-            let company = member.memberCompany
-            let email = member.memberEmail
-            let phone = member.memberPhone
+            user.userID = member.memberId
+            user.name = member.memberName
+            user.title = member.memberBio
+            user.company = member.memberCompany
+            user.email = member.memberEmail
             
-            let github = member.memberGithub
-            let linkedin = member.memberLinkedin
-            let image = member.memberImage
-            dataManager.addContact(memberID, name: name, title: title, company: company, email: email, phone: phone, github: github, linkedin: linkedin, image: image)
-            //            NSNotificationCenter.defaultCenter().postNotificationName("NewParticipantAdded", object: nil)
+            user.phone = member.memberPhone
+            user.github = member.memberGithub
+            user.linkedin = member.memberLinkedin
+            user.picture = member.memberImage
+            
+            do {
+                //save
+                try user.managedObjectContext?.save()
+                
+            } catch {
+                let saveError = error as NSError
+                print("\(saveError), \(saveError.userInfo)")
+                
+            }
+
         }
-        
-        
+     
         configureButtonForSelectedState()
     }
-    //        // #SAVETOCOREDATA
-    //    }
     
 }
 

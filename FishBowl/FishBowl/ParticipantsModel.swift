@@ -26,17 +26,9 @@ public class ParticipantsModel: NSObject {
 
 
     func getMembers() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let dataManager = appDelegate.dataManager
-        
-        dataManager.grabMembersFromAPI { (members) in
+        let dataMNG: DataMNG = DataMNG()
+        dataMNG.grabMembersFromAPI { (members) in
             self.members = members
-            
         }
-        
     }
-    
-    
-
-
 }
