@@ -104,13 +104,7 @@ extension ParticipantsViewController: UISearchBarDelegate {
     public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
         let members = participantsModel.members
-        
-        //        var participantsNameArray = [String]()
-        
-        //        for member in members {
-        //            participantsNameArray.append(member)
-        //        }
-        
+
         let results = members.filter {
             let member = $0
             return member.memberName.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
@@ -151,7 +145,6 @@ public extension ParticipantsViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        //        tableView.
         view.addSubview(tableView)
     }
     
@@ -160,7 +153,7 @@ public extension ParticipantsViewController {
      @name   layoutTableView
      */
     public func layoutTableView() {
-        //        tableView.frame = view.bounds
+        
         view.layout(tableView).edges(top: 44, left: 0, right: 0)
     }
 }
@@ -179,10 +172,7 @@ extension ParticipantsViewController: UITableViewDataSource {
      @name   numberOfRowsInSection
      */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        if participantsSearchActive && filteredParticipants.count > 0 {
-        //            return self.filteredParticipants.count
-        //        }
-        //        return participantsModel.members.count
+
         return currentData.count
     }
     
@@ -197,22 +187,7 @@ extension ParticipantsViewController: UITableViewDataSource {
         
         //        cell.member = participantsSearchActive == true ? filteredParticipants[indexPath.row] : participantsModel.members[indexPath.row] as Member
         cell.member = currentData[indexPath.row]
-        
-        //        if(participantsSearchActive){
-        //
-        //            currentMember = filteredParticipants[indexPath.row]
-        //
-        //        } else {
-        //
-        //            let members = participantsModel.members
-        //
-        //            currentMember = members[indexPath.row] as Member
-        //
-        //
-        //        }
-        
-        
-        
+
         return cell
     }
     

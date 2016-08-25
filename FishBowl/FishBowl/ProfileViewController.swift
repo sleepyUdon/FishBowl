@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import CoreData
 
 private var saveButton: MaterialButton!
 private var cancelButton: MaterialButton!
@@ -19,8 +20,10 @@ private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     //    var api = ApiController()
-
+    var usersArray: [User] = []
     
     var activeField: UITextField?
     var profileView: MaterialView!
@@ -110,30 +113,35 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     }
 
-    
-    
+    //handle save and cancel button
     
     func handleSaveButton() {
         
+        let context = self.appDelegate.managedObjectContext
         
-        let name = nameTextField.text
-        let title = titleTextField.text
-        let company = companyTextField.text
-        let email = emailTextField.text
+        let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
         
-        let phone = DataManager.removeNonNumericCharsFromString(phoneTextField.text!)
-        let github = githubTextField.text
-        let linkedin = linkedinTextField.text
-        let image = UIImagePNGRepresentation(self.profileView.image!)
+        user.name = nameTextField.text
+        user.title = titleTextField.text
+        user.company = companyTextField.text
+        user.email = emailTextField.text
+        
+        user.phone = removeNonNumericCharsFromString(phoneTextField.text!)
+        user.github = githubTextField.text
+        user.linkedin = linkedinTextField.text
+        user.picture = UIImagePNGRepresentation(self.profileView.image!)
+        
+        do {
+            //save
+            try user.managedObjectContext?.save()
+            dismissViewControllerAnimated(true, completion: nil)
+        } catch {
+            let saveError = error as NSError
+            print("\(saveError), \(saveError.userInfo)")
+            
+        }
         
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let dm = appDelegate.dataManager
-        dm.saveCurrentUser(name!, title:title!, company:company!, email:email!, phone:phone, github:github!, linkedin:linkedin!, image:image!)
-        
-        
-        
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     internal func handleCancelButton() {
@@ -151,6 +159,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     // Layout View
     
     private func prepareCardView() {
+        
+        
         
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.cornerRadius = 0
@@ -240,6 +250,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         // prepare textfields
         
+        let user:User = User()
+        DataMNG.grabUserFromAPI { (userInfo) in
+            user.name = userInfo.name
+            user.userID = userInfo.userID
+            user.title = userInfo.title
+        }
+        
         let nameTextfield: UITextField = UITextField()
         nameTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Name",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
@@ -248,7 +265,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         nameTextfield.textColor = Color.greyMedium
         cardView.addSubview(nameTextfield)
         nameTextfield.delegate = self
-        nameTextfield.text = "Anyone"
+        nameTextfield.text = user.name
         self.nameTextField = nameTextfield
         
         
@@ -261,6 +278,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         titleTextfield.textColor = Color.greyMedium
         cardView.addSubview(titleTextfield)
         titleTextfield.delegate = self
+        titleTextfield.text = user.title
         self.titleTextField = titleTextfield
 
         
@@ -555,6 +573,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
     }
 
+    
+    private func removeNonNumericCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("1234567890".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
+    }
     
     
 }

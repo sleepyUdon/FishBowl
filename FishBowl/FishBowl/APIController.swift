@@ -11,7 +11,7 @@ import OAuthSwift
 
 class APIController: UIViewController {
     
-    var jsonDict: NSDictionary!
+    var jsonUser: NSDictionary!
     var jsonRsvp: NSArray!
     var jsonMembers: NSDictionary!
     
@@ -56,7 +56,7 @@ class APIController: UIViewController {
     
     //MARK - Get Requests for
     
-    func getUserDetails(token: String) -> NSDictionary {
+    func getUserDetails(token: String, handler:(userDict: NSDictionary)->()){
         
 //        if self.oauthswift.client.credential.isTokenExpired() {
 //        }
@@ -68,7 +68,8 @@ class APIController: UIViewController {
                         
                         //parse data to json
                         do {
-                            self.jsonDict = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            self.jsonUser = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            handler(userDict: self.jsonUser)
                         }
                         catch let error as NSError{
                             print(error.localizedDescription)
@@ -78,7 +79,6 @@ class APIController: UIViewController {
                         error in
                         print(error)
         })
-        return self.jsonDict
         
     }
     
@@ -133,32 +133,7 @@ class APIController: UIViewController {
         })
         
     }
-    
-    //get every member data in every event
-    //call this method when the user tap on participant cell
-    func getMembersInEvents() {
-        oauthswift.client.get("https://api.meetup.com/2/member/39478612?&sign=true&photo-host=public&page=20x",
-            success: {
-                        data, response in
-//                        print("******************************")
-//                        let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-//                        print("******************************")
-//                        print(dataString)
-                
-                        do {
-                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! NSDictionary
-                           
-                        }
-                        catch {
-                            print(error)
-                        }
-            },
-              failure: {
-                        error in
-                        fatalError()
-                        //print(error)
-        })
-    }
+
     
 //    func getRefreshToken() {
 //        oauthswift.client.get("https://secure.meetup.com/oauth2/access", success: {

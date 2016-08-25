@@ -17,84 +17,84 @@ class DataManager: NSObject {
     let graph = Graph()
     var eventId: String!
     
-    class func createUserDummyData() -> Array<User> {
-        
-        var userList = Array<User>()
-        
-        let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
-            "email":"justin.trudeau@parl.gc.ca",
-            "phone": "18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://ca.linkedin.com/in/justintrudeau",
-            "title":"Prime Minister, Canada",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
-                                                      
-            ["name":"Bill Gates", "email":"billg@microsoft.com.",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor",
-            "company": "Microsoft",
-            "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
-            
-            ["name":"Larry Page",
-            "email":"larry@google.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO",
-            "company": "Alphabet Inc",
-            "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
-            
-            ["name":"Mark Zuckerberg",
-            "email":"zuck@fb.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"",
-            "title":"Chairman and CEO, Facebook",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
-            
-            ["name":"Marissa Mayer",
-            "email":"marissa.mayer@yahoo-inc.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/marissamayer",
-            "title":"CEO, Yahoo!",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
-        
-          
-        
-        for user in users {
-            
-            let name = user["name"] as! String
-            let email = user["email"] as! String
-            let phone = user["phone"] as! String
-            let github = user["github"] as! String
-            let linkedin = user["linkedin"] as! String
-            let title = user["title"] as! String
-            let company = user["company"] as? String
-            let image = user["image"] as? NSData
-            
-            let someUser = User(userId: "", name: name)
-           
-            
-            someUser.bio = title
-            someUser.email = email
-            someUser.phone = phone
-            someUser.image = image
-            someUser.linkedin = linkedin
-            someUser.github = github
-            someUser.company = company
-            
-            userList.append(someUser)
-            
-        }
-        
-        return userList
-    }
+//    class func createUserDummyData() -> Array<User> {
+//        
+//        var userList = Array<User>()
+//        
+//        let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
+//            "email":"justin.trudeau@parl.gc.ca",
+//            "phone": "18885696898",
+//            "github":"https://github.com/YKV",
+//            "linkedin":"https://ca.linkedin.com/in/justintrudeau",
+//            "title":"Prime Minister, Canada",
+//            "company": "",
+//            "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
+//                                                      
+//            ["name":"Bill Gates", "email":"billg@microsoft.com.",
+//            "phone":"18885696898",
+//            "github":"https://github.com/YKV",
+//            "linkedin":"https://www.linkedin.com/in/williamhgates",
+//            "title":"Technology Advisor",
+//            "company": "Microsoft",
+//            "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
+//            
+//            ["name":"Larry Page",
+//            "email":"larry@google.com",
+//            "phone":"18885696898",
+//            "github":"https://github.com/YKV",
+//            "linkedin":"https://www.linkedin.com/in/tlytle",
+//            "title":"CEO",
+//            "company": "Alphabet Inc",
+//            "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
+//            
+//            ["name":"Mark Zuckerberg",
+//            "email":"zuck@fb.com",
+//            "phone":"18885696898",
+//            "github":"https://github.com/YKV",
+//            "linkedin":"",
+//            "title":"Chairman and CEO, Facebook",
+//            "company": "",
+//            "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
+//            
+//            ["name":"Marissa Mayer",
+//            "email":"marissa.mayer@yahoo-inc.com",
+//            "phone":"18885696898",
+//            "github":"https://github.com/YKV",
+//            "linkedin":"https://www.linkedin.com/in/marissamayer",
+//            "title":"CEO, Yahoo!",
+//            "company": "",
+//            "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
+//        
+//          
+//        
+//        for user in users {
+//            
+//            let name = user["name"] as! String
+//            let email = user["email"] as! String
+//            let phone = user["phone"] as! String
+//            let github = user["github"] as! String
+//            let linkedin = user["linkedin"] as! String
+//            let title = user["title"] as! String
+//            let company = user["company"] as? String
+//            let image = user["image"] as? NSData
+//            
+//            let someUser = User(userId: "", name: name)
+//           
+//            
+//            someUser.bio = title
+//            someUser.email = email
+//            someUser.phone = phone
+//            someUser.image = image
+//            someUser.linkedin = linkedin
+//            someUser.github = github
+//            someUser.company = company
+//            
+//            userList.append(someUser)
+//            
+//        }
+//        
+//        return userList
+//    }
 
     class func grabEventsFromAPI(handler:(events: [Event])->()){
         
@@ -287,16 +287,16 @@ class DataManager: NSObject {
                 let linkedin = "" //contact["linkedin"] as! String
                 let image = contact["image"] as! NSData
             
-                let user = User(userId: id, name: name)
-                user.image = image
-                user.bio = title
-                user.email = email
-                user.phone = phone
-                user.github = github
-                user.linkedin = linkedin
-                user.company = company
-            
-                contactList.append(user)
+                //let user = User(userId: id, name: name)
+//                user.image = image
+//                user.bio = title
+//                user.email = email
+//                user.phone = phone
+//                user.github = github
+//                user.linkedin = linkedin
+//                user.company = company
+//            
+//                contactList.append(user)
             }
         }
 
