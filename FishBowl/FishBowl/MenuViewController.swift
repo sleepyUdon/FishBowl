@@ -1,3 +1,9 @@
+//  MenuViewController.swift
+//  FishBowl
+//
+//  Created by Viviane Chan on 2016-08-08.
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
 import UIKit
 
 public class MenuViewController: UIViewController {
@@ -47,7 +53,6 @@ public extension MenuViewController {
         view.addSubview(tableView)
     }
     
-    
     /*
      @name   layoutTableView
      */
@@ -57,7 +62,6 @@ public extension MenuViewController {
 }
 
 extension MenuViewController: UITableViewDelegate {
-    
     /*
      @name   required didSelectRowAtIndexPath
      */
@@ -65,9 +69,8 @@ extension MenuViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
         let event = eventsData.events[indexPath.row]
-        appDelegate.dataManager.eventId = event.eventId
+        appDelegate.dataManager?.eventId = event.eventId
         print(event.eventId)
         let destination = ParticipantsViewController()
         

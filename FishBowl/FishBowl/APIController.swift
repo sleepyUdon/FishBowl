@@ -84,12 +84,11 @@ class APIController: UIViewController {
     
     //get all events under signed in user
     func getEvents(token: String, handler:(eventsDict: NSArray)->()) {
-        //print(self.user.userId)
         oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=20",
             success: {
                         data, response in
-                        let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-                        print(dataString)
+                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
+                        //print(dataString)
                         
                         //parse data to json
                         do {

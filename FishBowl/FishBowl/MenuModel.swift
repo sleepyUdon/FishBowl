@@ -1,4 +1,9 @@
-
+//  MenuModel.swift
+//  FishBowl
+//
+//  Created by Viviane Chan on 2016-08-08.
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
 
 import Foundation
 import UIKit
@@ -22,11 +27,9 @@ public class MenuModel: NSObject {
     */
 
     func getEvents() {
-        
         DataManager.grabEventsFromAPI { (events) in
             self.events = events
             
-        }  
-        
+        }
     }
 }

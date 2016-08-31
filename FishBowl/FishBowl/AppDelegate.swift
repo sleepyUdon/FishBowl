@@ -10,12 +10,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
     var accountAccess: Bool? = true
+    var dataManager: DataManager?
     static var token:String?
-    //let dataMng : DataMNG = DataMNG()
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        dataManager = DataManager()
 
         createViewControllerStack()
         

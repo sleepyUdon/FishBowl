@@ -7,7 +7,7 @@ public class ContactsTableViewCell: UITableViewCell {
     public lazy var profileView: MaterialView = MaterialView()
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
-    var dataManager: DataManager!
+    //var dataManager: DataManager!
     
     
     var contact: User! {
@@ -18,8 +18,8 @@ public class ContactsTableViewCell: UITableViewCell {
     
     private func populateCell() {
         nameLabel.text = contact.name
-        titleLabel.text = contact.bio
-        profileView.image = UIImage(data: contact.image!)
+        titleLabel.text = contact.title
+        profileView.image = UIImage(data: contact.picture!)
     }
     /*
      @name   required initWithCoder

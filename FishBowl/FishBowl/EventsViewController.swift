@@ -1,10 +1,9 @@
-//
 //  EventsViewController.swift
 //  FishBowl
 //
 //  Created by Viviane Chan on 2016-08-08.
-//  Copyright © 2016 LightHouse Labs. All rights reserved.
-//
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
 
 import UIKit
 import Material
@@ -13,19 +12,13 @@ import OAuthSwift
 class EventsViewController: UIViewController, UISearchBarDelegate {
 
     private var containerView: UIView!
-    
-    /// NavigationBar menu button.
+    // NavigationBar buttons
     private var menuButton: IconButton!
-    
-
-    /// NavigationBar profile button.
     private var profileButton: IconButton!
 
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         prepareView()
         prepareMenuButton()
         prepareProfileButton()
@@ -35,29 +28,28 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         prepareNavigationBar()
     }
     
+        
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print(AppDelegate.token)
         if AppDelegate.token == nil {
             prepareLoginView()
         }
     }
     
-        
-    /// General prepare LoginView
-        private func prepareLoginView() {
+    // General prepare LoginView
+    private func prepareLoginView() {
         let loginViewController = LoginViewController()
         self.presentViewController(loginViewController, animated: true) { 
-            print("login view presented")
+            //print("login view presented")
         }
     }
 
-    /// General preparation statements.
+    // General preparation statements.
     private func prepareView() {
         view.backgroundColor = Color.accentColor1
     }
     
-    /// Prepares the menuButton.
+    // Prepares the menuButton.
     private func prepareMenuButton() {
         let image: UIImage? = MaterialIcon.cm.menu
         menuButton = IconButton()
@@ -68,14 +60,17 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
     }
 
-    
-    /// Handles the menuButton.
+    // Handles the menuButton.
     internal func handleMenuButton() {
+//        let contactVC: ContactsViewController = ContactsViewController()
         navigationDrawerController?.openLeftView()
+//        contactVC.getAllContacts()
+        //contactVC.didUpdateContacs()
+//        contactVC.prepareTableView()
+//        contactVC.tableView.reloadData()
     }
     
-    
-    /// Prepares the profileButton.
+    // Prepares the profileButton.
     private func prepareProfileButton() {
         
         let image: UIImage? = MaterialIcon.cm.settings
@@ -89,32 +84,25 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
     }
     
-    
-    /// Handles the profileButton.
+    // Handles the profileButton.
     internal func handleProfileButton() {
         let profileViewController = ProfileViewController()
         let navc: NavigationController = NavigationController(rootViewController: profileViewController)
         presentViewController(navc, animated: true, completion: nil)
     }
     
-    
-    /// Prepares the containerView.
+    // Prepares the containerView.
     private func prepareContainerView() {
         containerView = UIView()
         view.layout(containerView).edges(top: 0, left: 0, right: 0)
     }
     
-
-    
-    /// Prepares the tableView
-    
+    // Prepares the tableView
     private func prepareTableView() {
         displayContentController(MenuViewController(), frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
     }
     
-    
-
-    /// Prepares the navigationItem.
+    // Prepares the navigationItem.
     private func prepareNavigationItem() {
         navigationItem.title = "Events"
         navigationItem.titleLabel.textAlignment = .Center
@@ -135,7 +123,6 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         navigationController?.navigationBar.backgroundColor = Color.baseColor1
 
     }
-    
 }
 
 

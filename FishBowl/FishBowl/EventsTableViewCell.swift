@@ -1,4 +1,9 @@
-
+//  EventsTableViewCell.swift
+//  FishBowl
+//
+//  Created by Viviane Chan on 2016-08-08.
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
 
 import UIKit
 import Material
@@ -17,7 +22,6 @@ public struct DefaultOptions {
         }
     }
 }
-
 
 public class EventsTableViewCell: UITableViewCell {
     public lazy var defaultImageView: UIImageView = UIImageView()
@@ -58,19 +62,16 @@ public class EventsTableViewCell: UITableViewCell {
 
     }
     
-    
     /*
     @name   prepareDefaultLabel (Events Title)
     */
     public func prepareDefaultLabel() {
-//        var eventObj = self.apiVC.events.firstObject
         defaultLabel.font = Fonts.bodyGrey
         defaultLabel.numberOfLines = 0
         defaultLabel.textColor = Color.greyDark
         defaultLabel.textAlignment = .Left
         addSubview(defaultLabel)
     }
-    
     
     /*
      @name   prepareDefaultDescription (Events Date)
@@ -83,8 +84,6 @@ public class EventsTableViewCell: UITableViewCell {
         addSubview(defaultDescription)
     }
     
-    //#ADDDATE VIV add a label for date in upper right corner
-    
     /*
      @name   prepareDefaultParticipants
      */
@@ -95,11 +94,9 @@ public class EventsTableViewCell: UITableViewCell {
         addSubview(defaultParticipants)
     }
     
-    
     /*
      @name   prepareDefaultDate
      */
-
     public func prepareDefaultDate() {
         defaultDate.font = Fonts.bodyGrey
         defaultDate.textColor = Color.greyMedium
@@ -110,7 +107,6 @@ public class EventsTableViewCell: UITableViewCell {
     /*
     @name   layout labels
     */
-    
     public func layoutDefaultLabel() {
         let x = CGFloat(20.0)
         let y = CGFloat(20.0)
@@ -118,7 +114,6 @@ public class EventsTableViewCell: UITableViewCell {
         let h = CGFloat(60.0)
         defaultLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
-    
     
     public func layoutDefaultDescription() {
         let x = CGFloat(0.0)
@@ -128,7 +123,6 @@ public class EventsTableViewCell: UITableViewCell {
         defaultDescription.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
-
     public func layoutDefaultParticipants() {
         let x = CGFloat(20.0)
         let y = CGFloat(80.0)
@@ -137,7 +131,6 @@ public class EventsTableViewCell: UITableViewCell {
         defaultParticipants.frame = CGRect(x: x, y: y, width: w, height: h)
     }
 
-    
     public func layoutDefaultDate() {
         let x = contentView.frame.width - (80.0)
         let y = (contentView.bounds.size.height / 8 * 5) - (15.0)
@@ -145,7 +138,4 @@ public class EventsTableViewCell: UITableViewCell {
         let h = CGFloat(30.0)
         defaultDate.frame = CGRect(x: x, y: y, width: w, height: h)
     }
-    
- 
-
 }
