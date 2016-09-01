@@ -1,11 +1,15 @@
-
+//  MenuViewControllerDataSource.swift
+//  FishBowl
+//
+//  Created by Viviane Chan on 2016-08-08.
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
 
 import UIKit
 import Material
 
 extension MenuViewController: UITableViewDataSource {
-    
-//    public lazy var menumodel:MenuModel = MenuModel()
+
     /*
     @name   numberOfSectionsInTableView
     */
@@ -17,12 +21,7 @@ extension MenuViewController: UITableViewDataSource {
     @name   numberOfRowsInSection
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        var sections = MenuModel.sections()
-//        let key = Array(sections.keys)[section]
-//        let section = sections[key] as! [String]
-        
         let rows = eventsData.events.count
-        
         return rows
     }
     
@@ -30,19 +29,15 @@ extension MenuViewController: UITableViewDataSource {
     @name   cellForRowAtIndexPath
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         
+        let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
         let events = eventsData.events
         let event = events[indexPath.row]
-        
-
         let formatter = NSDateFormatter()
-        //        formatter.dateStyle = .LongStyle  
-        //NSDateFormatterStyle.LongStyle         
-        formatter.dateFormat = "MMM dd, yy h:mm a"
-        //        formatter.timeStyle = .ShortStyle         
+            formatter.dateFormat = "MMM dd, yy h:mm a"
         let someDate = DataManager.getDateFromMilliseconds(event.time)
         let dateString = formatter.stringFromDate(someDate)
+        
         cell.defaultLabel.text = event.title
         cell.defaultDescription.text = "    " + dateString
         cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
@@ -55,11 +50,11 @@ extension MenuViewController: UITableViewDataSource {
         if (milliseconds > event.time.doubleValue) {
             cell.backgroundColor = MaterialColor.grey.lighten2
         }
-        else {cell.backgroundColor = MaterialColor.white
+        else {
+            cell.backgroundColor = MaterialColor.white
         }
         
         return cell
     }
-        
 }
 

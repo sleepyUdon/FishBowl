@@ -1,13 +1,22 @@
+//  ParticipantsViewController.swift
+//  FishBowl
+//
+//  Created by Viviane Chan on 2016-08-08.
+//  Edited by Yevhen Kim
+//  Copyright © 2016 Komrad.io . All rights reserved.
+
 import UIKit
 import Material
 
 public class ParticipantsViewController: UIViewController {
     
     lazy var tableView: UITableView = UITableView()
-    
+    var activityIndicator: UIActivityIndicatorView!
     var currentData:[Member] = []
     var filteredParticipants:[Member] = []
     var participantsModel: ParticipantsModel = ParticipantsModel()
+    // Reference for SearchBar.
+    private var searchBar: UISearchBar!
     
     var participantsSearchActive : Bool! {
         didSet {
@@ -23,27 +32,18 @@ public class ParticipantsViewController: UIViewController {
         }
         self.tableView.reloadData()
     }
-    
-    
-    var activityIndicator: UIActivityIndicatorView!
-    
-    
-    /// Reference for SearchBar.
-    private var searchBar: UISearchBar!
-    
-    
+
     /*
      @name   viewDidLoad
      */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        //create an activity indicator
         //add ParticipantVC as an observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMembers), name: ParticipantsModel.setParticipants, object: nil)
-        createActivityIndicator()
-        updateMembers()
         prepareView()
         prepareTableView()
+        createActivityIndicator()
+        updateMembers()
         prepareSearchBar()
     }
     
@@ -62,7 +62,8 @@ public class ParticipantsViewController: UIViewController {
     
     func didUpdateMembers() {
         self.activityIndicator.stopAnimating()
-        self.participantsSearchActive = false
+        currentData = participantsModel.members
+        self.tableView.reloadData()
     }
     
     deinit {
@@ -93,7 +94,6 @@ extension ParticipantsViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.endEditing(true)
         participantsSearchActive = false;
-        tableView.reloadData()
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -104,20 +104,13 @@ extension ParticipantsViewController: UISearchBarDelegate {
     public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
         let members = participantsModel.members
-        
-        //        var participantsNameArray = [String]()
-        
-        //        for member in members {
-        //            participantsNameArray.append(member)
-        //        }
-        
+
         let results = members.filter {
             let member = $0
             return member.memberName.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
         }
         
         filteredParticipants = results
-        
         updateModel()
     }
 }
@@ -151,23 +144,18 @@ public extension ParticipantsViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        //        tableView.
         view.addSubview(tableView)
     }
-    
-    
+ 
     /*
      @name   layoutTableView
      */
     public func layoutTableView() {
-        //        tableView.frame = view.bounds
         view.layout(tableView).edges(top: 44, left: 0, right: 0)
     }
 }
 
 extension ParticipantsViewController: UITableViewDataSource {
-    
-    //    public lazy var menumodel:MenuModel = MenuModel()
     /*
      @name   numberOfSectionsInTableView
      */
@@ -179,10 +167,6 @@ extension ParticipantsViewController: UITableViewDataSource {
      @name   numberOfRowsInSection
      */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        if participantsSearchActive && filteredParticipants.count > 0 {
-        //            return self.filteredParticipants.count
-        //        }
-        //        return participantsModel.members.count
         return currentData.count
     }
     
@@ -194,25 +178,8 @@ extension ParticipantsViewController: UITableViewDataSource {
         
         let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
         cell.selectionStyle = .None
-        
-        //        cell.member = participantsSearchActive == true ? filteredParticipants[indexPath.row] : participantsModel.members[indexPath.row] as Member
         cell.member = currentData[indexPath.row]
-        
-        //        if(participantsSearchActive){
-        //
-        //            currentMember = filteredParticipants[indexPath.row]
-        //
-        //        } else {
-        //
-        //            let members = participantsModel.members
-        //
-        //            currentMember = members[indexPath.row] as Member
-        //
-        //
-        //        }
-        
-        
-        
+
         return cell
     }
     
@@ -220,17 +187,7 @@ extension ParticipantsViewController: UITableViewDataSource {
 
 extension ParticipantsViewController: UITableViewDelegate {
     
-    /*
-     @name   required didSelectRowAtIndexPath
-     */
-    
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    
-    
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        //        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        //        return cell.height() VIVFIX THIS
         return 60
     }
     

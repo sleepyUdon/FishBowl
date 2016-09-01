@@ -1,101 +1,33 @@
-//
 //  DataManager.swift
 //  FishBowl
 //
-//  Created by Rene Mojica, Yevhen Kim on 2016-08-10.
-//  Copyright © 2016 LightHouse Labs. All rights reserved.
-//
+//  Created by Yevhen Kim on 2016-08-24.
+//  Copyright © 2016 Komrad.io. All rights reserved.
+
 
 import Foundation
 import UIKit
+import CoreData
 import OAuthSwift
-import Graph
 
 
 class DataManager: NSObject {
     
-    let graph = Graph()
     var eventId: String!
-    
-    class func createUserDummyData() -> Array<User> {
-        
-        var userList = Array<User>()
-        
-        let users : [Dictionary<String,AnyObject>] = [["name":"Justin Trudeau",
-            "email":"justin.trudeau@parl.gc.ca",
-            "phone": "18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://ca.linkedin.com/in/justintrudeau",
-            "title":"Prime Minister, Canada",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"justintrudeau")!)!],
-                                                      
-            ["name":"Bill Gates", "email":"billg@microsoft.com.",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/williamhgates",
-            "title":"Technology Advisor",
-            "company": "Microsoft",
-            "image":UIImagePNGRepresentation(UIImage(named:"billgates")!)!],
-            
-            ["name":"Larry Page",
-            "email":"larry@google.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/tlytle",
-            "title":"CEO",
-            "company": "Alphabet Inc",
-            "image": UIImagePNGRepresentation(UIImage(named:"larrypage")!)!],
-            
-            ["name":"Mark Zuckerberg",
-            "email":"zuck@fb.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"",
-            "title":"Chairman and CEO, Facebook",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"markzuckerberg")!)!],
-            
-            ["name":"Marissa Mayer",
-            "email":"marissa.mayer@yahoo-inc.com",
-            "phone":"18885696898",
-            "github":"https://github.com/YKV",
-            "linkedin":"https://www.linkedin.com/in/marissamayer",
-            "title":"CEO, Yahoo!",
-            "company": "",
-            "image": UIImagePNGRepresentation(UIImage(named:"marissamayer")!)!]]
-        
-          
-        
-        for user in users {
-            
-            let name = user["name"] as! String
-            let email = user["email"] as! String
-            let phone = user["phone"] as! String
-            let github = user["github"] as! String
-            let linkedin = user["linkedin"] as! String
-            let title = user["title"] as! String
-            let company = user["company"] as? String
-            let image = user["image"] as? NSData
-            
-            let someUser = User(userId: "", name: name)
-           
-            
-            someUser.bio = title
-            someUser.email = email
-            someUser.phone = phone
-            someUser.image = image
-            someUser.linkedin = linkedin
-            someUser.github = github
-            someUser.company = company
-            
-            userList.append(someUser)
-            
-        }
-        
-        return userList
-    }
+    var contacts: [User] = []
+    var user: [String:AnyObject] = [:]
 
+    func grabUserFromAPI(handler:(userInfo: [String:AnyObject])->()) {
+        let api = APIController()
+        
+        api.getUserDetails(AppDelegate.token!, handler: { (userDict: NSDictionary) in
+            self.user["id"] = userDict["id"]!.stringValue
+            self.user["name"] = userDict["name"] as? String
+            self.user["title"] = userDict["bio"] as? String
+            handler(userInfo: self.user)
+        })
+    }
+    
     class func grabEventsFromAPI(handler:(events: [Event])->()){
         
         var eventsArray:[Event] = []
@@ -130,9 +62,6 @@ class DataManager: NSObject {
         
         var membersArray:[Member] = []
         let api = APIController()
-        
-        
-        print(self.eventId)
         
         api.getRSVPs(self.eventId, token: AppDelegate.token!, handler: { (membersDict: NSDictionary) in
             if let memberResults = membersDict["results"] as? [[String:AnyObject]] {
@@ -180,175 +109,6 @@ class DataManager: NSObject {
         })
     }
     
-
-    func saveToPhone() {
-        
-        graph.async { (success: Bool, error: NSError?) in
-            
-            if success {
-                
-                print("Success: \(success)")
-                
-            } else {
-                
-                print("Error: \(error)")
-                
-            }
-            
-        }
-        
-    }
-    
-    
-    func saveCurrentUser(name:String, title:String, company:String, email:String, phone: String?, github:String, linkedin:String, image:NSData) {
-        
-        //check if currentUser exists
-        let users = graph.searchForEntity(types: ["CurrentUser"])
-        if users.count == 0 {
-        
-        let user: Entity = Entity(type: "CurrentUser")
-        user["name"] = name
-        user["title"] = title
-        user["company"] = company
-        user["email"] = email
-        user["phone"] = phone
-        user["github"] = github
-        user["linkedin"] = linkedin
-        user["image"] = image
-        
-        } else {
-            
-         let users = graph.searchForEntity(types: ["CurrentUser"])
-         let user = users.first! as Entity
-            
-            user["name"] = name
-            user["title"] = title
-            user["company"] = company
-            user["email"] = email
-            user["phone"] = phone
-            user["github"] = github
-            user["linkedin"] = linkedin
-            user["image"] = image
-
-        
-        }
-        
-        saveToPhone()
-
-    }
-    
-
-    func addContact(userID: String, name:String, title:String?, company:String?, email:String?, phone: String?, github:String?, linkedin:String?, image:NSData?) {
-    
-        let contact: Entity = Entity(type: "Contact")
-        
-        contact["userID"] = userID
-        contact["name"] = name
-        contact["title"] = title
-        contact["company"] = company
-        contact["email"] = email
-        contact["phone"] = phone
-        contact["github"] = github
-        contact["linkedin"] = linkedin
-        contact["image"] = image
-        
-        saveToPhone()
-    
-
-    }
-    
-    class func getCurrentUser() -> Array<Entity> {
-        
-        let graph = Graph()
-        let users = graph.searchForEntity(types: ["CurrentUser"])
-        
-        return users
-        
-    }
-    
-    class func getContacts() -> Array<User> {
-        
-        let graph = Graph()
-        var contactList = Array<User>()
-        
-        let contacts = graph.searchForEntity(types: ["Contact"])
-        
-        if contacts.count > 0 {
-        
-            for contact in contacts {
-        
-                let id = contact["userID"] as! String
-                let name = contact["name"] as! String
-                let title = "" //contact["title"] as! String
-                let company = "" //contact["company"] as! String
-                let email = "" //"contact["email"] as! String
-                let phone = "" //contact["phone"] as! String
-                let github = "" //contact["github"] as! String
-                let linkedin = "" //contact["linkedin"] as! String
-                let image = contact["image"] as! NSData
-            
-                let user = User(userId: id, name: name)
-                user.image = image
-                user.bio = title
-                user.email = email
-                user.phone = phone
-                user.github = github
-                user.linkedin = linkedin
-                user.company = company
-            
-                contactList.append(user)
-            }
-        }
-
-        return contactList
-    
-    }
-    
-    
-    class func getMemberIDsFromContacts() -> Set<String> {
-        let graph = Graph()
-        var savedContacts = Set<String>()
-        let contacts = graph.searchForEntity(types:["Contact"])
-        if contacts.count == 0 {
-            
-            return savedContacts
-            
-        } else {
-        
-            for contact in contacts {
-            
-                savedContacts.insert(contact["userID"] as! String)
-            
-            }
-            
-            return savedContacts
-        
-        }
-        
-    }
-    
-
-    
-    func deleteContact(user:User) {
-        
-        let users:Array<Entity> = graph.searchForEntity(properties: [(key: "name", value: user.name)])
-        
-        if !users.isEmpty {
-            
-            let user = users.first
-            
-            user?.delete()
-            
-            saveToPhone()  //  insert save to context here
-            
-        } else {
-            
-            print("User does not exist")
-            
-        }
-        
-    }
-    
     class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
         
         let msec = ms.integerValue
@@ -357,13 +117,30 @@ class DataManager: NSObject {
         
     }
     
-    class func removeNonNumericCharsFromString(text: String) -> String {
-        let okayChars : Set<Character> =
-            Set("1234567890".characters)
-        return String(text.characters.filter {okayChars.contains($0) })
-    }
+    class func getMemberFromContacts() -> Array<User>{
 
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let moc = appDelegate.managedObjectContext
+        var result: [User] = []
+        //create fetch request
+        let fetchRequest = NSFetchRequest(entityName:"User")
+        
+        //add sort descriptor
+        let sortDescriptor = NSSortDescriptor(key:"userID", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        //Execute Fetch Request
+        do {
+            result = try moc.executeFetchRequest(fetchRequest) as! Array<User>
+            print(result)
+            
+        }
+        catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        return result
+    }
     
 }
-
-
