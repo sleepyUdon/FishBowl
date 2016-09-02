@@ -19,6 +19,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     // Reference for SearchBar.
     private var searchBar: UISearchBar!
     
+    
+    
     var contactsSearchActive:Bool! {
         didSet {
             updateModel()
@@ -43,13 +45,22 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareTableView()
         didUpdateContacs()
         prepareSearchBar()
+        prepareCloseButton()
         cardView.alpha = 0.0
     }
+    
+//    public override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.tableView.reloadData()
+//    }
     
   
     func didUpdateContacs() {
         currentData = contactsArray
         self.contactsSearchActive = false
+        print(currentData.count)
+        print(currentData)
+        print(self, "self contacts view controller")
         self.tableView.reloadData()
     }
     
@@ -61,10 +72,40 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         cardView.frame = CGRectMake(0, 0, view.bounds.width, 450.0)
     }
     
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     
+
+    // Prepares the closeButton
+    private func prepareCloseButton() {
+        let closeImage: UIImage? = MaterialIcon.cm.close
+        let closeButton = UIButton(frame: CGRectMake(searchBar.frame.width, 20, 40, 44))
+        closeButton.tintColor = Color.accentColor1
+        closeButton.backgroundColor = UIColor.whiteColor()
+        closeButton.setImage(closeImage, forState: .Normal)
+        closeButton.setImage(closeImage, forState: .Highlighted)
+        view.addSubview(closeButton)
+        closeButton.addTarget(self, action: #selector(handleCloseViewButton), forControlEvents: .TouchUpInside)
+    }
+    
+    
+    func handleCloseViewButton(){
+    
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     // Prepares the searchBar
     private func prepareSearchBar() {
-        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width - 40, height: 44))
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 20, width: view.frame.width - 40, height: 44))
+        searchBar.barTintColor =  UIColor.whiteColor()
+        searchBar.backgroundColor = UIColor.whiteColor()
+        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+
+        
+      
+        
         searchBar.delegate = self
         view.addSubview(searchBar)
     }
@@ -111,7 +152,8 @@ extension ContactsViewController {
     
     // prepareView
     public func prepareView() {
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = MaterialColor.grey.lighten2
+
     }
     
     // prepareTableView
@@ -124,11 +166,11 @@ extension ContactsViewController {
     
     // layoutTableView
     public func layoutTableView() {
-        view.layout(tableView).edges(top: 44, left: 0, right: 0)
+        view.layout(tableView).edges(top: 64, left: 0, right: 0)
     }
 }
 
-extension ContactsViewController: UITableViewDataSource {
+extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
     
     /*
      @name   numberOfSectionsInTableView
@@ -141,7 +183,7 @@ extension ContactsViewController: UITableViewDataSource {
      @name   numberOfRowsInSection
      */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return currentData.count
     }
     
@@ -150,16 +192,14 @@ extension ContactsViewController: UITableViewDataSource {
      @name   cellForRowAtIndexPath
      */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: ContactsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
-        cell.contact = currentData[indexPath.row] as! User
         
+        let cell: ContactsTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ContactsTableViewCell
+//         =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
+        cell.contact = currentData[indexPath.row] as! User
+        print(currentData.count)
         return cell
     }
     
-}
-
-
-extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate  {
     
     // required didSelectRowAtIndexPath
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -308,9 +348,9 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         // layout labels topimageView
         Layout.centerHorizontally(topImageView, child: profileView)
         profileView.grid.rows = 12
-        profileView.grid.columns = 6
+        profileView.grid.columns = 4
         profileView.grid.offset.rows = 2
-        profileView.grid.offset.columns = 3
+        profileView.grid.offset.columns = 4
         
         closeButton.grid.rows = 3
         closeButton.grid.columns = 2
@@ -496,7 +536,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
     func getAllContacts() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
-        
+        contactsArray = []
         //create fetch request
         let fetchRequest = NSFetchRequest(entityName:"User")
         
@@ -504,7 +544,7 @@ extension ContactsViewController: UITableViewDelegate, MFMailComposeViewControll
         let sortDescriptor = NSSortDescriptor(key:"userID", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+        fetchRequest.returnsObjectsAsFaults = false
         //Execute Fetch Request
         do {
             let result = try moc.executeFetchRequest(fetchRequest) as! [User]

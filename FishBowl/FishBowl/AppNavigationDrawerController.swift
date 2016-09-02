@@ -32,7 +32,10 @@ import UIKit
 import Material
 
 class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawerControllerDelegate {
-	override func prepareView() {
+	
+//    let contactsViewController = ContactsViewController()
+    
+    override func prepareView() {
 		super.prepareView()
 		delegate = self
 	}
@@ -47,21 +50,23 @@ class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawe
 	
 	func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
         
-        let contactsViewController = ContactsViewController()
-        contactsViewController.getAllContacts()
-        print (contactsViewController.contactsArray)
-        contactsViewController.didUpdateContacs()
-        print (contactsViewController.currentData)
-        contactsViewController.prepareView()
-        contactsViewController.prepareTableView()
-        contactsViewController.tableView.reloadData()
-
-
+        
+//        contactsViewController.getAllContacts()
+//        print (contactsViewController.contactsArray)
+//        print(contactsViewController, "contacts view controller")
+//        
+//        print (contactsViewController.currentData)
+//        contactsViewController.prepareTableView()
+//        contactsViewController.didUpdateContacs()
+////        contactsViewController.viewWillAppear(true)
+//
 		print("NavigationDrawerController - Will Open");
 
 	}
 	
 	func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
+
+
 		print("NavigationDrawerController - DId Open");
 	}
 	

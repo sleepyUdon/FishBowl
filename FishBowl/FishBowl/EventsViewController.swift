@@ -62,12 +62,14 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
 
     // Handles the menuButton.
     internal func handleMenuButton() {
-//        let contactVC: ContactsViewController = ContactsViewController()
-        navigationDrawerController?.openLeftView()
-//        contactVC.getAllContacts()
-        //contactVC.didUpdateContacs()
-//        contactVC.prepareTableView()
-//        contactVC.tableView.reloadData()
+        let contactVC: ContactsViewController = ContactsViewController()
+        //navigationDrawerController?.openLeftView()
+        contactVC.getAllContacts()
+        contactVC.didUpdateContacs()
+        contactVC.prepareTableView()
+        contactVC.tableView.reloadData()
+        
+        self.presentViewController(contactVC, animated: true, completion: nil)
     }
     
     // Prepares the profileButton.

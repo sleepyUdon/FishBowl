@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let eventsViewController = EventsViewController ()
     let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
     let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
-    let contactsViewController = ContactsViewController ()
-    let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController, leftViewController: contactsViewController)
+    //let contactsViewController = ContactsViewController ()
+    let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController)
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     window!.rootViewController = navigationDrawerController
