@@ -67,7 +67,6 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         contactVC.getAllContacts()
         contactVC.didUpdateContacs()
         contactVC.prepareTableView()
-        contactVC.tableView.reloadData()
         
         self.presentViewController(contactVC, animated: true, completion: nil)
     }

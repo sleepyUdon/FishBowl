@@ -4,6 +4,9 @@ platform :ios, '9.0'
 target 'FishBowl' do
   use_frameworks!
 	
-pod 'Material'
-
+  pod 'Material'
+  pod 'OAuthSwift', '~> 0.5.0'
+  pod 'Prephirences'
+  pod 'Prephirences/CoreData'
+  pod 'Firebase'
 end

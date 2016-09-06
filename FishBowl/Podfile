@@ -6,6 +6,8 @@ target 'FishBowl' do
 	
   pod 'Material'
   pod 'OAuthSwift', '~> 0.5.0'
-  pod 'Graph'
-
+  pod 'Prephirences'
+  pod 'Prephirences/CoreData'
+  pod 'Firebase'
+  pod 'Firebase/Database'
 end

@@ -8,6 +8,7 @@
 
 import Foundation
 import OAuthSwift
+import Prephirences
 
 class APIController: UIViewController {
     
@@ -33,16 +34,14 @@ class APIController: UIViewController {
 //        if #available(iOS 9.0, *) {
 //            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
 //        }
-        
-        //oauthswift.authorize_url_handler = WebViewController()
+        let webVC: WebViewController = WebViewController()
+        oauthswift.authorize_url_handler = webVC
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
             NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!,
             scope: "",state: "",
             success: { credential, response, parameters in
-                print(credential.oauth_token)
-                //print(parameters)
                 AppDelegate.token = credential.oauth_token
             },
             failure: { error in
@@ -50,16 +49,11 @@ class APIController: UIViewController {
                 
             }
         )
-        
-        
     }
     
     //MARK - Get Requests for
     
     func getUserDetails(token: String, handler:(userDict: NSDictionary)->()){
-        
-//        if self.oauthswift.client.credential.isTokenExpired() {
-//        }
         
         self.oauthswift.client.get("https://api.meetup.com/2/member/self?access_token=\(token)",
             success:
@@ -114,8 +108,6 @@ class APIController: UIViewController {
             success: {
                         data, response in
                         //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-                        //print(dataString)
-                        //print("*********************************")
                         do {
                             self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
                             handler(membersDict: self.jsonMembers)
@@ -174,8 +166,6 @@ class APIController: UIViewController {
 //            
 //        
 //    }
-    
-    
     
     
 }

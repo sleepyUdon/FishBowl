@@ -50,22 +50,11 @@ class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawe
 	
 	func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
         
-        
-//        contactsViewController.getAllContacts()
-//        print (contactsViewController.contactsArray)
-//        print(contactsViewController, "contacts view controller")
-//        
-//        print (contactsViewController.currentData)
-//        contactsViewController.prepareTableView()
-//        contactsViewController.didUpdateContacs()
-////        contactsViewController.viewWillAppear(true)
-//
 		print("NavigationDrawerController - Will Open");
 
 	}
 	
 	func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
-
 
 		print("NavigationDrawerController - DId Open");
 	}

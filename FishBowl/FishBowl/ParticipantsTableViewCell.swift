@@ -68,18 +68,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
             user.setValue(member.memberGithub, forKey: "github")
             user.setValue(member.memberLinkedin, forKey: "linkedin")
             user.setValue(member.memberImage, forKey: "picture")
-//            user.userID = member.memberId
-//            print(user.userID)
-//            user.name = member.memberName
-//            user.title = member.memberBio
-//            user.company = member.memberCompany
-//            user.email = member.memberEmail
-//            
-//            user.phone = member.memberPhone
-//            user.github = member.memberGithub
-//            user.linkedin = member.memberLinkedin
-//            user.picture = member.memberImage
-        
+            user.setValue(member.memberNote, forKey: "note")
             
             do {
                 //save
@@ -223,7 +212,7 @@ extension ParticipantsTableViewCell {
         var setOfIds: Set<String> = Set()
         for contactObj in con {
             print(contactObj)
-            setOfIds.insert(contactObj.userID! as String)
+            setOfIds.insert(contactObj.userID as String)
         }
         return setOfIds
     }

@@ -8,6 +8,7 @@
 import UIKit
 import Material
 import CoreData
+import Firebase
 
 private var saveButton: MaterialButton!
 private var cancelButton: MaterialButton!
@@ -30,6 +31,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var githubTextField : UITextField!
     var linkedinTextField : UITextField!
     
+    let ref = FIRDatabase.database().reference()
     
     //    viewDid Load
     override func viewDidLoad() {
@@ -127,6 +129,15 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             print("\(saveError), \(saveError.userInfo)")
 
         }
+        
+        self.ref.child("user/name").setValue(user.name)
+        self.ref.child("user/title").setValue(user.title)
+        self.ref.child("user/company").setValue(user.company)
+        self.ref.child("user/email").setValue(user.email)
+        self.ref.child("user/phone").setValue(user.phone)
+        self.ref.child("user/github").setValue(user.github)
+        self.ref.child("user/linkedin").setValue(user.linkedin)
+        self.ref.child("user/picture").setValue(user.picture)
     }
     
     internal func handleCancelButton() {

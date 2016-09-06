@@ -3,6 +3,7 @@ import UIKit
 import Material
 import OAuthSwift
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
         dataManager = DataManager()
-
         createViewControllerStack()
-        
         self.window!.tintColor = MaterialColor.green.accent4
+        FIRApp.configure()
 
         return true
 
@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let eventsViewController = EventsViewController ()
     let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
     let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
-    //let contactsViewController = ContactsViewController ()
     let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController)
     
     window = UIWindow(frame: UIScreen.mainScreen().bounds)

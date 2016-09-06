@@ -11,7 +11,10 @@
 		44116CD91D63D6CF0032F8C4 /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44116CD81D63D6CF0032F8C4 /* AddressBook.swift */; };
 		442319971D6C939D00A49F7D /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442319961D6C939D00A49F7D /* WebViewController.swift */; };
 		442319C91D6E424400A49F7D /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 442319C71D6E424400A49F7D /* UserModel.xcdatamodeld */; };
-		442319CD1D6E44FB00A49F7D /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442319CC1D6E44FB00A49F7D /* User+CoreDataProperties.swift */; };
+		44BA942D1D7DCA4D001400EC /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BA942B1D7DCA4D001400EC /* User+CoreDataProperties.swift */; };
+		44BA942E1D7DCA4D001400EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BA942C1D7DCA4D001400EC /* User.swift */; };
+		44BA94301D7E2221001400EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44BA942F1D7E2221001400EC /* GoogleService-Info.plist */; };
+		44BA94321D7E2FEB001400EC /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BA94311D7E2FEB001400EC /* DataService.swift */; };
 		44C8B5FA1D5CD29900604FCE /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8B5F91D5CD29900604FCE /* Member.swift */; };
 		7C6080C51D5C189A00ECDE02 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C41D5C189A00ECDE02 /* Color.swift */; };
 		7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6080C81D5C9D1100ECDE02 /* Fonts.swift */; };
@@ -55,7 +58,10 @@
 		44116CD81D63D6CF0032F8C4 /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		442319961D6C939D00A49F7D /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		442319C81D6E424400A49F7D /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
-		442319CC1D6E44FB00A49F7D /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		44BA942B1D7DCA4D001400EC /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		44BA942C1D7DCA4D001400EC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		44BA942F1D7E2221001400EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44BA94311D7E2FEB001400EC /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		44C8B5F91D5CD29900604FCE /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		61233D508E3E0182B21D4E0E /* Pods-FishBowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FishBowl.release.xcconfig"; path = "Pods/Target Support Files/Pods-FishBowl/Pods-FishBowl.release.xcconfig"; sourceTree = "<group>"; };
 		7C6080C41D5C189A00ECDE02 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -129,7 +135,8 @@
 		7CAB2A231D58DB7F00735CF4 /* FishBowl */ = {
 			isa = PBXGroup;
 			children = (
-				442319CC1D6E44FB00A49F7D /* User+CoreDataProperties.swift */,
+				44BA942B1D7DCA4D001400EC /* User+CoreDataProperties.swift */,
+				44BA942C1D7DCA4D001400EC /* User.swift */,
 				7CDD2A131D590CD000716BBD /* AppDelegate.swift */,
 				7C6080CD1D5F78AD00ECDE02 /* APIController.swift */,
 				442319C71D6E424400A49F7D /* UserModel.xcdatamodeld */,
@@ -145,6 +152,7 @@
 				7CDD2A211D590E5500716BBD /* Events TableView */,
 				7CAB2A2D1D58DB7F00735CF4 /* LaunchScreen.storyboard */,
 				7CAB2A301D58DB7F00735CF4 /* Info.plist */,
+				44BA942F1D7E2221001400EC /* GoogleService-Info.plist */,
 			);
 			path = FishBowl;
 			sourceTree = "<group>";
@@ -171,6 +179,7 @@
 				7C6080C81D5C9D1100ECDE02 /* Fonts.swift */,
 				44C8B5F91D5CD29900604FCE /* Member.swift */,
 				44116CD81D63D6CF0032F8C4 /* AddressBook.swift */,
+				44BA94311D7E2FEB001400EC /* DataService.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 			files = (
 				7CAB2A2F1D58DB7F00735CF4 /* LaunchScreen.storyboard in Resources */,
 				7CAB2A2C1D58DB7F00735CF4 /* Assets.xcassets in Resources */,
+				44BA94301D7E2221001400EC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,15 +348,17 @@
 				7CDD2A4C1D59F25B00716BBD /* LoginViewController.swift in Sources */,
 				7CDD2A281D590E7800716BBD /* UIViewController.swift in Sources */,
 				7C6080CE1D5F78AD00ECDE02 /* APIController.swift in Sources */,
+				44BA942E1D7DCA4D001400EC /* User.swift in Sources */,
 				7CDD2A1F1D590E4D00716BBD /* MenuViewController+UITableViewDataSource.swift in Sources */,
 				7CDD2A4A1D59EF6E00716BBD /* DataManager.swift in Sources */,
 				7CDD2A311D5929D800716BBD /* ProfileViewController.swift in Sources */,
 				7CDD2A241D590E7100716BBD /* EventsTableViewCell.swift in Sources */,
-				442319CD1D6E44FB00A49F7D /* User+CoreDataProperties.swift in Sources */,
 				442319971D6C939D00A49F7D /* WebViewController.swift in Sources */,
+				44BA942D1D7DCA4D001400EC /* User+CoreDataProperties.swift in Sources */,
 				7CDD2A6D1D5ABCCC00716BBD /* ParticipantsViewController.swift in Sources */,
 				7C6080C91D5C9D1100ECDE02 /* Fonts.swift in Sources */,
 				7CDD2A661D5AB79800716BBD /* ContactsViewController.swift in Sources */,
+				44BA94321D7E2FEB001400EC /* DataService.swift in Sources */,
 				7CDD2A1C1D590E4D00716BBD /* MenuModel.swift in Sources */,
 				7CDD2A3D1D596BB400716BBD /* AppNavigationDrawerController.swift in Sources */,
 				7CDD2A391D59335400716BBD /* EventsViewController.swift in Sources */,
