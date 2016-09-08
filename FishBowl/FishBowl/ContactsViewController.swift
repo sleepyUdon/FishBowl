@@ -5,12 +5,14 @@ import OAuthSwift
 import MessageUI
 import CoreData
 
+
 public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
-    let cardView: MaterialPulseView = MaterialPulseView(frame: CGRect.zero)
+    let cardView: ImageCardView = ImageCardView()
     public lazy var tableView: UITableView = UITableView()
     private var containerView: UIView!
-
+    var noteField: UITextView?
+    private var contactsScrollView: UIScrollView = UIScrollView()
     
     var currentData:NSArray = []
     var filteredContacts:NSArray = []
@@ -19,7 +21,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     // Reference for SearchBar.
     private var searchBar: UISearchBar!
     
-    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var contactsSearchActive:Bool! {
         didSet {
@@ -37,7 +39,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         self.tableView.reloadData()
     }
     
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         getAllContacts()
@@ -49,18 +51,9 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         cardView.alpha = 0.0
     }
     
-//    public override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.tableView.reloadData()
-//    }
     
-  
     func didUpdateContacs() {
-        currentData = contactsArray
         self.contactsSearchActive = false
-        print(currentData.count)
-        print(currentData)
-        print(self, "self contacts view controller")
         self.tableView.reloadData()
     }
     
@@ -69,15 +62,15 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
-        cardView.frame = CGRectMake(0, 0, view.bounds.width, 450.0)
     }
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOnScreen), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOffScreen), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-
     // Prepares the closeButton
     private func prepareCloseButton() {
         let closeImage: UIImage? = MaterialIcon.cm.close
@@ -92,20 +85,16 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     
     func handleCloseViewButton(){
-    
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
+    
     // Prepares the searchBar
     private func prepareSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 20, width: view.frame.width - 40, height: 44))
         searchBar.barTintColor =  UIColor.whiteColor()
         searchBar.backgroundColor = UIColor.whiteColor()
         searchBar.searchBarStyle = UISearchBarStyle.Minimal
-
-        
-      
-        
         searchBar.delegate = self
         view.addSubview(searchBar)
     }
@@ -125,7 +114,6 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         searchBar.endEditing(true)
         contactsSearchActive = false;
         tableView.reloadData()
-
     }
     
     public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -153,7 +141,7 @@ extension ContactsViewController {
     // prepareView
     public func prepareView() {
         view.backgroundColor = MaterialColor.grey.lighten2
-
+        
     }
     
     // prepareTableView
@@ -170,7 +158,7 @@ extension ContactsViewController {
     }
 }
 
-extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UITextViewDelegate, UINavigationControllerDelegate {
     
     /*
      @name   numberOfSectionsInTableView
@@ -183,7 +171,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
      @name   numberOfRowsInSection
      */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return currentData.count
     }
     
@@ -194,9 +181,8 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell: ContactsTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ContactsTableViewCell
-//         =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ContactsTableViewCell
         cell.contact = currentData[indexPath.row] as! User
-        print(currentData.count)
+        print(cell.contact)
         return cell
     }
     
@@ -215,223 +201,228 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         //let contacts = contactsModel.contacts
         let contact = currentData[indexPath.row] as! User
         
-        // set container views
-        cardView.pulseColor = Color.baseColor1
-        cardView.borderWidth = 0
+        // set cardview
+        let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
+        contactsScrollView = UIScrollView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: view.frame.height-20))
+        contactsScrollView.bounces = false
+        contactsScrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        contactsScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        contactsScrollView.contentSize = cardView.bounds.size
+        contactsScrollView.addSubview(cardView)
+        view.addSubview(contactsScrollView)
         
-        view.addSubview(cardView)
         
-        let topImageView: MaterialView = MaterialView()
-        cardView.addSubview(topImageView)
-        
-        let contentView: MaterialView = MaterialView()
-        cardView.addSubview(contentView)
-        
-        let profileView: MaterialView = MaterialView()
-
+        let profileView: MaterialView = MaterialView(frame: CGRect(x: view.bounds.width/2 - 50, y: 20, width: 100, height: 100))
         profileView.image = UIImage(data: contact.picture!)
-        profileView.shape = .Circle
-        topImageView.addSubview(profileView)
+        profileView.cornerRadius = 50
+        profileView.contentMode = .ScaleAspectFit
+        cardView.addSubview(profileView)
         
         let closeImage: UIImage? = MaterialIcon.cm.close
-        let closeButton: UIButton = UIButton()
+        let closeButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width - 50, y: 20, width: 25, height: 25))
         closeButton.tintColor = Color.accentColor1
         closeButton.setImage(closeImage, forState: .Normal)
         closeButton.setImage(closeImage, forState: .Highlighted)
-        topImageView.addSubview(closeButton)
+        cardView.addSubview(closeButton)
+        closeButton.tag = indexPath.row
         closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
         
         
         // set labels
-        let nameLabel: UILabel = UILabel()
+        let nameLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 130, width: 200, height: 30))
         nameLabel.text = contact.name
         nameLabel.textAlignment = .Center
         nameLabel.font = Fonts.title
         nameLabel.textColor = Color.greyDark
-        contentView.addSubview(nameLabel)
+        cardView.addSubview(nameLabel)
         
         
-        let titleLabel: UILabel = UILabel()
+        let titleLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 160, width: 200, height: 30))
         titleLabel.text = contact.title
         titleLabel.textAlignment = .Center
         titleLabel.font = Fonts.bodyGrey
         titleLabel.textColor = Color.greyMedium
-        contentView.addSubview(titleLabel)
+        cardView.addSubview(titleLabel)
         
-        let companyLabel: UILabel = UILabel()
+        let companyLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 190, width: 200, height: 30))
         companyLabel.font = Fonts.title
-        companyLabel.text = contact.valueForKey("company") as? String//#PASSDATA company from participant
+        companyLabel.text = contact.valueForKey("company") as? String
         companyLabel.textAlignment = .Center
         companyLabel.textColor = Color.greyMedium
-        contentView.addSubview(companyLabel)
+        cardView.addSubview(companyLabel)
         
         let mailImage: UIImage? = UIImage(named: "mail")
-        let mailButton: UIButton = UIButton()
+        let mailButton: UIButton = UIButton(frame: CGRect(x: 40, y: 200, width: 50, height: 50))
         mailButton.tintColor = Color.baseColor1
         mailButton.setImage(mailImage, forState: .Normal)
         mailButton.setImage(mailImage, forState: .Highlighted)
         mailButton.layer.setValue(contact.email, forKey: "email")
-        contentView.addSubview(mailButton)
+        cardView.addSubview(mailButton)
         mailButton.addTarget(self, action: #selector(handleMailButton), forControlEvents: .TouchUpInside)
         
         
         let messageImage: UIImage? = UIImage(named: "message")
-        let messageButton: UIButton = UIButton()
+        let messageButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width/2 - 25, y: 200, width: 50, height: 50))
         messageButton.tintColor = Color.baseColor1
         messageButton.setImage(messageImage, forState: .Normal)
         messageButton.setImage(messageImage, forState: .Highlighted)
         messageButton.layer.setValue(contact.phone, forKey: "phone")
-        contentView.addSubview(messageButton)
+        cardView.addSubview(messageButton)
         messageButton.addTarget(self, action: #selector(handleMessageButton), forControlEvents: .TouchUpInside)
         
         
         let phoneImage: UIImage? = UIImage(named:"phone.png")
-        let phoneButton: UIButton = UIButton()
+        let phoneButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width - 90, y: 200, width: 50, height: 50))
         phoneButton.tintColor = Color.baseColor1
         phoneButton.setImage(phoneImage, forState: .Normal)
         phoneButton.setImage(phoneImage, forState: .Highlighted)
         phoneButton.layer.setValue(contact.phone, forKey: "phone")
-        contentView.addSubview(phoneButton)
+        cardView.addSubview(phoneButton)
         phoneButton.addTarget(self, action: #selector(handlePhoneButton), forControlEvents: .TouchUpInside)
         
         
         let githubImage: UIImage? = UIImage(named: "github")
-        let githubButton: UIButton = UIButton()
+        let githubButton: UIButton = UIButton(frame: CGRect(x: 40, y: 250, width: 50, height: 50))
         githubButton.tintColor = Color.baseColor1
         githubButton.setImage(githubImage, forState: .Normal)
         githubButton.setImage(githubImage, forState: .Highlighted)
         githubButton.layer.setValue(contact.github, forKey: "github")
-        contentView.addSubview(githubButton)
+        cardView.addSubview(githubButton)
         githubButton.addTarget(self, action: #selector(handleGithubButton), forControlEvents: .TouchUpInside)
         
         
         let linkedinImage: UIImage? = UIImage(named: "linkedin")
-        let linkedinButton: UIButton = UIButton()
+        let linkedinButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width/2 - 25, y: 250, width: 50, height: 50))
         linkedinButton.tintColor = Color.baseColor1
         linkedinButton.setImage(linkedinImage, forState: .Normal)
         linkedinButton.setImage(linkedinImage, forState: .Highlighted)
         linkedinButton.layer.setValue(contact.linkedin, forKey: "linkedin")
-        contentView.addSubview(linkedinButton)
+        cardView.addSubview(linkedinButton)
         linkedinButton.addTarget(self, action: #selector(handleLinkedinButton), forControlEvents: .TouchUpInside)
         
-        let phoneContactButton: MaterialButton = MaterialButton()
-        phoneContactButton.pulseColor = MaterialColor.white
-        phoneContactButton.depth = .Depth1
-        phoneContactButton.titleLabel?.font = Fonts.bodyGrey
-        phoneContactButton.cornerRadius = 5.0
-        phoneContactButton.setTitleColor(Color.greyDark, forState: .Normal)
-        phoneContactButton.setTitle("Save to Contacts", forState: UIControlState.Normal)
-        phoneContactButton.backgroundColor = MaterialColor.grey.lighten4
-        contentView.addSubview(phoneContactButton)
-        ////
+        let addContactImage: UIImage? = UIImage(named: "addContact")
+        let phoneContactButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width - 80, y: 260, width: 30, height: 30))
+        phoneContactButton.setImage(addContactImage, forState: .Normal)
+        phoneContactButton.setImage(addContactImage, forState: .Highlighted)
+        cardView.addSubview(phoneContactButton)
         phoneContactButton.tag = indexPath.row
-        ////
         phoneContactButton.addTarget(self, action: #selector(handlerSaveToAddressBook), forControlEvents: .TouchUpInside)
         
-        // layout containers
-        topImageView.grid.rows = 4
-        topImageView.grid.columns = 12
         
-        contentView.grid.rows = 7
-        contentView.grid.columns = 12
-        contentView.grid.offset.rows = 4
+        let noteText = UILabel(frame: CGRect(x: 40, y: 320, width: view.bounds.width - 100.0, height: 30))
+        noteText.text = "Notes"
+        noteText.font = Fonts.title
+        cardView.addSubview(noteText)
         
-        cardView.grid.axis.direction = .None
-        cardView.grid.spacing = 4
-        cardView.grid.contentInsetPreset = .Square3
-        
-        cardView.grid.views = [
-            topImageView,
-            contentView
-        ]
-        
-        // layout labels topimageView
-        Layout.centerHorizontally(topImageView, child: profileView)
-        profileView.grid.rows = 12
-        profileView.grid.columns = 4
-        profileView.grid.offset.rows = 2
-        profileView.grid.offset.columns = 4
-        
-        closeButton.grid.rows = 3
-        closeButton.grid.columns = 2
-        closeButton.grid.offset.rows = 0
-        closeButton.grid.offset.columns = 11
-        
-        
-        topImageView.grid.spacing = 8
-        topImageView.grid.axis.direction = .None
-        topImageView.grid.contentInsetPreset = .Square3
-        
-        topImageView.grid.views = [
-            profileView,
-            closeButton
-        ]
-        
-        
-        // layout labels bottomimageView
-        
-        nameLabel.grid.rows = 3
-        nameLabel.grid.columns = 12
-        
-        titleLabel.grid.rows = 3
-        titleLabel.grid.columns = 12
-        titleLabel.grid.offset.rows = 1
-        
-        companyLabel.grid.rows = 3
-        companyLabel.grid.columns = 12
-        companyLabel.grid.offset.rows = 3
-        
-        mailButton.grid.rows = 3
-        mailButton.grid.columns = 3
-        mailButton.grid.offset.rows = 7
-        mailButton.grid.offset.columns = 2
-        
-        messageButton.grid.rows = 3
-        messageButton.grid.columns = 3
-        messageButton.grid.offset.rows = 7
-        messageButton.grid.offset.columns = 5
-        
-        phoneButton.grid.rows = 3
-        phoneButton.grid.columns = 3
-        phoneButton.grid.offset.rows = 7
-        phoneButton.grid.offset.columns = 8
-        
-        githubButton.grid.rows = 3
-        githubButton.grid.columns = 3
-        githubButton.grid.offset.rows = 9
-        githubButton.grid.offset.columns = 2
-        
-        linkedinButton.grid.rows = 3
-        linkedinButton.grid.columns = 3
-        linkedinButton.grid.offset.rows = 9
-        linkedinButton.grid.offset.columns = 5
-        
-        phoneContactButton.grid.rows = 2
-        phoneContactButton.grid.columns = 8
-        phoneContactButton.grid.offset.rows = 5
-        phoneContactButton.grid.offset.columns = 2
-        
-        contentView.grid.spacing = 8
-        contentView.grid.axis.direction = .None
-        contentView.grid.contentInsetPreset = .Square3
-        contentView.grid.views = [
-            nameLabel,
-            titleLabel,
-            companyLabel,
-            mailButton,
-            messageButton,
-            phoneButton,
-            githubButton,
-            linkedinButton,
-            phoneContactButton
-        ]
-        
-        self.view.addSubview(cardView)
-        UIView.animateWithDuration(0.3) {
-            self.tableView.alpha = 0
-            self.cardView.alpha = 1
-        }
+        let noteField = UITextView(frame: CGRect(x: 40, y: 350, width: view.bounds.width - 80.0, height: view.bounds.height - 400))
+        noteField.backgroundColor = MaterialColor.grey.lighten2
+        noteField.font = Fonts.bodyGrey
+        noteField.text = contact.note
+        noteField.textColor = Color.greyDark
+        noteField.delegate = self
+        self.noteField = noteField
+        cardView.addSubview(noteField)
+
     }
+    
+    private func updateContactInfo(contactDict:User, id: String) {
+        fetchUserInfo(id)
+        //if let user: User = fetchUserInfo(id) {
+//            user.setValue(id, forKey: "userID")
+//            user.setValue(contactDict.name, forKey: "name")
+//            user.setValue(contactDict.email, forKey: "email")
+//            user.setValue(contactDict.company, forKey: "company")
+//            user.setValue(contactDict.phone, forKey: "phone")
+//            user.setValue(contactDict.picture, forKey: "picture")
+//            user.setValue(contactDict.github, forKey: "github")
+//            user.setValue(contactDict.linkedin, forKey: "linkedin")
+//            user.setValue(contactDict.note, forKey: "note")
+//            user.setValue(contactDict.title, forKey: "title")
+//            do {
+//                try user.managedObjectContext?.save()
+//                //print("---------------------------------")
+//                print(user)
+//            }
+//            catch {
+//                let saveError = error as NSError
+//                print("\(saveError), \(saveError.userInfo)")
+//                
+//            }
+        //}
+
+    }
+    
+    private func fetchUserInfo(contactId: String) {
+        let context = self.appDelegate.managedObjectContext
+        //create fetch request
+        let fetchRequest = NSFetchRequest(entityName:"User")
+        let predicate = NSPredicate(format: "userID == \(contactId)", argumentArray: nil)
+        //add sort descriptor
+        let sortDescriptor = NSSortDescriptor(key:"userID", ascending: true)
+        
+        print(contactId)
+        //assign fetch request properties
+        fetchRequest.predicate = predicate
+        print(predicate)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchBatchSize = 1
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        //Execute Fetch Request
+        //var result:User?
+        do {
+            let result = try context.executeFetchRequest(fetchRequest)
+            print(result)
+            //return result
+        }
+        catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        //return nil
+    }
+    
+    // textView Delegate
+    
+    
+    public func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        noteField?.resignFirstResponder()
+        return true
+    }
+    
+    public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            
+            return false
+        }
+        return true
+    }
+    
+    
+    func keyboardOnScreen(notification: NSNotification){
+        let info: NSDictionary  = notification.userInfo!
+        let kbSize = info.valueForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue().size
+        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, kbSize!.height, 0.0)
+        contactsScrollView.contentInset = contentInsets
+        contactsScrollView.scrollIndicatorInsets = contentInsets
+        var aRect: CGRect = self.view.frame
+        aRect.size.height -= kbSize!.height
+        //you may not need to scroll, see if the active field is already visible
+        if (!CGRectContainsPoint(aRect, self.noteField!.frame.origin) ) {
+            let scrollPoint:CGPoint = CGPointMake(0.0, self.noteField!.frame.origin.y - kbSize!.height)
+            contactsScrollView.setContentOffset(scrollPoint, animated: true)
+        }
+        
+    }
+    
+    func keyboardOffScreen(notification: NSNotification){
+        let contentInsets:UIEdgeInsets = UIEdgeInsetsZero
+        contactsScrollView.contentInset = contentInsets
+        contactsScrollView.scrollIndicatorInsets = contentInsets
+    }
+    
     
     // handle email button
     func handleMailButton(button:UIButton) {
@@ -488,14 +479,12 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     func handleGithubButton(button:UIButton) {
         
         let github = button.layer.valueForKey("github") as! String
-        
         UIApplication.sharedApplication().openURL(NSURL(string:github)!)
         
     }
     
     // handle linkedin button
     func handleLinkedinButton(button:UIButton) {
-        
         let linkedin = button.layer.valueForKey("linkedin") as! String
         if linkedin != "" {
             
@@ -509,29 +498,42 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         let buttonTag = button.tag
         let contact = currentData[buttonTag] as! User
         
-        if #available(iOS 9.0, *) {
-            let saveToAddressBook = AddressBook()
-            if contact.phone != nil {
-                saveToAddressBook.saveToAddressBook(contact.picture, name: contact.name!, email: contact.email, phone: contact.phone!)
-            }
-        } else {
-            // Fallback on earlier versions
+        let saveToAddressBook = AddressBook()
+        if contact.phone != nil || contact.email != nil {
+            saveToAddressBook.saveToAddressBook(contact.picture, name: contact.name!, email: contact.email, phone: contact.phone!)
+            let contactAddedAlert = UIAlertController(title:"\(contact.name!) was successfully added", message: nil, preferredStyle: .Alert)
+            contactAddedAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+            presentViewController(contactAddedAlert, animated: true, completion: nil)
         }
-        
+        let contactAddedAlert = UIAlertController(title:"\(contact.name!) could not be added to AddressBook. Only members with email address and phone number can be added to AddressBook", message: nil, preferredStyle: .Alert)
+        contactAddedAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        presentViewController(contactAddedAlert, animated: true, completion: nil)
     }
     
     // handle close button
-    func handleCloseButton() {
+    func handleCloseButton(button:UIButton) {
+        let buttonTag = button.tag
+        let contact = self.currentData[buttonTag] as! User
+        contact.setValue(noteField?.text, forKey: "note")
+        updateContactInfo(contact, id: contact.userID)
+        
         UIView.animateWithDuration(0.3) {
+            self.contactsScrollView.alpha = 0
             self.cardView.alpha = 0
             UIView.animateWithDuration(0.3, animations: {
                 self.tableView.alpha = 1
                 }, completion: { (completed) in
-                    self.cardView.removeFromSuperview()  //REMOVECONTACT
+                    self.contactsScrollView.removeFromSuperview()
+                    for view in self.contactsScrollView.subviews {
+                        view.removeFromSuperview()
+                    }
+                    for view in self.cardView.subviews {
+                        view.removeFromSuperview()
+                    }
             })
         }
     }
-
+    
     //fetch contacts
     func getAllContacts() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -552,7 +554,10 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
             if result.count != 0 {
                 for user in result {
                     contactsArray.append(user)
+                    print(contactsArray)
                 }
+                self.currentData = contactsArray
+                print("##################################")
             }
         }
         catch {
@@ -561,5 +566,3 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         }
     }
 }
-
-

@@ -19,6 +19,7 @@ class Member: NSObject {
     var memberGithub: String?
     var memberLinkedin: String?
     var memberCompany: String?
+    var memberNote: String?
     var memberIsAdded: Bool?
     
     

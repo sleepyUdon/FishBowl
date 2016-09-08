@@ -17,8 +17,12 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     private func populateCell() {
+        print(contact)
         nameLabel.text = contact.name
         titleLabel.text = contact.title
+        if contact.picture == nil {
+            profileView.image = UIImage(named: "photoplaceholder.png")
+        }
         profileView.image = UIImage(data: contact.picture!)
     }
     /*
@@ -53,7 +57,7 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareImageView()
  {
-    profileView.image = UIImage(named: "photoplaceholder") //#PASSDATA image from participant
+    profileView.image = UIImage(named: "photoplaceholder")
     profileView.shape = .Circle
     profileView.backgroundColor = Color.greyDark
     profileView.clipsToBounds = true

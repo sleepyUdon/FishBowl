@@ -129,7 +129,7 @@ class DataManager: NSObject {
         let sortDescriptor = NSSortDescriptor(key:"userID", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+        fetchRequest.returnsObjectsAsFaults = false
         //Execute Fetch Request
         do {
             result = try moc.executeFetchRequest(fetchRequest) as! Array<User>

@@ -59,7 +59,7 @@ class LoginViewController: OAuthViewController {
         loginWithMeetupButton.backgroundColor = MaterialColor.pink.lighten1
         
         loginWithMeetupButton.frame = CGRect(x: CGFloat(0.0), y: backgroundView.frame.height - (50.0), width: backgroundView.frame.width, height: (60.0))
-        backgroundView.addSubview(loginWithMeetupButton)
+        view.addSubview(loginWithMeetupButton)
         loginWithMeetupButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
         
         
