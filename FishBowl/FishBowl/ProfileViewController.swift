@@ -180,6 +180,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let profileView: MaterialView = MaterialView()
         profileView.image = UIImage(named: "photoplaceholder")
         profileView.shape = .Circle
+        profileView.contentMode = .ScaleAspectFit
         cardView.addSubview(profileView)
         self.profileView = profileView
 

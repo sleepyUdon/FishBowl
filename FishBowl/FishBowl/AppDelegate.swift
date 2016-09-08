@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+//        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        application.statusBarHidden = false
         dataManager = DataManager()
         createViewControllerStack()
         self.window!.tintColor = MaterialColor.green.accent4
