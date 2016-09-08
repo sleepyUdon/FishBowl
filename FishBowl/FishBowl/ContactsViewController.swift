@@ -174,7 +174,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         return currentData.count
     }
     
-    
     /*
      @name   cellForRowAtIndexPath
      */
@@ -182,7 +181,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         
         let cell: ContactsTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ContactsTableViewCell
         cell.contact = currentData[indexPath.row] as! User
-        print(cell.contact)
         return cell
     }
     
@@ -327,65 +325,62 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     
     private func updateContactInfo(contactDict:User, id: String) {
         fetchUserInfo(id)
-        //if let user: User = fetchUserInfo(id) {
-//            user.setValue(id, forKey: "userID")
-//            user.setValue(contactDict.name, forKey: "name")
-//            user.setValue(contactDict.email, forKey: "email")
-//            user.setValue(contactDict.company, forKey: "company")
-//            user.setValue(contactDict.phone, forKey: "phone")
-//            user.setValue(contactDict.picture, forKey: "picture")
-//            user.setValue(contactDict.github, forKey: "github")
-//            user.setValue(contactDict.linkedin, forKey: "linkedin")
-//            user.setValue(contactDict.note, forKey: "note")
-//            user.setValue(contactDict.title, forKey: "title")
-//            do {
-//                try user.managedObjectContext?.save()
-//                //print("---------------------------------")
-//                print(user)
-//            }
-//            catch {
-//                let saveError = error as NSError
-//                print("\(saveError), \(saveError.userInfo)")
-//                
-//            }
-        //}
-
+        if let user: User = fetchUserInfo(id) {
+            user.setValue(id, forKey: "userID")
+            user.setValue(contactDict.name, forKey: "name")
+            user.setValue(contactDict.email, forKey: "email")
+            user.setValue(contactDict.company, forKey: "company")
+            user.setValue(contactDict.phone, forKey: "phone")
+            user.setValue(contactDict.picture, forKey: "picture")
+            user.setValue(contactDict.github, forKey: "github")
+            user.setValue(contactDict.linkedin, forKey: "linkedin")
+            user.setValue(contactDict.note, forKey: "note")
+            user.setValue(contactDict.title, forKey: "title")
+            do {
+                try user.managedObjectContext?.save()
+            }
+            catch {
+                let saveError = error as NSError
+                print("\(saveError), \(saveError.userInfo)")
+                
+            }
+        }
     }
     
-    private func fetchUserInfo(contactId: String) {
-        let context = self.appDelegate.managedObjectContext
+    private func fetchUserInfo(contactId: String)->User? {
+        let moc = appDelegate.managedObjectContext
+        
         //create fetch request
-        let fetchRequest = NSFetchRequest(entityName:"User")
-        let predicate = NSPredicate(format: "userID == \(contactId)", argumentArray: nil)
+        let fetchRequest = NSFetchRequest()
+        
+        //create entuity description
+        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: moc)
+        let predicate = NSPredicate(format: "userID == %@", contactId)
+        
         //add sort descriptor
         let sortDescriptor = NSSortDescriptor(key:"userID", ascending: true)
-        
-        print(contactId)
+
         //assign fetch request properties
+        fetchRequest.entity = entityDescription
         fetchRequest.predicate = predicate
-        print(predicate)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchBatchSize = 1
         fetchRequest.fetchLimit = 1
         fetchRequest.returnsObjectsAsFaults = false
         
         //Execute Fetch Request
-        //var result:User?
         do {
-            let result = try context.executeFetchRequest(fetchRequest)
-            print(result)
-            //return result
+            let result = try moc.executeFetchRequest(fetchRequest).first as? User
+            return result
         }
         catch {
             let fetchError = error as NSError
             print(fetchError)
         }
-        //return nil
+        return nil
     }
     
-    // textView Delegate
-    
-    
+    // textView Delegate 
     public func textViewShouldEndEditing(textView: UITextView) -> Bool {
         noteField?.resignFirstResponder()
         return true
@@ -394,7 +389,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
-            
             return false
         }
         return true
@@ -414,7 +408,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
             let scrollPoint:CGPoint = CGPointMake(0.0, self.noteField!.frame.origin.y - kbSize!.height)
             contactsScrollView.setContentOffset(scrollPoint, animated: true)
         }
-        
     }
     
     func keyboardOffScreen(notification: NSNotification){
@@ -422,7 +415,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         contactsScrollView.contentInset = contentInsets
         contactsScrollView.scrollIndicatorInsets = contentInsets
     }
-    
     
     // handle email button
     func handleMailButton(button:UIButton) {
@@ -477,7 +469,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     
     // handle github button
     func handleGithubButton(button:UIButton) {
-        
         let github = button.layer.valueForKey("github") as! String
         UIApplication.sharedApplication().openURL(NSURL(string:github)!)
         
@@ -487,7 +478,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     func handleLinkedinButton(button:UIButton) {
         let linkedin = button.layer.valueForKey("linkedin") as! String
         if linkedin != "" {
-            
             UIApplication.sharedApplication().openURL(NSURL(string:linkedin)!)
             
         }
@@ -500,12 +490,22 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         
         let saveToAddressBook = AddressBook()
         if contact.phone != nil || contact.email != nil {
-            saveToAddressBook.saveToAddressBook(contact.picture, name: contact.name!, email: contact.email, phone: contact.phone!)
-            let contactAddedAlert = UIAlertController(title:"\(contact.name!) was successfully added", message: nil, preferredStyle: .Alert)
+            saveToAddressBook.saveToAddressBook(contact.picture,
+                                                name: contact.name!,
+                                                email: contact.email,
+                                                phone: contact.phone!)
+            
+            let contactAddedAlert = UIAlertController(title:"\(contact.name!) was successfully added",
+                                                      message: nil,
+                                                      preferredStyle: .Alert)
+            
             contactAddedAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
             presentViewController(contactAddedAlert, animated: true, completion: nil)
         }
-        let contactAddedAlert = UIAlertController(title:"\(contact.name!) could not be added to AddressBook. Only members with email address and phone number can be added to AddressBook", message: nil, preferredStyle: .Alert)
+        let contactAddedAlert = UIAlertController(title:"\(contact.name!) could not be added to AddressBook. Only members with email address and phone number can be added to AddressBook",
+                                                  message: nil,
+                                                  preferredStyle: .Alert)
+        
         contactAddedAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
         presentViewController(contactAddedAlert, animated: true, completion: nil)
     }
@@ -536,7 +536,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     
     //fetch contacts
     func getAllContacts() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
         contactsArray = []
         //create fetch request
@@ -554,10 +553,8 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
             if result.count != 0 {
                 for user in result {
                     contactsArray.append(user)
-                    print(contactsArray)
                 }
                 self.currentData = contactsArray
-                print("##################################")
             }
         }
         catch {

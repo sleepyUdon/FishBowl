@@ -59,20 +59,31 @@ public class ParticipantsTableViewCell: UITableViewCell {
             
             let member : Member = self.member
             
-            user.setValue(member.memberId, forKey: "userID")
-            user.setValue(member.memberName, forKey: "name")
-            user.setValue(member.memberBio, forKey: "title")
-            user.setValue(member.memberCompany, forKey: "company")
-            user.setValue(member.memberEmail, forKey: "email")
-            user.setValue(member.memberPhone, forKey: "phone")
-            user.setValue(member.memberGithub, forKey: "github")
-            user.setValue(member.memberLinkedin, forKey: "linkedin")
-            user.setValue(member.memberImage, forKey: "picture")
-            user.setValue(member.memberNote, forKey: "note")
+//            user.setValue(member.memberId, forKey: "userID")
+//            user.setValue(member.memberName, forKey: "name")
+//            user.setValue(member.memberBio, forKey: "title")
+//            user.setValue(member.memberCompany, forKey: "company")
+//            user.setValue(member.memberEmail, forKey: "email")
+//            user.setValue(member.memberPhone, forKey: "phone")
+//            user.setValue(member.memberGithub, forKey: "github")
+//            user.setValue(member.memberLinkedin, forKey: "linkedin")
+//            user.setValue(member.memberImage, forKey: "picture")
+//            user.setValue(member.memberNote, forKey: "note")
+            
+            user.userID = member.memberId
+            user.name = member.memberName
+            user.title = member.memberBio
+            user.company = member.memberCompany
+            user.email = member.memberEmail
+            user.phone = member.memberPhone
+            user.linkedin = member.memberLinkedin
+            user.picture = member.memberImage
+            user.note = member.memberNote
             
             do {
                 //save
                 try user.managedObjectContext?.save()
+                //try context.save()
                 buttonSelected = true
                 
             }
