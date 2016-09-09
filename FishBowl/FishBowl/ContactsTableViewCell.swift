@@ -4,7 +4,7 @@ import Material
 
 
 public class ContactsTableViewCell: UITableViewCell {
-    public lazy var profileView: MaterialView = MaterialView()
+    public lazy var profileView: UIImageView = UIImageView()
     public lazy var nameLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
     //var dataManager: DataManager!
@@ -58,7 +58,8 @@ public class ContactsTableViewCell: UITableViewCell {
     public func prepareImageView()
  {
     profileView.image = UIImage(named: "photoplaceholder")
-    profileView.shape = .Circle
+    profileView.layer.cornerRadius = profileView.frame.width/2
+    profileView.contentMode = .ScaleAspectFill
     profileView.backgroundColor = Color.greyDark
     profileView.clipsToBounds = true
     addSubview(profileView)

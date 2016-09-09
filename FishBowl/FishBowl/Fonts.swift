@@ -18,5 +18,6 @@ public struct Fonts{
     static let bodyGrey = MaterialFont.systemFontWithSize(16)
     static let navigationTitle = MaterialFont.systemFontWithSize(24)
     static let smallfont = MaterialFont.systemFontWithSize(10)
+    static let pinkTitle = MaterialFont.systemFontWithSize(14)
 
 }

@@ -80,7 +80,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         closeButton.setImage(closeImage, forState: .Normal)
         closeButton.setImage(closeImage, forState: .Highlighted)
         view.addSubview(closeButton)
-        closeButton.addTarget(self, action: #selector(handleCloseViewButton), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(handleCloseViewButton), forControlEvents: .TouchDown)
     }
     
     
@@ -202,7 +202,8 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         
         // set cardview
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        contactsScrollView = UIScrollView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: view.frame.height-20))
+        cardView.pulseAnimation = .None
+        contactsScrollView = UIScrollView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: view.frame.height))
         contactsScrollView.bounces = false
         contactsScrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
         contactsScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
@@ -210,11 +211,11 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         contactsScrollView.addSubview(cardView)
         view.addSubview(contactsScrollView)
         
-        
-        let profileView: MaterialView = MaterialView(frame: CGRect(x: view.bounds.width/2 - 50, y: 20, width: 100, height: 100))
+        let profileView: UIImageView = UIImageView(frame: CGRect(x: 20.0, y: 20.0, width: 70, height: 70))
         profileView.image = UIImage(data: contact.picture!)
-        profileView.cornerRadius = 50
-        profileView.contentMode = .ScaleAspectFit
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 35
+        profileView.contentMode = .ScaleAspectFill
         cardView.addSubview(profileView)
         
         let closeImage: UIImage? = MaterialIcon.cm.close
@@ -224,34 +225,74 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         closeButton.setImage(closeImage, forState: .Highlighted)
         cardView.addSubview(closeButton)
         closeButton.tag = indexPath.row
-        closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .TouchDown)
         
         
         // set labels
-        let nameLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 130, width: 200, height: 30))
+        let nameLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 20.0, width: view.frame.width-200.0, height: 25))
         nameLabel.text = contact.name
-        nameLabel.textAlignment = .Center
+        nameLabel.numberOfLines = 0
         nameLabel.font = Fonts.title
         nameLabel.textColor = Color.greyDark
         cardView.addSubview(nameLabel)
         
-        
-        let titleLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 160, width: 200, height: 30))
+        let titleLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 45, width: view.frame.width-200.0, height: 25))
         titleLabel.text = contact.title
-        titleLabel.textAlignment = .Center
+        titleLabel.numberOfLines = 0
         titleLabel.font = Fonts.bodyGrey
         titleLabel.textColor = Color.greyMedium
         cardView.addSubview(titleLabel)
         
-        let companyLabel: UILabel = UILabel(frame: CGRect(x: view.bounds.width/2 - 100, y: 190, width: 200, height: 30))
-        companyLabel.font = Fonts.title
+        let companyLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 70, width: view.frame.width-200.0, height: 25))
+        companyLabel.font = Fonts.bodyGrey
         companyLabel.text = contact.valueForKey("company") as? String
-        companyLabel.textAlignment = .Center
         companyLabel.textColor = Color.greyMedium
         cardView.addSubview(companyLabel)
         
+        let phoneTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 100, width: view.frame.width-40.0, height: 30))
+        phoneTitle.font = Fonts.pinkTitle
+        phoneTitle.text = "Phone"
+        phoneTitle.textColor = Color.accentColor1
+        cardView.addSubview(phoneTitle)
+        
+        let phoneNumber: UILabel = UILabel(frame: CGRect(x: 20.0, y: 120.0, width: view.frame.width-40.0, height: 30))
+        phoneNumber.font = Fonts.bodyGrey
+        phoneNumber.text = "(647)836-5162"
+        phoneNumber.textColor = Color.greyDark
+        cardView.addSubview(phoneNumber)
+        
+        let phoneImage: UIImage? = UIImage(named:"phone.png")
+        let phoneButton: UIButton = UIButton(frame: CGRect(x:  view.frame.width - 70.0, y: 110.0, width: 50, height: 50))
+        phoneButton.tintColor = Color.accentColor1
+        phoneButton.setImage(phoneImage, forState: .Normal)
+        phoneButton.setImage(phoneImage, forState: .Highlighted)
+        phoneButton.layer.setValue(contact.phone, forKey: "phone")
+        cardView.addSubview(phoneButton)
+        phoneButton.addTarget(self, action: #selector(handlePhoneButton), forControlEvents: .TouchUpInside)
+        
+        let messageImage: UIImage? = UIImage(named: "message")
+        let messageButton: UIButton = UIButton(frame: CGRect(x: view.frame.width - 110.0, y: 110.0, width: 50, height: 50))
+        messageButton.tintColor = Color.accentColor1
+        messageButton.setImage(messageImage, forState: .Normal)
+        messageButton.setImage(messageImage, forState: .Highlighted)
+        messageButton.layer.setValue(contact.phone, forKey: "phone")
+        cardView.addSubview(messageButton)
+        messageButton.addTarget(self, action: #selector(handleMessageButton), forControlEvents: .TouchUpInside)
+        
+        let emailTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 160.0, width: view.frame.width-40.0, height: 30))
+        emailTitle.font = Fonts.pinkTitle
+        emailTitle.text = "Email"
+        emailTitle.textColor = Color.accentColor1
+        cardView.addSubview(emailTitle)
+        
+        let emailAddress: UILabel = UILabel(frame: CGRect(x: 20.0, y: 180.0, width: view.frame.width-40.0, height: 30))
+        emailAddress.font = Fonts.bodyGrey
+        emailAddress.text = "vivianechan@hotmail.com"
+        emailAddress.textColor = Color.greyDark
+        cardView.addSubview(emailAddress)
+        
         let mailImage: UIImage? = UIImage(named: "mail")
-        let mailButton: UIButton = UIButton(frame: CGRect(x: 40, y: 200, width: 50, height: 50))
+        let mailButton: UIButton = UIButton(frame: CGRect(x: view.frame.width - 70.0, y: 170.0, width:50, height: 50))
         mailButton.tintColor = Color.baseColor1
         mailButton.setImage(mailImage, forState: .Normal)
         mailButton.setImage(mailImage, forState: .Highlighted)
@@ -259,29 +300,20 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(mailButton)
         mailButton.addTarget(self, action: #selector(handleMailButton), forControlEvents: .TouchUpInside)
         
+        let githubTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 220, width: view.frame.width-40.0, height: 30))
+        githubTitle.font = Fonts.pinkTitle
+        githubTitle.text = "Github"
+        githubTitle.textColor = Color.accentColor1
+        cardView.addSubview(githubTitle)
         
-        let messageImage: UIImage? = UIImage(named: "message")
-        let messageButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width/2 - 25, y: 200, width: 50, height: 50))
-        messageButton.tintColor = Color.baseColor1
-        messageButton.setImage(messageImage, forState: .Normal)
-        messageButton.setImage(messageImage, forState: .Highlighted)
-        messageButton.layer.setValue(contact.phone, forKey: "phone")
-        cardView.addSubview(messageButton)
-        messageButton.addTarget(self, action: #selector(handleMessageButton), forControlEvents: .TouchUpInside)
-        
-        
-        let phoneImage: UIImage? = UIImage(named:"phone.png")
-        let phoneButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width - 90, y: 200, width: 50, height: 50))
-        phoneButton.tintColor = Color.baseColor1
-        phoneButton.setImage(phoneImage, forState: .Normal)
-        phoneButton.setImage(phoneImage, forState: .Highlighted)
-        phoneButton.layer.setValue(contact.phone, forKey: "phone")
-        cardView.addSubview(phoneButton)
-        phoneButton.addTarget(self, action: #selector(handlePhoneButton), forControlEvents: .TouchUpInside)
-        
+        let githubLink: UILabel = UILabel(frame: CGRect(x: 20.0, y: 240.0, width: view.frame.width-40.0, height: 30))
+        githubLink.font = Fonts.bodyGrey
+        githubLink.text = "github/sleepyudon"
+        githubLink.textColor = Color.greyDark
+        cardView.addSubview(githubLink)
         
         let githubImage: UIImage? = UIImage(named: "github")
-        let githubButton: UIButton = UIButton(frame: CGRect(x: 40, y: 250, width: 50, height: 50))
+        let githubButton: UIButton = UIButton(frame: CGRect(x: view.frame.width - 75.0, y: 220.0, width:60, height: 60))
         githubButton.tintColor = Color.baseColor1
         githubButton.setImage(githubImage, forState: .Normal)
         githubButton.setImage(githubImage, forState: .Highlighted)
@@ -289,9 +321,20 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(githubButton)
         githubButton.addTarget(self, action: #selector(handleGithubButton), forControlEvents: .TouchUpInside)
         
+        let linkedinTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 280.0, width: view.frame.width-40.0, height: 30))
+        linkedinTitle.font = Fonts.pinkTitle
+        linkedinTitle.text = "LinkedIn"
+        linkedinTitle.textColor = Color.accentColor1
+        cardView.addSubview(linkedinTitle)
+        
+        let linkedinLink: UILabel = UILabel(frame: CGRect(x: 20.0, y: 300.0, width: view.frame.width-40.0, height: 30))
+        linkedinLink.font = Fonts.bodyGrey
+        linkedinLink.text = "linkedin/Viviane"
+        linkedinLink.textColor = Color.greyDark
+        cardView.addSubview(linkedinLink)
         
         let linkedinImage: UIImage? = UIImage(named: "linkedin")
-        let linkedinButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width/2 - 25, y: 250, width: 50, height: 50))
+        let linkedinButton: UIButton = UIButton(frame: CGRect(x: view.frame.width - 75.0, y: 280.0, width:60, height: 60))
         linkedinButton.tintColor = Color.baseColor1
         linkedinButton.setImage(linkedinImage, forState: .Normal)
         linkedinButton.setImage(linkedinImage, forState: .Highlighted)
@@ -299,21 +342,27 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(linkedinButton)
         linkedinButton.addTarget(self, action: #selector(handleLinkedinButton), forControlEvents: .TouchUpInside)
         
-        let addContactImage: UIImage? = UIImage(named: "addContact")
-        let phoneContactButton: UIButton = UIButton(frame: CGRect(x: view.bounds.width - 80, y: 260, width: 30, height: 30))
-        phoneContactButton.setImage(addContactImage, forState: .Normal)
-        phoneContactButton.setImage(addContactImage, forState: .Highlighted)
-        cardView.addSubview(phoneContactButton)
-        phoneContactButton.tag = indexPath.row
-        phoneContactButton.addTarget(self, action: #selector(handlerSaveToAddressBook), forControlEvents: .TouchUpInside)
+        let addContactTitle: UIButton = UIButton(frame: CGRect(x: 20.0, y: 350.0, width: view.frame.width-40.0, height: 30))
+        addContactTitle.setTitle("Save Contact to Phone Address Book", forState: .Normal)
+        addContactTitle.setTitleColor(Color.accentColor1, forState: .Normal)
+        addContactTitle.setTitleColor(Color.greyDark, forState: .Selected)
+        addContactTitle.layer.cornerRadius = 15.0
+        addContactTitle.layer.borderWidth = 1.0
+        addContactTitle.layer.borderColor = Color.accentColor1.CGColor
+        addContactTitle.titleLabel?.textAlignment = .Center
+        addContactTitle.titleLabel?.font = Fonts.pinkTitle
+        addContactTitle.tag = indexPath.row
+        addContactTitle.addTarget(self, action: #selector(handlerSaveToAddressBook), forControlEvents: .TouchUpInside)
+        cardView.addSubview(addContactTitle)
         
         
-        let noteText = UILabel(frame: CGRect(x: 40, y: 320, width: view.bounds.width - 100.0, height: 30))
-        noteText.text = "Notes"
-        noteText.font = Fonts.title
-        cardView.addSubview(noteText)
+        let notesTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 400.0, width: view.frame.width-40.0, height: 30))
+        notesTitle.font = Fonts.pinkTitle
+        notesTitle.text = "Notes"
+        notesTitle.textColor = Color.accentColor1
+        cardView.addSubview(notesTitle)
         
-        let noteField = UITextView(frame: CGRect(x: 40, y: 350, width: view.bounds.width - 80.0, height: view.bounds.height - 400))
+        let noteField = UITextView(frame: CGRect(x: 20, y: 430.0, width: view.bounds.width - 40.0, height: 30.0))
         noteField.backgroundColor = MaterialColor.grey.lighten2
         noteField.font = Fonts.bodyGrey
         noteField.text = contact.note

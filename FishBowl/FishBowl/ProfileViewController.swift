@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var userID: String?
     
     var activeField: UITextField?
-    var profileView: MaterialView!
+    var profileView: UIImageView!
     var nameTextField : UITextField!
     var titleTextField : UITextField!
     var companyTextField : UITextField!
@@ -80,7 +80,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     func keyboardOffScreen(notification: NSNotification){
-        let contentInsets:UIEdgeInsets = UIEdgeInsetsZero
+        let contentInsets = UIEdgeInsetsMake(0, 0, -200, 0);
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
@@ -116,7 +116,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             userInfo.setValue(emailTextField.text, forKey: "email")
             userInfo.setValue(companyTextField.text, forKey: "company")
             userInfo.setValue(removeNonNumericCharsFromString(phoneTextField.text!), forKey: "phone")
-            userInfo.setValue(UIImagePNGRepresentation(self.profileView.image!), forKey: "picture")
+            userInfo.setValue(UIImageJPEGRepresentation(self.profileView.image!, 1.0), forKey: "picture")
             userInfo.setValue(githubTextField.text, forKey: "github")
             userInfo.setValue(linkedinTextField.text, forKey: "linkedin")
             userInfo.setValue(titleTextField.text, forKey: "title")
@@ -156,17 +156,17 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             user.phone = removeNonNumericCharsFromString(phoneTextField.text!)
             user.github = githubTextField.text
             user.linkedin = linkedinTextField.text
-            user.picture = UIImagePNGRepresentation(self.profileView.image!)
+            user.picture = UIImageJPEGRepresentation(self.profileView.image!, 1.0)
             
-            self.ref.child("users").child(user.userID).setValue(user.userID)
-            self.ref.child("user/name").setValue(user.name)
-            self.ref.child("user/title").setValue(user.title)
-            self.ref.child("user/company").setValue(user.company)
-            self.ref.child("user/email").setValue(user.email)
-            self.ref.child("user/phone").setValue(user.phone)
-            self.ref.child("user/github").setValue(user.github)
-            self.ref.child("user/linkedin").setValue(user.linkedin)
-            self.ref.child("user/picture").setValue(user.picture)
+//            self.ref.child("users").child(user.userID).setValue(user.userID)
+//            self.ref.child("user/name").setValue(user.name)
+//            self.ref.child("user/title").setValue(user.title)
+//            self.ref.child("user/company").setValue(user.company)
+//            self.ref.child("user/email").setValue(user.email)
+//            self.ref.child("user/phone").setValue(user.phone)
+//            self.ref.child("user/github").setValue(user.github)
+//            self.ref.child("user/linkedin").setValue(user.linkedin)
+//            self.ref.child("user/picture").setValue(user.picture)
             
             do {
                 //save
@@ -195,91 +195,89 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     private func prepareCardView() {
   
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        cardView.cornerRadius = 0
-        scrollView = UIScrollView(frame: view.bounds)
+        cardView.pulseAnimation = .None
+        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height-44))
         scrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
         scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         scrollView.contentSize = cardView.bounds.size
+        scrollView.bounces = false
         scrollView.addSubview(cardView)
         view.addSubview(scrollView)
         
-        let switchbutton = MaterialSwitch(state: .On, style: .Default, size:.Large)
-        switchbutton.trackOnColor = Color.accentColor1
-        switchbutton.buttonOnColor = Color.baseColor1
-        switchbutton.buttonOffColor = Color.baseColor1
-        cardView.addSubview(switchbutton)
-
-        let shareContact: UILabel = UILabel()
+        // prepare labels and buttons
+        
+        let shareContact: UILabel = UILabel(frame:CGRect(x: 20.0, y: 20.0, width: view.frame.width/2, height: 30))
         shareContact.text = "Share Contact"
         shareContact.font = Fonts.title
         shareContact.textColor = MaterialColor.black
         cardView.addSubview(shareContact)
-
-        // prepare icons
         
-        let profileView: MaterialView = MaterialView()
-        profileView.image = UIImage(named: "photoplaceholder")
-        profileView.shape = .Circle
-        profileView.contentMode = .ScaleAspectFit
-        cardView.addSubview(profileView)
-        self.profileView = profileView
-
-        let cameraButton = UIButton()
-        cameraButton.backgroundColor = MaterialColor.clear
-        cardView.addSubview(cameraButton)
-        cameraButton.addTarget(self, action: #selector(handleCameraButton), forControlEvents: .TouchUpInside)
-
- 
-        // prepare labels
+        let switchbutton = MaterialSwitch(state: .On, style: .Default, size: .Large)
+        switchbutton.frame = CGRect(x: view.frame.width-20-50, y: 20, width: 50, height: 30)
+        switchbutton.trackOnColor = Color.accentColor1
+        switchbutton.buttonOnColor = Color.baseColor1
+        switchbutton.buttonOffColor = Color.baseColor1
+        cardView.addSubview(switchbutton)
         
-        let photoLabel: UILabel = UILabel()
+        let photoLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 70, width: 50, height: 30))
         photoLabel.text = "Photo"
         photoLabel.font = Fonts.title
         photoLabel.textColor = MaterialColor.black
         cardView.addSubview(photoLabel)
-
-        let nameLabel: UILabel = UILabel()
+        
+        let profileView: UIImageView = UIImageView(frame:CGRect(x: view.frame.width - 50 - 20 , y: 65, width: 50, height: 50))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 25.0
+        profileView.image = UIImage(named: "photoplaceholder")
+        cardView.addSubview(profileView)
+        self.profileView = profileView
+        
+        let cameraButton = UIButton(frame:CGRect(x: view.frame.width - 50 - 20 , y: 70, width: 50, height: 50))
+        cameraButton.backgroundColor = MaterialColor.clear
+        cardView.addSubview(cameraButton)
+        cameraButton.addTarget(self, action: #selector(handleCameraButton), forControlEvents: .TouchUpInside)
+        
+        let nameLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 120, width: 100, height: 30))
         nameLabel.text = "Name"
         nameLabel.font = Fonts.title
         nameLabel.textColor = MaterialColor.black
         cardView.addSubview(nameLabel)
-
-        let titleLabel: UILabel = UILabel()
+        
+        let titleLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 170, width: 100, height: 30))
         titleLabel.text = "Title"
         titleLabel.font = Fonts.title
         titleLabel.textColor = MaterialColor.black
         cardView.addSubview(titleLabel)
         
-        let companyLabel: UILabel = UILabel()
+        let companyLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 220, width: 100, height: 30))
         companyLabel.text = "Company"
         companyLabel.font = Fonts.title
         companyLabel.textColor = MaterialColor.black
         cardView.addSubview(companyLabel)
         
-        let emailLabel: UILabel = UILabel()
+        let emailLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 270, width: 100, height: 30))
         emailLabel.text = "Email"
         emailLabel.font = Fonts.title
         emailLabel.textColor = MaterialColor.black
         cardView.addSubview(emailLabel)
         
-        let phoneLabel: UILabel = UILabel()
+        let phoneLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 320, width: 100, height: 30))
         phoneLabel.text = "Phone"
         phoneLabel.font = Fonts.title
         phoneLabel.textColor = MaterialColor.black
         cardView.addSubview(phoneLabel)
-
-        let githubLabel: UILabel = UILabel()
+        
+        let githubLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 370, width: 100, height: 30))
         githubLabel.text = "Github"
         githubLabel.font = Fonts.title
         githubLabel.textColor = MaterialColor.black
         cardView.addSubview(githubLabel)
         
-        let linkedinLabel: UILabel = UILabel()
+        let linkedinLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 420, width: 100, height: 30))
         linkedinLabel.text = "Linkedin"
         linkedinLabel.font = Fonts.title
         linkedinLabel.textColor = MaterialColor.black
         cardView.addSubview(linkedinLabel)
-
         
         // prepare textfields
         // get logged in user name and title from meetup
@@ -305,10 +303,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             self.titleTextField.text = userInfo["title"] as? String
             
         }
-
-        let nameTextfield: UITextField = UITextField()
+        
+        let nameTextfield: UITextField = UITextField(frame:CGRect(x:120 , y: 120, width: view.frame.width - 140, height: 30))
         nameTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Name",
-                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+                                                                 attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         nameTextfield.font = Fonts.bodyGrey
         nameTextfield.textAlignment = .Right
         nameTextfield.textColor = Color.greyMedium
@@ -318,8 +316,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         self.nameTextField = nameTextfield
         
         
-
-        let titleTextfield: UITextField = UITextField()
+        
+        let titleTextfield: UITextField = UITextField(frame:CGRect(x:120 , y: 170, width: view.frame.width - 140, height: 30))
         titleTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Title",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         titleTextfield.font = Fonts.bodyGrey
@@ -329,30 +327,33 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         titleTextfield.delegate = self
         //titleTextfield.text = user.title
         self.titleTextField = titleTextfield
-
         
-        let companyTextfield: UITextField = UITextField()
+        
+        let companyTextfield: UITextField = UITextField(frame:CGRect(x:120 , y: 220, width: view.frame.width - 140, height: 30))
         companyTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Company",
-                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+                                                                    attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         companyTextfield.font = Fonts.bodyGrey
         companyTextfield.textAlignment = .Right
+        companyTextfield.textColor = Color.greyMedium
         cardView.addSubview(companyTextfield)
         companyTextfield.delegate = self
         self.companyTextField = companyTextfield
-
-
-        let emailTextfield: UITextField = UITextField()
+        
+        
+        let emailTextfield: UITextField = UITextField(frame:CGRect(x:90 , y: 270, width: view.frame.width - 110, height: 30))
         emailTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Email",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         emailTextfield.font = Fonts.bodyGrey
         emailTextfield.textAlignment = .Right
+        emailTextfield.autocapitalizationType = UITextAutocapitalizationType.None
+        emailTextfield.textColor = Color.greyMedium
         cardView.addSubview(emailTextfield)
         emailTextfield.delegate = self
         self.emailTextField = emailTextfield
-
-        let phoneTextfield: UITextField = UITextField()
+        
+        let phoneTextfield: UITextField = UITextField(frame:CGRect(x:90 , y: 320, width: view.frame.width - 110, height: 30))
         phoneTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Phone",
-                                                               attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         phoneTextfield.font = Fonts.bodyGrey
         phoneTextfield.textAlignment = .Right
         phoneTextfield.textColor = Color.greyMedium
@@ -361,142 +362,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         phoneTextfield.keyboardType = UIKeyboardType.NumberPad
         phoneTextfield.tag = 22
         self.phoneTextField = phoneTextfield
-
-
-        let githubTextfield: UITextField = UITextField()
+        
+        
+        let githubTextfield: UITextField = UITextField(frame:CGRect(x:90 , y: 370, width: view.frame.width - 110, height: 30))
         githubTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Github",
-                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         githubTextfield.font = Fonts.bodyGrey
         githubTextfield.textAlignment = .Right
+        githubTextfield.autocapitalizationType = UITextAutocapitalizationType.None
         githubTextfield.textColor = Color.greyMedium
         cardView.addSubview(githubTextfield)
         githubTextfield.delegate = self
         self.githubTextField = githubTextfield
-
-        let linkedinTextfield: UITextField = UITextField()
+        
+        let linkedinTextfield: UITextField = UITextField(frame:CGRect(x:90 , y: 420, width: view.frame.width - 110, height: 30))
         linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"Enter LinkedIn",
-                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
-        linkedinTextfield.font = MaterialFont.systemFontWithSize(13)
+                                                                     attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+        linkedinTextfield.font = Fonts.bodyGrey
         linkedinTextfield.textAlignment = .Right
+        linkedinTextfield.autocapitalizationType = UITextAutocapitalizationType.None
         linkedinTextfield.textColor = Color.greyMedium
         cardView.addSubview(linkedinTextfield)
         linkedinTextfield.delegate = self
         self.linkedinTextField = linkedinTextfield
 
-        // layout elements
-        
-        switchbutton.grid.rows = 1
-        switchbutton.grid.columns = 2
-        switchbutton.grid.offset.columns = 10
-        
-        profileView.grid.rows = 1
-        profileView.grid.columns = 2
-        profileView.grid.offset.rows = 1
-        profileView.grid.offset.columns = 10
-        
-        cameraButton.grid.rows = 1
-        cameraButton.grid.columns = 7
-        cameraButton.grid.offset.rows = 1
-        cameraButton.grid.offset.columns = 5
-        
-        shareContact.grid.rows = 1
-        shareContact.grid.columns = 5
-        
-        photoLabel.grid.rows = 1
-        photoLabel.grid.columns = 5
-        photoLabel.grid.offset.rows = 1
-
-        nameLabel.grid.rows = 1
-        nameLabel.grid.columns = 5
-        nameLabel.grid.offset.rows = 2
-
-        titleLabel.grid.rows = 1
-        titleLabel.grid.columns = 5
-        titleLabel.grid.offset.rows = 3
-        
-        companyLabel.grid.rows = 1
-        companyLabel.grid.columns = 5
-        companyLabel.grid.offset.rows = 4
-        
-        emailLabel.grid.rows = 1
-        emailLabel.grid.columns = 5
-        emailLabel.grid.offset.rows = 5
-        
-        phoneLabel.grid.rows = 1
-        phoneLabel.grid.columns = 3
-        phoneLabel.grid.offset.rows = 6
-        
-        githubLabel.grid.rows = 1
-        githubLabel.grid.columns = 5
-        githubLabel.grid.offset.rows = 7
-        
-        linkedinLabel.grid.rows = 1
-        linkedinLabel.grid.columns = 5
-        linkedinLabel.grid.offset.rows = 8
-        
-        nameTextfield.grid.rows = 1
-        nameTextfield.grid.columns = 8
-        nameTextfield.grid.offset.rows = 2
-        nameTextfield.grid.offset.columns = 4
-
-        titleTextfield.grid.rows = 1
-        titleTextfield.grid.columns = 8
-        titleTextfield.grid.offset.rows = 3
-        titleTextfield.grid.offset.columns = 4
-
-        companyTextfield.grid.rows = 1
-        companyTextfield.grid.columns = 8
-        companyTextfield.grid.offset.rows = 4
-        companyTextfield.grid.offset.columns = 4
-
-        emailTextfield.grid.rows = 1
-        emailTextfield.grid.columns = 8
-        emailTextfield.grid.offset.rows = 5
-        emailTextfield.grid.offset.columns = 4
-
-        phoneTextfield.grid.rows = 1
-        phoneTextfield.grid.columns = 8
-        phoneTextfield.grid.offset.rows = 6
-        phoneTextfield.grid.offset.columns = 4
-        
-        githubTextfield.grid.rows = 1
-        githubTextfield.grid.columns = 8
-        githubTextfield.grid.offset.rows = 7
-        githubTextfield.grid.offset.columns = 4
-
-        linkedinTextfield.grid.rows = 1
-        linkedinTextfield.grid.columns = 8
-        linkedinTextfield.grid.offset.rows = 8
-        linkedinTextfield.grid.offset.columns = 4
-        
-        cardView.grid.spacing = 2
-        cardView.grid.axis.direction = .None
-        cardView.grid.contentInsetPreset = .Square3
-        cardView.grid.views = [
-            switchbutton,
-            profileView,
-            cameraButton,
-            
-            photoLabel,
-            shareContact,
-            profileView,
-            nameLabel,
-            titleLabel,
-            companyLabel,
-            emailLabel,
-            phoneLabel,
-            githubLabel,
-            linkedinLabel,
-            
-            nameTextfield,
-            titleTextfield,
-            companyTextfield,
-            emailTextfield,
-            phoneTextfield,
-            githubTextfield,
-            linkedinTextfield,
-            
-        ]
     }
     
     // Prepares the navigationItem.
@@ -521,18 +410,51 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     // Handle Camera Button
     func handleCameraButton(){
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = false
-        picker.sourceType = .Camera
+        let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default)
+        {
+            UIAlertAction in
+            self.openCamera()
+        }
+        let galleryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default)
+        {
+            UIAlertAction in
+            self.openGallery()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel)
+        {
+            UIAlertAction in
+        }
         
-        presentViewController(picker, animated: true, completion: nil)
+        // Add the actions
+        picker.delegate = self
+        alert.addAction(cameraAction)
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+            picker.sourceType = UIImagePickerControllerSourceType.Camera
+            self .presentViewController(picker, animated: true, completion: nil)
+        }else{
+            let alert = UIAlertView()
+            alert.title = "Warning"
+            alert.message = "You don't have camera"
+            alert.addButtonWithTitle("OK")
+            alert.show()
+        }
+    }
+    func openGallery(){
+        picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        self.presentViewController(picker, animated: true, completion: nil)
+    }
+
     
     /// Save Picture
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let pickedImage: UIImage = (info as NSDictionary).objectForKey(UIImagePickerControllerOriginalImage) as! UIImage
-        profileView.contentMode = .ScaleAspectFit
         profileView.image = pickedImage
         self.dismissViewControllerAnimated(true, completion: nil)
     }
