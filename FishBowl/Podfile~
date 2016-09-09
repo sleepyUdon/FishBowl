@@ -9,4 +9,5 @@ target 'FishBowl' do
   pod 'Prephirences'
   pod 'Prephirences/CoreData'
   pod 'Firebase'
+  pod 'Firebase/Database'
 end

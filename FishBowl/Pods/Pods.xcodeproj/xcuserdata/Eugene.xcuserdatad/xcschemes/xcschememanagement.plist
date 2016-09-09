@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Prephirences.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -52,27 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1D456DE6BE87B39E2E6A6CDCBC91F05E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>45935B91DF0442390E2CA6DEEF68AE99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>645B2F903DC82421E6741B6DC5D169B9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>99A73CE60A7CE4B3ED9B757CFB0E993A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9CFFB71A70C720CD2B98720CAEB726B4</key>
+		<key>7F6340581E0C0938DAD1F72932987E39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
