@@ -19,9 +19,7 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-//        self.webView.frame = UIScreen.mainScreen().bounds
         let width = UIScreen.mainScreen().bounds.width
         let height = UIScreen.mainScreen().bounds.height
         self.webView.frame = CGRectMake(0, 20, width, height)
@@ -29,7 +27,6 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         self.webView.delegate = self
         self.view.addSubview(self.webView)
         loadAddressURL()
-
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -64,7 +61,7 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         guard let url = request.URL else {
             return false
         }
-        guard url.host == "CardBowlTest" else {
+        guard url.host == "FishBowlKomrad" else {
             print(url)
             return true
         }

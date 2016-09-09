@@ -174,6 +174,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         return currentData.count
     }
     
+    
     /*
      @name   cellForRowAtIndexPath
      */
@@ -324,7 +325,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     }
     
     private func updateContactInfo(contactDict:User, id: String) {
-        fetchUserInfo(id)
         if let user: User = fetchUserInfo(id) {
             user.setValue(id, forKey: "userID")
             user.setValue(contactDict.name, forKey: "name")

@@ -29,17 +29,12 @@ class APIController: UIViewController {
     // MARK - MeetUP Auth
     
     func doAuthMeetup() {
-        print("authorizing")
-        //login thru safari and go back to the view controller
-//        if #available(iOS 9.0, *) {
-//            UIApplication.sharedApplication().openURL( NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!)
-//        }
         let webVC: WebViewController = WebViewController()
         oauthswift.authorize_url_handler = webVC
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
-            NSURL(string: "CardBowlTest://CardBowlTest/Meetup")!,
+            NSURL(string: "FishBowlKomrad://FishBowlKomrad/Meetup")!,
             scope: "",state: "",
             success: { credential, response, parameters in
                 AppDelegate.token = credential.oauth_token
@@ -78,7 +73,7 @@ class APIController: UIViewController {
     
     //get all events under signed in user
     func getEvents(token: String, handler:(eventsDict: NSArray)->()) {
-        oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=20",
+        oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=200",
             success: {
                         data, response in
                         //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
@@ -116,13 +111,11 @@ class APIController: UIViewController {
                         catch {
                             print(error)
                         }
-                
             },
               failure: {
                         error in
                         print(error)
-        })
-        
+        })  
     }
 
     

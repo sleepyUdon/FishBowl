@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let picker = UIImagePickerController()
+    var userID: String?
     
     var activeField: UITextField?
     var profileView: MaterialView!
@@ -30,16 +31,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var phoneTextField : UITextField!
     var githubTextField : UITextField!
     var linkedinTextField : UITextField!
-    
-    let ref = FIRDatabase.database().reference()
+    var ref: FIRDatabaseReference!
     
     //    viewDid Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        //start create database reference
+        self.ref = FIRDatabase.database().reference()
+        
         prepareView()
+        prepareCardView()
         prepareSaveButton()
         prepareCancelButton()
-        prepareCardView()
         prepareNavigationItem()
         prepareNavigationBar()
     }
@@ -105,39 +108,78 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     //handle save and cancel button
     func handleSaveButton() {
-        
-        let context = self.appDelegate.managedObjectContext
-        let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
-        
-        user.name = nameTextField.text
-        user.title = titleTextField.text
-        user.company = companyTextField.text
-        user.email = emailTextField.text
-        
-        user.phone = removeNonNumericCharsFromString(phoneTextField.text!)
-        user.github = githubTextField.text
-        user.linkedin = linkedinTextField.text
-        user.picture = UIImagePNGRepresentation(self.profileView.image!)
-        
-        do {
-            //save
-            try user.managedObjectContext?.save()
-            dismissViewControllerAnimated(true, completion: nil)
+        print(self.userID)
+        //update same user in core data
+        if let userInfo: User = self.fetchUserDetails(self.userID!) {
+            userInfo.setValue(self.userID, forKey: "userID")
+            userInfo.setValue(nameTextField.text, forKey: "name")
+            userInfo.setValue(emailTextField.text, forKey: "email")
+            userInfo.setValue(companyTextField.text, forKey: "company")
+            userInfo.setValue(removeNonNumericCharsFromString(phoneTextField.text!), forKey: "phone")
+            userInfo.setValue(UIImagePNGRepresentation(self.profileView.image!), forKey: "picture")
+            userInfo.setValue(githubTextField.text, forKey: "github")
+            userInfo.setValue(linkedinTextField.text, forKey: "linkedin")
+            userInfo.setValue(titleTextField.text, forKey: "title")
+            
+            let key = ref.child(<#T##pathString: String##String#>)
+            
+//            self.ref.child("user/id").setValue(userInfo.userID)
+//            self.ref.child("user/name").setValue(userInfo.name)
+//            self.ref.child("user/title").setValue(userInfo.title)
+//            self.ref.child("user/company").setValue(userInfo.company)
+//            self.ref.child("user/email").setValue(userInfo.email)
+//            self.ref.child("user/phone").setValue(userInfo.phone)
+//            self.ref.child("user/github").setValue(userInfo.github)
+//            self.ref.child("user/linkedin").setValue(userInfo.linkedin)
+//            self.ref.child("user/picture").setValue(userInfo.picture)
+            
+            do {
+                //save
+                try userInfo.managedObjectContext?.save()
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+            catch {
+                let saveError = error as NSError
+                print("\(saveError), \(saveError.userInfo)")
+                
+            }
         }
-        catch {
-            let saveError = error as NSError
-            print("\(saveError), \(saveError.userInfo)")
+        //if there is no such user in core data then create new one
+        else {
+            let context = self.appDelegate.managedObjectContext
+            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+            user.userID = self.userID!
+            user.name = nameTextField.text
+            user.title = titleTextField.text
+            user.company = companyTextField.text
+            user.email = emailTextField.text
+            user.phone = removeNonNumericCharsFromString(phoneTextField.text!)
+            user.github = githubTextField.text
+            user.linkedin = linkedinTextField.text
+            user.picture = UIImagePNGRepresentation(self.profileView.image!)
+            
+            self.ref.child("users").child(user.userID).setValue(user.userID)
+            self.ref.child("user/name").setValue(user.name)
+            self.ref.child("user/title").setValue(user.title)
+            self.ref.child("user/company").setValue(user.company)
+            self.ref.child("user/email").setValue(user.email)
+            self.ref.child("user/phone").setValue(user.phone)
+            self.ref.child("user/github").setValue(user.github)
+            self.ref.child("user/linkedin").setValue(user.linkedin)
+            self.ref.child("user/picture").setValue(user.picture)
+            
+            do {
+                //save
+                try user.managedObjectContext?.save()
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+            catch {
+                let saveError = error as NSError
+                print("\(saveError), \(saveError.userInfo)")
+                
+            }
 
         }
-        
-        self.ref.child("user/name").setValue(user.name)
-        self.ref.child("user/title").setValue(user.title)
-        self.ref.child("user/company").setValue(user.company)
-        self.ref.child("user/email").setValue(user.email)
-        self.ref.child("user/phone").setValue(user.phone)
-        self.ref.child("user/github").setValue(user.github)
-        self.ref.child("user/linkedin").setValue(user.linkedin)
-        self.ref.child("user/picture").setValue(user.picture)
     }
     
     internal func handleCancelButton() {
@@ -151,9 +193,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     // Layout View
     private func prepareCardView() {
-        
-        
-        
+  
         let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
         cardView.cornerRadius = 0
         scrollView = UIScrollView(frame: view.bounds)
@@ -246,9 +286,24 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         //and assign these data to appropriate text fields by default
         let appDelegate = self.appDelegate.dataManager
         appDelegate?.grabUserFromAPI { (userInfo) in
-            //print(userInfo["name"])
+            
+            self.userID = userInfo["id"] as? String
+            print(self.userID)
+            
+            let user = self.fetchUserDetails(self.userID!)
+            print(user)
+            if user?.userID != nil {
+                self.nameTextField.text = user?.name
+                self.titleTextField.text = user?.title
+                self.companyTextField.text = user?.company
+                self.emailTextField.text = user?.email
+                self.phoneTextField.text = user?.phone
+                self.githubTextField.text = user?.github
+                self.linkedinTextField.text = user?.linkedin
+            }
             self.nameTextField.text = userInfo["name"] as? String
             self.titleTextField.text = userInfo["title"] as? String
+            
         }
 
         let nameTextfield: UITextField = UITextField()
@@ -537,5 +592,35 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let okayChars : Set<Character> =
             Set("1234567890".characters)
         return String(text.characters.filter {okayChars.contains($0) })
+    }
+    
+    private func fetchUserDetails(Id: String)->User? {
+        let moc = appDelegate.managedObjectContext
+        
+        //create fetch request
+        let fetchRequest = NSFetchRequest()
+        
+        //create entuity description
+        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: moc)
+        let predicate = NSPredicate(format: "userID == %@", Id)
+        
+        //assign fetch request properties
+        fetchRequest.entity = entityDescription
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchBatchSize = 1
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        //Execute Fetch Request
+        do {
+            let result = try moc.executeFetchRequest(fetchRequest).first as? User
+            print(result)
+            return result
+        }
+        catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        return nil
     }
 }
