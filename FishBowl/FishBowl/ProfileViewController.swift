@@ -121,7 +121,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             userInfo.setValue(linkedinTextField.text, forKey: "linkedin")
             userInfo.setValue(titleTextField.text, forKey: "title")
             
-            let key = ref.child(<#T##pathString: String##String#>)
+            //let key = ref.child()
             
 //            self.ref.child("user/id").setValue(userInfo.userID)
 //            self.ref.child("user/name").setValue(userInfo.name)
