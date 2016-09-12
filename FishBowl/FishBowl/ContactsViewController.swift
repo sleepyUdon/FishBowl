@@ -4,6 +4,7 @@ import Material
 import OAuthSwift
 import MessageUI
 import CoreData
+import Firebase
 
 
 public class ContactsViewController: UIViewController,UISearchBarDelegate {
@@ -17,6 +18,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     var currentData:NSArray = []
     var filteredContacts:NSArray = []
     var contactsArray:[User] = []
+    var contactIDs:NSArray = []
+    var ref: FIRDatabaseReference!
     
     // Reference for SearchBar.
     private var searchBar: UISearchBar!
@@ -42,6 +45,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.ref = FIRDatabase.database().reference().child("users")
+        getFirebaseUserData()
         getAllContacts()
         prepareView()
         prepareTableView()
@@ -49,6 +54,32 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareSearchBar()
         prepareCloseButton()
         cardView.alpha = 0.0
+    }
+    
+    private func getFirebaseUserData() {
+        
+        self.ref.observeSingleEventOfType(.Value, withBlock: {snapshot in
+            let objDict = snapshot.value as! [String : AnyObject]
+            
+            objDict.forEach({ (user) in
+                for userid in [user.0] {
+                    print(userid)
+                    self.ref.child("\(userid)").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        print(snapshot)
+                        let object: Dictionary<String, AnyObject?> = [
+                            "id" : snapshot.childSnapshotForPath("id").value as? String,
+                            "name" : snapshot.childSnapshotForPath("name").value as? String,
+                            "title" : snapshot.childSnapshotForPath("title").value as? String,
+                            "company" : snapshot.childSnapshotForPath("company").value as? String,
+                            "email" : snapshot.childSnapshotForPath("email").value as? String,
+                            "phone" : snapshot.childSnapshotForPath("phone").value as? String,
+                            "github" : snapshot.childSnapshotForPath("github").value as? String,
+                            "linkedin" : snapshot.childSnapshotForPath("linkedin").value as? String
+                        ]
+                    })
+                }
+            })
+        })
     }
     
     
@@ -538,6 +569,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     func getAllContacts() {
         let moc = appDelegate.managedObjectContext
         contactsArray = []
+        contactIDs = []
         //create fetch request
         let fetchRequest = NSFetchRequest(entityName:"User")
         

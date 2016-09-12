@@ -50,25 +50,12 @@ public class ParticipantsTableViewCell: UITableViewCell {
     }
     
     func saveMember() {
-        
-        
+
         if ( buttonSelected == false) //BUTTONOFF
         {
             let context = self.appDelegate.managedObjectContext
-            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
-            
+            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User            
             let member : Member = self.member
-            
-//            user.setValue(member.memberId, forKey: "userID")
-//            user.setValue(member.memberName, forKey: "name")
-//            user.setValue(member.memberBio, forKey: "title")
-//            user.setValue(member.memberCompany, forKey: "company")
-//            user.setValue(member.memberEmail, forKey: "email")
-//            user.setValue(member.memberPhone, forKey: "phone")
-//            user.setValue(member.memberGithub, forKey: "github")
-//            user.setValue(member.memberLinkedin, forKey: "linkedin")
-//            user.setValue(member.memberImage, forKey: "picture")
-//            user.setValue(member.memberNote, forKey: "note")
             
             user.userID = member.memberId
             user.name = member.memberName
@@ -226,5 +213,36 @@ extension ParticipantsTableViewCell {
             setOfIds.insert(contactObj.userID as String)
         }
         return setOfIds
+    }
+    
+    private func isUserExist(Id: String)->Bool {
+        let moc = appDelegate.managedObjectContext
+        
+        //create fetch request
+        let fetchRequest = NSFetchRequest()
+        
+        //create entuity description
+        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: moc)
+        let predicate = NSPredicate(format: "userID == %@", Id)
+        
+        //assign fetch request properties
+        fetchRequest.entity = entityDescription
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchBatchSize = 1
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        //Execute Fetch Request
+        do {
+            let result = try moc.executeFetchRequest(fetchRequest).first as? User
+            if result == nil {
+                return true
+            }
+        }
+        catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        return false
     }
 }

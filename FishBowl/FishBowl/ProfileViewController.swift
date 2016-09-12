@@ -109,8 +109,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     //handle save and cancel button
     func handleSaveButton() {
         print(self.userID)
+        let userData: NSDictionary
         //update same user in core data
         if let userInfo: User = self.fetchUserDetails(self.userID!) {
+            
             userInfo.setValue(self.userID, forKey: "userID")
             userInfo.setValue(nameTextField.text, forKey: "name")
             userInfo.setValue(emailTextField.text, forKey: "email")
@@ -121,17 +123,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             userInfo.setValue(linkedinTextField.text, forKey: "linkedin")
             userInfo.setValue(titleTextField.text, forKey: "title")
             
-            //let key = ref.child()
-            
-//            self.ref.child("user/id").setValue(userInfo.userID)
-//            self.ref.child("user/name").setValue(userInfo.name)
-//            self.ref.child("user/title").setValue(userInfo.title)
-//            self.ref.child("user/company").setValue(userInfo.company)
-//            self.ref.child("user/email").setValue(userInfo.email)
-//            self.ref.child("user/phone").setValue(userInfo.phone)
-//            self.ref.child("user/github").setValue(userInfo.github)
-//            self.ref.child("user/linkedin").setValue(userInfo.linkedin)
-//            self.ref.child("user/picture").setValue(userInfo.picture)
+            userData = ["id":userInfo.userID,
+                        "name":userInfo.name!,
+                        "title":userInfo.title!,
+                        "company":userInfo.company!,
+                        "email":userInfo.email!,
+                        "phone":userInfo.phone!,
+                        "github":userInfo.github!,
+                        "linkedin":userInfo.linkedin!]
+
+            self.ref.child("users").child(userInfo.userID).setValue(userData)
             
             do {
                 //save
@@ -158,15 +159,28 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             user.linkedin = linkedinTextField.text
             user.picture = UIImagePNGRepresentation(self.profileView.image!)
             
-            self.ref.child("users").child(user.userID).setValue(user.userID)
-            self.ref.child("user/name").setValue(user.name)
-            self.ref.child("user/title").setValue(user.title)
-            self.ref.child("user/company").setValue(user.company)
-            self.ref.child("user/email").setValue(user.email)
-            self.ref.child("user/phone").setValue(user.phone)
-            self.ref.child("user/github").setValue(user.github)
-            self.ref.child("user/linkedin").setValue(user.linkedin)
-            self.ref.child("user/picture").setValue(user.picture)
+            userData = ["id":user.userID,
+                        "name":user.name!,
+                        "title":user.title!,
+                        "company":user.company!,
+                        "email":user.email!,
+                        "phone":user.phone!,
+                        "github":user.github!,
+                        "linkedin":user.linkedin!]
+            
+            let key = self.ref.child("users").child("userid").key
+            let childUpdate = ["users/\(key)":userData]
+            self.ref.updateChildValues(childUpdate)
+            
+//            self.ref.child("user").child(user.userID).setValue(user.userID)
+//            self.ref.child("user/name").setValue(user.name)
+//            self.ref.child("user/title").setValue(user.title)
+//            self.ref.child("user/company").setValue(user.company)
+//            self.ref.child("user/email").setValue(user.email)
+//            self.ref.child("user/phone").setValue(user.phone)
+//            self.ref.child("user/github").setValue(user.github)
+//            self.ref.child("user/linkedin").setValue(user.linkedin)
+//            self.ref.child("user/picture").setValue(user.picture)
             
             do {
                 //save

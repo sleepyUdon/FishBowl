@@ -38,10 +38,11 @@ class APIController: UIViewController {
             scope: "",state: "",
             success: { credential, response, parameters in
                 AppDelegate.token = credential.oauth_token
-                FIRAuth.auth()?.signInWithCustomToken(AppDelegate.token!, completion: {
-                    (user, error) in
-                    print(user)
-                })
+                
+//                FIRAuth.auth()?.signInWithCustomToken(AppDelegate.token!, completion: {
+//                    (user, error) in
+//                    print(user)
+//                })
             },
             failure: { error in
                 print(error.localizedDescription)
