@@ -23,7 +23,7 @@ class DataManager: NSObject {
         api.getUserDetails(AppDelegate.token!, handler: { (userDict: NSDictionary) in
             self.user["id"] = userDict["id"]!.stringValue
             self.user["name"] = userDict["name"] as? String
-            self.user["title"] = userDict["bio"] as? String
+            //self.user["title"] = userDict["bio"] as? String
             handler(userInfo: self.user)
         })
     }

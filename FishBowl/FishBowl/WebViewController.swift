@@ -7,6 +7,8 @@
 //
 
 import OAuthSwift
+import SystemConfiguration
+import ReachabilitySwift
 
 import UIKit
 typealias WebView = UIWebView // WKWebView
@@ -73,21 +75,41 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         return true
     }
     
-//    func webViewDidStartLoad(webView: UIWebView) {
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-//    }
-//    
-//    func webViewDidFinishLoad(webView: UIWebView) {
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-//    }
-//    
-//    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-//        
-//        let errorString = String(format: "<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>", error!.localizedDescription)
-//        self.webView.loadHTMLString(errorString, baseURL: nil)
-//        
-//    }
+    func webViewDidStartLoad(webView: UIWebView) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    }
     
+    func webViewDidFinishLoad(webView: UIWebView) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
     
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        if hasConnection() == false {
+            dispatch_async(dispatch_get_main_queue()) {
+                let alert = UIAlertController(title:"No internet connection",
+                                              message: "Please connect to internet",
+                                              preferredStyle: .Alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion:{
+                    let contactVC = ContactsViewController()
+                    self.presentViewController(contactVC, animated: true, completion: nil)
+                })
+                
+            }
+        }
+    }
+    
+    func hasConnection() -> Bool {
+        do {
+            let reachability: Reachability = try Reachability.reachabilityForInternetConnection()
+            let networkStatus: Int = reachability.currentReachabilityStatus.hashValue
+            return (networkStatus != 0)
+        } catch {
+            print("Unable to create Reachability")
+            return false
+        }
+    }
 }
