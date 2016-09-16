@@ -46,8 +46,8 @@ public class OAuth2Swift: OAuthSwift {
     }
     
     public convenience init?(parameters: [String:String]){
-        guard let consumerKey = parameters["consumerKey"], consumerSecret = parameters["consumerSecret"],
-            responseType = parameters["responseType"], authorizeUrl = parameters["authorizeUrl"] else {
+        guard let consumerKey = parameters["consumerKey"], let consumerSecret = parameters["consumerSecret"],
+            let responseType = parameters["responseType"], let authorizeUrl = parameters["authorizeUrl"] else {
                 return nil
         }
         if let accessTokenUrl = parameters["accessTokenUrl"] {
@@ -77,7 +77,7 @@ public class OAuth2Swift: OAuthSwift {
             if let query = url.query {
                 responseParameters += query.parametersFromQueryString()
             }
-            if let fragment = url.fragment where !fragment.isEmpty {
+            if let fragment = url.fragment  where !fragment.isEmpty {
                 responseParameters += fragment.parametersFromQueryString()
             }
             if let accessToken = responseParameters["access_token"] {
@@ -100,7 +100,7 @@ public class OAuth2Swift: OAuthSwift {
                 self.postOAuthAccessTokenWithRequestTokenByCode(code.safeStringByRemovingPercentEncoding,
                     callbackURL:callbackURL, success: success, failure: failure)
             }
-            else if let error = responseParameters["error"], error_description = responseParameters["error_description"] {
+            else if let error = responseParameters["error"], let error_description = responseParameters["error_description"] {
                 let errorInfo = [NSLocalizedFailureReasonErrorKey: NSLocalizedString(error, comment: error_description)]
                 failure(error: NSError(domain: OAuthSwiftErrorDomain, code: OAuthSwiftErrorCode.GeneralError.rawValue, userInfo: errorInfo))
             }
@@ -127,7 +127,7 @@ public class OAuth2Swift: OAuthSwift {
         var urlString = self.authorize_url
         urlString += (self.authorize_url.has("?") ? "&" : "?")
         
-        if let encodedQuery = queryString.urlQueryEncoded, queryURL = NSURL(string: urlString + encodedQuery) {
+        if let encodedQuery = queryString.urlQueryEncoded, let queryURL = NSURL(string: urlString + encodedQuery) {
             self.authorize_url_handler.handle(queryURL)
         }
         else {
@@ -182,7 +182,7 @@ public class OAuth2Swift: OAuthSwift {
                 self.client.credential.oauth_refresh_token = refreshToken.safeStringByRemovingPercentEncoding
             }
             
-            if let expiresIn:String = responseParameters["expires_in"], offset = Double(expiresIn)  {
+            if let expiresIn:String = responseParameters["expires_in"], let offset = Double(expiresIn)  {
                 self.client.credential.oauth_token_expires_at = NSDate(timeInterval: offset, sinceDate: NSDate())
             }
             
