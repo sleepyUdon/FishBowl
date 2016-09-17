@@ -11,10 +11,10 @@ import OAuthSwift
 
 class EventsViewController: UIViewController, UISearchBarDelegate {
 
-    private var containerView: UIView!
+    fileprivate var containerView: UIView!
     // NavigationBar buttons
-    private var menuButton: IconButton!
-    private var profileButton: IconButton!
+    fileprivate var menuButton: IconButton!
+    fileprivate var profileButton: IconButton!
 
     
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
     }
     
         
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if AppDelegate.token == nil {
             prepareLoginView()
@@ -37,27 +37,27 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
     }
     
     // General prepare LoginView
-    private func prepareLoginView() {
+    fileprivate func prepareLoginView() {
         let loginViewController = LoginViewController()
-        self.presentViewController(loginViewController, animated: true) { 
+        self.present(loginViewController, animated: true) { 
             //print("login view presented")
         }
     }
 
     // General preparation statements.
-    private func prepareView() {
+    fileprivate func prepareView() {
         view.backgroundColor = Color.accentColor1
     }
     
     // Prepares the menuButton.
-    private func prepareMenuButton() {
+    fileprivate func prepareMenuButton() {
         let image: UIImage? = MaterialIcon.cm.menu
         menuButton = IconButton()
         menuButton.pulseColor = Color.accentColor1
         menuButton.tintColor = Color.accentColor1
-        menuButton.setImage(image, forState: .Normal)
-        menuButton.setImage(image, forState: .Highlighted)
-        menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
+        menuButton.setImage(image, for: UIControlState())
+        menuButton.setImage(image, for: .highlighted)
+        menuButton.addTarget(self, action: #selector(handleMenuButton), for: .touchUpInside)
     }
 
     // Handles the menuButton.
@@ -68,45 +68,45 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
         contactVC.didUpdateContacs()
         contactVC.prepareTableView()
         
-        self.presentViewController(contactVC, animated: true, completion: nil)
+        self.present(contactVC, animated: true, completion: nil)
     }
     
     // Prepares the profileButton.
-    private func prepareProfileButton() {
+    fileprivate func prepareProfileButton() {
         
         let image: UIImage? = MaterialIcon.cm.settings
         profileButton = IconButton()
-        profileButton.enabled = true
-        profileButton.imageEdgeInsets = UIEdgeInsetsZero
+        profileButton.isEnabled = true
+        profileButton.imageEdgeInsets = UIEdgeInsets.zero
         profileButton.pulseColor = Color.accentColor1
         profileButton.tintColor = Color.accentColor1
-        profileButton.setImage(image, forState: .Normal)
-        profileButton.setImage(image, forState: .Highlighted)
-        profileButton.addTarget(self, action: #selector(handleProfileButton), forControlEvents: .TouchUpInside)
+        profileButton.setImage(image, for: UIControlState())
+        profileButton.setImage(image, for: .highlighted)
+        profileButton.addTarget(self, action: #selector(handleProfileButton), for: .touchUpInside)
     }
     
     // Handles the profileButton.
     internal func handleProfileButton() {
         let profileViewController = ProfileViewController()
         let navc: NavigationController = NavigationController(rootViewController: profileViewController)
-        presentViewController(navc, animated: true, completion: nil)
+        present(navc, animated: true, completion: nil)
     }
     
     // Prepares the containerView.
-    private func prepareContainerView() {
+    fileprivate func prepareContainerView() {
         containerView = UIView()
         view.layout(containerView).edges(top: 0, left: 0, right: 0)
     }
     
     // Prepares the tableView
-    private func prepareTableView() {
+    fileprivate func prepareTableView() {
         displayContentController(MenuViewController(), frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
     }
     
     // Prepares the navigationItem.
-    private func prepareNavigationItem() {
+    fileprivate func prepareNavigationItem() {
         navigationItem.title = "Events"
-        navigationItem.titleLabel.textAlignment = .Center
+        navigationItem.titleLabel.textAlignment = .center
         navigationItem.titleLabel.textColor = Color.accentColor1
         navigationItem.titleLabel.font = Fonts.navigationTitle
         
@@ -115,12 +115,12 @@ class EventsViewController: UIViewController, UISearchBarDelegate {
     }
     
     /// Prepares the navigationBar.
-    private func prepareNavigationBar() {
+    fileprivate func prepareNavigationBar() {
         /**
          To control this setting, set the "View controller-based status bar appearance"
          to "NO" in the info.plist.
          */
-        navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.statusBarStyle = .lightContent
         navigationController?.navigationBar.backgroundColor = Color.baseColor1
 
     }

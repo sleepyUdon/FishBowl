@@ -10,13 +10,13 @@ import Material
 import CoreData
 
 
-public class ParticipantsTableViewCell: UITableViewCell {
+open class ParticipantsTableViewCell: UITableViewCell {
     
     lazy var materialView: MaterialView = MaterialView()
     lazy var nameLabel: UILabel = UILabel()
     lazy var titleLabel: UILabel = UILabel()
     lazy var button: MaterialButton = MaterialButton()
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,7 +33,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         }
     }
     
-    private var buttonSelected:Bool! {
+    fileprivate var buttonSelected:Bool! {
         didSet {
             handleChangeToButtonSelected()
         }
@@ -43,8 +43,8 @@ public class ParticipantsTableViewCell: UITableViewCell {
     func buttonTapped() {
         if ( buttonSelected == false) {
             saveMember()
-            button.setTitleColor(MaterialColor.white, forState: .Normal)
-            button.setTitle("Added", forState: UIControlState.Normal)
+            button.setTitleColor(MaterialColor.white, for: UIControlState())
+            button.setTitle("Added", for: UIControlState())
             button.backgroundColor = MaterialColor.green.base
         }
     }
@@ -55,7 +55,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
         if ( buttonSelected == false) //BUTTONOFF
         {
             let context = self.appDelegate.managedObjectContext
-            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+            let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             
             let member : Member = self.member
             
@@ -98,7 +98,7 @@ public class ParticipantsTableViewCell: UITableViewCell {
 
 extension ParticipantsTableViewCell {
 
-    private func createCell() {
+    fileprivate func createCell() {
         // Only called for new cell creation, not cell reuse
         prepareImageView()
         prepareNameLabel()
@@ -109,8 +109,8 @@ extension ParticipantsTableViewCell {
     public func prepareImageView()
     {
         materialView.image = UIImage(named: "photoplaceholder.png")
-        materialView.shape = .Circle
-        materialView.backgroundColor = UIColor.clearColor()
+        materialView.shape = .circle
+        materialView.backgroundColor = UIColor.clear
         materialView.clipsToBounds = true
         contentView.addSubview(materialView)
     }
@@ -118,7 +118,7 @@ extension ParticipantsTableViewCell {
     public func prepareNameLabel() {
         nameLabel.font = Fonts.title
         nameLabel.textColor = Color.greyDark
-        nameLabel.textAlignment = .Left
+        nameLabel.textAlignment = .left
         nameLabel.numberOfLines = 0
         addSubview(nameLabel)
     }
@@ -126,14 +126,14 @@ extension ParticipantsTableViewCell {
     public func prepareTitleLabel() {
         titleLabel.font = Fonts.bodyGrey
         titleLabel.textColor = Color.greyMedium
-        titleLabel.textAlignment = .Left
+        titleLabel.textAlignment = .left
         addSubview(titleLabel)
     }
     
-    private func setupButton() {
+    fileprivate func setupButton() {
         addSubview(button)
-        button.selected = false
-        button.addTarget(self, action: #selector(buttonTapped), forControlEvents: .TouchUpInside)
+        button.isSelected = false
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         print(button)
     }
 }
@@ -143,7 +143,7 @@ extension ParticipantsTableViewCell {
     /*
      @name   layoutDefaultImageView
      */
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         layoutImageView()
         layoutAddedButton()
@@ -191,7 +191,7 @@ extension ParticipantsTableViewCell {
 //MARK: Handle Cell data, Called on creation + reuse
 extension ParticipantsTableViewCell {
     
-    private func updateCellContent() {
+    fileprivate func updateCellContent() {
         
         titleLabel.text = member.memberBio
         nameLabel.text = member.memberName
@@ -201,23 +201,23 @@ extension ParticipantsTableViewCell {
         materialView.image = member.memberImage != nil ? UIImage(data: member.memberImage!) : UIImage(named: "photoplaceholder.png")
     }
     
-    private func handleChangeToButtonSelected() {
-        button.enabled = !buttonSelected
+    fileprivate func handleChangeToButtonSelected() {
+        button.isEnabled = !buttonSelected
         guard buttonSelected == true else {
-            button.setTitleColor(Color.greyMedium, forState: .Normal)
-            button.setTitle("Add", forState: UIControlState.Normal)
+            button.setTitleColor(Color.greyMedium, for: UIControlState())
+            button.setTitle("Add", for: UIControlState())
             button.backgroundColor = MaterialColor.grey.lighten4
             button.pulseColor = MaterialColor.white
             button.cornerRadius = 5.0
             button.titleLabel!.font = Fonts.bodyGrey
             return
         }
-        button.setTitleColor(MaterialColor.white, forState: .Normal)
-        button.setTitle("Added", forState: UIControlState.Normal)
+        button.setTitleColor(MaterialColor.white, for: UIControlState())
+        button.setTitle("Added", for: UIControlState())
         button.backgroundColor = MaterialColor.green.base
     }
     
-    private func settingMemberIds()->Set<String> {
+    fileprivate func settingMemberIds()->Set<String> {
         let con = DataManager.getMemberFromContacts() as Array<User>
         //print(con)
         var setOfIds: Set<String> = Set()

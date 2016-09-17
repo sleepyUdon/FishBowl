@@ -11,19 +11,19 @@ extension UIViewController {
     @name   displayContentController
     @param  content View controller to be displayed as child
     */
-    func displayContentController(content: UIViewController, frame: CGRect?) {
+    func displayContentController(_ content: UIViewController, frame: CGRect?) {
         addChildViewController(content)
         content.view.frame = frame == nil ? view.bounds : frame!
         view.addSubview(content.view)
-        content.didMoveToParentViewController(self)
+        content.didMove(toParentViewController: self)
     }
 
     /*
     @name   hideContentController
     @param  content View controller to be removed as child
     */
-    func hideContentController(content: UIViewController) {
-        content.willMoveToParentViewController(nil)
+    func hideContentController(_ content: UIViewController) {
+        content.willMove(toParentViewController: nil)
         content.view.removeFromSuperview()
         content.removeFromParentViewController()
     }

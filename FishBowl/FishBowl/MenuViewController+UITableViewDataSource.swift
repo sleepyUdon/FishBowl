@@ -13,14 +13,14 @@ extension MenuViewController: UITableViewDataSource {
     /*
     @name   numberOfSectionsInTableView
     */
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return MenuModel.sectionsCount()
     }
     
     /*
     @name   numberOfRowsInSection
     */
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let rows = eventsData.events.count
         return rows
     }
@@ -28,22 +28,22 @@ extension MenuViewController: UITableViewDataSource {
     /*
     @name   cellForRowAtIndexPath
     */
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: EventsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! EventsTableViewCell
+        let cell: EventsTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "Cell") as! EventsTableViewCell
         let events = eventsData.events
-        let event = events[indexPath.row]
-        let formatter = NSDateFormatter()
+        let event = events[(indexPath as NSIndexPath).row]
+        let formatter = DateFormatter()
             formatter.dateFormat = "MMM dd, yy h:mm a"
         let someDate = DataManager.getDateFromMilliseconds(event.time)
-        let dateString = formatter.stringFromDate(someDate)
+        let dateString = formatter.string(from: someDate)
         
         cell.defaultLabel.text = event.title
         cell.defaultDescription.text = "    " + dateString
         cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
         cell.defaultDate.text = ""
         
-        let seconds = NSDate().timeIntervalSince1970
+        let seconds = Date().timeIntervalSince1970
         let milliseconds = seconds * 1000.0
 
         // grey out past events

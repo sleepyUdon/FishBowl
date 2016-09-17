@@ -21,7 +21,7 @@ extension User {
     @NSManaged var name: String?
     @NSManaged var note: String?
     @NSManaged var phone: String?
-    @NSManaged var picture: NSData?
+    @NSManaged var picture: Data?
     @NSManaged var title: String?
     @NSManaged var userID: String
 

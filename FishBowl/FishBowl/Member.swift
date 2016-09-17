@@ -13,7 +13,7 @@ class Member: NSObject {
     var memberId: String
     var memberName: String
     var memberBio: String?
-    var memberImage: NSData?
+    var memberImage: Data?
     var memberPhone: String?
     var memberEmail: String?
     var memberGithub: String?
@@ -23,7 +23,7 @@ class Member: NSObject {
     var memberIsAdded: Bool?
     
     
-    init(memberId:String, memberName:String, memberImage: NSData?) {
+    init(memberId:String, memberName:String, memberImage: Data?) {
         self.memberId = memberId
         self.memberName = memberName
         self.memberImage = memberImage

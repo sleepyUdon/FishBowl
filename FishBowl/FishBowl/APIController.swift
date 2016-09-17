@@ -34,11 +34,11 @@ class APIController: UIViewController {
         
         //authorization callback
         oauthswift.authorizeWithCallbackURL(
-            NSURL(string: "FishBowlKomrad://FishBowlKomrad/Meetup")!,
+            URL(string: "FishBowlKomrad://FishBowlKomrad/Meetup")!,
             scope: "",state: "",
             success: { credential, response, parameters in
                 AppDelegate.token = credential.oauth_token
-                FIRAuth.auth()?.signInWithCustomToken(AppDelegate.token!, completion: {
+                FIRAuth.auth()?.signIn(withCustomToken: AppDelegate.token!, completion: {
                     (user, error) in
                     print(user)
                 })
@@ -52,7 +52,7 @@ class APIController: UIViewController {
     
     //MARK - Get Requests for
     
-    func getUserDetails(token: String, handler:(userDict: NSDictionary)->()){
+    func getUserDetails(_ token: String, handler:@escaping (_ userDict: NSDictionary)->()){
         
         self.oauthswift.client.get("https://api.meetup.com/2/member/self?access_token=\(token)",
             success:
@@ -61,7 +61,7 @@ class APIController: UIViewController {
                         
                         //parse data to json
                         do {
-                            self.jsonUser = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            self.jsonUser = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSDictionary
                             handler(userDict: self.jsonUser)
                         }
                         catch let error as NSError{
@@ -76,7 +76,7 @@ class APIController: UIViewController {
     }
     
     //get all events under signed in user
-    func getEvents(token: String, handler:(eventsDict: NSArray)->()) {
+    func getEvents(_ token: String, handler:@escaping (_ eventsDict: NSArray)->()) {
         oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=200",
             success: {
                         data, response in
@@ -85,7 +85,7 @@ class APIController: UIViewController {
                         
                         //parse data to json
                         do {
-                            self.jsonRsvp = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSArray
+                            self.jsonRsvp = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSArray
                             handler(eventsDict: self.jsonRsvp)
 
                         }
@@ -102,13 +102,13 @@ class APIController: UIViewController {
 
     //get RSVPs
     //call this method when the user tap on event cell
-    func getRSVPs(eventId: String, token: String, handler:(membersDict: NSDictionary)->()) {
+    func getRSVPs(_ eventId: String, token: String, handler:@escaping (_ membersDict: NSDictionary)->()) {
         oauthswift.client.get("https://api.meetup.com/2/rsvps?&access_token=\(token)&event_id=\(eventId)&page=500",
             success: {
                         data, response in
                         //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
                         do {
-                            self.jsonMembers = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! NSDictionary
+                            self.jsonMembers = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSDictionary
                             handler(membersDict: self.jsonMembers)
                             
                         }

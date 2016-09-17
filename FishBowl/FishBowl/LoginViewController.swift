@@ -28,15 +28,15 @@ class LoginViewController: OAuthViewController {
     
     // Layout View
     
-    private func prepareView() {
-        let backgroundView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
+    fileprivate func prepareView() {
+        let backgroundView: MaterialPulseView = MaterialPulseView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         backgroundView.backgroundColor = MaterialColor.pink.accent2
         view.addSubview(backgroundView)
         
         let fishBowlLabel : UILabel = UILabel()
         fishBowlLabel.frame = CGRect(x: backgroundView.frame.width/2 - 100.0, y: (25.0), width: CGFloat(200.0), height: CGFloat(30.0))
         fishBowlLabel.text = "F I S H B O W L"
-        fishBowlLabel.textAlignment = .Center
+        fishBowlLabel.textAlignment = .center
         fishBowlLabel.textColor = MaterialColor.white
         fishBowlLabel.font = Fonts.title
         backgroundView.addSubview(fishBowlLabel)
@@ -52,36 +52,36 @@ class LoginViewController: OAuthViewController {
         
         let loginWithMeetupButton: MaterialButton = MaterialButton()
         loginWithMeetupButton.pulseColor = MaterialColor.pink.lighten1
-        loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", forState: UIControlState.Normal)
-        loginWithMeetupButton.setTitleColor(MaterialColor.white, forState: UIControlState.Normal)
-        loginWithMeetupButton.setTitleColor(MaterialColor.pink.lighten1, forState: UIControlState.Highlighted)
+        loginWithMeetupButton.setTitle("SIGN UP WITH MEETUP", for: UIControlState())
+        loginWithMeetupButton.setTitleColor(MaterialColor.white, for: UIControlState())
+        loginWithMeetupButton.setTitleColor(MaterialColor.pink.lighten1, for: UIControlState.highlighted)
         loginWithMeetupButton.titleLabel?.font = Fonts.title
         loginWithMeetupButton.backgroundColor = MaterialColor.pink.lighten1
         
         loginWithMeetupButton.frame = CGRect(x: CGFloat(0.0), y: backgroundView.frame.height - (50.0), width: backgroundView.frame.width, height: (60.0))
         view.addSubview(loginWithMeetupButton)
-        loginWithMeetupButton.addTarget(self, action: #selector(handleLoginButton), forControlEvents: .TouchUpInside)
+        loginWithMeetupButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
         
-        UIView.animateWithDuration(3.0, animations: { () -> Void in
+        UIView.animate(withDuration: 3.0, animations: { () -> Void in
             backgroundView.backgroundColor = MaterialColor.purple.accent3
-        }) { (Bool) -> Void in
+        }, completion: { (Bool) -> Void in
        
-                            UIView.animateWithDuration(3.0, animations: { () -> Void in
+                            UIView.animate(withDuration: 3.0, animations: { () -> Void in
                                 backgroundView.backgroundColor = MaterialColor.pink.accent2
                                 }, completion:nil)
-        }
+        }) 
     }
     
     internal func handleLoginButton() {
         
-        self.presentViewController(login, animated: true) {
+        self.present(login, animated: true) {
         }
         self.login.doAuthMeetup()
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
     }

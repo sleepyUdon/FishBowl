@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-public class MenuModel: NSObject {
+open class MenuModel: NSObject {
     static let setEventsName = "didSetEvents"
     var events: [Event] = [] {
         didSet {
-            let notification = NSNotification(name: MenuModel.setEventsName, object: self)
-            NSNotificationCenter.defaultCenter().postNotification(notification)
+            let notification = Notification(name: Notification.Name(rawValue: MenuModel.setEventsName), object: self)
+            NotificationCenter.default.post(notification)
         }
     }
     
     /*
     @name   required initWithCoder
     */
-    public class func sectionsCount() -> Int { return 1 }
+    open class func sectionsCount() -> Int { return 1 }
     
     /*
     @name   required initWithCoder

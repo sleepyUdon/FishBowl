@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-public class ParticipantsModel: NSObject {
+open class ParticipantsModel: NSObject {
     static let setParticipants = "didSetParticipants"
     var members: [Member] = [] {
         didSet {
             // do this on the main thread
-            dispatch_async(dispatch_get_main_queue(), {
-                let notification = NSNotification(name: ParticipantsModel.setParticipants, object: self)
-                NSNotificationCenter.defaultCenter().postNotification(notification)
+            DispatchQueue.main.async(execute: {
+                let notification = Notification(name: Notification.Name(rawValue: ParticipantsModel.setParticipants), object: self)
+                NotificationCenter.default.post(notification)
             })
         }
     }
@@ -23,14 +23,14 @@ public class ParticipantsModel: NSObject {
     /*
     @name   required initWithCoder
     */
-    public class func sectionsCount() -> Int { return 1 }
+    open class func sectionsCount() -> Int { return 1 }
     
     /*
     @name   required initWithCoder
     */
 
     func getMembers() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let dataManager = appDelegate.dataManager
         dataManager!.grabMembersFromAPI { (members) in
             self.members = members

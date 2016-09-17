@@ -6,7 +6,7 @@
 //  Copyright © 2016 Komrad.io . All rights reserved.
 import UIKit
 
-public class MenuViewController: UIViewController {
+open class MenuViewController: UIViewController {
     
     var tableView: UITableView = UITableView()
     var eventsData: MenuModel = MenuModel()
@@ -14,9 +14,9 @@ public class MenuViewController: UIViewController {
     /*
      @name   viewDidLoad
      */
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateEvents), name: MenuModel.setEventsName, object: self.eventsData)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUpdateEvents), name: NSNotification.Name(rawValue: MenuModel.setEventsName), object: self.eventsData)
         eventsData.getEvents()
         prepareView()
         prepareTableView()
@@ -25,7 +25,7 @@ public class MenuViewController: UIViewController {
     /*
      @name   viewDidLayoutSubviews
      */
-    override public func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
     }
@@ -40,7 +40,7 @@ public extension MenuViewController {
      @name   prepareView
      */
     func prepareView() {
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.red
     }
     
     /*
@@ -49,7 +49,7 @@ public extension MenuViewController {
     func prepareTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(EventsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(EventsTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
     }
     
@@ -66,23 +66,23 @@ extension MenuViewController: UITableViewDelegate {
      @name   required didSelectRowAtIndexPath
      */
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let event = eventsData.events[indexPath.row]
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let event = eventsData.events[(indexPath as NSIndexPath).row]
         appDelegate.dataManager?.eventId = event.eventId
         print(event.eventId)
         let destination = ParticipantsViewController()
         
         navigationController?.pushViewController(destination, animated: false)
         destination.navigationItem.title = "Participants"
-        destination.navigationItem.titleLabel.textAlignment = .Center
+        destination.navigationItem.titleLabel.textAlignment = .center
         destination.navigationItem.titleLabel.textColor = Color.accentColor1
         destination.navigationItem.titleLabel.font = Fonts.navigationTitle
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
     }
 }

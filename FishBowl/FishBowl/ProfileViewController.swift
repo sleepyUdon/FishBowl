@@ -18,7 +18,7 @@ private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let picker = UIImagePickerController()
     var userID: String?
     
@@ -47,39 +47,39 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         prepareNavigationBar()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOnScreen), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOffScreen), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardOnScreen), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardOffScreen), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //    Setup Keyboard an textfields
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeField = textField
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func keyboardOnScreen(notification: NSNotification){
-        let info: NSDictionary  = notification.userInfo!
-        let kbSize = info.valueForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue().size
-        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, kbSize!.height, 0.0)
+    func keyboardOnScreen(_ notification: Notification){
+        let info: NSDictionary  = (notification as NSNotification).userInfo! as NSDictionary
+        let kbSize = (info.value(forKey: UIKeyboardFrameEndUserInfoKey) as AnyObject).cgRectValue.size
+        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
         var aRect: CGRect = self.view.frame
-        aRect.size.height -= kbSize!.height
+        aRect.size.height -= kbSize.height
         //you may not need to scroll, see if the active field is already visible
-        if (!CGRectContainsPoint(aRect, activeField!.frame.origin) ) {
-            let scrollPoint:CGPoint = CGPointMake(0.0, activeField!.frame.origin.y - kbSize!.height)
+        if (!aRect.contains(activeField!.frame.origin) ) {
+            let scrollPoint:CGPoint = CGPoint(x: 0.0, y: activeField!.frame.origin.y - kbSize.height)
             scrollView.setContentOffset(scrollPoint, animated: true)
         }
         
     }
     
-    func keyboardOffScreen(notification: NSNotification){
+    func keyboardOffScreen(_ notification: Notification){
         let contentInsets = UIEdgeInsetsMake(0, 0, -200, 0);
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
@@ -87,22 +87,22 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     
     //    Prepare and Handle Save Button
-    private func prepareSaveButton() {
+    fileprivate func prepareSaveButton() {
         saveButton = MaterialButton()
-        saveButton.setTitle("Save", forState: .Normal)
-        saveButton.setTitleColor(Color.accentColor1, forState: .Normal)
+        saveButton.setTitle("Save", for: UIControlState())
+        saveButton.setTitleColor(Color.accentColor1, for: UIControlState())
         saveButton.pulseColor = Color.accentColor1
         saveButton.titleLabel!.font = Fonts.title
-        saveButton.addTarget(self, action: #selector(handleSaveButton), forControlEvents: .TouchUpInside)
+        saveButton.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
     }
 
-    private func prepareCancelButton() {
+    fileprivate func prepareCancelButton() {
         cancelButton = MaterialButton()
-        cancelButton.setTitle("Cancel", forState: .Normal)
-        cancelButton.setTitleColor(Color.accentColor1, forState: .Normal)
+        cancelButton.setTitle("Cancel", for: UIControlState())
+        cancelButton.setTitleColor(Color.accentColor1, for: UIControlState())
         cancelButton.pulseColor = Color.accentColor1
         cancelButton.titleLabel!.font = Fonts.title
-        cancelButton.addTarget(self, action: #selector(handleCancelButton), forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
 
     }
 
@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             do {
                 //save
                 try userInfo.managedObjectContext?.save()
-                dismissViewControllerAnimated(true, completion: nil)
+                dismiss(animated: true, completion: nil)
             }
             catch {
                 let saveError = error as NSError
@@ -147,7 +147,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         //if there is no such user in core data then create new one
         else {
             let context = self.appDelegate.managedObjectContext
-            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+            let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as! User
             user.userID = self.userID!
             user.name = nameTextField.text
             user.title = titleTextField.text
@@ -171,7 +171,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             do {
                 //save
                 try user.managedObjectContext?.save()
-                dismissViewControllerAnimated(true, completion: nil)
+                dismiss(animated: true, completion: nil)
             }
             catch {
                 let saveError = error as NSError
@@ -183,22 +183,22 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     internal func handleCancelButton() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // Prepare View
-    private func prepareView() {
+    fileprivate func prepareView() {
         view.backgroundColor  = MaterialColor.white
     }
     
     // Layout View
-    private func prepareCardView() {
+    fileprivate func prepareCardView() {
   
-        let cardView: ImageCardView = ImageCardView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height))
-        cardView.pulseAnimation = .None
-        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.bounds.width, view.bounds.height-44))
-        scrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        scrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        let cardView: ImageCardView = ImageCardView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        cardView.pulseAnimation = .none
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height-44))
+        scrollView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        scrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
         scrollView.contentSize = cardView.bounds.size
         scrollView.bounces = false
         scrollView.addSubview(cardView)
@@ -212,7 +212,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         shareContact.textColor = MaterialColor.black
         cardView.addSubview(shareContact)
         
-        let switchbutton = MaterialSwitch(state: .On, style: .Default, size: .Large)
+        let switchbutton = MaterialSwitch(state: .on, style: .default, size: .large)
         switchbutton.frame = CGRect(x: view.frame.width-20-50, y: 20, width: 50, height: 30)
         switchbutton.trackOnColor = Color.accentColor1
         switchbutton.buttonOnColor = Color.baseColor1
@@ -235,7 +235,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let cameraButton = UIButton(frame:CGRect(x: view.frame.width - 50 - 20 , y: 70, width: 50, height: 50))
         cameraButton.backgroundColor = MaterialColor.clear
         cardView.addSubview(cameraButton)
-        cameraButton.addTarget(self, action: #selector(handleCameraButton), forControlEvents: .TouchUpInside)
+        cameraButton.addTarget(self, action: #selector(handleCameraButton), for: .touchUpInside)
         
         let nameLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 120, width: 100, height: 30))
         nameLabel.text = "Name"
@@ -308,7 +308,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         nameTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Name",
                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         nameTextfield.font = Fonts.bodyGrey
-        nameTextfield.textAlignment = .Right
+        nameTextfield.textAlignment = .right
         nameTextfield.textColor = Color.greyMedium
         cardView.addSubview(nameTextfield)
         nameTextfield.delegate = self
@@ -321,7 +321,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         titleTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Title",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         titleTextfield.font = Fonts.bodyGrey
-        titleTextfield.textAlignment = .Right
+        titleTextfield.textAlignment = .right
         titleTextfield.textColor = Color.greyMedium
         cardView.addSubview(titleTextfield)
         titleTextfield.delegate = self
@@ -333,7 +333,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         companyTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Company",
                                                                     attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         companyTextfield.font = Fonts.bodyGrey
-        companyTextfield.textAlignment = .Right
+        companyTextfield.textAlignment = .right
         companyTextfield.textColor = Color.greyMedium
         cardView.addSubview(companyTextfield)
         companyTextfield.delegate = self
@@ -344,8 +344,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         emailTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Email",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         emailTextfield.font = Fonts.bodyGrey
-        emailTextfield.textAlignment = .Right
-        emailTextfield.autocapitalizationType = UITextAutocapitalizationType.None
+        emailTextfield.textAlignment = .right
+        emailTextfield.autocapitalizationType = UITextAutocapitalizationType.none
         emailTextfield.textColor = Color.greyMedium
         cardView.addSubview(emailTextfield)
         emailTextfield.delegate = self
@@ -355,11 +355,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         phoneTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Phone",
                                                                   attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         phoneTextfield.font = Fonts.bodyGrey
-        phoneTextfield.textAlignment = .Right
+        phoneTextfield.textAlignment = .right
         phoneTextfield.textColor = Color.greyMedium
         cardView.addSubview(phoneTextfield)
         phoneTextfield.delegate = self
-        phoneTextfield.keyboardType = UIKeyboardType.NumberPad
+        phoneTextfield.keyboardType = UIKeyboardType.numberPad
         phoneTextfield.tag = 22
         self.phoneTextField = phoneTextfield
         
@@ -368,8 +368,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         githubTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Github",
                                                                    attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         githubTextfield.font = Fonts.bodyGrey
-        githubTextfield.textAlignment = .Right
-        githubTextfield.autocapitalizationType = UITextAutocapitalizationType.None
+        githubTextfield.textAlignment = .right
+        githubTextfield.autocapitalizationType = UITextAutocapitalizationType.none
         githubTextfield.textColor = Color.greyMedium
         cardView.addSubview(githubTextfield)
         githubTextfield.delegate = self
@@ -379,8 +379,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         linkedinTextfield.attributedPlaceholder = NSAttributedString(string:"Enter LinkedIn",
                                                                      attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         linkedinTextfield.font = Fonts.bodyGrey
-        linkedinTextfield.textAlignment = .Right
-        linkedinTextfield.autocapitalizationType = UITextAutocapitalizationType.None
+        linkedinTextfield.textAlignment = .right
+        linkedinTextfield.autocapitalizationType = UITextAutocapitalizationType.none
         linkedinTextfield.textColor = Color.greyMedium
         cardView.addSubview(linkedinTextfield)
         linkedinTextfield.delegate = self
@@ -389,9 +389,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     // Prepares the navigationItem.
-    private func prepareNavigationItem() {
+    fileprivate func prepareNavigationItem() {
         navigationItem.title = "Profile"
-        navigationItem.titleLabel.textAlignment = .Center
+        navigationItem.titleLabel.textAlignment = .center
         navigationItem.titleLabel.textColor = Color.accentColor1
         navigationItem.titleLabel.font = Fonts.navigationTitle
         navigationItem.rightControls = [saveButton]
@@ -399,29 +399,29 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     // Prepares the navigationBar.
-    private func prepareNavigationBar() {
+    fileprivate func prepareNavigationBar() {
         /**
          To control this setting, set the "View controller-based status bar appearance"
          to "NO" in the info.plist.
          */
-        navigationController?.navigationBar.statusBarStyle = .LightContent
+        navigationController?.navigationBar.statusBarStyle = .lightContent
         navigationController?.navigationBar.backgroundColor = Color.baseColor1
     }
     
     // Handle Camera Button
     func handleCameraButton(){
-        let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default)
+        let alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
             self.openCamera()
         }
-        let galleryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default)
+        let galleryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.default)
         {
             UIAlertAction in
             self.openGallery()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
         {
             UIAlertAction in
         }
@@ -431,50 +431,50 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         alert.addAction(cameraAction)
         alert.addAction(galleryAction)
         alert.addAction(cancelAction)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func openCamera(){
-        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
-            picker.sourceType = UIImagePickerControllerSourceType.Camera
-            self .presentViewController(picker, animated: true, completion: nil)
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            picker.sourceType = UIImagePickerControllerSourceType.camera
+            self .present(picker, animated: true, completion: nil)
         }else{
             let alert = UIAlertView()
             alert.title = "Warning"
             alert.message = "You don't have camera"
-            alert.addButtonWithTitle("OK")
+            alert.addButton(withTitle: "OK")
             alert.show()
         }
     }
     func openGallery(){
-        picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(picker, animated: true, completion: nil)
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        self.present(picker, animated: true, completion: nil)
     }
 
     
     /// Save Picture
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let pickedImage: UIImage = (info as NSDictionary).objectForKey(UIImagePickerControllerOriginalImage) as! UIImage
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let pickedImage: UIImage = (info as NSDictionary).object(forKey: UIImagePickerControllerOriginalImage) as! UIImage
         profileView.image = pickedImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
     // Dismiss Image Picker
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     
     // Format phone number
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if (textField.tag == 22)
         {
-            let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
-            let components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
-            let decimalString = components.joinWithSeparator("") as NSString
+            let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            let components = newString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            let decimalString = components.joined(separator: "") as NSString
             let length = decimalString.length
-            let hasLeadingOne = length > 0 && decimalString.characterAtIndex(0) == (1 as unichar)
+            let hasLeadingOne = length > 0 && decimalString.character(at: 0) == (1 as unichar)
             if length == 0 || (length > 10 && !hasLeadingOne) || length > 11
             {
                 let newLength = (textField.text! as NSString).length + (string as NSString).length - range.length as Int
@@ -484,23 +484,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             let formattedString = NSMutableString()
             if hasLeadingOne
             {
-                formattedString.appendString("1 ")
+                formattedString.append("1 ")
                 index += 1
             }
             if (length - index) > 3
             {
-                let areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
+                let areaCode = decimalString.substring(with: NSMakeRange(index, 3))
                 formattedString.appendFormat("(%@)", areaCode)
                 index += 3
             }
             if length - index > 3
             {
-                let prefix = decimalString.substringWithRange(NSMakeRange(index, 3))
+                let prefix = decimalString.substring(with: NSMakeRange(index, 3))
                 formattedString.appendFormat("%@-", prefix)
                 index += 3
             }
-            let remainder = decimalString.substringFromIndex(index)
-            formattedString.appendString(remainder)
+            let remainder = decimalString.substring(from: index)
+            formattedString.append(remainder)
             textField.text = formattedString as String
             return false
         }
@@ -510,20 +510,20 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
     }
 
-    private func removeNonNumericCharsFromString(text: String) -> String {
+    fileprivate func removeNonNumericCharsFromString(_ text: String) -> String {
         let okayChars : Set<Character> =
             Set("1234567890".characters)
         return String(text.characters.filter {okayChars.contains($0) })
     }
     
-    private func fetchUserDetails(Id: String)->User? {
+    fileprivate func fetchUserDetails(_ Id: String)->User? {
         let moc = appDelegate.managedObjectContext
         
         //create fetch request
         let fetchRequest = NSFetchRequest()
         
         //create entuity description
-        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: moc)
+        let entityDescription = NSEntityDescription.entity(forEntityName: "User", in: moc)
         let predicate = NSPredicate(format: "userID == %@", Id)
         
         //assign fetch request properties
@@ -535,7 +535,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         //Execute Fetch Request
         do {
-            let result = try moc.executeFetchRequest(fetchRequest).first as? User
+            let result = try moc.fetch(fetchRequest).first as? User
             print(result)
             return result
         }

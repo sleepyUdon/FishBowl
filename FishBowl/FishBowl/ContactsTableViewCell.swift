@@ -3,10 +3,10 @@ import UIKit
 import Material
 
 
-public class ContactsTableViewCell: UITableViewCell {
-    public lazy var profileView: UIImageView = UIImageView()
-    public lazy var nameLabel: UILabel = UILabel()
-    public lazy var titleLabel: UILabel = UILabel()
+open class ContactsTableViewCell: UITableViewCell {
+    open lazy var profileView: UIImageView = UIImageView()
+    open lazy var nameLabel: UILabel = UILabel()
+    open lazy var titleLabel: UILabel = UILabel()
     //var dataManager: DataManager!
     
     
@@ -16,14 +16,14 @@ public class ContactsTableViewCell: UITableViewCell {
         }
     }
     
-    private func populateCell() {
+    fileprivate func populateCell() {
         print(contact)
         nameLabel.text = contact.name
         titleLabel.text = contact.title
         if contact.picture == nil {
             profileView.image = UIImage(named: "photoplaceholder.png")
         }
-        profileView.image = UIImage(data: contact.picture!)
+        profileView.image = UIImage(data: contact.picture! as Data)
     }
     /*
      @name   required initWithCoder
@@ -45,7 +45,7 @@ public class ContactsTableViewCell: UITableViewCell {
     /*
      @name   layoutSubviews
      */
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         layoutImageView()
         layoutNameLabel()
@@ -55,11 +55,11 @@ public class ContactsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultImageView
      */
-    public func prepareImageView()
+    open func prepareImageView()
  {
     profileView.image = UIImage(named: "photoplaceholder")
     profileView.layer.cornerRadius = profileView.frame.width/2
-    profileView.contentMode = .ScaleAspectFill
+    profileView.contentMode = .scaleAspectFill
     profileView.backgroundColor = Color.greyDark
     profileView.clipsToBounds = true
     addSubview(profileView)
@@ -69,11 +69,11 @@ public class ContactsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultLabel
      */
-    public func prepareNameLabel() {
+    open func prepareNameLabel() {
         nameLabel.font = Fonts.title
         nameLabel.text = "Name" //#PASSDATA name from participant
         nameLabel.textColor = Color.greyDark
-        nameLabel.textAlignment = .Left
+        nameLabel.textAlignment = .left
         addSubview(nameLabel)
     }
     
@@ -81,12 +81,12 @@ public class ContactsTableViewCell: UITableViewCell {
     /*
      @name   prepareDefaultDescription
      */
-    public func prepareTitleLabel() {
+    open func prepareTitleLabel() {
         titleLabel.font = Fonts.bodyGrey
         titleLabel.text = "Position" //#PASSDATA title from participant
         titleLabel.textColor = Color.greyMedium
         titleLabel.numberOfLines = 0
-        titleLabel.textAlignment = .Left
+        titleLabel.textAlignment = .left
         addSubview(titleLabel)
     }
     
@@ -94,7 +94,7 @@ public class ContactsTableViewCell: UITableViewCell {
     /*
      @name   layoutDefaultImageView
      */
-    public func layoutImageView() {
+    open func layoutImageView() {
         let x = CGFloat(20.0)
         let y = CGFloat(10.0)
         let w = CGFloat(60.0)
@@ -105,7 +105,7 @@ public class ContactsTableViewCell: UITableViewCell {
         
     }
     
-    public func layoutNameLabel() {
+    open func layoutNameLabel() {
         let x = CGFloat(100.0)
         let y = CGFloat(10.0)
         let w = contentView.frame.width - (80.0)
@@ -114,7 +114,7 @@ public class ContactsTableViewCell: UITableViewCell {
     }
     
     
-    public func layoutTitleLabel() {
+    open func layoutTitleLabel() {
         let x = CGFloat(100.0)
         let y = CGFloat(20.0)
         let w = contentView.frame.width - (110.0)

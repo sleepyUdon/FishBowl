@@ -17,7 +17,7 @@ class DataManager: NSObject {
     var contacts: [User] = []
     var user: [String:AnyObject] = [:]
 
-    func grabUserFromAPI(handler:(userInfo: [String:AnyObject])->()) {
+    func grabUserFromAPI(_ handler:@escaping (_ userInfo: [String:AnyObject])->()) {
         let api = APIController()
         
         api.getUserDetails(AppDelegate.token!, handler: { (userDict: NSDictionary) in
@@ -28,7 +28,7 @@ class DataManager: NSObject {
         })
     }
     
-    class func grabEventsFromAPI(handler:(events: [Event])->()){
+    class func grabEventsFromAPI(_ handler:@escaping (_ events: [Event])->()){
         
         var eventsArray:[Event] = []
         let api = APIController()
@@ -58,7 +58,7 @@ class DataManager: NSObject {
         
     }
     
-    func grabMembersFromAPI(handler:(members:[Member])->()) {
+    func grabMembersFromAPI(_ handler:@escaping (_ members:[Member])->()) {
         
         var membersArray:[Member] = []
         let api = APIController()
@@ -67,13 +67,13 @@ class DataManager: NSObject {
             if let memberResults = membersDict["results"] as? [[String:AnyObject]] {
                 //go through every member
                 for memberObject in memberResults {
-                    var memberImageData: NSData?
+                    var memberImageData: Data?
                     if let memberPhoto = memberObject["member_photo"] as? NSDictionary{
                         //get photo of the member
                         let memberPhotoLink = memberPhoto["thumb_link"] as! String
-                        let url: NSURL = NSURL(string: memberPhotoLink as String)!
+                        let url: URL = URL(string: memberPhotoLink as String)!
                         
-                        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {
+                        let task = URLSession.shared.dataTask(with: url, completionHandler: {
                             data, response, error in
                             
                             //check for error
@@ -109,17 +109,17 @@ class DataManager: NSObject {
         })
     }
     
-    class func getDateFromMilliseconds(ms: NSNumber) -> NSDate {
+    class func getDateFromMilliseconds(_ ms: NSNumber) -> Date {
         
-        let msec = ms.integerValue
-        let date  = NSDate(timeIntervalSince1970:Double(msec) / 1000.0)
+        let msec = ms.intValue
+        let date  = Date(timeIntervalSince1970:Double(msec) / 1000.0)
         return date
         
     }
     
     class func getMemberFromContacts() -> Array<User>{
 
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
         var result: [User] = []
         //create fetch request
@@ -132,7 +132,7 @@ class DataManager: NSObject {
         fetchRequest.returnsObjectsAsFaults = false
         //Execute Fetch Request
         do {
-            result = try moc.executeFetchRequest(fetchRequest) as! Array<User>
+            result = try moc.fetch(fetchRequest) as! Array<User>
             print(result)
             
         }

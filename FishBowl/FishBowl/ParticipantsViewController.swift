@@ -8,7 +8,7 @@
 import UIKit
 import Material
 
-public class ParticipantsViewController: UIViewController {
+open class ParticipantsViewController: UIViewController {
     
     lazy var tableView: UITableView = UITableView()
     var activityIndicator: UIActivityIndicatorView!
@@ -16,7 +16,7 @@ public class ParticipantsViewController: UIViewController {
     var filteredParticipants:[Member] = []
     var participantsModel: ParticipantsModel = ParticipantsModel()
     // Reference for SearchBar.
-    private var searchBar: UISearchBar!
+    fileprivate var searchBar: UISearchBar!
     
     var participantsSearchActive : Bool! {
         didSet {
@@ -24,7 +24,7 @@ public class ParticipantsViewController: UIViewController {
         }
     }
     
-    private func updateModel() {
+    fileprivate func updateModel() {
         if participantsSearchActive == true && filteredParticipants.count > 0 {
             currentData = filteredParticipants
         } else {
@@ -36,10 +36,10 @@ public class ParticipantsViewController: UIViewController {
     /*
      @name   viewDidLoad
      */
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         //add ParticipantVC as an observer
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didUpdateMembers), name: ParticipantsModel.setParticipants, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUpdateMembers), name: NSNotification.Name(rawValue: ParticipantsModel.setParticipants), object: nil)
         prepareView()
         prepareTableView()
         createActivityIndicator()
@@ -47,7 +47,7 @@ public class ParticipantsViewController: UIViewController {
         prepareSearchBar()
     }
     
-    private func updateMembers() {
+    fileprivate func updateMembers() {
         activityIndicator.startAnimating()
         participantsModel.getMembers()
     }
@@ -55,7 +55,7 @@ public class ParticipantsViewController: UIViewController {
     /*
      @name   viewDidLayoutSubviews
      */
-    public override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
     }
@@ -68,50 +68,50 @@ public class ParticipantsViewController: UIViewController {
     
     deinit {
         // remove notifications
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 extension ParticipantsViewController: UISearchBarDelegate {
     /// Prepares the searchBar
-    private func prepareSearchBar() {
+    fileprivate func prepareSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         searchBar.delegate = self
-        searchBar.barTintColor =  UIColor.whiteColor()
-        searchBar.backgroundColor = UIColor.whiteColor()
-        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+        searchBar.barTintColor =  UIColor.white
+        searchBar.backgroundColor = UIColor.white
+        searchBar.searchBarStyle = UISearchBarStyle.minimal
         
         view.addSubview(searchBar)
     }
     
-    public func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
         participantsSearchActive = true;
     }
     
-    public func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = ""
         participantsSearchActive = false
     }
     
-    public func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         participantsSearchActive = false;
     }
     
-    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         participantsSearchActive = false;
     }
     
-    public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         let members = participantsModel.members
 
         let results = members.filter {
             let member = $0
-            return member.memberName.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+            return member.memberName.range(of: searchText, options: .caseInsensitive) != nil
         }
         
         filteredParticipants = results
@@ -120,13 +120,13 @@ extension ParticipantsViewController: UISearchBarDelegate {
 }
 
 extension ParticipantsViewController {
-    private func createActivityIndicator() {
-        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 100, 100))
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+    fileprivate func createActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicator.center = tableView.center
         //transform the indicator
         var transform = CGAffineTransform()
-        transform = CGAffineTransformMakeScale(1.5, 1.5)
+        transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicator.transform = transform
         tableView.backgroundView = activityIndicator
         activityIndicator.hidesWhenStopped = true
@@ -138,7 +138,7 @@ public extension ParticipantsViewController {
      @name   prepareView
      */
     public func prepareView() {
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor.red
     }
     
     /*
@@ -147,7 +147,7 @@ public extension ParticipantsViewController {
     public func prepareTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ParticipantsTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
     }
  
@@ -163,14 +163,14 @@ extension ParticipantsViewController: UITableViewDataSource {
     /*
      @name   numberOfSectionsInTableView
      */
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return ParticipantsModel.sectionsCount()
     }
     
     /*
      @name   numberOfRowsInSection
      */
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentData.count
     }
     
@@ -178,11 +178,11 @@ extension ParticipantsViewController: UITableViewDataSource {
      @name   cellForRowAtIndexPath
      */
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCellWithIdentifier("Cell") as! ParticipantsTableViewCell
-        cell.selectionStyle = .None
-        cell.member = currentData[indexPath.row]
+        let cell: ParticipantsTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "Cell") as! ParticipantsTableViewCell
+        cell.selectionStyle = .none
+        cell.member = currentData[(indexPath as NSIndexPath).row]
 
         return cell
     }
@@ -191,7 +191,7 @@ extension ParticipantsViewController: UITableViewDataSource {
 
 extension ParticipantsViewController: UITableViewDelegate {
     
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     

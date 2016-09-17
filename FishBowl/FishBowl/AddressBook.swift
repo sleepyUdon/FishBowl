@@ -15,7 +15,7 @@ class AddressBook {
     
     
      
-    func saveToAddressBook(image: NSData?, name: String, email: String?, phone: String) {
+    func saveToAddressBook(_ image: Data?, name: String, email: String?, phone: String) {
         
         //the profile image
         contact.imageData = image
@@ -34,8 +34,8 @@ class AddressBook {
         //save new contact
         let store = CNContactStore()
         let saveRequest = CNSaveRequest()
-        saveRequest.addContact(contact, toContainerWithIdentifier: nil)
-        try! store.executeSaveRequest(saveRequest)
+        saveRequest.add(contact, toContainerWithIdentifier: nil)
+        try! store.execute(saveRequest)
     }
     
 }

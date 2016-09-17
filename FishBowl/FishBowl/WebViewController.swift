@@ -14,37 +14,37 @@ typealias WebView = UIWebView // WKWebView
 
 class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     
-    var targetURL : NSURL = NSURL()
+    var targetURL : URL = URL()
     let webView : WebView = WebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let width = UIScreen.mainScreen().bounds.width
-        let height = UIScreen.mainScreen().bounds.height
-        self.webView.frame = CGRectMake(0, 20, width, height)
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        self.webView.frame = CGRect(x: 0, y: 20, width: width, height: height)
         self.webView.scalesPageToFit = true
         self.webView.delegate = self
         self.view.addSubview(self.webView)
         loadAddressURL()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //set up delegate once the web view is shown
         self.webView.delegate = self
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         //incase the web view is still loading its content
         self.webView.stopLoading()
         //disconnect the delegate as the web view is hidden
         self.webView.delegate = nil
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
-    override func handle(url: NSURL) {
+    override func handle(_ url: URL) {
         targetURL = url
         super.handle(url)
         
@@ -52,13 +52,13 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     }
     
     func loadAddressURL() {
-        let req = NSURLRequest(URL: targetURL)
+        let req = URLRequest(url: targetURL)
         self.webView.loadRequest(req)
 
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        guard let url = request.URL else {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        guard let url = request.url else {
             return false
         }
         guard url.host == "FishBowlKomrad" else {
@@ -69,7 +69,7 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         return true
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
     
