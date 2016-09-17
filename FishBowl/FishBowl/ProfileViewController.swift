@@ -21,6 +21,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let picker = UIImagePickerController()
     var userID: String?
+    var downloadURl: String? = ""
+    var userData: NSDictionary = [:]
     
     var activeField: UITextField?
     var profileView: UIImageView!
@@ -32,6 +34,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     var githubTextField : UITextField!
     var linkedinTextField : UITextField!
     var ref: FIRDatabaseReference!
+    let storage = FIRStorage.storage()
     
     //    viewDid Load
     override func viewDidLoad() {
@@ -108,7 +111,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     //handle save and cancel button
     func handleSaveButton() {
-        print(self.userID)
         //update same user in core data
         if let userInfo: User = self.fetchUserDetails(self.userID!) {
             userInfo.setValue(self.userID, forKey: "userID")
@@ -121,17 +123,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             userInfo.setValue(linkedinTextField.text, forKey: "linkedin")
             userInfo.setValue(titleTextField.text, forKey: "title")
             
-            //let key = ref.child()
+            let storageRef = storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
+            let imageRef = storageRef.child("images").child("\(self.userID!).png")
             
-//            self.ref.child("user/id").setValue(userInfo.userID)
-//            self.ref.child("user/name").setValue(userInfo.name)
-//            self.ref.child("user/title").setValue(userInfo.title)
-//            self.ref.child("user/company").setValue(userInfo.company)
-//            self.ref.child("user/email").setValue(userInfo.email)
-//            self.ref.child("user/phone").setValue(userInfo.phone)
-//            self.ref.child("user/github").setValue(userInfo.github)
-//            self.ref.child("user/linkedin").setValue(userInfo.linkedin)
-//            self.ref.child("user/picture").setValue(userInfo.picture)
+            
+            imageRef.putData(userInfo.picture!, metadata: nil) {
+                metadata, error in
+                if (error != nil) {
+                    print(error)
+                }
+                self.downloadURl = String(metadata!.downloadURL()!)
+                print(self.downloadURl)
+                
+                self.userData = ["id":userInfo.userID,
+                                 "name":userInfo.name!,
+                                 "title":userInfo.title!,
+                                 "company":userInfo.company!,
+                                 "imageData":self.downloadURl!,
+                                 "email":userInfo.email!,
+                                 "phone":userInfo.phone!,
+                                 "github":userInfo.github!,
+                                 "linkedin":userInfo.linkedin!]
+                
+                self.ref.child("users").child(userInfo.userID).setValue(self.userData)
+            }
             
             do {
                 //save
@@ -158,15 +173,32 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             user.linkedin = linkedinTextField.text
             user.picture = UIImageJPEGRepresentation(self.profileView.image!, 1.0)
             
-//            self.ref.child("users").child(user.userID).setValue(user.userID)
-//            self.ref.child("user/name").setValue(user.name)
-//            self.ref.child("user/title").setValue(user.title)
-//            self.ref.child("user/company").setValue(user.company)
-//            self.ref.child("user/email").setValue(user.email)
-//            self.ref.child("user/phone").setValue(user.phone)
-//            self.ref.child("user/github").setValue(user.github)
-//            self.ref.child("user/linkedin").setValue(user.linkedin)
-//            self.ref.child("user/picture").setValue(user.picture)
+            let storageRef = storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
+            let imageRef = storageRef.child("images").child("photoplaceholder.png")
+            
+            imageRef.putData(user.picture!, metadata: nil) {
+                metadata, error in
+                if (error != nil) {
+                    print(error)
+                }
+                
+                self.downloadURl = String(metadata!.downloadURL()!)
+                print(self.downloadURl)
+                
+                self.userData = ["id":user.userID,
+                                 "name":user.name!,
+                                 "title":user.title!,
+                                 "company":user.company!,
+                                 "email":user.email!,
+                                 "phone":user.phone!,
+                                 "imageData":self.downloadURl!,
+                                 "github":user.github!,
+                                 "linkedin":user.linkedin!]
+                
+                let key = self.ref.child("users").child("\(user.userID)").key
+                let childUpdate = ["users/\(key)":self.userData]
+                self.ref.updateChildValues(childUpdate)
+            }
             
             do {
                 //save
@@ -312,7 +344,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         nameTextfield.textColor = Color.greyMedium
         cardView.addSubview(nameTextfield)
         nameTextfield.delegate = self
-        //nameTextfield.text = user.name
         self.nameTextField = nameTextfield
         
         
