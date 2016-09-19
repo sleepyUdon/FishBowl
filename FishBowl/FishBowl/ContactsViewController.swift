@@ -490,20 +490,23 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         presentViewController(messageVC, animated: true, completion: nil)
     }
     
+    
     public func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        switch result.rawValue {
-        case MessageComposeResultCancelled.rawValue :
-            print("message canceled")
-            
-        case MessageComposeResultFailed.rawValue :
-            print("message failed")
-            
-        case MessageComposeResultSent.rawValue :
-            print("message sent")
-            
-        default:
-            break
-        }
+
+//    public func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+//        switch result.rawValue {
+//        case MessageComposeResultCancelled.rawValue :
+//            print("message canceled")
+//            
+//        case MessageComposeResultFailed.rawValue :
+//            print("message failed")
+//            
+//        case MessageComposeResultSent.rawValue :
+//            print("message sent")
+//            
+//        default:
+//            break
+//        }
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     

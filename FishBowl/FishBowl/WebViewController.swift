@@ -75,9 +75,6 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         return true
     }
     
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
     
     func webViewDidStartLoad(webView: UIWebView) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -87,7 +84,7 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
         if hasConnection() == false {
