@@ -4,6 +4,7 @@ import Material
 import OAuthSwift
 import MessageUI
 import CoreData
+import Firebase
 
 
 public class ContactsViewController: UIViewController,UISearchBarDelegate {
@@ -17,6 +18,9 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     var currentData:NSArray = []
     var filteredContacts:NSArray = []
     var contactsArray:[User] = []
+    var contactIDs:Array<String> = []
+    var ref: FIRDatabaseReference!
+    let storage = FIRStorage.storage()
     
     // Reference for SearchBar.
     private var searchBar: UISearchBar!
@@ -42,6 +46,8 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.ref = FIRDatabase.database().reference().child("users")
+        getFirebaseUserData()
         getAllContacts()
         prepareView()
         prepareTableView()
@@ -49,6 +55,68 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareSearchBar()
         prepareCloseButton()
         cardView.alpha = 0.0
+    }
+    
+    private func getFirebaseUserData() {
+        
+        for currentUserId in self.contactIDs {
+            self.ref.observeSingleEventOfType(.Value, withBlock: {snapshot in
+                let objDict = snapshot.value as! [String : AnyObject]
+                
+                objDict.forEach({ (user) in
+                    for userid in [user.0] {
+                        print(userid)
+                        
+                        if currentUserId == userid {
+                            self.ref.child("\(userid)").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                                print(snapshot)
+                                let object: Dictionary<String, AnyObject?> = [
+                                    "id" : snapshot.childSnapshotForPath("id").value as? String,
+                                    "name" : snapshot.childSnapshotForPath("name").value as? String,
+                                    "title" : snapshot.childSnapshotForPath("title").value as? String,
+                                    "company" : snapshot.childSnapshotForPath("company").value as? String,
+                                    "email" : snapshot.childSnapshotForPath("email").value as? String,
+                                    "phone" : snapshot.childSnapshotForPath("phone").value as? String,
+                                    "github" : snapshot.childSnapshotForPath("github").value as? String,
+                                    "linkedin" : snapshot.childSnapshotForPath("linkedin").value as? String,
+                                    "imageData" : snapshot.childSnapshotForPath("imageData").value as! String
+                                ]
+                                
+                                let gsReference = self.storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
+                                let imageRef = gsReference.child("images/\(userid).png")
+                                
+                                imageRef.dataWithMaxSize(4 * 1024 * 1024) { (data, error) in
+                                    if error != nil {
+                                        print(error)
+                                    }
+                                    if let user: User = self.fetchUserInfo(userid) {
+                                        user.setValue(object["id"]!, forKey: "userID")
+                                        user.setValue(object["name"]!, forKey: "name")
+                                        user.setValue(object["email"]!, forKey: "email")
+                                        user.setValue(object["company"]!, forKey: "company")
+                                        user.setValue(object["phone"]!, forKey: "phone")
+                                        user.setValue(data!, forKey: "picture")
+                                        
+                                        user.setValue(object["github"]!, forKey: "github")
+                                        user.setValue(object["linkedin"]!, forKey: "linkedin")
+                                        user.setValue(object["title"]!, forKey: "title")
+                                        do {
+                                            try user.managedObjectContext?.save()
+                                        }
+                                        catch {
+                                            let saveError = error as NSError
+                                            print("\(saveError), \(saveError.userInfo)")
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                            })
+                        }
+                    }
+                })
+            })
+        }
     }
     
     
