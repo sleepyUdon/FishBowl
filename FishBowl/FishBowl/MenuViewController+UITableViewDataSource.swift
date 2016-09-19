@@ -38,10 +38,9 @@ extension MenuViewController: UITableViewDataSource {
         let someDate = DataManager.getDateFromMilliseconds(event.time)
         let dateString = formatter.stringFromDate(someDate)
         
-        cell.defaultLabel.text = event.title
-        cell.defaultDescription.text = "    " + dateString
-        cell.defaultParticipants.text = event.yesRsvpCount.stringValue + " participants"
-        cell.defaultDate.text = ""
+        cell.dateLabel.text = event.title
+        cell.descriptionLabel.text = "    " + dateString
+        cell.participantsLabel.text = event.yesRsvpCount.stringValue + " participants"
         
         let seconds = NSDate().timeIntervalSince1970
         let milliseconds = seconds * 1000.0
