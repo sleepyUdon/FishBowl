@@ -49,6 +49,7 @@ public extension MenuViewController {
     func prepareTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .None
         tableView.registerClass(EventsTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
     }
