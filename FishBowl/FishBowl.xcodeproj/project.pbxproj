@@ -252,7 +252,7 @@
 				TargetAttributes = {
 					7CAB2A201D58DB7F00735CF4 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 24H26R49VE;
+						DevelopmentTeam = ZQULK99ND9;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -484,6 +484,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZQULK99ND9;
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -506,6 +507,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZQULK99ND9;
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
