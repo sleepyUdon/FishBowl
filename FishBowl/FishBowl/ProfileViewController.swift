@@ -10,8 +10,8 @@ import Material
 import CoreData
 import Firebase
 
-private var saveButton: MaterialButton!
-private var cancelButton: MaterialButton!
+private var saveButton: UIBarButtonItem!
+private var cancelButton: UIBarButtonItem!
 private var scrollView: UIScrollView = UIScrollView()
 private var bottomConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
@@ -47,7 +47,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         prepareSaveButton()
         prepareCancelButton()
         prepareNavigationItem()
-        prepareNavigationBar()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -91,22 +90,21 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     
     //    Prepare and Handle Save Button
     private func prepareSaveButton() {
-        saveButton = MaterialButton()
-        saveButton.setTitle("Save", forState: .Normal)
-        saveButton.setTitleColor(Color.accentColor1, forState: .Normal)
-        saveButton.pulseColor = Color.accentColor1
-        saveButton.titleLabel!.font = Fonts.title
-        saveButton.addTarget(self, action: #selector(handleSaveButton), forControlEvents: .TouchUpInside)
+        saveButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: #selector(handleSaveButton))
+        saveButton.tintColor = Color.accentColor1
+        saveButton.setTitleTextAttributes([
+            NSFontAttributeName: Fonts.pinkTitle,
+            NSForegroundColorAttributeName: MaterialColor.pink.accent2],
+                                          forState: UIControlState.Normal)
     }
 
     private func prepareCancelButton() {
-        cancelButton = MaterialButton()
-        cancelButton.setTitle("Cancel", forState: .Normal)
-        cancelButton.setTitleColor(Color.accentColor1, forState: .Normal)
-        cancelButton.pulseColor = Color.accentColor1
-        cancelButton.titleLabel!.font = Fonts.title
-        cancelButton.addTarget(self, action: #selector(handleCancelButton), forControlEvents: .TouchUpInside)
-
+        cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(handleCancelButton))
+        cancelButton.tintColor = Color.accentColor1
+        cancelButton.setTitleTextAttributes([
+            NSFontAttributeName: Fonts.pinkTitle,
+            NSForegroundColorAttributeName: MaterialColor.pink.accent2],
+                                          forState: UIControlState.Normal)
     }
 
     //handle save and cancel button
@@ -257,33 +255,21 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         // prepare labels and buttons
         
-        let shareContact: UILabel = UILabel(frame:CGRect(x: 20.0, y: 20.0, width: view.frame.width/2, height: 30))
-        shareContact.text = "Share Contact"
-        shareContact.font = Fonts.title
-        shareContact.textColor = MaterialColor.black
-        cardView.addSubview(shareContact)
         
-        let switchbutton = MaterialSwitch(state: .On, style: .Default, size: .Large)
-        switchbutton.frame = CGRect(x: view.frame.width-20-50, y: 20, width: 50, height: 30)
-        switchbutton.trackOnColor = Color.accentColor1
-        switchbutton.buttonOnColor = Color.baseColor1
-        switchbutton.buttonOffColor = Color.baseColor1
-        cardView.addSubview(switchbutton)
-        
-        let photoLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 70, width: 50, height: 30))
+        let photoLabel: UILabel = UILabel(frame:CGRect(x: 20 , y: 20, width: 50, height: 30))
         photoLabel.text = "Photo"
         photoLabel.font = Fonts.title
         photoLabel.textColor = MaterialColor.black
         cardView.addSubview(photoLabel)
         
-        let profileView: UIImageView = UIImageView(frame:CGRect(x: view.frame.width - 50 - 20 , y: 65, width: 50, height: 50))
+        let profileView: UIImageView = UIImageView(frame:CGRect(x: view.frame.width - 80 - 20 , y: 15, width: 80, height: 80))
         profileView.clipsToBounds = true
-        profileView.layer.cornerRadius = 25.0
+        profileView.layer.cornerRadius = 40.0
         profileView.image = UIImage(named: "photoplaceholder")
         cardView.addSubview(profileView)
         self.profileView = profileView
         
-        let cameraButton = UIButton(frame:CGRect(x: view.frame.width - 50 - 20 , y: 70, width: 50, height: 50))
+        let cameraButton = UIButton(frame:CGRect(x: view.frame.width - 80 - 20 , y: 15, width: 80, height: 80))
         cameraButton.backgroundColor = MaterialColor.clear
         cardView.addSubview(cameraButton)
         cameraButton.addTarget(self, action: #selector(handleCameraButton), forControlEvents: .TouchUpInside)

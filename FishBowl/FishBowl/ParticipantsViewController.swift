@@ -45,6 +45,7 @@ public class ParticipantsViewController: UIViewController {
         createActivityIndicator()
         updateMembers()
         prepareSearchBar()
+        searchBar.tintColor = MaterialColor.pink.accent2
     }
     
     private func updateMembers() {
@@ -77,7 +78,6 @@ extension ParticipantsViewController: UISearchBarDelegate {
     private func prepareSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
         searchBar.delegate = self
-        searchBar.barTintColor =  UIColor.whiteColor()
         searchBar.backgroundColor = UIColor.whiteColor()
         searchBar.searchBarStyle = UISearchBarStyle.Minimal
         

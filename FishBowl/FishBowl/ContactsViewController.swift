@@ -53,6 +53,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
         prepareTableView()
         didUpdateContacs()
         prepareSearchBar()
+        searchBar.tintColor = MaterialColor.pink.accent2
         prepareCloseButton()
         cardView.alpha = 0.0
     }
@@ -304,15 +305,15 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         nameLabel.textColor = Color.greyDark
         cardView.addSubview(nameLabel)
         
-        let titleLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 45, width: view.frame.width-200.0, height: 25))
+        let titleLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 45, width: view.frame.width - 120.0, height: 25))
         titleLabel.text = contact.title
         titleLabel.numberOfLines = 0
-        titleLabel.font = Fonts.bodyGrey
+        titleLabel.font = Fonts.smallfont
         titleLabel.textColor = Color.greyMedium
         cardView.addSubview(titleLabel)
         
-        let companyLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 70, width: view.frame.width-200.0, height: 25))
-        companyLabel.font = Fonts.bodyGrey
+        let companyLabel: UILabel = UILabel(frame: CGRect(x: 100.0, y: 70, width: view.frame.width - 120, height: 25))
+        companyLabel.font = Fonts.smallfont
         companyLabel.text = contact.valueForKey("company") as? String
         companyLabel.textColor = Color.greyMedium
         cardView.addSubview(companyLabel)
@@ -324,9 +325,9 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(phoneTitle)
         
         let phoneNumber: UILabel = UILabel(frame: CGRect(x: 20.0, y: 120.0, width: view.frame.width-40.0, height: 30))
-        phoneNumber.font = Fonts.bodyGrey
-        phoneNumber.text = "(647)836-5162"
-        phoneNumber.textColor = Color.greyDark
+        phoneNumber.font = Fonts.smallfont
+        phoneNumber.text = contact.phone
+        phoneNumber.textColor = Color.greyMedium
         cardView.addSubview(phoneNumber)
         
         let phoneImage: UIImage? = UIImage(named:"phone.png")
@@ -354,9 +355,9 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(emailTitle)
         
         let emailAddress: UILabel = UILabel(frame: CGRect(x: 20.0, y: 180.0, width: view.frame.width-40.0, height: 30))
-        emailAddress.font = Fonts.bodyGrey
-        emailAddress.text = "vivianechan@hotmail.com"
-        emailAddress.textColor = Color.greyDark
+        emailAddress.font = Fonts.smallfont
+        emailAddress.text = contact.email
+        emailAddress.textColor = Color.greyMedium
         cardView.addSubview(emailAddress)
         
         let mailImage: UIImage? = UIImage(named: "mail")
@@ -375,9 +376,9 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(githubTitle)
         
         let githubLink: UILabel = UILabel(frame: CGRect(x: 20.0, y: 240.0, width: view.frame.width-40.0, height: 30))
-        githubLink.font = Fonts.bodyGrey
-        githubLink.text = "github/sleepyudon"
-        githubLink.textColor = Color.greyDark
+        githubLink.font = Fonts.smallfont
+        githubLink.text = contact.github
+        githubLink.textColor = Color.greyMedium
         cardView.addSubview(githubLink)
         
         let githubImage: UIImage? = UIImage(named: "github")
@@ -396,9 +397,9 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         cardView.addSubview(linkedinTitle)
         
         let linkedinLink: UILabel = UILabel(frame: CGRect(x: 20.0, y: 300.0, width: view.frame.width-40.0, height: 30))
-        linkedinLink.font = Fonts.bodyGrey
-        linkedinLink.text = "linkedin/Viviane"
-        linkedinLink.textColor = Color.greyDark
+        linkedinLink.font = Fonts.smallfont
+        linkedinLink.text = contact.linkedin
+        linkedinLink.textColor = Color.greyMedium
         cardView.addSubview(linkedinLink)
         
         let linkedinImage: UIImage? = UIImage(named: "linkedin")
@@ -426,15 +427,15 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         
         let notesTitle: UILabel = UILabel(frame: CGRect(x: 20.0, y: 400.0, width: view.frame.width-40.0, height: 30))
         notesTitle.font = Fonts.pinkTitle
-        notesTitle.text = "Notes"
+        notesTitle.text = "Note"
         notesTitle.textColor = Color.accentColor1
         cardView.addSubview(notesTitle)
         
         let noteField = UITextView(frame: CGRect(x: 20, y: 430.0, width: view.bounds.width - 40.0, height: 30.0))
         noteField.backgroundColor = MaterialColor.grey.lighten2
-        noteField.font = Fonts.bodyGrey
+        noteField.font = Fonts.smallfont
         noteField.text = contact.note
-        noteField.textColor = Color.greyDark
+        noteField.textColor = Color.greyMedium
         noteField.delegate = self
         self.noteField = noteField
         cardView.addSubview(noteField)

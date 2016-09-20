@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarHidden = false
         dataManager = DataManager()
         createViewControllerStack()
-        self.window!.tintColor = MaterialColor.green.accent4
         FIRApp.configure()
 
         return true
