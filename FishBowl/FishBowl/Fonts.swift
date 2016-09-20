@@ -14,10 +14,10 @@ import Material
 public struct Fonts{
     
 
-    static let title = MaterialFont.boldSystemFontWithSize(16)
-    static let bodyGrey = MaterialFont.systemFontWithSize(16)
+    static let title = MaterialFont.boldSystemFontWithSize(14)
+    static let bodyGrey = MaterialFont.systemFontWithSize(14)
     static let navigationTitle = MaterialFont.systemFontWithSize(16)
-    static let smallfont = MaterialFont.systemFontWithSize(10)
+    static let smallfont = MaterialFont.systemFontWithSize(13)
     static let pinkTitle = MaterialFont.systemFontWithSize(14)
 
 }

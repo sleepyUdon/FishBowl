@@ -46,6 +46,8 @@ public class ParticipantsTableViewCell: UITableViewCell {
             button.setTitleColor(MaterialColor.white, forState: .Normal)
             button.setTitle("Added", forState: UIControlState.Normal)
             button.backgroundColor = MaterialColor.green.base
+            button.titleLabel?.font = Fonts.bodyGrey
+            button.layer.cornerRadius = 5.0
         }
     }
     
@@ -137,7 +139,7 @@ extension ParticipantsTableViewCell {
         layoutImageView()
         layoutAddedButton()
         layoutNameLabel()
-        layoutTitleLabel()
+//        layoutTitleLabel()
     }
     
     /*
@@ -161,20 +163,20 @@ extension ParticipantsTableViewCell {
     }
     
     public func layoutNameLabel() {
-        let x = CGFloat(10.0) + (materialView.frame.width) + CGFloat(5.0)
+        let x = CGFloat(20.0) + (materialView.frame.width) + CGFloat(5.0)
         let y = CGFloat(5.0)
-        let w = contentView.bounds.size.width - CGFloat(10.0) - (materialView.frame.width) - CGFloat(5.0) - button.frame.width - CGFloat(10.0)
+        let w = contentView.bounds.size.width - CGFloat(20.0) - (materialView.frame.width) - CGFloat(5.0) - button.frame.width - CGFloat(10.0)
         let h = CGFloat(50.0)
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
-    public func layoutTitleLabel() {
-        let x = CGFloat(10.0) + (materialView.frame.width) + CGFloat(5.0)
-        let y = CGFloat(5.0) + (nameLabel.frame.height)
-        let w = contentView.bounds.size.width - CGFloat(5.0) + (materialView.frame.width) + CGFloat(5.0) - button.frame.width - CGFloat(5.0)
-        let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
-        titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
-    }
+//    public func layoutTitleLabel() {
+//        let x = CGFloat(10.0) + (materialView.frame.width) + CGFloat(5.0)
+//        let y = CGFloat(5.0) + (nameLabel.frame.height)
+//        let w = contentView.bounds.size.width - CGFloat(5.0) + (materialView.frame.width) + CGFloat(5.0) - button.frame.width - CGFloat(5.0)
+//        let h = (contentView.bounds.size.height - CGFloat(5.0) - CGFloat(5.0))/2
+//        titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
+//    }
 }
 
 //MARK: Handle Cell data, Called on creation + reuse
@@ -204,6 +206,8 @@ extension ParticipantsTableViewCell {
         button.setTitleColor(MaterialColor.white, forState: .Normal)
         button.setTitle("Added", forState: UIControlState.Normal)
         button.backgroundColor = MaterialColor.green.base
+        button.layer.cornerRadius = 5.0
+        
     }
     
     private func settingMemberIds()->Set<String> {
