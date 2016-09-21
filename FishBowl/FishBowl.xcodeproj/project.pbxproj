@@ -507,7 +507,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = 24H26R49VE;
+=======
+				DEVELOPMENT_TEAM = ZQULK99ND9;
+>>>>>>> 452b579dde430ba6da0a7ccf11cc6e822ed6359f
 				INFOPLIST_FILE = FishBowl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -109,6 +109,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     //handle save and cancel button
     func handleSaveButton() {
+
         //update same user in core data
         if let userInfo: User = self.fetchUserDetails(self.userID!) {
             userInfo.setValue(self.userID, forKey: "userID")
@@ -159,56 +160,74 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         }
         //if there is no such user in core data then create new one
         else {
-            let context = self.appDelegate.managedObjectContext
-            let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
-            user.userID = self.userID!
-            user.name = nameTextField.text
-            user.title = titleTextField.text
-            user.company = companyTextField.text
-            user.email = emailTextField.text
-            user.phone = removeNonNumericCharsFromString(phoneTextField.text!)
-            user.github = githubTextField.text
-            user.linkedin = linkedinTextField.text
-            user.picture = UIImageJPEGRepresentation(self.profileView.image!, 1.0)
             
-            let storageRef = storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
-            let imageRef = storageRef.child("images").child("photoplaceholder.png")
+            let alert = UIAlertController(title:"Sharing agreement",
+                                          message: "By saving your profile information you are agreed for sharing your Personal information with other users of Fishbowl application",
+                                          preferredStyle: .Alert)
             
-            imageRef.putData(user.picture!, metadata: nil) {
-                metadata, error in
-                if (error != nil) {
-                    print(error)
+            alert.addAction(UIAlertAction(title: "Agree", style: .Default, handler: {
+                UIAlertAction in
+                
+                let context = self.appDelegate.managedObjectContext
+                let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as! User
+                user.userID = self.userID!
+                user.name = self.nameTextField.text
+                user.title = self.titleTextField.text
+                user.company = self.companyTextField.text
+                user.email = self.emailTextField.text
+                user.phone = self.removeNonNumericCharsFromString(self.phoneTextField.text!)
+                user.github = self.githubTextField.text
+                user.linkedin = self.linkedinTextField.text
+                user.picture = UIImageJPEGRepresentation(self.profileView.image!, 1.0)
+                
+                let storageRef = self.storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
+                let imageRef = storageRef.child("images").child("photoplaceholder.png")
+                
+                imageRef.putData(user.picture!, metadata: nil) {
+                    metadata, error in
+                    if (error != nil) {
+                        print(error)
+                    }
+                    
+                    self.downloadURl = String(metadata!.downloadURL()!)
+                    print(self.downloadURl)
+                    
+                    self.userData = ["id":user.userID,
+                        "name":user.name!,
+                        "title":user.title!,
+                        "company":user.company!,
+                        "email":user.email!,
+                        "phone":user.phone!,
+                        "imageData":self.downloadURl!,
+                        "github":user.github!,
+                        "linkedin":user.linkedin!]
+                    
+                    let key = self.ref.child("users").child("\(user.userID)").key
+                    let childUpdate = ["users/\(key)":self.userData]
+                    self.ref.updateChildValues(childUpdate)
                 }
                 
-                self.downloadURl = String(metadata!.downloadURL()!)
-                print(self.downloadURl)
-                
-                self.userData = ["id":user.userID,
-                                 "name":user.name!,
-                                 "title":user.title!,
-                                 "company":user.company!,
-                                 "email":user.email!,
-                                 "phone":user.phone!,
-                                 "imageData":self.downloadURl!,
-                                 "github":user.github!,
-                                 "linkedin":user.linkedin!]
-                
-                let key = self.ref.child("users").child("\(user.userID)").key
-                let childUpdate = ["users/\(key)":self.userData]
-                self.ref.updateChildValues(childUpdate)
-            }
-            
-            do {
-                //save
-                try user.managedObjectContext?.save()
-                dismissViewControllerAnimated(true, completion: nil)
-            }
-            catch {
-                let saveError = error as NSError
-                print("\(saveError), \(saveError.userInfo)")
-                
-            }
+                do {
+                    //save
+                    try user.managedObjectContext?.save()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                catch {
+                    let saveError = error as NSError
+                    print("\(saveError), \(saveError.userInfo)")
+                    
+                }
 
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                UIAlertAction in
+                
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            
         }
     }
     
