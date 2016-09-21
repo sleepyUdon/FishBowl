@@ -6,6 +6,7 @@ import Material
 public class ContactsTableViewCell: UITableViewCell {
     public lazy var profileView: UIImageView = UIImageView()
     public lazy var nameLabel: UILabel = UILabel()
+    public lazy var companyLabel: UILabel = UILabel()
     public lazy var titleLabel: UILabel = UILabel()
     //var dataManager: DataManager!
     
@@ -19,7 +20,16 @@ public class ContactsTableViewCell: UITableViewCell {
     private func populateCell() {
         print(contact)
         nameLabel.text = contact.name
+        if companyLabel.text == nil {
+            companyLabel.text = ""
+        }
+        companyLabel.text = contact.company
+        
+        if titleLabel.text == nil {
+            titleLabel.text = ""
+        }
         titleLabel.text = contact.title
+        
         if contact.picture == nil {
             profileView.image = UIImage(named: "photoplaceholder.png")
         }
@@ -39,6 +49,7 @@ public class ContactsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         prepareImageView()
         prepareNameLabel()
+        prepareCompanyLabel()
         prepareTitleLabel()
     }
     
@@ -50,6 +61,7 @@ public class ContactsTableViewCell: UITableViewCell {
         layoutImageView()
         layoutNameLabel()
         layoutTitleLabel()
+        layoutCompanyLabel()
     }
     
     /*
@@ -71,21 +83,25 @@ public class ContactsTableViewCell: UITableViewCell {
      */
     public func prepareNameLabel() {
         nameLabel.font = Fonts.title
-        nameLabel.text = "Name" //#PASSDATA name from participant
         nameLabel.textColor = Color.greyDark
         nameLabel.textAlignment = .Left
         addSubview(nameLabel)
     }
     
+    public func prepareCompanyLabel() {
+        companyLabel.font = Fonts.smallfont
+        companyLabel.textColor = Color.greyMedium
+        companyLabel.textAlignment = .Left
+        addSubview(companyLabel)
+    }
+
     
     /*
      @name   prepareDefaultDescription
      */
     public func prepareTitleLabel() {
-        titleLabel.font = Fonts.bodyGrey
-        titleLabel.text = "Position" //#PASSDATA title from participant
+        titleLabel.font = Fonts.smallfont
         titleLabel.textColor = Color.greyMedium
-        titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Left
         addSubview(titleLabel)
     }
@@ -113,12 +129,20 @@ public class ContactsTableViewCell: UITableViewCell {
         nameLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     
+    public func layoutCompanyLabel() {
+        let x = CGFloat(100.0)
+        let y = CGFloat(30.0)
+        let w = contentView.frame.width - (110.0)
+        let h = CGFloat(20.0)
+        companyLabel.frame = CGRect(x: x, y: y, width: w, height: h)
+    }
+
     
     public func layoutTitleLabel() {
         let x = CGFloat(100.0)
-        let y = CGFloat(20.0)
+        let y = CGFloat(50.0)
         let w = contentView.frame.width - (110.0)
-        let h = CGFloat(60.0)
+        let h = CGFloat(20.0)
         titleLabel.frame = CGRect(x: x, y: y, width: w, height: h)
     }
     

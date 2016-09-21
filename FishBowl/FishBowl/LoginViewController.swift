@@ -34,7 +34,7 @@ class LoginViewController: OAuthViewController {
         view.addSubview(backgroundView)
         
         let fishBowlLabel : UILabel = UILabel()
-        fishBowlLabel.frame = CGRect(x: backgroundView.frame.width/2 - 100.0, y: (25.0), width: CGFloat(200.0), height: CGFloat(30.0))
+        fishBowlLabel.frame = CGRect(x: backgroundView.frame.width/2 - 100.0, y: (30.0), width: CGFloat(200.0), height: CGFloat(30.0))
         fishBowlLabel.text = "F I S H B O W L"
         fishBowlLabel.textAlignment = .Center
         fishBowlLabel.textColor = MaterialColor.white
