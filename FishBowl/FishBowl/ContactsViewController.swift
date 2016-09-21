@@ -327,6 +327,9 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         let phoneNumber: UILabel = UILabel(frame: CGRect(x: 20.0, y: 120.0, width: view.frame.width-40.0, height: 30))
         phoneNumber.font = Fonts.smallfont
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Viviane4
         let phoneEdit = NSMutableString(string: contact.phone!)
 
         phoneEdit.insertString("(", atIndex: 0)
@@ -334,9 +337,12 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
         phoneEdit.insertString("-", atIndex: 8)
         
         phoneNumber.text = phoneEdit as String
+<<<<<<< HEAD
 =======
         phoneNumber.text = contact.phone
 >>>>>>> 452b579dde430ba6da0a7ccf11cc6e822ed6359f
+=======
+>>>>>>> Viviane4
         phoneNumber.textColor = Color.greyMedium
         cardView.addSubview(phoneNumber)
         
