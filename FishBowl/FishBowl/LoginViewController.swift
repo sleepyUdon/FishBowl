@@ -14,12 +14,10 @@ class LoginViewController: OAuthViewController {
     
     var login = APIController()
     // oauth swift object (retain)
-    var oauthswift: OAuthSwift?
-    
+    var oauthswift: OAuthSwift?    
     let backgroundView: MaterialPulseView = MaterialPulseView()
     
-    
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -78,16 +76,12 @@ class LoginViewController: OAuthViewController {
         self.presentViewController(login, animated: true) {
         }
         self.login.doAuthMeetup()
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
 
     }
-    
-    
-    
 }
 
 

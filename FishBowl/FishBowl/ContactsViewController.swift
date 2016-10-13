@@ -34,7 +34,7 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     }
     
     private func updateModel() {
-        if contactsSearchActive == true && filteredContacts.count > 0 {
+        if self.contactsSearchActive == true && self.filteredContacts.count > 0 {
             currentData = filteredContacts
         }
         else {
@@ -47,8 +47,9 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.ref = FIRDatabase.database().reference().child("users")
-        getFirebaseUserData()
         getAllContacts()
+        getFirebaseUserData()
+        
         prepareView()
         prepareTableView()
         didUpdateContacs()
@@ -136,8 +137,6 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOnScreen), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardOffScreen), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     // Prepares the closeButton
@@ -192,11 +191,13 @@ public class ContactsViewController: UIViewController,UISearchBarDelegate {
     
     public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
-        let contacts = contactsArray
+        let contacts = self.contactsArray
         
         let results = contacts.filter {
             let contact = $0
+
             return contact.name!.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+
         }
         
         filteredContacts = results
@@ -501,7 +502,30 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     // textView Delegate 
     public func textViewShouldEndEditing(textView: UITextView) -> Bool {
         noteField?.resignFirstResponder()
+        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        contactsScrollView.contentInset = contentInsets
+        contactsScrollView.scrollIndicatorInsets = contentInsets
+        var aRect: CGRect = self.view.frame
+        aRect.size.height -= 0.0
+        //you may not need to scroll, see if the active field is already visible
+        if (!CGRectContainsPoint(aRect, self.noteField!.frame.origin) ) {
+            let scrollPoint:CGPoint = CGPointMake(0.0, self.noteField!.frame.origin.y - 0.0)
+            contactsScrollView.setContentOffset(scrollPoint, animated: true)
+        }
         return true
+    }
+    
+    public func textViewDidBeginEditing(textView: UITextView) {
+        let contentInsets:UIEdgeInsets  = UIEdgeInsetsMake(0.0, 0.0, 200.0, 0.0)
+        contactsScrollView.contentInset = contentInsets
+        contactsScrollView.scrollIndicatorInsets = contentInsets
+        var aRect: CGRect = self.view.frame
+        aRect.size.height -= 200.0
+        //you may not need to scroll, see if the active field is already visible
+        if (!CGRectContainsPoint(aRect, self.noteField!.frame.origin) ) {
+            let scrollPoint:CGPoint = CGPointMake(0.0, self.noteField!.frame.origin.y - 200.0)
+            contactsScrollView.setContentOffset(scrollPoint, animated: true)
+        }
     }
     
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -562,20 +586,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     
     public func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
 
-//    public func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-//        switch result.rawValue {
-//        case MessageComposeResultCancelled.rawValue :
-//            print("message canceled")
-//            
-//        case MessageComposeResultFailed.rawValue :
-//            print("message failed")
-//            
-//        case MessageComposeResultSent.rawValue :
-//            print("message sent")
-//            
-//        default:
-//            break
-//        }
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -590,17 +600,23 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate, MF
     
     // handle github button
     func handleGithubButton(button:UIButton) {
-        let github = button.layer.valueForKey("github") as! String
-        UIApplication.sharedApplication().openURL(NSURL(string:github)!)
-        
+        let githubURL = button.layer.valueForKey("github") as? String
+        if githubURL!.lowercaseString.hasPrefix("https://") {
+           UIApplication.sharedApplication().openURL(NSURL(string:githubURL!)!)
+        }
+        else {
+           UIApplication.sharedApplication().openURL(NSURL(string:"https://" + githubURL!)!)
+        }
     }
     
     // handle linkedin button
     func handleLinkedinButton(button:UIButton) {
-        let linkedin = button.layer.valueForKey("linkedin") as! String
-        if linkedin != "" {
-            UIApplication.sharedApplication().openURL(NSURL(string:linkedin)!)
-            
+        let linkedin = button.layer.valueForKey("linkedin") as? String
+        if linkedin!.lowercaseString.hasPrefix("https://") {
+           UIApplication.sharedApplication().openURL(NSURL(string:linkedin!)!)
+        }
+        else {
+           UIApplication.sharedApplication().openURL(NSURL(string:"https://" + linkedin!)!)
         }
     }
     

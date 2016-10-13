@@ -13,10 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var accountAccess: Bool? = true
     var dataManager: DataManager?
     static var token:String?
+    static var oauthTokenAt: NSDate?
+    static var expiresIn: String?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-//        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
         application.statusBarHidden = false
         dataManager = DataManager()
         createViewControllerStack()
@@ -27,31 +27,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func createViewControllerStack() {
-    if window == nil {
+        if window == nil {
+            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        }
+        let eventsViewController = EventsViewController ()
+        let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
+        let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
+        let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController)
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    }
-    let eventsViewController = EventsViewController ()
-    let navigationController: AppNavigationController = AppNavigationController(rootViewController: eventsViewController)
-    let statusBarController: StatusBarController = StatusBarController(rootViewController: navigationController)
-    let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController (rootViewController: statusBarController)
-    
-    window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    window!.rootViewController = navigationDrawerController
-    
-    window!.makeKeyAndVisible()
+        window!.rootViewController = navigationDrawerController
+        window!.makeKeyAndVisible()
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         if (url.host == "FishBowlKomrad") {
             OAuthSwift.handleOpenURL(url)
             //Dismiss webview once url is passed to extract authorization code
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+           UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
         }
         
         self.window = nil
         createViewControllerStack()
-        
-        
+
         return true
     }
     
@@ -127,6 +125,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
 }
 

@@ -8,13 +8,10 @@
 
 import Contacts
 
-@available(iOS 9.0, *)
 class AddressBook {
     //creating a muatble object to add to the contact
     let contact = CNMutableContact()
-    
-    
-     
+ 
     func saveToAddressBook(image: NSData?, name: String, email: String?, phone: String) {
         
         //the profile image

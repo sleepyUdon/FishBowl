@@ -205,6 +205,7 @@ extension ParticipantsTableViewCell {
         }
         button.setTitleColor(MaterialColor.white, forState: .Normal)
         button.setTitle("Added", forState: UIControlState.Normal)
+        button.titleLabel?.font = Fonts.bodyGrey
         button.backgroundColor = MaterialColor.green.base
         button.layer.cornerRadius = 5.0
         

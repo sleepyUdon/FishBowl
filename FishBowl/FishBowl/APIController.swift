@@ -16,7 +16,6 @@ class APIController: UIViewController {
     var jsonRsvp: NSArray!
     var jsonMembers: NSDictionary!
     
-    
     //client configuration
     let oauthswift = OAuth2Swift(
         consumerKey:    "kgl0pnvun5cgu5bjk69j9no98",
@@ -38,10 +37,8 @@ class APIController: UIViewController {
             scope: "",state: "",
             success: { credential, response, parameters in
                 AppDelegate.token = credential.oauth_token
-                FIRAuth.auth()?.signInWithCustomToken(AppDelegate.token!, completion: {
-                    (user, error) in
-                    print(user)
-                })
+
+                print(parameters)
             },
             failure: { error in
                 print(error.localizedDescription)
@@ -72,7 +69,6 @@ class APIController: UIViewController {
                         error in
                         print(error)
         })
-        
     }
     
     //get all events under signed in user
@@ -80,8 +76,6 @@ class APIController: UIViewController {
         oauthswift.client.get("https://api.meetup.com/self/events?access_token=\(token)&page=200",
             success: {
                         data, response in
-                        //let dataString = NSString(data:data, encoding: NSUTF8StringEncoding)
-                        //print(dataString)
                         
                         //parse data to json
                         do {
@@ -121,48 +115,4 @@ class APIController: UIViewController {
                         print(error)
         })  
     }
-
-    
-//    func getRefreshToken() {
-//        oauthswift.client.get("https://secure.meetup.com/oauth2/access", success: {
-//            
-//            },
-//            failure: {
-//        })
-//    }
-    
-//    func refreshToken() {
-//        oauthswift.client.get("https://secure.meetup.com/oauth2/access",
-//                              success: {
-//                                data, response in
-//                                print("\(data).")
-//            },
-//                              failure: { error in
-//                                if error.isExpireToken {
-//                                    // reconnect 
-//                                }
-//        })
-//        
-//        
-//            
-//            var isExpireToken: Bool {
-//                if self.code == 401 {
-//                    // if error.localizedDescription.rangeOfString("a string like token invalid") != nil
-//                    // or parse headers
-//                    if let reponseHeaders = error.userInfo["Response-Headers"] as? [String:String],
-//                        authenticateHeader = reponseHeaders["WWW-Authenticate"] ?? reponseHeaders["Www-Authenticate"] {
-//                        // you can split authenticateHeader to find "error"
-//                        let headerDictionary = authenticateHeader.headerDictionary
-//                        if let error = headerDictionary["error"] where error == "invalid_token" {
-//                            return true
-//                        }
-//                    }
-//                }
-//                return false
-//            }
-//            
-//        
-//    }
-    
-    
 }

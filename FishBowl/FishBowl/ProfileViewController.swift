@@ -109,9 +109,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
 
     //handle save and cancel button
     func handleSaveButton() {
-
         //update same user in core data
         if let userInfo: User = self.fetchUserDetails(self.userID!) {
+            
             userInfo.setValue(self.userID, forKey: "userID")
             userInfo.setValue(nameTextField.text, forKey: "name")
             userInfo.setValue(emailTextField.text, forKey: "email")
@@ -124,8 +124,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             
             let storageRef = storage.referenceForURL("gs://fishbowl-e82eb.appspot.com")
             let imageRef = storageRef.child("images").child("\(self.userID!).png")
-            
-            
             imageRef.putData(userInfo.picture!, metadata: nil) {
                 metadata, error in
                 if (error != nil) {
@@ -157,12 +155,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 print("\(saveError), \(saveError.userInfo)")
                 
             }
+
         }
         //if there is no such user in core data then create new one
         else {
-            
+
             let alert = UIAlertController(title:"Sharing agreement",
-                                          message: "By saving your profile information you are agreed for sharing your Personal information with other users of Fishbowl application",
+                                          message: "By saving your profile information you are agreeing to share your personal information with other Fishbowl users",
                                           preferredStyle: .Alert)
             
             alert.addAction(UIAlertAction(title: "Agree", style: .Default, handler: {
@@ -190,7 +189,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                     }
                     
                     self.downloadURl = String(metadata!.downloadURL()!)
-                    print(self.downloadURl)
                     
                     self.userData = ["id":user.userID,
                         "name":user.name!,
@@ -217,8 +215,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                     print("\(saveError), \(saveError.userInfo)")
                     
                 }
-
-                
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
@@ -227,7 +223,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             }))
             
             self.presentViewController(alert, animated: true, completion: nil)
-            
         }
     }
     
@@ -266,6 +261,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         profileView.clipsToBounds = true
         profileView.layer.cornerRadius = 40.0
         profileView.image = UIImage(named: "photoplaceholder")
+        profileView.contentMode = .ScaleAspectFill
         cardView.addSubview(profileView)
         self.profileView = profileView
         
@@ -337,8 +333,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 self.linkedinTextField.text = user?.linkedin
                 self.profileView.image = UIImage(data: (user?.picture!)!)
             }
-            self.nameTextField.text = userInfo["name"] as? String
-            //self.titleTextField.text = userInfo["title"] as? String
             
         }
         
@@ -431,8 +425,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         navigationItem.titleLabel.textAlignment = .Center
         navigationItem.titleLabel.textColor = Color.accentColor1
         navigationItem.titleLabel.font = Fonts.navigationTitle
-        navigationItem.rightControls = [saveButton]
-        navigationItem.leftControls = [cancelButton]
+        self.navigationItem.leftBarButtonItem = cancelButton
+        self.navigationItem.rightBarButtonItem = saveButton
     }
     
     // Prepares the navigationBar.
@@ -476,11 +470,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             picker.sourceType = UIImagePickerControllerSourceType.Camera
             self .presentViewController(picker, animated: true, completion: nil)
         }else{
-            let alert = UIAlertView()
-            alert.title = "Warning"
-            alert.message = "You don't have camera"
-            alert.addButtonWithTitle("OK")
-            alert.show()
+            
+            let alert = UIAlertController(title:"Warning",
+                                          message: "Please change setting for camera in Setings",
+                                          preferredStyle: .Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
         }
     }
     func openGallery(){

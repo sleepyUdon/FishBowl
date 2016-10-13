@@ -18,10 +18,10 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     
     var targetURL : NSURL = NSURL()
     let webView : WebView = WebView()
+    var coverView: UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let width = UIScreen.mainScreen().bounds.width
         let height = UIScreen.mainScreen().bounds.height
         self.webView.frame = CGRectMake(0, 20, width, height)
@@ -49,7 +49,6 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     override func handle(url: NSURL) {
         targetURL = url
         super.handle(url)
-        
         loadAddressURL()
     }
     
@@ -98,7 +97,6 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
                     let contactVC = ContactsViewController()
                     self.presentViewController(contactVC, animated: true, completion: nil)
                 })
-                
             }
         }
     }
@@ -106,10 +104,19 @@ class WebViewController: OAuthWebViewController, UIWebViewDelegate {
     func hasConnection() -> Bool {
         do {
             let reachability: Reachability = try Reachability.reachabilityForInternetConnection()
-            let networkStatus: Int = reachability.currentReachabilityStatus.hashValue
-            return (networkStatus != 0)
-        } catch {
-            print("Unable to create Reachability")
+            switch reachability.currentReachabilityStatus{
+            case .ReachableViaWiFi:
+                print("Connected With wifi")
+                return true
+            case .ReachableViaWWAN:
+                print("Connected With Cellular network(3G/4G)")
+                return true
+            case .NotReachable:
+                print("Not Connected")
+                return false
+            }
+        } catch let error as NSError{
+            print(error.debugDescription)
             return false
         }
     }

@@ -47,11 +47,12 @@ extension MenuViewController: UITableViewDataSource {
         let oneDay:Double = 60 * 60 * 24
         let tomorrow = today.dateByAddingTimeInterval(oneDay)
         let yesterday = today.dateByAddingTimeInterval(-(Double(oneDay)))
+        
 
         let comparedToday = formatterDate.stringFromDate(today)
         let comparedYesterday = formatterDate.stringFromDate(yesterday)
         let comparedTomorrow = formatterDate.stringFromDate(tomorrow)
-        
+   
         if (comparedDate == comparedToday) {
             cell.dateLabel.text = "  ▶︎ " + "Today " + "• " + dateString
             cell.dateLabel.backgroundColor = MaterialColor.pink.lighten4
@@ -85,7 +86,5 @@ extension MenuViewController: UITableViewDataSource {
 
         return cell
     }
-    
-
 
 }
