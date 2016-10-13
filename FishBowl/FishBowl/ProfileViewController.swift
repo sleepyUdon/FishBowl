@@ -331,7 +331,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
                 self.phoneTextField.text = user?.phone
                 self.githubTextField.text = user?.github
                 self.linkedinTextField.text = user?.linkedin
-                self.profileView.image = UIImage(data: (user?.picture!)!)
+                self.profileView.image = UIImage(data:(user?.picture!)!)
             }
             
         }
@@ -350,7 +350,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         let titleTextfield: UITextField = UITextField(frame:CGRect(x:120 , y: 170, width: view.frame.width - 140, height: 30))
         titleTextfield.attributedPlaceholder = NSAttributedString(string:"Enter Title",
-                                                                  attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
+                                                                 attributes:[NSForegroundColorAttributeName: MaterialColor.grey.lighten3])
         titleTextfield.font = Fonts.bodyGrey
         titleTextfield.textAlignment = .Right
         titleTextfield.textColor = Color.greyMedium
